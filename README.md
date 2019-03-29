@@ -1,4 +1,4 @@
-# C++ Library for Physical Quantities
+# `units` C++ Library for Physical Quantities
 
 This version does not use templates but rather defines a literal type `dimval`.
 
