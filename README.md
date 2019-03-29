@@ -1,4 +1,4 @@
-# `units` C++ Library for Physical Quantities
+# `units`: A Header-only C++ library for physical quantities.
 
 This version does not use templates but rather defines a literal type `dimval`.
 
