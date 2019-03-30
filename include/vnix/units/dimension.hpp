@@ -1,9 +1,11 @@
-#ifndef VNIX_DIMENSION_HPP
-#define VNIX_DIMENSION_HPP
+#ifndef VNIX_UNITS_DIMENSION_HPP
+#define VNIX_UNITS_DIMENSION_HPP
 
-#include "impl/dim-base.hpp" // for dim_base
+#include <vnix/units/impl/dim-base.hpp> // for dim_base
 
 namespace vnix {
+namespace units {
+
 
 /// Exponents, one for each fundamental unit of a dimensioned quantity.
 struct dimension : protected impl::dim_base {
@@ -59,8 +61,11 @@ struct dimension : protected impl::dim_base {
   }
 };
 
+
 constexpr dimension null{0, 0, 0, 0, 0}; ///< Instance corresponding to double.
 
+
+} // namespace units
 } // namespace vnix
 
 #endif // ndef VNIX_DIMENSION_HPP

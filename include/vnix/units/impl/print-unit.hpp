@@ -1,10 +1,12 @@
-#ifndef VNIX_IMPL_PRINT_UNIT_HPP
-#define VNIX_IMPL_PRINT_UNIT_HPP
+#ifndef VNIX_UNITS_IMPL_PRINT_UNIT_HPP
+#define VNIX_UNITS_IMPL_PRINT_UNIT_HPP
 
 #include <iostream>
 
 namespace vnix {
+namespace units {
 namespace impl {
+
 
 /// Print to output stream the symbolic contribution from a given unit.
 /// @param s  Output stream.
@@ -20,7 +22,9 @@ inline std::ostream &print_unit(std::ostream &s, char const *u, int e) {
   return s;
 }
 
+
 } // namespace impl
+} // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_IMPL_PRINT_UNIT_HPP
+#endif // ndef VNIX_UNITS_IMPL_PRINT_UNIT_HPP

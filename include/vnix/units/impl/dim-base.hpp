@@ -1,9 +1,10 @@
-#ifndef VNIX_IMPL_DIM_BASE_HPP
-#define VNIX_IMPL_DIM_BASE_HPP
+#ifndef VNIX_UNITS_IMPL_DIM_BASE_HPP
+#define VNIX_UNITS_IMPL_DIM_BASE_HPP
 
 #include <cstdint> // for int64_t
 
 namespace vnix {
+namespace units {
 namespace impl {
 
 
@@ -48,7 +49,8 @@ public:
 
 
 } // namespace impl
+} // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_IMPL_DIM_BASE_HPP
+#endif // ndef VNIX_UNITS_IMPL_DIM_BASE_HPP
 

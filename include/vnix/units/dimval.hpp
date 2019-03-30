@@ -1,15 +1,16 @@
-#ifndef VNIX_DIMVAL_HPP
-#define VNIX_DIMVAL_HPP
+#ifndef VNIX_UNITS_DIMVAL_HPP
+#define VNIX_UNITS_DIMVAL_HPP
 
-#include "dimension.hpp"
-#include "impl/print-unit.hpp"
+#include <vnix/units/dimension.hpp>
+#include <vnix/units/impl/print-unit.hpp>
 
 namespace vnix {
+namespace units {
 
 
 class dimval {
 protected:
-  double v_;    ///< Numeric value that multiplies units.
+  double    v_; ///< Numeric value that multiplies units.
   dimension d_; ///< Exponent for each unit in dimensioned quantity.
 
 public:
@@ -245,6 +246,7 @@ public:
 };
 
 
+} // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_DIMVAL_HPP
+#endif // ndef VNIX_UNITS_DIMVAL_HPP

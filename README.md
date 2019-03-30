@@ -7,7 +7,7 @@ as a constant expression.  So, for example,
 
 ```c++
 #include <vnix/units.hpp>
-using namespace vnix;
+using namespace vnix::units;
 int main() {
   auto length = 3 * m;
   auto time   = 4 * s;

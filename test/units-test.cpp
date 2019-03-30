@@ -1,7 +1,7 @@
 
-#include "vnix/units.hpp"
+#include <vnix/units.hpp>
 
-using namespace vnix;
+using namespace vnix::units;
 int main() {
   auto constexpr a = 3 * J;
   auto constexpr b = 2 * C;
