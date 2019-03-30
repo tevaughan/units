@@ -18,7 +18,7 @@ The user need not use class `dimval` directly.
 - In the `units` library, many a standard unit (such as `m` for meter and `s`
   for second) is defined as a constant expression.
 
-- So, for example, one my write a simple program as follows:
+- So, for example, one may write a simple program as follows:
   ```c++
   #include <vnix/units.hpp>
   using namespace vnix::units;
