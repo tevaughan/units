@@ -1,3 +1,8 @@
+/// @file       units/dimension.hpp
+/// @brief      Definition of vnix::units::dimension.
+/// @copyright  2019 Thomas E. Vaughan
+/// @license    GPL3.
+
 #ifndef VNIX_UNITS_DIMENSION_HPP
 #define VNIX_UNITS_DIMENSION_HPP
 

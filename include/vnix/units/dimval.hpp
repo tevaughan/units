@@ -1,3 +1,8 @@
+/// @file       units/dimval.hpp
+/// @brief      Definition of vnix::units::dimval.
+/// @copyright  2019 Thomas E. Vaughan
+/// @license    GPL3.
+
 #ifndef VNIX_UNITS_DIMVAL_HPP
 #define VNIX_UNITS_DIMVAL_HPP
 

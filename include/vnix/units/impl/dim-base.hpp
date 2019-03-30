@@ -1,3 +1,8 @@
+/// @file       units/impl/dim-base.hpp
+/// @brief      Definition of vnix::units::impl::dim_base.
+/// @copyright  2019 Thomas E. Vaughan
+/// @license    GPL3.
+
 #ifndef VNIX_UNITS_IMPL_DIM_BASE_HPP
 #define VNIX_UNITS_IMPL_DIM_BASE_HPP
 

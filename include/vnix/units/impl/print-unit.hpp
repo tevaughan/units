@@ -1,3 +1,8 @@
+/// @file       units/impl/print-unit.hpp
+/// @brief      Definition of vnix::units::impl::print_unit.
+/// @copyright  2019 Thomas E. Vaughan
+/// @license    GPL3.
+
 #ifndef VNIX_UNITS_IMPL_PRINT_UNIT_HPP
 #define VNIX_UNITS_IMPL_PRINT_UNIT_HPP
 
