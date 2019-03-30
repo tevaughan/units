@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.13)
-set(CMAKE_CXX_FLAGS "-std=c++14")
-set(CMAKE_CXX_COMPILER "clang++")
 project(units)
-add_library(libunits INTERFACE)
 add_subdirectory(test)
+
+# The INTERFACE keyword indicates here that there are no compiled source files
+# for a particular library.
+add_library(libunits INTERFACE)
+
+# The INTERFACE keyword indicates here that an include directory will
+# automatically be applied to any target that depends on a particular library.
 target_include_directories(libunits INTERFACE include/vnix/)
