@@ -34,7 +34,22 @@ The user need not use class `dimval` directly.
 
 ## Fetching, Building, and Installing
 
-To build or to install start with this:
+First, make sure that you have a C++ compiler that allows a constexpr function
+to throw and exception.
+
+- By default, the build system requires that `clang++` be installed as the
+  compiler for building the tests.
+
+- If you use a different compiler and don't have `clang++` installed, then in
+  order to build the tests you will have to override the setting of the
+  `CMAKE_CXX_COMPILER` variable that is used by `test/CMakeLists.txt`.
+
+- `clang++-3.8` or later is known to work.  Earlier versions of `clang++` might
+  also work, but I have not tested them.
+
+- I have found that `g++-8.3` and lower do not work.
+
+To build or to install, start with this:
 
 ```
 git clone https://github.com/tevaughan/units.git
