@@ -6,7 +6,6 @@ Yet the user need not use `dimval` directly.  Many a standard unit is defined
 as a constant expression.  So, for example,
 
 ```c++
-#include <iostream>
 #include <vnix/units.hpp>
 using namespace vnix;
 int main() {
