@@ -34,15 +34,14 @@ The user need not use class `dimval` directly.
 
 ## Fetching, Building, and Installing
 
-First, make sure that you have a C++ compiler that allows a constexpr function
-to throw and exception.
+Install a C++ compiler that allows a constexpr function to throw an exception.
 
-- By default, the build system requires that `clang++` be installed as the
-  compiler for building the tests.
+- By default, the build system requires that `clang++` be installed for
+  building the tests.
 
-- If you use a different compiler and don't have `clang++` installed, then in
-  order to build the tests you will have to override the setting of the
-  `CMAKE_CXX_COMPILER` variable that is used by `test/CMakeLists.txt`.
+- If you don't have `clang++` installed, then to build the tests you will have
+  to override the setting of `CMAKE_CXX_COMPILER` that is used by
+  `test/CMakeLists.txt`.
 
 - `clang++-3.8` or later is known to work.  Earlier versions of `clang++` might
   also work, but I have not tested them.
