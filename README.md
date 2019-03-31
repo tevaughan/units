@@ -27,7 +27,7 @@ The user need not use class `dimval` directly.
     auto d = 3 * m;
     auto t = 4 * s;
     auto v = d / t;
-    cout << speed << endl;
+    cout << v << endl;
     return 0;
   }
   ```
