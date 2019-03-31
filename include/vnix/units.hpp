@@ -19,33 +19,33 @@ constexpr dimval C{1.0, {0, 0, 0, 1, 0}};  ///< Coulomb.
 constexpr dimval K{1.0, {0, 0, 0, 0, 1}};  ///< Kelvin.
 
 // Lengths based on meter.
-constexpr dimval km = 1.0E+03 * m;        ///< Kilometer.
-constexpr dimval cm = 1.0E-02 * m;        ///< Centimeter.
-constexpr dimval mm = 1.0E-03 * m;        ///< Millimeter.
-constexpr dimval μm = 1.0E-06 * m;        ///< Micrometer.
-constexpr dimval nm = 1.0E-09 * m;        ///< Nanometer.
-constexpr dimval pm = 1.0E-12 * m;        ///< Picometer.
-constexpr dimval fm = 1.0E-15 * m;        ///< Femtometer.
-constexpr dimval ft = 0.3048 * m;         ///< Foot.
-constexpr dimval yd = 0.9144 * m;         ///< Yard.
-constexpr dimval mi = 5280 * ft;          ///< Mile.
+constexpr dimval km = 1.0E+03 * m; ///< Kilometer.
+constexpr dimval cm = 1.0E-02 * m; ///< Centimeter.
+constexpr dimval mm = 1.0E-03 * m; ///< Millimeter.
+constexpr dimval μm = 1.0E-06 * m; ///< Micrometer.
+constexpr dimval nm = 1.0E-09 * m; ///< Nanometer.
+constexpr dimval pm = 1.0E-12 * m; ///< Picometer.
+constexpr dimval fm = 1.0E-15 * m; ///< Femtometer.
+constexpr dimval ft = 0.3048 * m;  ///< Foot.
+constexpr dimval yd = 0.9144 * m;  ///< Yard.
+constexpr dimval mi = 5280 * ft;   ///< Mile.
 
 // Masses based on kilogram.
-constexpr dimval g  = 1.0E-03 * kg;        ///< Gram.
-constexpr dimval mg = 1.0E-06 * kg;        ///< Milligram.
-constexpr dimval μg = 1.0E-09 * kg;        ///< Microgram.
-constexpr dimval ng = 1.0E-12 * kg;        ///< Nanogram.
-constexpr dimval pg = 1.0E-15 * kg;        ///< Picogram.
+constexpr dimval g  = 1.0E-03 * kg; ///< Gram.
+constexpr dimval mg = 1.0E-06 * kg; ///< Milligram.
+constexpr dimval μg = 1.0E-09 * kg; ///< Microgram.
+constexpr dimval ng = 1.0E-12 * kg; ///< Nanogram.
+constexpr dimval pg = 1.0E-15 * kg; ///< Picogram.
 
 // Times based on second.
-constexpr dimval ms = 1.0E-03 * s;        ///< Millisecond.
-constexpr dimval μs = 1.0E-06 * s;        ///< Microsecond.
-constexpr dimval ns = 1.0E-09 * s;        ///< Nanosecond.
-constexpr dimval ps = 1.0E-12 * s;        ///< Picosecond.
-constexpr dimval fs = 1.0E-15 * s;        ///< Femtosecond.
+constexpr dimval ms = 1.0E-03 * s; ///< Millisecond.
+constexpr dimval μs = 1.0E-06 * s; ///< Microsecond.
+constexpr dimval ns = 1.0E-09 * s; ///< Nanosecond.
+constexpr dimval ps = 1.0E-12 * s; ///< Picosecond.
+constexpr dimval fs = 1.0E-15 * s; ///< Femtosecond.
 
 // Temperatures based on Kelvin.
-constexpr dimval mK = 1.0E-03 * K;        ///< Millikelvin.
+constexpr dimval mK = 1.0E-03 * K; ///< Millikelvin.
 
 // Forces.
 constexpr dimval N   = kg * m / s / s; ///< Newton.

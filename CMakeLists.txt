@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.13)
 project(units)
 add_subdirectory(test)
-add_library(libunits INTERFACE) # "INTERFACE" here means no compiled sources.
+
+# "INTERFACE" here means no compiled sources.  That's what one wants for a
+# header-only library.
+add_library(libunits INTERFACE)
 
 # "INTERFACE" here seems to indicate that "-I${CMAKE_SOURCE_DIR}/include/" will
 # be used for any target (such as test-executable) that depends on libunits.
