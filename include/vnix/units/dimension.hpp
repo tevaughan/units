@@ -14,12 +14,12 @@ namespace units {
 
 /// Exponents, one for each fundamental unit of a dimensioned quantity.
 struct dimension : protected impl::dim_base {
-  using dim_base::dim_base;                   ///< Inherit constructor.
-  constexpr char m() const { return get(M); } ///< Exponent for meters.
-  constexpr char k() const { return get(K); } ///< Exponent for kilograms.
-  constexpr char s() const { return get(S); } ///< Exponent for seconds.
-  constexpr char c() const { return get(C); } ///< Exponent for Coulombs.
-  constexpr char t() const { return get(T); } ///< Exponent for Kelvins.
+  using dim_base::dim_base;                    ///< Inherit constructor.
+  constexpr float m() const { return get(M); } ///< Exponent for meters.
+  constexpr float k() const { return get(K); } ///< Exponent for kilograms.
+  constexpr float s() const { return get(S); } ///< Exponent for seconds.
+  constexpr float c() const { return get(C); } ///< Exponent for Coulombs.
+  constexpr float t() const { return get(T); } ///< Exponent for Kelvins.
   /// True only if exponent-sets be identical.
   constexpr bool operator==(dimension d) const { return e_ == d.e_; }
   /// True only if exponent-sets be different.
@@ -29,11 +29,11 @@ struct dimension : protected impl::dim_base {
   /// @param   Exponents in other set.
   /// @return  Sum of this and other.
   constexpr dimension operator+(dimension d) const {
-    char const nm = m() + d.m();
-    char const nk = k() + d.k();
-    char const ns = s() + d.s();
-    char const nc = c() + d.c();
-    char const nt = t() + d.t();
+    float const nm = m() + d.m();
+    float const nk = k() + d.k();
+    float const ns = s() + d.s();
+    float const nc = c() + d.c();
+    float const nt = t() + d.t();
     return dimension(nm, nk, ns, nc, nt);
   }
   /// Set of exponents, each of which is difference between exponent in current
@@ -41,11 +41,11 @@ struct dimension : protected impl::dim_base {
   /// @param   Exponents in other set.
   /// @return  Difference between this and other.
   constexpr dimension operator-(dimension d) const {
-    char const nm = m() - d.m();
-    char const nk = k() - d.k();
-    char const ns = s() - d.s();
-    char const nc = c() - d.c();
-    char const nt = t() - d.t();
+    float const nm = m() - d.m();
+    float const nk = k() - d.k();
+    float const ns = s() - d.s();
+    float const nc = c() - d.c();
+    float const nt = t() - d.t();
     return dimension(nm, nk, ns, nc, nt);
   }
   /// Modify current instance by adding each exponent from other set of
@@ -67,7 +67,9 @@ struct dimension : protected impl::dim_base {
 };
 
 
-constexpr dimension null{0, 0, 0, 0, 0}; ///< Instance corresponding to double.
+/// Instance corresponding to dimensionless dimval that can be converted to
+/// double without throwing an exception.
+constexpr dimension null{0, 0, 0, 0, 0};
 
 
 } // namespace units

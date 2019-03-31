@@ -30,25 +30,28 @@ protected:
   uint64_t e_; ///< Word holding each exponent.
 
 public:
-  /// Initialize each exponent.
+  /// Initialize each exponent, whose legal value is any whole or half integer.
   /// @param m  Exponent for meters.
   /// @param k  Exponent for kilograms.
   /// @param s  Exponent for seconds.
   /// @param c  Exponent for Coulombs.
   /// @param t  Exponent for Kelvins.
-  constexpr dim_base(char m, char k, char s, char c, char t)
+  constexpr dim_base(float m, float k, float s, float c, float t)
       : e_(put(m, M) | put(k, K) | put(s, S) | put(c, C) | put(t, T)) {}
   /// Extract exponent for specified byte-offset.
   /// @param off  Byte-offset of exponent.
   /// @return     Exponent at byte-offset.
-  constexpr char get(dim_off off) const { return (e_ >> (off * 8)) & 0xFF; }
+  constexpr float get(dim_off off) const {
+    return 0.5f * int8_t((e_ >> (off * 8)) & 0xFF);
+  }
   /// Insert exponent into specified byte of word that is zero otherwise.
-  /// @param v    Byte containing value of exponent.
+  /// @param v    Value of exponent.
   /// @param off  Offset of byte in word.
   /// @return     Initially zeroed word with specified byte set to specified
   ///             value.
-  constexpr static uint64_t put(char v, dim_off off) {
-    return uint64_t(uint8_t(v)) << (off * 8);
+  constexpr static uint64_t put(float v, dim_off off) {
+    int8_t const rv = int8_t(2.0f * (v > 0 ? v + 0.25 : v - 0.25));
+    return uint64_t(uint8_t(rv)) << (off * 8);
   }
 };
 

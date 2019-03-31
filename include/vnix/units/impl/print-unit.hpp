@@ -17,7 +17,7 @@ namespace impl {
 /// @param s  Output stream.
 /// @param u  Abbreviation for unit.
 /// @param e  Exponent of unit.
-inline std::ostream &print_unit(std::ostream &s, char const *u, int e) {
+inline std::ostream &print_unit(std::ostream &s, char const *u, float e) {
   if (e) {
     s << " " << u;
     if (e != 1) {
