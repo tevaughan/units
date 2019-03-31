@@ -21,12 +21,13 @@ The user need not use class `dimval` directly.
 - So, for example, one may write a simple program as follows:
   ```c++
   #include <vnix/units.hpp>
+  using namespace std;
   using namespace vnix::units;
   int main() {
-    auto length = 3 * m;
-    auto time   = 4 * s;
-    auto speed  = length / time;
-    std::cout << speed << std::endl;
+    auto d = 3 * m;
+    auto t = 4 * s;
+    auto v = d / t;
+    cout << speed << endl;
     return 0;
   }
   ```
