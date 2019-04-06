@@ -1,17 +1,18 @@
-/// @file       units/impl/rational/normalized-pair.hpp
-/// @brief      Definition of vnix::units::impl::normalized_pair.
+/// @file       units/impl/rat/normalized-pair.hpp
+/// @brief      Definition of vnix::units::impl::rat::normalized_pair.
 /// @copyright  2019 Thomas E. Vaughan
 /// @license    GPL3.
 
-#ifndef VNIX_UNITS_IMPL_NORMALIZED_PAIR_HPP
-#define VNIX_UNITS_IMPL_NORMALIZED_PAIR_HPP
+#ifndef VNIX_UNITS_IMPL_RAT_NORMALIZED_PAIR_HPP
+#define VNIX_UNITS_IMPL_RAT_NORMALIZED_PAIR_HPP
 
-#include <vnix/units/impl/rational/gcd.hpp>
-#include <vnix/units/impl/rational/rational-base.hpp>
+#include <vnix/units/impl/rat/gcd.hpp>
+#include <vnix/units/impl/rat/rational-base.hpp>
 
 namespace vnix {
 namespace units {
 namespace impl {
+namespace rat {
 
 
 /// Numerator and denominator of a rational number as separate numbers, not
@@ -51,8 +52,8 @@ public:
     // Normalize ratio so that numerator and denominator are relatively
     // prime.
     int64_t const g = (n >= 0 ? gcd(n, d) : gcd(-n, d));
-    n_ = n / g;
-    d_ = d / g;
+    n_              = n / g;
+    d_              = d / g;
     enum { NMAX = 1 << (NMR_BITS - 1) };
     if (n >= NMAX) {
       throw "numerator too large and positive";
@@ -70,8 +71,9 @@ public:
 };
 
 
+} // namespace rat
 } // namespace impl
 } // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_UNITS_IMPL_NORMALIZED_PAIR_HPP
+#endif // ndef VNIX_UNITS_IMPL_RAT_NORMALIZED_PAIR_HPP

@@ -1,16 +1,17 @@
-/// @file       units/impl/rational/encoding.hpp
-/// @brief      Definition of vnix::units::impl::encoding.
+/// @file       units/impl/rat/encoding.hpp
+/// @brief      Definition of vnix::units::impl::rat::encoding.
 /// @copyright  2019 Thomas E. Vaughan
 /// @license    GPL3.
 
-#ifndef VNIX_UNITS_IMPL_ENCODING_HPP
-#define VNIX_UNITS_IMPL_ENCODING_HPP
+#ifndef VNIX_UNITS_IMPL_RAT_ENCODING_HPP
+#define VNIX_UNITS_IMPL_RAT_ENCODING_HPP
 
-#include <vnix/units/impl/rational/normalized-pair.hpp>
+#include <vnix/units/impl/rat/normalized-pair.hpp>
 
 namespace vnix {
 namespace units {
 namespace impl {
+namespace rat {
 
 
 /// Encoding of numerator and denominator for a rational number in unsigned
@@ -39,8 +40,9 @@ public:
 };
 
 
+} // namespace rat
 } // namespace impl
 } // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_UNITS_IMPL_ENCODING_HPP
+#endif // ndef VNIX_UNITS_IMPL_RAT_ENCODING_HPP

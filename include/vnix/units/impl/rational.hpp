@@ -7,7 +7,7 @@
 #define VNIX_UNITS_IMPL_RATIONAL_HPP
 
 #include <iostream>
-#include <vnix/units/impl/rational/encoding.hpp>
+#include <vnix/units/impl/rat/encoding.hpp>
 
 namespace vnix {
 namespace units {
@@ -20,16 +20,16 @@ namespace impl {
 /// form a partition of the bits in the word.
 ///
 /// @tparam U  Type of unsigned integer word.
-template <typename U> struct rational : public encoding<U> {
+template <typename U> struct rational : public rat::encoding<U> {
   /// Initialize representation.
   /// @param n  Numerator.
   /// @param d  Denominator.
   constexpr rational(int64_t n, int64_t d = 1)
-      : encoding<U>(normalized_pair<U>(n, d)) {}
+      : rat::encoding<U>(rat::normalized_pair<U>(n, d)) {}
 
-  using typename rational_base<U>::S;
-  using encoding<U>::n;
-  using encoding<U>::d;
+  using typename rat::rational_base<U>::S;
+  using rat::encoding<U>::n;
+  using rat::encoding<U>::d;
 
   /// Automatically convert to (signed) integer.
   constexpr operator S() const {
@@ -47,9 +47,7 @@ template <typename U> struct rational : public encoding<U> {
   /// Negate a rational number.
   /// @param r  Number to negate.
   /// @return   Negative of number.
-  friend constexpr rational operator-(rational r) {
-    return {-r.n(), r.d()};
-  }
+  friend constexpr rational operator-(rational r) { return {-r.n(), r.d()}; }
 
   /// Sum of two rational numbers.
   /// @param r1  Addend.
@@ -58,7 +56,7 @@ template <typename U> struct rational : public encoding<U> {
   friend constexpr rational operator+(rational r1, rational r2) {
     U const d1  = r1.d();
     U const d2  = r2.d();
-    U const g   = gcd(d1, d2);
+    U const g   = rat::gcd(d1, d2);
     U const d1g = d1 / g;
     U const d2g = d2 / g;
     return {r1.n() * d2g + r2.n() * d1g, d1g * d2};
@@ -145,10 +143,10 @@ std::ostream &operator<<(std::ostream &s, rational<U> r) {
 }
 
 
-using rat8_t  = rational<uint8_t>;
-using rat16_t = rational<uint16_t>;
-using rat32_t = rational<uint32_t>;
-using rat64_t = rational<uint64_t>;
+using rat8_t  = rational<uint8_t>;  ///< Short-hand.
+using rat16_t = rational<uint16_t>; ///< Short-hand.
+using rat32_t = rational<uint32_t>; ///< Short-hand.
+using rat64_t = rational<uint64_t>; ///< Short-hand.
 
 
 } // namespace impl
