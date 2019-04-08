@@ -24,7 +24,7 @@ template <typename U> struct rational : public rat::encoding<U> {
   /// Initialize representation.
   /// @param n  Numerator.
   /// @param d  Denominator.
-  constexpr rational(int64_t n, int64_t d = 1)
+  constexpr rational(int64_t n = 0, int64_t d = 1)
       : rat::encoding<U>(rat::normalized_pair<U>(n, d)) {}
 
   using typename rat::rational_base<U>::S;
