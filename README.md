@@ -35,18 +35,8 @@ The user need not use class `dimval` directly.
 
 ## Fetching, Building, and Installing
 
-- At present, `clang++` must be installed for building against the library.
-
-- `clang++-7` or later is known to work.  Earlier versions of `clang++` might
-  also work, but I have not tested them.
-
-- I have found that `g++-8.3` and lower do not work.
-
-    - g++-8.3 does not allow a constexpr function to throw.
-
-    - g++-8.3 has trouble using with computing a template-value parameter when
-      the expression for the parameter evaluates to a constexpr class that has
-      a conversion operator to uint64_t.
+- `clang++-7` and `g++-8.3` are known to work.  Earlier versions might also
+  work, but I have not tested them.
 
 To build the test and/or install:
 
@@ -55,7 +45,7 @@ git clone https://github.com/tevaughan/units.git
 cd units         # Change the working directory into the new clone.
 make             # Builds the test program.
 test/units-test  # Run the test program.
-vim Makefile     # Edit PREFIX for installation.
+vim Makefile     # Edit PREFIX for installation or CXX to change compiler.
 make install     # Install the headers to $(PREFIX)/include/vnix.
 ```
 

@@ -113,9 +113,9 @@ public:
   /// @param  f  Unary function operating on rational.
   /// @return    New exponents.
   template <typename F> constexpr dim transform(F f) const {
-    dim  r = *this;
-    for (auto i = r.begin(); i != r.end();) {
-      f(*i++);
+    dim r = *this;
+    for (auto i = r.begin(); i != r.end(); ++i) {
+      *i = f(*i);
     }
     return r;
   }
@@ -143,15 +143,15 @@ public:
   /// @param f  Factor.
   /// @param p  Products.
   constexpr dim operator*(rat f) const {
-    return transform([f](rat &x) { x *= f; });
+    return transform([f](rat x) { return x * f; });
   }
 
   /// Divide exponents by rational factor.
   /// This is called when a physical quantity is raised to a power.
   /// @param f  Factor.
   /// @param p  Products.
-  constexpr dim operator/(rat f) const {
-    return transform([f](rat &x) { x /= f; });
+  constexpr friend dim operator/(dim d, rat f) {
+    return d.transform([f](rat x) { return x / f; });
   }
 };
 

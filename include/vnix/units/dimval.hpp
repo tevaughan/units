@@ -117,17 +117,22 @@ public:
   /// Scale dimensioned quantity by dividing by number.
   friend constexpr dimval operator/(dimval v, double d) { return v.v_ / d; }
 
+  /// Half the current dimension for square-root.
+  constexpr static uint64_t HD = dim(D) / rat(2);
+
   /// Take the squre root of a dimensioned quantity.
-  friend constexpr dimval<dim(D) / rat(2)> sqrt(dimval v) {
-    return std::sqrt(v.v_);
-  }
+  constexpr dimval<HD> sqrt() { return std::sqrt(v_); }
+
+  /// Rational multiple of current dimension for power.
+  template <int64_t PN, int64_t PD>
+  constexpr static uint64_t RD = dim(D) * rat(PN) / rat(PD);
 
   /// Raise dimensioned value to rational power.
   /// @tparam PN  Numerator of power.
   /// @tparam PD  Denominator of power (by default, 1).
   /// @return     Transformed value of different dimension.
   template <int64_t PN, int64_t PD = 1>
-  constexpr dimval<dim(D) * rat(PN) / rat(PD)> pow() const {
+  constexpr dimval<RD<PN, PD>> pow() const {
     return std::pow(v_, PN * 1.0 / PD);
   }
 
@@ -184,6 +189,10 @@ struct coulombs : public dimval<dim{0, 0, 0, 1, 0}> {
 struct kelvins : public dimval<dim{0, 0, 0, 0, 1}> {
   constexpr kelvins(double v) : dimval(v) {}
 };
+
+
+/// Take square-root of dimensioned value.
+template <uint64_t D> constexpr auto sqrt(dimval<D> v) { return v.sqrt(); }
 
 
 /// Raise dimensioned value to rational power.
