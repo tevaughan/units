@@ -13,8 +13,12 @@
 namespace vnix {
 namespace units {
 
-template <uint64_t D> class dimval;
-
+/// Model of a value with physical dimensions.
+///
+/// Associated with a dimensioned value is a set of exponents, one for each of
+/// the five base dimensions (time, length, mass, charge, and temperature).
+///
+/// @tparam D  Encoding of dimensional exponents.
 template <uint64_t D> class dimval {
 protected:
   double v_; ///< Numeric value that multiplies units.
@@ -26,14 +30,17 @@ protected:
   /// @param v  Numeric value that multiplies units.
   constexpr dimval(double v) : v_(v) {}
 
+  /// Add exponents.
   constexpr static uint64_t sum_exp(uint64_t e1, uint64_t e2) {
     return dim(e1) + dim(e2);
   }
 
+  /// Subtract exponents.
   constexpr static uint64_t diff_exp(uint64_t e1, uint64_t e2) {
     return dim(e1) - dim(e2);
   }
 
+  /// Invert exponents.
   constexpr static uint64_t inv_exp(uint64_t e) { return null - dim(e); }
 
 public:
@@ -134,6 +141,23 @@ public:
     impl::print_unit(s, "K", v.d[TMP]);
     return s;
   }
+};
+
+
+/// Specialization for dimensionless value.
+template <> class dimval<null> {
+protected:
+  double v_; ///< Numeric value that multiplies units.
+
+public:
+  /// Convert from double.
+  constexpr dimval(double v) : v_(v) {}
+
+  /// Convert to immutable double.
+  constexpr operator double const &() const { return v_; }
+
+  /// Convert to mutable double.
+  constexpr operator double &() { return v_; }
 };
 
 

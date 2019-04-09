@@ -13,6 +13,7 @@ int main() {
     std::cout << pow<-1, 2>(2 * s) << std::endl;
     impl::rat8_t r(-6, 4);
     std::cout << r + impl::rat8_t(1, 8) << std::endl;
+    std::cout << a / J << std::endl;
     // std::cout << double(a / b) << std::endl;
   } catch (char const *e) {
     std::cerr << e << std::endl;
