@@ -27,8 +27,14 @@ template <typename U> class normalized_pair : rational_base<U> {
   using rational_base<U>::NMR_BITS;
   using rational_base<U>::DNM_BITS;
 
-  S n_; ///< Normalized numerator.
-  U d_; ///< Normalized denominator.
+  int64_t g_;  ///< Greatest common divisor for initial numer and denom.
+  S       n_;  ///< Normalized numerator.
+  U       d_;  ///< Normalized denominator.
+
+  /// Absolute value.
+  /// @param x  Positive or negative value.
+  /// @return   Corresponding positive value.
+  constexpr static int64_t abs(int64_t x) { return x > 0 ? x : -x; }
 
 public:
   /// Initialize normalized numerator and denominator for encoding of rational
@@ -40,28 +46,21 @@ public:
   ///
   /// @param n  Initial numerator.
   /// @param d  Initial denominator.
-  constexpr normalized_pair(int64_t n, int64_t d) {
+  constexpr normalized_pair(int64_t n, int64_t d)
+      : g_(gcd(abs(n), abs(d))),       //
+        n_(d >= 0 ? n / g_ : -n / g_), //
+        d_(d >= 0 ? d / g_ : -d / g_) {
     if (d == 0) {
       throw "null denominator"; // Do not allow division by zero.
     }
-    if (d < 0) {
-      // Normalize ratio so that denominator is positive.
-      n = -n;
-      d = -d;
-    }
-    // Normalize ratio so that numerator and denominator are relatively
-    // prime.
-    int64_t const g = (n >= 0 ? gcd(n, d) : gcd(-n, d));
-    n_              = n / g;
-    d_              = d / g;
     enum { NMAX = 1 << (NMR_BITS - 1) };
-    if (n >= NMAX) {
+    if (n_ >= NMAX) {
       throw "numerator too large and positive";
     }
-    if (n < -NMAX) {
+    if (n_ < -NMAX) {
       throw "numerator too large and negative";
     }
-    if (d > (1 << DNM_BITS)) {
+    if (d_ > (1 << DNM_BITS)) {
       throw "denominator too large";
     }
   }

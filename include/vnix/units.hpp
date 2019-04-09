@@ -12,11 +12,11 @@ namespace vnix {
 namespace units {
 
 
-constexpr dimval m{1.0, {1, 0, 0, 0, 0}};  ///< Meter.
-constexpr dimval kg{1.0, {0, 1, 0, 0, 0}}; ///< Kilogram.
-constexpr dimval s{1.0, {0, 0, 1, 0, 0}};  ///< Second.
-constexpr dimval C{1.0, {0, 0, 0, 1, 0}};  ///< Coulomb.
-constexpr dimval K{1.0, {0, 0, 0, 0, 1}};  ///< Kelvin.
+constexpr seconds   s{1.0};  ///< Second.
+constexpr meters    m{1.0};  ///< Meter.
+constexpr kilograms kg{1.0}; ///< Kilogram.
+constexpr coulombs  C{1.0};  ///< Coulomb.
+constexpr kelvins   K{1.0};  ///< Kelvin.
 
 // Lengths based on meter.
 constexpr dimval km = 1.0E+03 * m; ///< Kilometer.

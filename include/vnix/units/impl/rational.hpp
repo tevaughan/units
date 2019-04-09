@@ -11,6 +11,9 @@
 
 namespace vnix {
 namespace units {
+
+class dim;
+
 namespace impl {
 
 
@@ -21,15 +24,15 @@ namespace impl {
 ///
 /// @tparam U  Type of unsigned integer word.
 template <typename U> struct rational : public rat::encoding<U> {
+  using typename rat::rational_base<U>::S;
+  using rat::encoding<U>::n;
+  using rat::encoding<U>::d;
+
   /// Initialize representation.
   /// @param n  Numerator.
   /// @param d  Denominator.
   constexpr rational(int64_t n = 0, int64_t d = 1)
       : rat::encoding<U>(rat::normalized_pair<U>(n, d)) {}
-
-  using typename rat::rational_base<U>::S;
-  using rat::encoding<U>::n;
-  using rat::encoding<U>::d;
 
   /// Automatically convert to (signed) integer.
   constexpr operator S() const {
@@ -100,8 +103,8 @@ template <typename U> struct rational : public rat::encoding<U> {
     U const d1 = r1.d();
     S const n2 = r2.n();
     U const d2 = r2.d();
-    U const ga = gcd((n1 < 0 ? -n1 : n1), d2);
-    U const gb = gdc((n2 < 0 ? -n2 : n2), d1);
+    U const ga = rat::gcd((n1 < 0 ? -n1 : n1), d2);
+    U const gb = rat::gcd((n2 < 0 ? -n2 : n2), d1);
     return {n1 / ga * n2 / gb, d1 / gb * d2 / ga};
   }
 
@@ -129,6 +132,23 @@ template <typename U> struct rational : public rat::encoding<U> {
   std::ostream &print(std::ostream &s) const {
     return s << int64_t(n()) << '/' << uint64_t(d());
   }
+
+private:
+  /// vnix::units::dim must be declared as a friend so that dim can read
+  /// rat::encoding<U>::c_ and call the constructor from U.
+  friend class vnix::units::dim;
+
+  /// Type of code-word used by friend dim to construct rational without making
+  /// rational's public constructor be ambiguous.
+  struct code {
+    U c;                                       ///< Word encoding rational.
+    constexpr explicit code(U u) : c(u) {}     ///< Construct from code word.
+    constexpr operator U() const { return c; } ///< Convert to code word.
+  };
+
+  /// Construct from code-word.
+  /// @param c  Word encoding rational.
+  constexpr rational(code c) : rat::encoding<U>(c) {}
 };
 
 
