@@ -1,6 +1,6 @@
 # `units`: Header-only C++ Library for Physical Quantities
 
-Requiring C++-14 or later, the `units` library defines a literal type `dimval`,
+Requiring C++-17 or later, the `units` library defines a literal type `dimval`,
 which models a quantity that is dimensioned according to fundamental physical
 units:
 
@@ -40,35 +40,23 @@ Install a C++ compiler that allows a constexpr function to throw an exception.
 - By default, the build system requires that `clang++` be installed for
   building the tests.
 
-- If you don't have `clang++` installed, then to build the tests you will have
-  to override the setting of `CMAKE_CXX_COMPILER` that is used by
-  `test/CMakeLists.txt`.
-
-- `clang++-3.8` or later is known to work.  Earlier versions of `clang++` might
+- `clang++-7` or later is known to work.  Earlier versions of `clang++` might
   also work, but I have not tested them.
 
 - I have found that `g++-8.3` and lower do not work.
 
-To build or to install, start with this:
+To build the test:
 
 ```
 git clone https://github.com/tevaughan/units.git
-cd units
-mkdir build
-cd build
-cmake [-DCMAKE_INSTAll_PREFIX=<custom prefix>] ..
-```
-
-If you just want to build the tests:
-
-```
+cd units/test
 make
 ```
 
 If you want to install the headers:
 
 ```
-make install
+cp -r units/include/vnix <include-directory-of-choice>
 ```
 
 ## License
