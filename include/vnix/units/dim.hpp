@@ -108,6 +108,18 @@ public:
     return r;
   }
 
+  /// Transform each exponent according to a function.
+  /// @tparam F  Type of function.
+  /// @param  f  Unary function operating on rational.
+  /// @return    New exponents.
+  template <typename F> constexpr dim transform(F f) const {
+    dim  r = *this;
+    for (auto i = r.begin(); i != r.end();) {
+      f(*i++);
+    }
+    return r;
+  }
+
   /// Add corresponding exponents.
   /// This is called when two physical quantities are multiplied.
   /// Passing lambda in constexpr function requires C++17.
@@ -131,16 +143,19 @@ public:
   /// @param f  Factor.
   /// @param p  Products.
   constexpr dim operator*(rat f) const {
-    dim r = *this;
-    for (auto i = r.begin(); i != r.end();) {
-      *i++ *= f;
-    }
-    return r;
+    return transform([f](rat &x) { x *= f; });
+  }
+
+  /// Divide exponents by rational factor.
+  /// This is called when a physical quantity is raised to a power.
+  /// @param f  Factor.
+  /// @param p  Products.
+  constexpr dim operator/(rat f) const {
+    return transform([f](rat &x) { x /= f; });
   }
 };
 
-constexpr rat foo(0, 1);
-constexpr dim null(0, 0, 0, 0, 0);
+constexpr dim null(0, 0, 0, 0, 0); ///< Indicator of dimensionless quantity.
 
 } // namespace units
 } // namespace vnix

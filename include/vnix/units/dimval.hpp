@@ -6,11 +6,14 @@
 #ifndef VNIX_UNITS_DIMVAL_HPP
 #define VNIX_UNITS_DIMVAL_HPP
 
+#include <cmath> // for sqrt
 #include <vnix/units/dim.hpp>
 #include <vnix/units/impl/print-unit.hpp>
 
 namespace vnix {
 namespace units {
+
+template <uint64_t D> class dimval;
 
 template <uint64_t D> class dimval {
 protected:
@@ -107,6 +110,20 @@ public:
   /// Scale dimensioned quantity by dividing by number.
   friend constexpr dimval operator/(dimval v, double d) { return v.v_ / d; }
 
+  /// Take the squre root of a dimensioned quantity.
+  friend constexpr dimval<dim(D) / rat(2)> sqrt(dimval v) {
+    return std::sqrt(v.v_);
+  }
+
+  /// Raise dimensioned value to rational power.
+  /// @tparam PN  Numerator of power.
+  /// @tparam PD  Denominator of power (by default, 1).
+  /// @return     Transformed value of different dimension.
+  template <int64_t PN, int64_t PD = 1>
+  constexpr dimval<dim(D) * rat(PN) / rat(PD)> pow() const {
+    return std::pow(v_, PN * 1.0 / PD);
+  }
+
   /// Print to to output stream.
   friend inline std::ostream &operator<<(std::ostream &s, dimval v) {
     s << v.v_;
@@ -124,21 +141,38 @@ struct seconds : public dimval<dim{1, 0, 0, 0, 0}> {
   constexpr seconds(double v) : dimval(v) {}
 };
 
+
 struct meters : public dimval<dim{0, 1, 0, 0, 0}> {
   constexpr meters(double v) : dimval(v) {}
 };
+
 
 struct kilograms : public dimval<dim{0, 0, 1, 0, 0}> {
   constexpr kilograms(double v) : dimval(v) {}
 };
 
+
 struct coulombs : public dimval<dim{0, 0, 0, 1, 0}> {
   constexpr coulombs(double v) : dimval(v) {}
 };
 
+
 struct kelvins : public dimval<dim{0, 0, 0, 0, 1}> {
   constexpr kelvins(double v) : dimval(v) {}
 };
+
+
+/// Raise dimensioned value to rational power.
+/// @tparam PN  Numerator of power.
+/// @tparam PD  Denominator of power (by default, 1).
+/// @tparam D   Encoding of dimension for dimensioned value.
+/// @param  v   Dimensioned value.
+/// @return     Transformed value of different dimension.
+template <int64_t PN, int64_t PD = 1, uint64_t D>
+constexpr auto pow(dimval<D> v) {
+  return v.template pow<PN, PD>();
+}
+
 
 } // namespace units
 } // namespace vnix

@@ -7,6 +7,7 @@
 #define VNIX_UNITS_IMPL_PRINT_UNIT_HPP
 
 #include <iostream>
+#include <vnix/units/impl/rational.hpp>
 
 namespace vnix {
 namespace units {
@@ -17,10 +18,10 @@ namespace impl {
 /// @param s  Output stream.
 /// @param u  Abbreviation for unit.
 /// @param e  Exponent of unit.
-inline std::ostream &print_unit(std::ostream &s, char const *u, float e) {
+inline std::ostream &print_unit(std::ostream &s, char const *u, rat8_t e) {
   if (e) {
     s << " " << u;
-    if (e != 1) {
+    if (e != rat8_t(1)) {
       s << "^" << e;
     }
   }

@@ -42,6 +42,19 @@ template <typename U> struct rational : public rat::encoding<U> {
     return n();
   }
 
+  /// Automatically convert to boolean.
+  constexpr operator bool() const { return n() != 0; }
+
+  /// Compare for equality with another rational.
+  constexpr bool operator==(rational r) const {
+    return n() == r.n() && d() == r.d();
+  }
+
+  /// Compare for inequality with another rational.
+  constexpr bool operator!=(rational r) const {
+    return n() != r.n() || d() != r.d();
+  }
+
   /// Copy rational number.
   /// @param r  Number to copy.
   /// @return   Copy of number.
@@ -130,7 +143,14 @@ template <typename U> struct rational : public rat::encoding<U> {
   /// @param s  Reference to output-stream.
   /// @return   Reference to modified output-stream.
   std::ostream &print(std::ostream &s) const {
-    return s << int64_t(n()) << '/' << uint64_t(d());
+    if (d() != 1) {
+      s << "[";
+    }
+    s << int64_t(n());
+    if (d() != 1) {
+      s << '/' << uint64_t(d()) << "]";
+    }
+    return s;
   }
 
 private:

@@ -1,7 +1,7 @@
 CC = clang++
 CXX = clang++
 CPPFLAGS = -I../include
-CXXFLAGS = -std=c++17 -Wall
+CXXFLAGS = -g -O0 -std=c++17 -Wall
 SRCS = $(shell ls *.cpp)
 
 # ---------- BEG Automatic dependencies for C and C++ files. ----------
