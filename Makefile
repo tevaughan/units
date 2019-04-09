@@ -3,13 +3,14 @@
 
 PREFIX=/usr/local
 
-.PHONY: test install generate
+.PHONY: test install clean
 
-test: generate
+test:
 	$(MAKE) -C test
 
-install: generate
+install:
+	mkdir -p $(PREFIX)/include
 	cp -a include/vnix $(PREFIX)/include
 
-generate:
-	$(MAKE) -C include/vnix/units
+clean:
+	$(MAKE) -C test clean

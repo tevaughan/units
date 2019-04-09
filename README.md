@@ -48,18 +48,15 @@ The user need not use class `dimval` directly.
       the expression for the parameter evaluates to a constexpr class that has
       a conversion operator to uint64_t.
 
-To build the test:
+To build the test and/or install:
 
 ```
 git clone https://github.com/tevaughan/units.git
-cd units/test
-make
-```
-
-If you want to install the headers:
-
-```
-cp -r units/include/vnix <include-directory-of-choice>
+cd units         # Change the working directory into the new clone.
+make             # Builds the test program.
+test/units-test  # Run the test program.
+vim Makefile     # Edit PREFIX for installation.
+make install     # Install the headers to $(PREFIX)/include/vnix.
 ```
 
 ## License
