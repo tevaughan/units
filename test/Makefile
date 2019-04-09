@@ -1,5 +1,6 @@
-CC = clang++
 CXX = clang++
+CC = $(CXX)
+
 CPPFLAGS = -I../include
 CXXFLAGS = -g -O0 -std=c++17 -Wall
 SRCS = $(shell ls *.cpp)

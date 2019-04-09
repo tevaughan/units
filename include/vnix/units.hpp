@@ -19,48 +19,48 @@ constexpr coulombs  C{1.0};  ///< Coulomb.
 constexpr kelvins   K{1.0};  ///< Kelvin.
 
 // Lengths based on meter.
-constexpr dimval km = 1.0E+03 * m; ///< Kilometer.
-constexpr dimval cm = 1.0E-02 * m; ///< Centimeter.
-constexpr dimval mm = 1.0E-03 * m; ///< Millimeter.
-constexpr dimval μm = 1.0E-06 * m; ///< Micrometer.
-constexpr dimval nm = 1.0E-09 * m; ///< Nanometer.
-constexpr dimval pm = 1.0E-12 * m; ///< Picometer.
-constexpr dimval fm = 1.0E-15 * m; ///< Femtometer.
-constexpr dimval ft = 0.3048 * m;  ///< Foot.
-constexpr dimval yd = 0.9144 * m;  ///< Yard.
-constexpr dimval mi = 5280 * ft;   ///< Mile.
+constexpr auto km     = 1.0E+03 * m; ///< Kilometer.
+constexpr auto cm     = 1.0E-02 * m; ///< Centimeter.
+constexpr auto mm     = 1.0E-03 * m; ///< Millimeter.
+constexpr auto micron = 1.0E-06 * m; ///< Micrometer.
+constexpr auto nm     = 1.0E-09 * m; ///< Nanometer.
+constexpr auto pm     = 1.0E-12 * m; ///< Picometer.
+constexpr auto fm     = 1.0E-15 * m; ///< Femtometer.
+constexpr auto ft     = 0.3048 * m;  ///< Foot.
+constexpr auto yd     = 0.9144 * m;  ///< Yard.
+constexpr auto mi     = 5280 * ft;   ///< Mile.
 
 // Masses based on kilogram.
-constexpr dimval g  = 1.0E-03 * kg; ///< Gram.
-constexpr dimval mg = 1.0E-06 * kg; ///< Milligram.
-constexpr dimval μg = 1.0E-09 * kg; ///< Microgram.
-constexpr dimval ng = 1.0E-12 * kg; ///< Nanogram.
-constexpr dimval pg = 1.0E-15 * kg; ///< Picogram.
+constexpr auto g         = 1.0E-03 * kg; ///< Gram.
+constexpr auto mg        = 1.0E-06 * kg; ///< Milligram.
+constexpr auto microgram = 1.0E-09 * kg; ///< Microgram.
+constexpr auto ng        = 1.0E-12 * kg; ///< Nanogram.
+constexpr auto pg        = 1.0E-15 * kg; ///< Picogram.
 
 // Times based on second.
-constexpr dimval ms = 1.0E-03 * s; ///< Millisecond.
-constexpr dimval μs = 1.0E-06 * s; ///< Microsecond.
-constexpr dimval ns = 1.0E-09 * s; ///< Nanosecond.
-constexpr dimval ps = 1.0E-12 * s; ///< Picosecond.
-constexpr dimval fs = 1.0E-15 * s; ///< Femtosecond.
+constexpr auto ms       = 1.0E-03 * s; ///< Millisecond.
+constexpr auto microsec = 1.0E-06 * s; ///< Microsecond.
+constexpr auto ns       = 1.0E-09 * s; ///< Nanosecond.
+constexpr auto ps       = 1.0E-12 * s; ///< Picosecond.
+constexpr auto fs       = 1.0E-15 * s; ///< Femtosecond.
 
 // Temperatures based on Kelvin.
-constexpr dimval mK = 1.0E-03 * K; ///< Millikelvin.
+constexpr auto mK = 1.0E-03 * K; ///< Millikelvin.
 
 // Forces.
-constexpr dimval N   = kg * m / s / s; ///< Newton.
-constexpr dimval dyn = g * cm / s / s; ///< Dyne.
+constexpr auto N   = kg * m / s / s; ///< Newton.
+constexpr auto dyn = g * cm / s / s; ///< Dyne.
 
 // Energies.
-constexpr dimval J   = N * m;       ///< Joule.
-constexpr dimval mJ  = 1.0E-03 * J; ///< Millijoule.
-constexpr dimval kJ  = 1.0E+03 * J; ///< Kilojoule.
-constexpr dimval MJ  = 1.0E+06 * J; ///< Megajoule.
-constexpr dimval erg = dyn * cm;    ///< Erg.
+constexpr auto J   = N * m;       ///< Joule.
+constexpr auto mJ  = 1.0E-03 * J; ///< Millijoule.
+constexpr auto kJ  = 1.0E+03 * J; ///< Kilojoule.
+constexpr auto MJ  = 1.0E+06 * J; ///< Megajoule.
+constexpr auto erg = dyn * cm;    ///< Erg.
 
 // Currents.
-constexpr dimval A  = C / s;       ///< Amp.
-constexpr dimval mA = 1.0E-03 * A; ///< Milliamp.
+constexpr auto A  = C / s;       ///< Amp.
+constexpr auto mA = 1.0E-03 * A; ///< Milliamp.
 
 
 } // namespace units

@@ -7,7 +7,7 @@ int main() {
   try {
     auto constexpr a = 3 * J;
     auto constexpr b = 2 * C;
-    auto constexpr c = 4.3 * μm;
+    auto constexpr c = 4.3 * micron;
     std::cout << a / b * c << std::endl;
     std::cout << sqrt(2 * s) << std::endl;
     std::cout << pow<-1, 2>(2 * s) << std::endl;

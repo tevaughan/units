@@ -35,15 +35,18 @@ The user need not use class `dimval` directly.
 
 ## Fetching, Building, and Installing
 
-Install a C++ compiler that allows a constexpr function to throw an exception.
-
-- By default, the build system requires that `clang++` be installed for
-  building the tests.
+- At present, `clang++` must be installed for building against the library.
 
 - `clang++-7` or later is known to work.  Earlier versions of `clang++` might
   also work, but I have not tested them.
 
 - I have found that `g++-8.3` and lower do not work.
+
+    - g++-8.3 does not allow a constexpr function to throw.
+
+    - g++-8.3 has trouble using with computing a template-value parameter when
+      the expression for the parameter evaluates to a constexpr class that has
+      a conversion operator to uint64_t.
 
 To build the test:
 
