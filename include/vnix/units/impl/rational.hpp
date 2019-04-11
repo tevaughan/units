@@ -11,9 +11,6 @@
 
 namespace vnix {
 namespace units {
-
-class dim;
-
 namespace impl {
 
 
@@ -23,7 +20,14 @@ namespace impl {
 /// form a partition of the bits in the word.
 ///
 /// @tparam U  Type of unsigned integer word.
-template <typename U> struct rational : public rat::encoding<U> {
+template <typename U> class rational : public rat::encoding<U> {
+  struct dummy_arg {};
+
+  /// Construct from encoding.
+  /// @param u  Encoding of rational number.
+  constexpr rational(U u, dummy_arg) : rat::encoding<U>(u) {}
+
+public:
   using typename rat::rational_base<U>::S;
   using rat::encoding<U>::n;
   using rat::encoding<U>::d;
@@ -153,22 +157,11 @@ template <typename U> struct rational : public rat::encoding<U> {
     return s;
   }
 
-private:
-  /// vnix::units::dim must be declared as a friend so that dim can read
-  /// rat::encoding<U>::c_ and call the constructor from U.
-  friend class vnix::units::dim;
+  /// Encoding from rational number.
+  constexpr static U encode(rational r) { return r.c_; }
 
-  /// Type of code-word used by friend dim to construct rational without making
-  /// rational's public constructor be ambiguous.
-  struct code {
-    U c;                                       ///< Word encoding rational.
-    constexpr explicit code(U u) : c(u) {}     ///< Construct from code word.
-    constexpr operator U() const { return c; } ///< Convert to code word.
-  };
-
-  /// Construct from code-word.
-  /// @param c  Word encoding rational.
-  constexpr rational(code c) : rat::encoding<U>(c) {}
+  /// Rational number from encoding.
+  constexpr static rational decode(U u) { return {u, dummy_arg()}; }
 };
 
 

@@ -20,16 +20,20 @@ namespace rat {
 /// @tparam U  Type of unsigned word for encoding.
 template <typename U> class encoding : public rational_base<U> {
 protected:
-  U c_; ///< Unsigned Word in which numerator and denominator are encoded.
+  U c_; ///< Unsigned word in which numerator and denominator are encoded.
 
   using typename rational_base<U>::S;
   using rational_base<U>::DNM_BITS;
   using rational_base<U>::NMR_MASK;
   using rational_base<U>::DNM_MASK;
 
-  constexpr encoding(U c) : c_(c) {} ///< Construct from code-word.
+  /// Construct from code-word.
+  /// @param c  Code-word.
+  constexpr encoding(U c) : c_(c) {}
 
 public:
+  using type = U; ///< Type of unsigned word for encoding.
+
   /// Initialize encoding of rational number in unsigned word.
   /// @param p  Normalized numerator and denominator.
   constexpr encoding(normalized_pair<U> p)

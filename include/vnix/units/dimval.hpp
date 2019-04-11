@@ -13,131 +13,163 @@
 namespace vnix {
 namespace units {
 
-/// Model of a value with physical dimensions.
+
+/// Storage for numeric value associated with a physical dimension.
+class dimval_base {
+protected:
+  double v_; ///< Numeric value that multiplies units.
+
+  /// Initialize numeric value and exponents of units.
+  /// @param v  Numeric value that multiplies units.
+  constexpr dimval_base(double v) : v_(v) {}
+
+  /// Allow any kind of statdim to use any other kind's constructor from
+  /// double.
+  /// @tparam OD  Encoding of other statdim's dimension.
+  template <uint64_t OD> friend class statdim;
+};
+
+
+constexpr uint64_t encode(dim d) {
+  return (uint64_t(rat::encode(d[TIM])) << (TIM * 8)) |
+         (uint64_t(rat::encode(d[LEN])) << (LEN * 8)) |
+         (uint64_t(rat::encode(d[MAS])) << (MAS * 8)) |
+         (uint64_t(rat::encode(d[CHG])) << (CHG * 8)) |
+         (uint64_t(rat::encode(d[TMP])) << (TMP * 8));
+}
+
+
+constexpr dim decode(uint64_t u) {
+  return {{rat::decode((u >> (TIM * 8)) & 0xFF),
+           rat::decode((u >> (LEN * 8)) & 0xFF),
+           rat::decode((u >> (MAS * 8)) & 0xFF),
+           rat::decode((u >> (CHG * 8)) & 0xFF),
+           rat::decode((u >> (TMP * 8)) & 0xFF)}};
+}
+
+
+/// Model of a value with statically determined physical dimensions.
 ///
 /// Associated with a dimensioned value is a set of exponents, one for each of
 /// the five base dimensions (time, length, mass, charge, and temperature).
 ///
 /// @tparam D  Encoding of dimensional exponents.
-template <uint64_t D> class dimval {
+template <uint64_t D> class statdim : public dimval_base {
 protected:
-  double v_; ///< Numeric value that multiplies units.
+  /// Allow any kind of statdim to use any other kind's constructor from
+  /// double.
+  /// @tparam OD  Encoding of other statdim's dimension.
+  template <uint64_t OD> friend class statdim;
 
-  /// Allow any kind of dimval to use any other kind's constructor from double.
-  template <uint64_t OD> friend class dimval;
-
-  /// Initialize numeric value and exponents of units.
-  /// @param v  Numeric value that multiplies units.
-  constexpr dimval(double v) : v_(v) {}
+  using dimval_base::dimval_base; /// Inherit constructor.
 
   /// Add exponents.
   constexpr static uint64_t sum_exp(uint64_t e1, uint64_t e2) {
-    return dim(e1) + dim(e2);
+    return encode(decode(e1) + decode(e2));
   }
 
   /// Subtract exponents.
   constexpr static uint64_t diff_exp(uint64_t e1, uint64_t e2) {
-    return dim(e1) - dim(e2);
+    return encode(decode(e1) - decode(e2));
   }
 
   /// Invert exponents.
-  constexpr static uint64_t inv_exp(uint64_t e) { return null - dim(e); }
+  constexpr static uint64_t inv_exp(uint64_t e) {
+    return encode(nul_dim - decode(e));
+  }
 
 public:
   /// Exponent for each unit in dimensioned quantity.
-  constexpr static dim d = dim(D);
+  constexpr static dim d = decode(D);
 
   /// Multiply two dimensioned values.
-  template <uint64_t OD>
-  constexpr dimval<sum_exp(D, OD)> operator*(dimval<OD> v) const {
-    return v_ * v.v_;
+  template <uint64_t OD> constexpr auto operator*(statdim<OD> v) const {
+    return statdim<sum_exp(D, OD)>(v_ * v.v_);
   }
 
   /// Divide two dimensioned values.
-  template <uint64_t OD>
-  constexpr dimval<diff_exp(D, OD)> operator/(dimval<OD> v) const {
-    return v_ / v.v_;
+  template <uint64_t OD> constexpr auto operator/(statdim<OD> v) const {
+    return statdim<diff_exp(D, OD)>(v_ / v.v_);
   }
 
   /// Modify present instance by multiplying in a dimensionless value.
-  constexpr dimval &operator*=(double v) {
+  constexpr statdim &operator*=(double v) {
     v_ *= v;
     return *this;
   }
 
   /// Modify present instance by dividing it by a dimensionless value.
-  constexpr dimval &operator/=(double v) {
+  constexpr statdim &operator/=(double v) {
     v_ /= v;
     return *this;
   }
 
   /// Sum of two dimensioned values.
-  constexpr dimval operator+(dimval v) const { return v_ + v.v_; }
+  constexpr statdim operator+(statdim v) const { return v_ + v.v_; }
 
   /// Difference between two dimensioned values.
-  constexpr dimval operator-(dimval v) const { return v_ - v.v_; }
+  constexpr statdim operator-(statdim v) const { return v_ - v.v_; }
 
   /// Modify present instance by adding in a dimensioned value.
-  constexpr dimval &operator+=(dimval v) {
+  constexpr statdim &operator+=(statdim v) {
     v_ += v;
     return *this;
   }
 
   /// Modify present instance by subtracting out a dimensioned value.
-  constexpr dimval &operator-=(dimval v) {
+  constexpr statdim &operator-=(statdim v) {
     v_ -= v;
     return *this;
   }
 
   /// Scale dimensioned quantity.
-  friend constexpr dimval operator*(int d, dimval v) { return d * v.v_; }
+  friend constexpr statdim operator*(int d, statdim v) { return d * v.v_; }
 
   /// Scale dimensioned quantity.
-  friend constexpr dimval operator*(double d, dimval v) { return d * v.v_; }
+  friend constexpr statdim operator*(double d, statdim v) { return d * v.v_; }
 
   /// Scale dimensioned quantity.
-  friend constexpr dimval operator*(dimval v, int d) { return d * v; }
+  friend constexpr statdim operator*(statdim v, int d) { return d * v; }
 
   /// Scale dimensioned quantity.
-  friend constexpr dimval operator*(dimval v, double d) { return d * v; }
+  friend constexpr statdim operator*(statdim v, double d) { return d * v; }
 
   /// Invert dimensioned quantity by dividing it into number.
-  friend constexpr dimval<inv_exp(D)> operator/(int d, dimval v) {
+  friend constexpr statdim<inv_exp(D)> operator/(int d, statdim v) {
     return d / v.v_;
   }
 
   /// Invert dimensioned quantity by dividing it into number.
-  friend constexpr dimval<inv_exp(D)> operator/(double d, dimval v) {
+  friend constexpr statdim<inv_exp(D)> operator/(double d, statdim v) {
     return d / v.v_;
   }
 
   /// Scale dimensioned quantity by dividing by number.
-  friend constexpr dimval operator/(dimval v, int d) { return v.v_ / d; }
+  friend constexpr statdim operator/(statdim v, int d) { return v.v_ / d; }
 
   /// Scale dimensioned quantity by dividing by number.
-  friend constexpr dimval operator/(dimval v, double d) { return v.v_ / d; }
+  friend constexpr statdim operator/(statdim v, double d) { return v.v_ / d; }
 
   /// Half the current dimension for square-root.
-  constexpr static uint64_t HD = dim(D) / rat(2);
+  constexpr static uint64_t HD = encode(decode(D) / rat(2));
 
   /// Take the squre root of a dimensioned quantity.
-  constexpr dimval<HD> sqrt() { return std::sqrt(v_); }
+  constexpr auto sqrt() { return statdim<HD>(std::sqrt(v_)); }
 
   /// Rational multiple of current dimension for power.
   template <int64_t PN, int64_t PD>
-  constexpr static uint64_t RD = dim(D) * rat(PN) / rat(PD);
+  constexpr static uint64_t RD = encode(decode(D) * rat(PN) / rat(PD));
 
   /// Raise dimensioned value to rational power.
   /// @tparam PN  Numerator of power.
   /// @tparam PD  Denominator of power (by default, 1).
   /// @return     Transformed value of different dimension.
-  template <int64_t PN, int64_t PD = 1>
-  constexpr dimval<RD<PN, PD>> pow() const {
-    return std::pow(v_, PN * 1.0 / PD);
+  template <int64_t PN, int64_t PD = 1> constexpr auto pow() const {
+    return statdim<RD<PN, PD>>(std::pow(v_, PN * 1.0 / PD));
   }
 
   /// Print to to output stream.
-  friend inline std::ostream &operator<<(std::ostream &s, dimval v) {
+  friend inline std::ostream &operator<<(std::ostream &s, statdim v) {
     s << v.v_;
     impl::print_unit(s, "m", v.d[LEN]);
     impl::print_unit(s, "kg", v.d[MAS]);
@@ -150,13 +182,8 @@ public:
 
 
 /// Specialization for dimensionless value.
-template <> class dimval<null> {
-protected:
-  double v_; ///< Numeric value that multiplies units.
-
-public:
-  /// Convert from double.
-  constexpr dimval(double v) : v_(v) {}
+template <> struct statdim<encode(nul_dim)> : public dimval_base {
+  using dimval_base::dimval_base; /// Inherit constructor publicly.
 
   /// Convert to immutable double.
   constexpr operator double const &() const { return v_; }
@@ -166,33 +193,33 @@ public:
 };
 
 
-struct seconds : public dimval<dim{1, 0, 0, 0, 0}> {
-  constexpr seconds(double v) : dimval(v) {}
+struct seconds : public statdim<encode(tim_dim)> {
+  constexpr seconds(double v) : statdim(v) {}
 };
 
 
-struct meters : public dimval<dim{0, 1, 0, 0, 0}> {
-  constexpr meters(double v) : dimval(v) {}
+struct meters : public statdim<encode(len_dim)> {
+  constexpr meters(double v) : statdim(v) {}
 };
 
 
-struct kilograms : public dimval<dim{0, 0, 1, 0, 0}> {
-  constexpr kilograms(double v) : dimval(v) {}
+struct kilograms : public statdim<encode(mas_dim)> {
+  constexpr kilograms(double v) : statdim(v) {}
 };
 
 
-struct coulombs : public dimval<dim{0, 0, 0, 1, 0}> {
-  constexpr coulombs(double v) : dimval(v) {}
+struct coulombs : public statdim<encode(chg_dim)> {
+  constexpr coulombs(double v) : statdim(v) {}
 };
 
 
-struct kelvins : public dimval<dim{0, 0, 0, 0, 1}> {
-  constexpr kelvins(double v) : dimval(v) {}
+struct kelvins : public statdim<encode(tmp_dim)> {
+  constexpr kelvins(double v) : statdim(v) {}
 };
 
 
 /// Take square-root of dimensioned value.
-template <uint64_t D> constexpr auto sqrt(dimval<D> v) { return v.sqrt(); }
+template <uint64_t D> constexpr auto sqrt(statdim<D> v) { return v.sqrt(); }
 
 
 /// Raise dimensioned value to rational power.
@@ -202,7 +229,7 @@ template <uint64_t D> constexpr auto sqrt(dimval<D> v) { return v.sqrt(); }
 /// @param  v   Dimensioned value.
 /// @return     Transformed value of different dimension.
 template <int64_t PN, int64_t PD = 1, uint64_t D>
-constexpr auto pow(dimval<D> v) {
+constexpr auto pow(statdim<D> v) {
   return v.template pow<PN, PD>();
 }
 
