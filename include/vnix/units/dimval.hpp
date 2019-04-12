@@ -34,16 +34,26 @@ template <uint64_t D> class statdim;
 
 
 template <typename DV1, typename DV2> struct binary_op {
-  constexpr static dim prod_dim = DV1::d() + DV2::d();
-  constexpr static dim quot_dim = DV1::d() - DV2::d();
-  using prod                    = statdim<uint64_t(prod_dim)>;
-  using quot                    = statdim<uint64_t(quot_dim)>;
+  constexpr static dim prod_dim(dim, dim) { return DV1::d() + DV2::d(); }
+  constexpr static dim quot_dim(dim, dim) { return DV1::d() - DV2::d(); }
+  using prod = statdim<uint64_t(prod_dim(DV1::d(), DV2::d()))>;
+  using quot = statdim<uint64_t(quot_dim(DV1::d(), DV2::d()))>;
 };
 
 
 template <typename DV> struct unary_op {
-  constexpr static dim recip_dim = nul_dim - DV::d();
-  using recip                    = statdim<uint64_t(recip_dim)>;
+  constexpr static dim recip_dim(dim) { return nul_dim - DV::d(); }
+  constexpr static dim sqrt_dim(dim) { return DV::d() / rat(2); }
+
+  template <int64_t N, int64_t D = 1> constexpr static dim pow_dim(dim) {
+    return DV::d() * rat(N) / rat(D);
+  }
+
+  using recip = statdim<uint64_t(recip_dim(DV::d()))>;
+  using sqrt  = statdim<uint64_t(sqrt_dim(DV::d()))>;
+
+  template <int64_t N, int64_t D = 1>
+  using pow = statdim<uint64_t(pow_dim<N, D>(DV::d()))>;
 };
 
 
@@ -80,13 +90,13 @@ public:
   /// Multiply two dimensioned values.
   template <typename DV> constexpr auto operator*(DV v) const {
     using op = binary_op<statdim, DV>;
-    return typename op::prod(v_ * v.v_, op::prod_dim);
+    return typename op::prod(v_ * v.v_, op::prod_dim(d(), DV::d()));
   }
 
   /// Divide two dimensioned values.
   template <typename DV> constexpr auto operator/(DV v) const {
     using op = binary_op<statdim, DV>;
-    return typename op::quot(v_ / v.v_, op::quot_dim);
+    return typename op::quot(v_ / v.v_, op::quot_dim(d(), DV::d()));
   }
 
   /// Modify present instance by multiplying in a dimensionless value.
@@ -138,13 +148,13 @@ public:
   /// Invert dimensioned quantity by dividing it into number.
   friend constexpr auto operator/(int d, statdim v) {
     using op = unary_op<statdim>;
-    return typename op::recip(d / v.v_, op::recip_dim);
+    return typename op::recip(d / v.v_, op::recip_dim(v.d()));
   }
 
   /// Invert dimensioned quantity by dividing it into number.
   friend constexpr auto operator/(double d, statdim v) {
     using op = unary_op<statdim>;
-    return typename op::recip(d / v.v_, op::recip_dim);
+    return typename op::recip(d / v.v_, op::recip_dim(v.d()));
   }
 
   /// Scale dimensioned quantity by dividing by number.
@@ -158,9 +168,9 @@ public:
   }
 
   /// Take the squre root of a dimensioned quantity.
-  constexpr auto sqrt() {
-    constexpr dim HD = d() / rat(2); // Half the current dimension.
-    return statdim<uint64_t(HD)>(std::sqrt(v_), HD);
+  constexpr auto sqrt() const {
+    using op = unary_op<statdim>;
+    return typename op::sqrt(std::sqrt(v_), op::sqrt_dim(d()));
   }
 
   /// Raise dimensioned value to rational power.
@@ -168,9 +178,9 @@ public:
   /// @tparam PD  Denominator of power (by default, 1).
   /// @return     Transformed value of different dimension.
   template <int64_t PN, int64_t PD = 1> constexpr auto pow() const {
-    /// Rational multiple of current dim.
-    constexpr dim RD = dim(D) * rat(PN) / rat(PD);
-    return statdim<uint64_t(RD)>(std::pow(v_, PN * 1.0 / PD), RD);
+    using op  = unary_op<statdim>;
+    using pow = typename op::template pow<PN, PD>;
+    return pow(std::pow(v_, PN * 1.0 / PD), op::template pow_dim<PN, PD>(d()));
   }
 
   /// Print to to output stream.
