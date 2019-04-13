@@ -57,14 +57,22 @@ template <typename DV> struct unary_op {
 };
 
 
+template <typename DER> class dimval : public dimval_base {
+protected:
+  using dimval_base::dimval_base; ///< Inherit constructor.
+};
+
+
 /// Model of a value with statically determined physical dimensions.
 ///
 /// Associated with a dimensioned value is a set of exponents, one for each of
 /// the five base dimensions (time, length, mass, charge, and temperature).
 ///
 /// @tparam D  Encoding of dimensional exponents.
-template <uint64_t D> class statdim : public dimval_base {
+template <uint64_t D> class statdim : public dimval<statdim<D>> {
 protected:
+  using dimval_base::v_;  ///< Access to storage of numeric value.
+
   /// Allow any kind of statdim to use any other kind's constructor from
   /// double.
   ///
@@ -77,7 +85,7 @@ protected:
   /// dimension is encoded in the uint64_t template-value-parameter.
   ///
   /// @param v  Numeric value.
-  constexpr statdim(double v, dim) : dimval_base(v) {}
+  constexpr statdim(double v, dim) : dimval<statdim<D>>(v) {}
 
 public:
   /// Exponent for each unit in dimensioned quantity.
@@ -197,12 +205,12 @@ public:
 
 
 /// Specialization for dimensionless value.
-template <> struct statdim<nul_dim> : public dimval_base {
+template <> struct statdim<nul_dim> : public dimval<statdim<nul_dim>> {
   /// Allow any kind of statdim to use null statdim's constructor from double.
   /// @tparam OD  Encoding of other statdim's dimension.
   template <uint64_t OD> friend class statdim;
 
-  using dimval_base::dimval_base; /// Inherit constructor publicly.
+  using dimval<statdim<nul_dim>>::dimval; ///< Inherit constructor publicly.
 
   /// Convert to immutable double.
   constexpr operator double const &() const { return v_; }
@@ -213,7 +221,7 @@ template <> struct statdim<nul_dim> : public dimval_base {
   constexpr static dim d() { return nul_dim; }
 
 protected:
-  statdim(double v, dim) : dimval_base(v) {}
+  statdim(double v, dim) : dimval(v) {}
 };
 
 
