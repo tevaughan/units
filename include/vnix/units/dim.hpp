@@ -38,6 +38,24 @@ public:
   /// @param e  Array containing exponents.
   constexpr dim(std::array<rat, NUM_BASES> e) : e_{e} {}
 
+  /// Initialize from dim that has been encoded into a uint64_t.
+  /// @param u  Encoded data for dim.
+  constexpr explicit dim(uint64_t u)
+      : e_{rat::decode((u >> (TIM * 8)) & 0xFF),
+           rat::decode((u >> (LEN * 8)) & 0xFF),
+           rat::decode((u >> (MAS * 8)) & 0xFF),
+           rat::decode((u >> (CHG * 8)) & 0xFF),
+           rat::decode((u >> (TMP * 8)) & 0xFF)} {}
+
+  /// Encode data for this dim into a uint64_t.
+  constexpr operator uint64_t() const {
+    return (uint64_t(rat::encode(e_[TIM])) << (TIM * 8)) |
+           (uint64_t(rat::encode(e_[LEN])) << (LEN * 8)) |
+           (uint64_t(rat::encode(e_[MAS])) << (MAS * 8)) |
+           (uint64_t(rat::encode(e_[CHG])) << (CHG * 8)) |
+           (uint64_t(rat::encode(e_[TMP])) << (TMP * 8));
+  }
+
   /// Reference to immutable rational exponent at specified offset.
   /// @param off  Offset of exponent.
   constexpr rat const &operator[](base_off off) const { return e_[off]; }
