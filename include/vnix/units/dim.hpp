@@ -26,6 +26,7 @@ enum base_off : uint8_t {
 
 using rat = impl::rat8_t; ///< Type of rational for dimensioned values.
 
+
 /// Composite dimension, which stores a rational exponent for each base
 /// quantity.
 class dim {
@@ -108,6 +109,7 @@ public:
     return d.transform([f](rat x) { return x / f; });
   }
 };
+
 
 constexpr dim nul_dim({0, 0, 0, 0, 0}); ///< Dimensionless.
 constexpr dim tim_dim({1, 0, 0, 0, 0}); ///< Dimension of time.
