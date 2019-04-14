@@ -1,17 +1,15 @@
-/// @file       units/impl/rational.hpp
-/// @brief      Definition of vnix::units::impl::rational.
+/// @file       rational.hpp
+/// @brief      Definition of vnix::rational.
 /// @copyright  2019 Thomas E. Vaughan
 /// @license    GPL3.
 
-#ifndef VNIX_UNITS_IMPL_RATIONAL_HPP
-#define VNIX_UNITS_IMPL_RATIONAL_HPP
+#ifndef VNIX_RATIONAL_HPP
+#define VNIX_RATIONAL_HPP
 
 #include <iostream>
-#include <vnix/units/impl/rat/encoding.hpp>
+#include <vnix/rat/encoding.hpp>
 
 namespace vnix {
-namespace units {
-namespace impl {
 
 
 /// Model of a fixed-precision rational number.
@@ -182,8 +180,6 @@ using rat32_t = rational<uint32_t>; ///< Short-hand.
 using rat64_t = rational<uint64_t>; ///< Short-hand.
 
 
-} // namespace impl
-} // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_UNITS_IMPL_RATIONAL_HPP
+#endif // ndef VNIX_RATIONAL_HPP

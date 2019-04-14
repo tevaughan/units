@@ -1,17 +1,15 @@
-/// @file       units/impl/rat/normalized-pair.hpp
-/// @brief      Definition of vnix::units::impl::rat::normalized_pair.
+/// @file       rat/normalized-pair.hpp
+/// @brief      Definition of vnix::rat::normalized_pair.
 /// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @license    GPL Version 3 or later.
 
-#ifndef VNIX_UNITS_IMPL_RAT_NORMALIZED_PAIR_HPP
-#define VNIX_UNITS_IMPL_RAT_NORMALIZED_PAIR_HPP
+#ifndef VNIX_RAT_NORMALIZED_PAIR_HPP
+#define VNIX_RAT_NORMALIZED_PAIR_HPP
 
-#include <vnix/units/impl/rat/gcd.hpp>
-#include <vnix/units/impl/rat/rational-base.hpp>
+#include <vnix/rat/gcd.hpp>
+#include <vnix/rat/rational-base.hpp>
 
 namespace vnix {
-namespace units {
-namespace impl {
 namespace rat {
 
 
@@ -71,8 +69,6 @@ public:
 
 
 } // namespace rat
-} // namespace impl
-} // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_UNITS_IMPL_RAT_NORMALIZED_PAIR_HPP
+#endif // ndef VNIX_RAT_NORMALIZED_PAIR_HPP

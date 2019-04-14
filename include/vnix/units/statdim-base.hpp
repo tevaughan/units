@@ -1,7 +1,7 @@
 /// @file       units/statdim-base.hpp
 /// @brief      Definition of vnix::units::statdim_base.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
 
 #ifndef VNIX_UNITS_STATDIM_BASE_HPP
 #define VNIX_UNITS_STATDIM_BASE_HPP

@@ -1,13 +1,13 @@
 /// @file       units/dim.hpp
 /// @brief      Definition of vnix::units::dim.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL, Version 3 or later.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
 
 #ifndef VNIX_UNITS_DIM_HPP
 #define VNIX_UNITS_DIM_HPP
 
-#include <array>                        // for array
-#include <vnix/units/impl/rational.hpp> // for rational
+#include <array>             // for array
+#include <vnix/rational.hpp> // for rational
 
 namespace vnix {
 namespace units {
@@ -24,7 +24,7 @@ enum base_off : uint8_t {
 };
 
 
-using rat = impl::rat8_t; ///< Type of rational for dimensioned values.
+using rat = rat8_t; ///< Type of rational for dimensioned values.
 
 
 /// Composite dimension, which stores a rational exponent for each base

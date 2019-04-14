@@ -1,16 +1,14 @@
-/// @file       units/impl/rat/sgn.hpp
-/// @brief      Definition of vnix;:units::impl::rat::sgn.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @file       rat/sgn.hpp
+/// @brief      Definition of vnix::rat::sgn.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Versio 3 or later.
 
-#ifndef VNIX_UNITS_IMPL_RAT_SGN_HPP
-#define VNIX_UNITS_IMPL_RAT_SGN_HPP
+#ifndef VNIX_RAT_SGN_HPP
+#define VNIX_RAT_SGN_HPP
 
 #include <cstdint> // for uint64_t, etc.
 
 namespace vnix {
-namespace units {
-namespace impl {
 namespace rat {
 
 
@@ -33,8 +31,6 @@ template <> struct sgn<uint8_t> { using type = int8_t; };
 
 
 } // namespace rat
-} // namespace impl
-} // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_UNITS_IMPL_RAT_SGN_HPP
+#endif // ndef VNIX_RAT_SGN_HPP

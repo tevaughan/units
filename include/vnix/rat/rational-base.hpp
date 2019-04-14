@@ -1,17 +1,15 @@
-/// @file       units/impl/rat/rational-base.hpp
-/// @brief      Definition of vnix::units::impl::rat::rational_base.
+/// @file       rat/rational-base.hpp
+/// @brief      Definition of vnix::rat::rational_base.
 /// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @license    GPL Version 3 or later.
 
-#ifndef VNIX_UNITS_IMPL_RAT_RATIONAL_BASE_HPP
-#define VNIX_UNITS_IMPL_RAT_RATIONAL_BASE_HPP
+#ifndef VNIX_RAT_RATIONAL_BASE_HPP
+#define VNIX_RAT_RATIONAL_BASE_HPP
 
-#include <vnix/units/impl/rat/bit-range.hpp>
-#include <vnix/units/impl/rat/sgn.hpp>
+#include <vnix/rat/bit-range.hpp>
+#include <vnix/rat/sgn.hpp>
 
 namespace vnix {
-namespace units {
-namespace impl {
 namespace rat {
 
 
@@ -33,8 +31,6 @@ protected:
 
 
 } // namespace rat
-} // namespace impl
-} // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_UNITS_IMPL_RAT_RATIONAL_BASE_HPP
+#endif // ndef VNIX_RAT_RATIONAL_BASE_HPP

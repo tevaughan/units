@@ -1,22 +1,25 @@
 /// @file       units/dimval.hpp
 /// @brief      Definition of vnix::units::dimval.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
 
 #ifndef VNIX_UNITS_DIMVAL_HPP
 #define VNIX_UNITS_DIMVAL_HPP
 
-#include <cmath>                          // for sqrt
-#include <vnix/units/dim.hpp>             // for dim
-#include <vnix/units/impl/print-unit.hpp> // for print_unit
-#include <vnix/units/number.hpp>          // for number
-#include <vnix/units/statdim-base.hpp>    // for statdim_base
+#include <cmath>                       // for sqrt
+#include <vnix/units/dim.hpp>          // for dim
+#include <vnix/units/dyndim-base.hpp>  // for dyndim_base
+#include <vnix/units/number.hpp>       // for number
+#include <vnix/units/print-unit.hpp>   // for print_unit
+#include <vnix/units/statdim-base.hpp> // for statdim_base
 
 namespace vnix {
 namespace units {
 
+
 template <typename T> struct dyndim;
 template <uint64_t D, typename T> class statdim;
+
 
 /// Model of a physically dimensioned quantity.
 /// @tparam T  Type of storage (e.g., float or double) for numerical quantity.
@@ -196,11 +199,11 @@ public:
   /// Print to to output stream.
   friend std::ostream &operator<<(std::ostream &s, dimval const &v) {
     s << v.v_;
-    impl::print_unit(s, "m", v.d(LEN));
-    impl::print_unit(s, "kg", v.d(MAS));
-    impl::print_unit(s, "s", v.d(TIM));
-    impl::print_unit(s, "C", v.d(CHG));
-    impl::print_unit(s, "K", v.d(TMP));
+    print_unit(s, "m", v.d(LEN));
+    print_unit(s, "kg", v.d(MAS));
+    print_unit(s, "s", v.d(TIM));
+    print_unit(s, "C", v.d(CHG));
+    print_unit(s, "K", v.d(TMP));
     return s;
   }
 };

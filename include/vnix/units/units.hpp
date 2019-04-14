@@ -1,7 +1,7 @@
 /// @file       units.hpp
 /// @brief      Definition of various units in namespace vnix::units.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
 
 #ifndef VNIX_UNITS_HPP
 #define VNIX_UNITS_HPP

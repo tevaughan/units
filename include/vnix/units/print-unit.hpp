@@ -1,17 +1,16 @@
-/// @file       units/impl/print-unit.hpp
+/// @file       units/print-unit.hpp
 /// @brief      Definition of vnix::units::impl::print_unit.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
 
-#ifndef VNIX_UNITS_IMPL_PRINT_UNIT_HPP
-#define VNIX_UNITS_IMPL_PRINT_UNIT_HPP
+#ifndef VNIX_UNITS_PRINT_UNIT_HPP
+#define VNIX_UNITS_PRINT_UNIT_HPP
 
 #include <iostream>
-#include <vnix/units/impl/rational.hpp>
+#include <vnix/rational.hpp>
 
 namespace vnix {
 namespace units {
-namespace impl {
 
 
 /// Print to output stream the symbolic contribution from a given unit.
@@ -29,7 +28,6 @@ inline std::ostream &print_unit(std::ostream &s, char const *u, rat8_t e) {
 }
 
 
-} // namespace impl
 } // namespace units
 } // namespace vnix
 

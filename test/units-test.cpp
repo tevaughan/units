@@ -1,8 +1,11 @@
 
+#include <vnix/rational.hpp>
 #include <vnix/unitsf.hpp>
-#include <vnix/units/impl/rational.hpp>
 
 using namespace vnix::units;
+using namespace vnix::rat;
+
+
 int main() {
   try {
     auto constexpr a = 3 * J;
@@ -11,8 +14,8 @@ int main() {
     std::cout << a / b * c << std::endl;
     std::cout << sqrt(2 * s) << std::endl;
     std::cout << pow<-1, 2>(2 * s) << std::endl;
-    impl::rat8_t r(-6, 4);
-    std::cout << r + impl::rat8_t(1, 8) << std::endl;
+    vnix::rat8_t r(-6, 4);
+    std::cout << r + vnix::rat8_t(1, 8) << std::endl;
     std::cout << a / J << std::endl;
     dyndimd d = a / b;
     std::cout << d << std::endl;

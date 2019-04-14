@@ -1,7 +1,7 @@
 /// @file       unitsf.hpp
 /// @brief      Definition of single-precision units in namespace vnix::units.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
 
 #ifndef VNIX_UNITSF_HPP
 #define VNIX_UNITSF_HPP

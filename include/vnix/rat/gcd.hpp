@@ -1,16 +1,14 @@
-/// @file       units/impl/rat/gcd.hpp
-/// @brief      Definition of vnix::units::impl::rat::gcd.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @file       rat/gcd.hpp
+/// @brief      Definition of vnix::rat::gcd.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
 
-#ifndef VNIX_UNITS_IMPL_RAT_GCD_HPP
-#define VNIX_UNITS_IMPL_RAT_GCD_HPP
+#ifndef VNIX_RAT_GCD_HPP
+#define VNIX_RAT_GCD_HPP
 
 #include <cstdint> // for uint64_t
 
 namespace vnix {
-namespace units {
-namespace impl {
 namespace rat {
 
 
@@ -28,8 +26,6 @@ constexpr uint64_t gcd(uint64_t a, uint64_t b) {
 
 
 } // namespace rat
-} // namespace impl
-} // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_UNITS_IMPL_RAT_GCD_HPP
+#endif // ndef VNIX_RAT_GCD_HPP

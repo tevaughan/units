@@ -1,7 +1,7 @@
 /// @file       units/dyndim-base.hpp
 /// @brief      Definition of vnix::units::dyndim_base.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
 
 #ifndef VNIX_UNITS_DYNDIM_BASE_HPP
 #define VNIX_UNITS_DYNDIM_BASE_HPP

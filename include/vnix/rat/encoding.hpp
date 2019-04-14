@@ -1,16 +1,14 @@
-/// @file       units/impl/rat/encoding.hpp
-/// @brief      Definition of vnix::units::impl::rat::encoding.
+/// @file       rat/encoding.hpp
+/// @brief      Definition of vnix::rat::encoding.
 /// @copyright  2019 Thomas E. Vaughan
 /// @license    GPL3.
 
-#ifndef VNIX_UNITS_IMPL_RAT_ENCODING_HPP
-#define VNIX_UNITS_IMPL_RAT_ENCODING_HPP
+#ifndef VNIX_RAT_ENCODING_HPP
+#define VNIX_RAT_ENCODING_HPP
 
-#include <vnix/units/impl/rat/normalized-pair.hpp>
+#include <vnix/rat/normalized-pair.hpp>
 
 namespace vnix {
-namespace units {
-namespace impl {
 namespace rat {
 
 
@@ -48,8 +46,6 @@ public:
 
 
 } // namespace rat
-} // namespace impl
-} // namespace units
 } // namespace vnix
 
-#endif // ndef VNIX_UNITS_IMPL_RAT_ENCODING_HPP
+#endif // ndef VNIX_RAT_ENCODING_HPP
