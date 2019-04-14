@@ -31,10 +31,6 @@ public:
   /// Initialize from exponents representing dimension.
   constexpr dyndim_base(dim dd) : d_(dd) {}
 
-  /// Initialize from statdim_base.
-  /// @tparam D  Encoding of dimensional exponents as a `uint64_t`.
-  template <uint64_t D> constexpr dyndim_base(statdim_base<D>);
-
   /// Exponent for each unit in dimensioned quantity.  This is not static
   /// because it needs to be consistent with signature of dyndim.
   constexpr dim d() const { return d_; }
@@ -102,19 +98,5 @@ public:
 
 } // namespace units
 } // namespace vnix
-
-#include <vnix/units/statdim-base.hpp>
-
-namespace vnix {
-namespace units {
-
-
-template <uint64_t D>
-constexpr dyndim_base::dyndim_base(statdim_base<D>) : d_(D) {}
-
-
-} // namespace units
-} // namespace vnix
-
 
 #endif // ndef VNIX_UNITS_DYNDIM_BASE_HPP

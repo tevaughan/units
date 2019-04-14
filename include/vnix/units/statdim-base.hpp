@@ -27,9 +27,15 @@ class dyndim_base;
 ///
 /// @tparam D  Encoding of dimensional exponents as a `uint64_t`.
 template <uint64_t D> struct statdim_base {
-  /// Although nothing is stored in statdim_base, allow constructor to accept
-  /// a dummy dimension for uniformity with API of dyndim_base.
-  constexpr statdim_base(dim = nul_dim) {}
+  /// Check for compatibility on contruction from dim.
+  /// @param dd  Candidate dimension.
+  constexpr statdim_base(dim dd) {
+    if (d() != dd) {
+      throw "attempt to construct from incompatible dimension";
+    }
+  }
+
+  constexpr statdim_base() {} ///< Allow default construction.
 
   /// Exponent for each unit in dimensioned quantity.
   constexpr static dim d() { return dim(D); }
@@ -50,7 +56,7 @@ template <uint64_t D> struct statdim_base {
   /// @tparam OD  Encoding of factor's dimension in `uint64_t`.
   /// @return     Dimension of product.
   template <uint64_t OD> constexpr static auto prod(statdim_base<OD>) {
-    uint64_t constexpr rd = dim(D) + dim(OD);
+    uint64_t constexpr rd = d() + dim(OD);
     return statdim_base<rd>();
   }
 
@@ -63,7 +69,7 @@ template <uint64_t D> struct statdim_base {
   /// @tparam D  Encoding of divisor's dimension in `uint64_t`.
   /// @return    Dimension of quotient.
   template <uint64_t OD> constexpr static auto quot(statdim_base<OD>) {
-    uint64_t constexpr rd = dim(D) - dim(OD);
+    uint64_t constexpr rd = d() - dim(OD);
     return statdim_base<rd>();
   }
 
@@ -75,7 +81,7 @@ template <uint64_t D> struct statdim_base {
   /// Dimension for reciprocal of dimensioned value.
   /// @return  Dimension of reciprocal.
   constexpr static auto recip() {
-    uint64_t constexpr rd = nul_dim - dim(D);
+    uint64_t constexpr rd = nul_dim - d();
     return statdim_base<rd>();
   }
 
@@ -84,7 +90,7 @@ template <uint64_t D> struct statdim_base {
   /// @tparam PD  Denominator of power.
   /// @return     Dimension   of result.
   template <int64_t PN, int64_t PD = 1> constexpr static auto pow() {
-    uint64_t constexpr rd = dim(D) * rat(PN, PD);
+    uint64_t constexpr rd = d() * rat(PN, PD);
     return statdim_base<rd>();
   }
 
@@ -96,7 +102,7 @@ template <uint64_t D> struct statdim_base {
   /// Dimension for square-root of dimensioned value.
   /// @return  Dimension of square-root.
   constexpr static auto sqrt() {
-    uint64_t constexpr rd = dim(D) / rat(2);
+    uint64_t constexpr rd = d() / rat(2);
     return statdim_base<rd>();
   }
 };
@@ -116,40 +122,40 @@ namespace units {
 // Dimension for sum of dimensioned values.
 template <uint64_t D>
 constexpr dyndim_base statdim_base<D>::sum(dyndim_base const &db) {
-  if (dim(D) != db.d()) {
+  if (d() != db.d()) {
     throw "incompatible dimensions for addition";
   }
-  return dim(D);
+  return d();
 }
 
 
 // Dimension for difference of dimensioned values.
 template <uint64_t D>
 constexpr dyndim_base statdim_base<D>::diff(dyndim_base const &db) {
-  if (dim(D) != db.d()) {
+  if (d() != db.d()) {
     throw "incompatible dimensions for subtraction";
   }
-  return dim(D);
+  return d();
 }
 
 
 // Dimension for product of dimensioned values.
 template <uint64_t D>
 constexpr dyndim_base statdim_base<D>::prod(dyndim_base const &db) {
-  return dim(D) + db.d();
+  return d() + db.d();
 }
 
 
 // Dimension for quotient of dimensioned values.
 template <uint64_t D>
 constexpr dyndim_base statdim_base<D>::quot(dyndim_base const &db) {
-  return dim(D) - db.d();
+  return d() - db.d();
 }
 
 
 // Dimension for rational power of dimensioned value.
 template <uint64_t D> constexpr dyndim_base statdim_base<D>::pow(rat p) {
-  return dim(D) * p;
+  return d() * p;
 }
 
 

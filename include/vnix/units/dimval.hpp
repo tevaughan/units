@@ -89,27 +89,25 @@ public:
   /// Scale dimensioned value.
   /// @param n  Scale-factor.
   /// @return   Scaled value.
-  constexpr dimval operator*(double n) const { return {v_ * n, d()}; }
+  constexpr dimval operator*(T n) const { return {v_ * n, d()}; }
 
   /// Scale dimensioned value.
   /// @param n  Scale-factor.
   /// @param v  Original value.
   /// @return   Scaled value.
-  friend constexpr dimval operator*(double n, dimval const &v) {
-    return v * n;
-  }
+  friend constexpr dimval operator*(T n, dimval const &v) { return v * n; }
 
   /// Invert dimensioned value by dividing it into number.
   /// @param d  Number as dividend.
   /// @param v  Dimensioned quantitity as divisor.
   /// @return   Inverted value.
-  friend constexpr auto operator/(double d, dimval const &v) {
+  friend constexpr auto operator/(T d, dimval const &v) {
     auto const br = v.recip();
     return dimval<T, decltype(br)>(d / v.v_, br.d());
   }
 
   /// Scale dimensioned quantity by dividing by number.
-  constexpr dimval operator/(double n) const { return {v_ / n, d()}; }
+  constexpr dimval operator/(T n) const { return {v_ / n, d()}; }
 
   /// Multiply two dimensioned values.
   /// @tparam OT  Numeric type of factor.
@@ -136,7 +134,7 @@ public:
   /// Modify present instance by multiplying in a dimensionless value.
   /// @param v  Dimensionless scale-factor.
   /// @return   Scaled value.
-  constexpr dimval &operator*=(double v) {
+  constexpr dimval &operator*=(T v) {
     v_ *= v;
     return *this;
   }
@@ -144,7 +142,7 @@ public:
   /// Modify present instance by dividing it by a dimensionless value.
   /// @param v  Dimensionless scale-divisor.
   /// @return   Scaled value.
-  constexpr dimval &operator/=(double v) {
+  constexpr dimval &operator/=(T v) {
     v_ /= v;
     return *this;
   }
@@ -197,12 +195,6 @@ public:
 };
 
 
-template <uint64_t D> using statdim = dimval<double, statdim_base<D>>;
-
-
-using dyndim = dimval<double, dyndim_base>;
-
-
 /// Raise dimensioned value to rational power.
 /// @tparam PN  Numerator of power.
 /// @tparam PD  Denominator of power (by default, 1).
@@ -216,36 +208,90 @@ constexpr auto pow(dimval<T, B> const &v) {
 }
 
 
-using time        = statdim<tim_dim>;
-using length      = statdim<len_dim>;
-using mass        = statdim<mas_dim>;
-using charge      = statdim<chg_dim>;
-using temperature = statdim<tmp_dim>;
+/// Model of a statically dimensioned physical quantity.
+/// @tparam D  Encoding of dimension in `uint64_t`.
+/// @tparam T  Type numberic value.
+template <uint64_t D, typename T> using statdim = dimval<T, statdim_base<D>>;
 
 
-struct seconds : public time {
-  constexpr seconds(double v) : time(v, tim_dim) {}
+/// Model of a statically dimensioned physical quantity with double-precision
+/// numeric value.
+///
+/// @tparam D  Encoding of dimension in `uint64_t`.
+template <uint64_t D> using statdimd = statdim<D, double>;
+
+
+/// Model of a statically dimensioned physical quantity with single-precision
+/// numeric value.
+///
+/// @tparam D  Encoding of dimension in `uint64_t`.
+template <uint64_t D> using statdimf = statdim<D, float>;
+
+
+/// Model of a dynamically dimensioned physical quantity.
+/// @tparam T  Type of numeric value.
+template <typename T> using dyndim = dimval<T, dyndim_base>;
+
+
+using timed        = statdim<tim_dim, double>;
+using lengthd      = statdim<len_dim, double>;
+using massd        = statdim<mas_dim, double>;
+using charged      = statdim<chg_dim, double>;
+using temperatured = statdim<tmp_dim, double>;
+
+
+using timef        = statdim<tim_dim, float>;
+using lengthf      = statdim<len_dim, float>;
+using massf        = statdim<mas_dim, float>;
+using chargef      = statdim<chg_dim, float>;
+using temperaturef = statdim<tmp_dim, float>;
+
+
+#ifdef VNIX_UNITS_DBL
+
+struct seconds : public timed {
+  constexpr seconds(double v) : timed(v, tim_dim) {}
 };
 
-
-struct meters : public length {
-  constexpr meters(double v) : length(v, len_dim) {}
+struct meters : public lengthd {
+  constexpr meters(double v) : lengthd(v, len_dim) {}
 };
 
-
-struct kilograms : public mass {
-  constexpr kilograms(double v) : mass(v, mas_dim) {}
+struct kilograms : public massd {
+  constexpr kilograms(double v) : massd(v, mas_dim) {}
 };
 
-
-struct coulombs : public charge {
-  constexpr coulombs(double v) : charge(v, chg_dim) {}
+struct coulombs : public charged {
+  constexpr coulombs(double v) : charged(v, chg_dim) {}
 };
 
-
-struct kelvins : public temperature {
-  constexpr kelvins(double v) : temperature(v, tmp_dim) {}
+struct kelvins : public temperatured {
+  constexpr kelvins(double v) : temperatured(v, tmp_dim) {}
 };
+
+#else
+
+struct seconds : public timef {
+  constexpr seconds(double v) : timef(v, tim_dim) {}
+};
+
+struct meters : public lengthf {
+  constexpr meters(double v) : lengthf(v, len_dim) {}
+};
+
+struct kilograms : public massf {
+  constexpr kilograms(double v) : massf(v, mas_dim) {}
+};
+
+struct coulombs : public chargef {
+  constexpr coulombs(double v) : chargef(v, chg_dim) {}
+};
+
+struct kelvins : public temperaturef {
+  constexpr kelvins(double v) : temperaturef(v, tmp_dim) {}
+};
+
+#endif // def VNIX_UNITS_DBL
 
 
 } // namespace units
