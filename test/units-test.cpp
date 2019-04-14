@@ -14,7 +14,9 @@ int main() {
     impl::rat8_t r(-6, 4);
     std::cout << r + impl::rat8_t(1, 8) << std::endl;
     std::cout << a / J << std::endl;
-    // std::cout << double(a / b) << std::endl;
+    dyndimd d = a / b;
+    std::cout << d << std::endl;
+    std::cout << statdimf<len_dim>(d) << std::endl;
   } catch (char const *e) {
     std::cerr << e << std::endl;
     return 1;
