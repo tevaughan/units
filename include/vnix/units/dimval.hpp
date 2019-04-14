@@ -197,6 +197,12 @@ public:
 };
 
 
+template <uint64_t D> using statdim = dimval<double, statdim_base<D>>;
+
+
+using dyndim = dimval<double, dyndim_base>;
+
+
 /// Raise dimensioned value to rational power.
 /// @tparam PN  Numerator of power.
 /// @tparam PD  Denominator of power (by default, 1).
@@ -210,11 +216,11 @@ constexpr auto pow(dimval<T, B> const &v) {
 }
 
 
-using time        = dimval<double, statdim_base<tim_dim>>;
-using length      = dimval<double, statdim_base<len_dim>>;
-using mass        = dimval<double, statdim_base<mas_dim>>;
-using charge      = dimval<double, statdim_base<chg_dim>>;
-using temperature = dimval<double, statdim_base<tmp_dim>>;
+using time        = statdim<tim_dim>;
+using length      = statdim<len_dim>;
+using mass        = statdim<mas_dim>;
+using charge      = statdim<chg_dim>;
+using temperature = statdim<tmp_dim>;
 
 
 struct seconds : public time {
