@@ -20,7 +20,8 @@ The user need not use class `dimval` directly.
 
 - So, for example, one may write a simple program as follows:
   ```c++
-  #include <vnix/units.hpp>
+  #include <vnix/unitsd.hpp>
+  // Use <vnix/unitsf.hpp> for single-precision units.
   using namespace std;
   using namespace vnix::units;
   int main() {
