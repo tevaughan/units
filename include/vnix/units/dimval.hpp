@@ -6,179 +6,147 @@
 #ifndef VNIX_UNITS_DIMVAL_HPP
 #define VNIX_UNITS_DIMVAL_HPP
 
-#include <cmath> // for sqrt
-#include <vnix/units/dim.hpp>
-#include <vnix/units/impl/print-unit.hpp>
+#include <cmath>                          // for sqrt
+#include <vnix/units/dim.hpp>             // for dim
+#include <vnix/units/impl/print-unit.hpp> // for print_unit
+#include <vnix/units/number.hpp>          // for number
+#include <vnix/units/statdim-base.hpp>    // for statdim_base
 
 namespace vnix {
 namespace units {
 
 
-/// Storage for numeric value associated with a physical dimension.
-class dimval_base {
+/// Model of a physically dimensioned quantity.
+/// @tparam T  Type of storage (e.g., float or double) for numerical quantity.
+/// @tparam B  Base-class (statdim_base or dyndim_base) for dimension.
+template <typename T, typename B> class dimval : public number<T>, public B {
+  /// Allow every kind of dimval to access this dimval's contructor.
+  /// @tparam OT  Type of other dimval's numeric value.
+  /// @tparam OB  Type of other dimval's base-class for dimension.
+  template <typename OT, typename OB> friend class dimval;
+
 protected:
-  double v_; ///< Numeric value that multiplies units.
-
-  /// Initialize numeric value and exponents of units.
-  /// @param v  Numeric value that multiplies units.
-  constexpr dimval_base(double v) : v_(v) {}
-
-  /// Allow any kind of statdim to use any other kind's constructor from
-  /// double.
-  /// @tparam OD  Encoding of other statdim's dimension.
-  template <uint64_t OD> friend class statdim;
-};
-
-
-template <uint64_t D> class statdim;
-
-
-template <typename DV1, typename DV2> struct binary_op {
-  constexpr static dim prod_dim(dim, dim) { return DV1::d() + DV2::d(); }
-  constexpr static dim quot_dim(dim, dim) { return DV1::d() - DV2::d(); }
-  using prod = statdim<uint64_t(prod_dim(DV1::d(), DV2::d()))>;
-  using quot = statdim<uint64_t(quot_dim(DV1::d(), DV2::d()))>;
-};
-
-
-template <typename DV> struct unary_op {
-  constexpr static dim recip_dim(dim) { return nul_dim - DV::d(); }
-  constexpr static dim sqrt_dim(dim) { return DV::d() / rat(2); }
-
-  template <int64_t N, int64_t D = 1> constexpr static dim pow_dim(dim) {
-    return DV::d() * rat(N) / rat(D);
-  }
-
-  using recip = statdim<uint64_t(recip_dim(DV::d()))>;
-  using sqrt  = statdim<uint64_t(sqrt_dim(DV::d()))>;
-
-  template <int64_t N, int64_t D = 1>
-  using pow = statdim<uint64_t(pow_dim<N, D>(DV::d()))>;
-};
-
-
-template <typename DER> class dimval : public dimval_base {
-protected:
-  using dimval_base::dimval_base; ///< Inherit constructor.
-};
-
-
-/// Model of a value with statically determined physical dimensions.
-///
-/// Associated with a dimensioned value is a set of exponents, one for each of
-/// the five base dimensions (time, length, mass, charge, and temperature).
-///
-/// @tparam D  Encoding of dimensional exponents.
-template <uint64_t D> class statdim : public dimval<statdim<D>> {
-protected:
-  using dimval_base::v_;  ///< Access to storage of numeric value.
-
-  /// Allow any kind of statdim to use any other kind's constructor from
-  /// double.
-  ///
-  /// @tparam OD  Encoding of other statdim's dimension.
-  template <uint64_t OD> friend class statdim;
-
-  /// Initialize from numeric value.
-  ///
-  /// The second argument of the constructor is unused by statdim because the
-  /// dimension is encoded in the uint64_t template-value-parameter.
-  ///
+  /// Initialize from numeric value and from dimension.
   /// @param v  Numeric value.
-  constexpr statdim(double v, dim) : dimval<statdim<D>>(v) {}
+  /// @param d  Dimension.
+  constexpr dimval(T v, dim const &d) : number<T>(v), B(d) {}
+
+  using number<T>::v_; ///< Allow access to numeric value.
 
 public:
-  /// Exponent for each unit in dimensioned quantity.
-  constexpr static dim d() { return dim(D); }
+  using B::d; ///< Allow access to dimension.
 
   /// Exponent for base at specified offset.
   /// @param off  Offset.
-  constexpr static rat d(base_off off) { return dim(D)[off]; }
+  constexpr rat d(base_off off) const { return B::d()[off]; }
+
+  /// Sum of two dimensioned values.
+  /// @tparam OT  Numeric type of addend.
+  /// @tparam OB  Base-dimension type of addend.
+  /// @param  v   Addend.
+  /// @return     Sum.
+  template <typename OT, typename OB>
+  constexpr auto operator+(dimval<OT, OB> const &v) const {
+    auto const sdim = B::sum(v); // Check for compatibility of units.
+    return dimval(v_ + v.v_, sdim);
+  }
+
+  /// Difference between two dimensioned values.
+  /// @tparam OT  Numeric type of subtractor.
+  /// @tparam OB  Base-dimension type of subtractor.
+  /// @param  v   Subractor.
+  /// @return     Difference.
+  template <typename OT, typename OB>
+  constexpr auto operator-(dimval<OT, OB> const &v) const {
+    auto const ddim = B::diff(v); // Check for compatibility of units.
+    return dimval(v_ - v.v_, ddim);
+  }
+
+  /// Modify present instance by adding in a dimensioned value.
+  /// @tparam OT  Numeric type of addend.
+  /// @tparam OB  Base-dimension type of addend.
+  /// @param  v   Addend.
+  /// @return     Sum.
+  template <typename OT, typename OB>
+  constexpr dimval &operator+=(dimval<OT, OB> const &v) {
+    B::sum(v); // Check for compatibility of units.
+    v_ += v.v_;
+    return *this;
+  }
+
+  /// Modify present instance by subtracting out a dimensioned value.
+  /// @tparam OT  Numeric type of subtractor.
+  /// @tparam OB  Base-dimension type of subtractor.
+  /// @param  v   Subtractor.
+  /// @return     Difference.
+  template <typename OT, typename OB>
+  constexpr dimval &operator-=(dimval<OT, OB> const &v) {
+    B::diff(v); // Check for compatibility of units.
+    v_ -= v.v_;
+    return *this;
+  }
+
+  /// Scale dimensioned value.
+  /// @param n  Scale-factor.
+  /// @return   Scaled value.
+  constexpr dimval operator*(double n) const { return {v_ * n, d()}; }
+
+  /// Scale dimensioned value.
+  /// @param n  Scale-factor.
+  /// @param v  Original value.
+  /// @return   Scaled value.
+  friend constexpr dimval operator*(double n, dimval const &v) {
+    return v * n;
+  }
+
+  /// Invert dimensioned value by dividing it into number.
+  /// @param d  Number as dividend.
+  /// @param v  Dimensioned quantitity as divisor.
+  /// @return   Inverted value.
+  friend constexpr auto operator/(double d, dimval const &v) {
+    auto const br = v.recip();
+    return dimval<T, decltype(br)>(d / v.v_, br.d());
+  }
+
+  /// Scale dimensioned quantity by dividing by number.
+  constexpr dimval operator/(double n) const { return {v_ / n, d()}; }
 
   /// Multiply two dimensioned values.
-  template <typename DV> constexpr auto operator*(DV v) const {
-    using op = binary_op<statdim, DV>;
-    return typename op::prod(v_ * v.v_, op::prod_dim(d(), DV::d()));
+  /// @tparam OT  Numeric type of factor.
+  /// @tparam OB  Base-dimension type of factor.
+  /// @param  v   Factor.
+  /// @return     Product.
+  template <typename OT, typename OB>
+  constexpr auto operator*(dimval<OT, OB> const &v) const {
+    auto const pdim = B::prod(v);
+    return dimval<T, decltype(pdim)>(v_ * v.v_, pdim.d());
   }
 
   /// Divide two dimensioned values.
-  template <typename DV> constexpr auto operator/(DV v) const {
-    using op = binary_op<statdim, DV>;
-    return typename op::quot(v_ / v.v_, op::quot_dim(d(), DV::d()));
+  /// @tparam OT  Numeric type of divisor.
+  /// @tparam OB  Base-dimension type of divisor.
+  /// @param  v   Divisor.
+  /// @return     Quotient.
+  template <typename OT, typename OB>
+  constexpr auto operator/(dimval<OT, OB> const &v) const {
+    auto const qdim = B::quot(v);
+    return dimval<T, decltype(qdim)>(v_ / v.v_, qdim.d());
   }
 
   /// Modify present instance by multiplying in a dimensionless value.
-  constexpr statdim &operator*=(double v) {
+  /// @param v  Dimensionless scale-factor.
+  /// @return   Scaled value.
+  constexpr dimval &operator*=(double v) {
     v_ *= v;
     return *this;
   }
 
   /// Modify present instance by dividing it by a dimensionless value.
-  constexpr statdim &operator/=(double v) {
+  /// @param v  Dimensionless scale-divisor.
+  /// @return   Scaled value.
+  constexpr dimval &operator/=(double v) {
     v_ /= v;
     return *this;
-  }
-
-  /// Sum of two dimensioned values.
-  constexpr auto operator+(statdim v) const { return statdim(v_ + v.v_, d()); }
-
-  /// Difference between two dimensioned values.
-  constexpr auto operator-(statdim v) const { return statdim(v_ - v.v_, d()); }
-
-  /// Modify present instance by adding in a dimensioned value.
-  constexpr statdim &operator+=(statdim v) {
-    v_ += v;
-    return *this;
-  }
-
-  /// Modify present instance by subtracting out a dimensioned value.
-  constexpr statdim &operator-=(statdim v) {
-    v_ -= v;
-    return *this;
-  }
-
-  /// Scale dimensioned quantity.
-  friend constexpr auto operator*(int n, statdim v) {
-    return statdim(n * v.v_, d());
-  }
-
-  /// Scale dimensioned quantity.
-  friend constexpr auto operator*(double n, statdim v) {
-    return statdim(n * v.v_, d());
-  }
-
-  /// Scale dimensioned quantity.
-  friend constexpr auto operator*(statdim v, int n) { return n * v; }
-
-  /// Scale dimensioned quantity.
-  friend constexpr auto operator*(statdim v, double n) { return n * v; }
-
-  /// Invert dimensioned quantity by dividing it into number.
-  friend constexpr auto operator/(int d, statdim v) {
-    using op = unary_op<statdim>;
-    return typename op::recip(d / v.v_, op::recip_dim(v.d()));
-  }
-
-  /// Invert dimensioned quantity by dividing it into number.
-  friend constexpr auto operator/(double d, statdim v) {
-    using op = unary_op<statdim>;
-    return typename op::recip(d / v.v_, op::recip_dim(v.d()));
-  }
-
-  /// Scale dimensioned quantity by dividing by number.
-  friend constexpr auto operator/(statdim v, int n) {
-    return statdim(v.v_ / n, d());
-  }
-
-  /// Scale dimensioned quantity by dividing by number.
-  friend constexpr auto operator/(statdim v, double n) {
-    return statdim(v.v_ / n, d());
-  }
-
-  /// Take the squre root of a dimensioned quantity.
-  constexpr auto sqrt() const {
-    using op = unary_op<statdim>;
-    return typename op::sqrt(std::sqrt(v_), op::sqrt_dim(d()));
   }
 
   /// Raise dimensioned value to rational power.
@@ -186,13 +154,38 @@ public:
   /// @tparam PD  Denominator of power (by default, 1).
   /// @return     Transformed value of different dimension.
   template <int64_t PN, int64_t PD = 1> constexpr auto pow() const {
-    using op  = unary_op<statdim>;
-    using pow = typename op::template pow<PN, PD>;
-    return pow(std::pow(v_, PN * 1.0 / PD), op::template pow_dim<PN, PD>(d()));
+    auto const pdim = B::template pow<PN, PD>();
+    return dimval<T, decltype(pdim)>(std::pow(v_, PN * 1.0 / PD), pdim.d());
   }
 
+  /// Raise dimensioned value to rational power.
+  /// @param p  Rational power.
+  /// @return   Transformed value of different dimension.
+  constexpr auto pow(rat p) const {
+    auto const pdim = B::pow(p);
+    using rt        = dimval<T, decltype(pdim)>;
+    return rt(std::pow(v_, p.n() * 1.0 / p.d()), pdim.d());
+  }
+
+  /// Raise dimensioned value to rational power.
+  /// @param v  Original dimensioned value.
+  /// @param p  Rational power.
+  /// @return   Transformed value of different dimension.
+  constexpr friend auto pow(dimval const &v, rat p) { return v.pow(p); }
+
+  /// Take the squre root of a dimensioned quantity.
+  constexpr auto sqrt() const {
+    auto const rdim = B::sqrt();
+    return dimval<T, decltype(rdim)>(std::sqrt(v_), rdim.d());
+  }
+
+  /// Take the squre root of a dimensioned quantity.
+  /// @param v  Original dimensioned value.
+  /// @return   Transformed value of different dimension.
+  constexpr friend auto sqrt(dimval const &v) { return v.sqrt(); }
+
   /// Print to to output stream.
-  friend inline std::ostream &operator<<(std::ostream &s, statdim v) {
+  friend std::ostream &operator<<(std::ostream &s, dimval const &v) {
     s << v.v_;
     impl::print_unit(s, "m", v.d(LEN));
     impl::print_unit(s, "kg", v.d(MAS));
@@ -204,66 +197,49 @@ public:
 };
 
 
-/// Specialization for dimensionless value.
-template <> struct statdim<nul_dim> : public dimval<statdim<nul_dim>> {
-  /// Allow any kind of statdim to use null statdim's constructor from double.
-  /// @tparam OD  Encoding of other statdim's dimension.
-  template <uint64_t OD> friend class statdim;
-
-  using dimval<statdim<nul_dim>>::dimval; ///< Inherit constructor publicly.
-
-  /// Convert to immutable double.
-  constexpr operator double const &() const { return v_; }
-
-  /// Convert to mutable double.
-  constexpr operator double &() { return v_; }
-
-  constexpr static dim d() { return nul_dim; }
-
-protected:
-  statdim(double v, dim) : dimval(v) {}
-};
-
-
-struct seconds : public statdim<tim_dim> {
-  constexpr seconds(double v) : statdim(v, tim_dim) {}
-};
-
-
-struct meters : public statdim<len_dim> {
-  constexpr meters(double v) : statdim(v, len_dim) {}
-};
-
-
-struct kilograms : public statdim<mas_dim> {
-  constexpr kilograms(double v) : statdim(v, mas_dim) {}
-};
-
-
-struct coulombs : public statdim<chg_dim> {
-  constexpr coulombs(double v) : statdim(v, chg_dim) {}
-};
-
-
-struct kelvins : public statdim<tmp_dim> {
-  constexpr kelvins(double v) : statdim(v, tmp_dim) {}
-};
-
-
-/// Take square-root of dimensioned value.
-template <uint64_t D> constexpr auto sqrt(statdim<D> v) { return v.sqrt(); }
-
-
 /// Raise dimensioned value to rational power.
 /// @tparam PN  Numerator of power.
 /// @tparam PD  Denominator of power (by default, 1).
-/// @tparam D   Encoding of dimension for dimensioned value.
-/// @param  v   Dimensioned value.
+/// @tparam T   Type for numeric storage.
+/// @tparam B   Type of base-class for dimension.
+/// @param  v   Original dimensioned value.
 /// @return     Transformed value of different dimension.
-template <int64_t PN, int64_t PD = 1, uint64_t D>
-constexpr auto pow(statdim<D> v) {
+template <int64_t PN, int64_t PD = 1, typename T, typename B>
+constexpr auto pow(dimval<T, B> const &v) {
   return v.template pow<PN, PD>();
 }
+
+
+using time        = dimval<double, statdim_base<tim_dim>>;
+using length      = dimval<double, statdim_base<len_dim>>;
+using mass        = dimval<double, statdim_base<mas_dim>>;
+using charge      = dimval<double, statdim_base<chg_dim>>;
+using temperature = dimval<double, statdim_base<tmp_dim>>;
+
+
+struct seconds : public time {
+  constexpr seconds(double v) : time(v, tim_dim) {}
+};
+
+
+struct meters : public length {
+  constexpr meters(double v) : length(v, len_dim) {}
+};
+
+
+struct kilograms : public mass {
+  constexpr kilograms(double v) : mass(v, mas_dim) {}
+};
+
+
+struct coulombs : public charge {
+  constexpr coulombs(double v) : charge(v, chg_dim) {}
+};
+
+
+struct kelvins : public temperature {
+  constexpr kelvins(double v) : temperature(v, tmp_dim) {}
+};
 
 
 } // namespace units
