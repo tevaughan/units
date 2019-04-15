@@ -18,10 +18,17 @@ namespace units {
 /// @param u  Abbreviation for unit.
 /// @param e  Exponent of unit.
 inline std::ostream &print_unit(std::ostream &s, char const *u, rat8_t e) {
-  if (e) {
+  if (e.to_bool()) {
     s << " " << u;
     if (e != rat8_t(1)) {
-      s << "^" << e;
+      s << "^";
+      if (e.d() != 1) {
+        s << "[";
+      }
+      s << e;
+      if (e.d() != 1) {
+        s << "]";
+      }
     }
   }
   return s;

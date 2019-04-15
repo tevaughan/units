@@ -176,7 +176,7 @@ public:
   constexpr auto pow(rat p) const {
     auto const pdim = B::pow(p);
     using rt        = dimval<T, decltype(pdim)>;
-    return rt(std::pow(v_, double(p)), pdim.d());
+    return rt(std::pow(v_, p.to_double()), pdim.d());
   }
 
   /// Raise dimensioned value to rational power.
