@@ -29,11 +29,22 @@ constexpr bool operator==(rat::rational<uint64_t> r1,
 /// @param r2  Right-hand operand.
 constexpr bool operator!=(rat::rational<uint64_t> r1,
                           rat::rational<uint64_t> r2) {
-  return r1.n() != r2.n() || r1.d() != r2.d();
+  return !(r1 == r2);
 }
 
 
-/// Compare for ordering with another rational.
+/// Compare for less-than-or-equal ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator<=(rat::rational<uint64_t> r1,
+                         rat::rational<uint64_t> r2) {
+  rat::common_denom const c(r1, r2);
+  return c.n1 <= c.n2;
+}
+
+
+/// Compare for less-than ordering with another rational.
 /// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
@@ -44,7 +55,29 @@ constexpr bool operator<(rat::rational<uint64_t> r1,
 }
 
 
-/// Copy rational number.
+/// Compare for greater-than-or-equal ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator>=(rat::rational<uint64_t> r1,
+                         rat::rational<uint64_t> r2) {
+  rat::common_denom const c(r1, r2);
+  return c.n1 >= c.n2;
+}
+
+
+/// Compare for greater-than ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator>(rat::rational<uint64_t> r1,
+                         rat::rational<uint64_t> r2) {
+  rat::common_denom const c(r1, r2);
+  return c.n1 > c.n2;
+}
+
+
+/// Copy rational number by way of unary operator+.
 /// @tparam U  Type of unsigned word in which rational is encoded.
 /// @param  r  Number to copy.
 /// @return    Copy of number.
@@ -103,7 +136,7 @@ constexpr rat::rational<U> operator*(rat::rational<U> r1,
   uint64_t const d2 = r2.d();
   uint64_t const ga = gcd((n1 < 0 ? -n1 : n1), d2);
   uint64_t const gb = gcd((n2 < 0 ? -n2 : n2), d1);
-  return {n1 / ga * n2 / gb, d1 / gb * d2 / ga};
+  return {int64_t(n1 / ga * n2 / gb), int64_t(d1 / gb * d2 / ga)};
 }
 
 

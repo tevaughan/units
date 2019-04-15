@@ -44,10 +44,44 @@ TEST_CASE("Addition and subtraction work.", "[rational]") {
   REQUIRE(r2 - r3 == rat16_t(-11, 12));
 }
 
+
 TEST_CASE("Reciprocal works as expected.", "[rational]") {
   rat8_t r1(-3, 2);
-  rat8_t r2(-2, 3);
-  REQUIRE(r1.reciprocal() == r2);
+  rat8_t r2(2, 3);
+  REQUIRE(r1.reciprocal() == -r2);
   REQUIRE_NOTHROW(rat8_t(8).reciprocal());
   REQUIRE_THROWS(rat8_t(9).reciprocal());
+}
+
+
+TEST_CASE("Multiplication and division work.", "[rational]") {
+  rat8_t r1(-3, 2);
+  rat8_t r2(-1, 4);
+  REQUIRE(r1 * r2 == rat8_t(3, 8));
+  REQUIRE(r1 / r2 == rat8_t(6));
+  r1 *= rat8_t(1, 2);
+  REQUIRE(r1 == rat8_t(-3, 4));
+  r1 /= rat8_t(2, 3);
+  REQUIRE(r1 == rat8_t(-9, 8));
+}
+
+
+TEST_CASE("Encoding and decoding work as expected.", "[rational]") {
+  rat8_t r1(-3,4);
+  uint8_t code = 0xE8 | 0x03;
+  REQUIRE(rat8_t::encode(r1) == code);
+  REQUIRE(rat8_t::decode(code) == r1);
+}
+
+
+TEST_CASE("Comparison operators work as expected.", "[rational]") {
+  rat8_t r1(1,2);
+  rat8_t r2(-3,8);
+  REQUIRE(r1 == r1);
+  REQUIRE(r1 != r2);
+  REQUIRE(r1 >= r1);
+  REQUIRE(r1 >= r2);
+  REQUIRE(r1 > r2);
+  REQUIRE(r2 <= r1);
+  REQUIRE(r2 < r1);
 }
