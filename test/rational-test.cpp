@@ -1,5 +1,6 @@
 #include "../include/vnix/rational.hpp"
 #include "catch.hpp"
+#include <sstream> // for ostringstream
 
 using namespace vnix;
 
@@ -92,4 +93,15 @@ TEST_CASE("Unary operators work as expected.", "[rational]") {
   rat8_t r2(-2, 3);
   REQUIRE(r1 == +r1);
   REQUIRE(r1 == -r2);
+}
+
+
+TEST_CASE("Stream-output works as expected.", "[rational]") {
+  rat8_t r1 = 4;
+  rat8_t r2(-6, 8);
+  std::ostringstream oss1, oss2;
+  oss1 << r1;
+  oss2 << r2;
+  REQUIRE(oss1.str() == "4");
+  REQUIRE(oss2.str() == "[-3/4]");
 }
