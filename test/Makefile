@@ -4,7 +4,8 @@ SRCS = tests.cpp\
  gcd-test.cpp\
  bit-range-test.cpp\
  rational-base-test.cpp\
- normalized-pair-test.cpp
+ normalized-pair-test.cpp\
+ encoding-test.cpp
 
 # These variables are used explicitly by the autodependency code.
 CPPFLAGS = -I../include
