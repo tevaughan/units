@@ -27,5 +27,19 @@ TEST_CASE("Constructor from num and den works as expected.", "[rational]") {
 TEST_CASE("Conversion-constructor works as expected.", "[rational]") {
   rat8_t constexpr r1(3, 2);
   rat16_t constexpr r2(r1);
+  REQUIRE(r2.to_double() == 1.5);
   REQUIRE(r1 == r2);
+}
+
+
+TEST_CASE("Addition and subtraction work.", "[rational]") {
+  rat8_t r1(3, 2);
+  r1 += 1;
+  REQUIRE(r1 == rat8_t(5, 2));
+  r1 -= 1;
+  REQUIRE(r1 == rat8_t(3, 2));
+  rat16_t constexpr r2(-3, 4);
+  rat16_t constexpr r3(1, 6);
+  REQUIRE(r2 + r3 == rat16_t(-7, 12));
+  REQUIRE(r2 - r3 == rat16_t(-11, 12));
 }

@@ -21,7 +21,7 @@ struct common_denom {
   uint64_t const g;   ///< GCD of input denominators.
   uint64_t const d1g; ///< First  input denominator divided by g.
   uint64_t const d2g; ///< Second input denominator divided by g;
-  uint64_t const d;   ///< LCD.
+  int64_t const  d;   ///< LCD (signed because den arg to rational is signed).
   int64_t const  n1;  ///< First  output numerator, corresponding to LCD.
   int64_t const  n2;  ///< Second output numerator, corresponding to LCD.
 
