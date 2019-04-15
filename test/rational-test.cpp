@@ -85,3 +85,11 @@ TEST_CASE("Comparison operators work as expected.", "[rational]") {
   REQUIRE(r2 <= r1);
   REQUIRE(r2 < r1);
 }
+
+
+TEST_CASE("Unary operators work as expected.", "[rational]") {
+  rat8_t r1(4, 6);
+  rat8_t r2(-2, 3);
+  REQUIRE(r1 == +r1);
+  REQUIRE(r1 == -r2);
+}
