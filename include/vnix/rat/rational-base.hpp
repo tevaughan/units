@@ -6,7 +6,7 @@
 #ifndef VNIX_RAT_RATIONAL_BASE_HPP
 #define VNIX_RAT_RATIONAL_BASE_HPP
 
-#include <vnix/rat/bit-range.hpp>
+#include <vnix/bit-range.hpp>
 #include <vnix/rat/sgn.hpp>
 
 namespace vnix {

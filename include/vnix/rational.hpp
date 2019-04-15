@@ -1,7 +1,7 @@
 /// @file       rational.hpp
 /// @brief      Definition of vnix::rational.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
 
 #ifndef VNIX_RATIONAL_HPP
 #define VNIX_RATIONAL_HPP
@@ -74,7 +74,7 @@ public:
   friend constexpr rational operator+(rational r1, rational r2) {
     U const d1  = r1.d();
     U const d2  = r2.d();
-    U const g   = rat::gcd(d1, d2);
+    U const g   = gcd(d1, d2);
     U const d1g = d1 / g;
     U const d2g = d2 / g;
     return {r1.n() * d2g + r2.n() * d1g, d1g * d2};
@@ -118,8 +118,8 @@ public:
     U const d1 = r1.d();
     S const n2 = r2.n();
     U const d2 = r2.d();
-    U const ga = rat::gcd((n1 < 0 ? -n1 : n1), d2);
-    U const gb = rat::gcd((n2 < 0 ? -n2 : n2), d1);
+    U const ga = gcd((n1 < 0 ? -n1 : n1), d2);
+    U const gb = gcd((n2 < 0 ? -n2 : n2), d1);
     return {n1 / ga * n2 / gb, d1 / gb * d2 / ga};
   }
 

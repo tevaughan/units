@@ -6,7 +6,7 @@
 #ifndef VNIX_RAT_NORMALIZED_PAIR_HPP
 #define VNIX_RAT_NORMALIZED_PAIR_HPP
 
-#include <vnix/rat/gcd.hpp>
+#include <vnix/gcd.hpp>
 #include <vnix/rat/rational-base.hpp>
 
 namespace vnix {

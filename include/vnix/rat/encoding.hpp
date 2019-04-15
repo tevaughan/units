@@ -12,9 +12,7 @@ namespace vnix {
 namespace rat {
 
 
-/// Encoding of numerator and denominator for a rational number in unsigned
-/// word of type U.
-///
+/// Encoding of numerator and denominator into unsigned word.
 /// @tparam U  Type of unsigned word for encoding.
 template <typename U> class encoding : public rational_base<U> {
 protected:

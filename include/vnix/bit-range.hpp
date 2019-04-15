@@ -1,15 +1,12 @@
-/// @file       rat/bit-range.hpp
-/// @brief      Definition of vnix::rat::bit, vnix::rat::bit_range.
+/// @file       bit-range.hpp
+/// @brief      Definition of vnix::bit, vnix::bit_range.
 /// @copyright  2019 Thomas E. Vaughan
 /// @license    GPL3.
 
-#ifndef VNIX_RAT_BIT_HPP
-#define VNIX_RAT_BIT_HPP
+#ifndef VNIX_BIT_HPP
+#define VNIX_BIT_HPP
 
 namespace vnix {
-
-/// Namespace holding code that supports the implementation of class rational.
-namespace rat {
 
 
 /// Word with specified bit set.
@@ -33,7 +30,6 @@ template <typename I> constexpr I bit_range(unsigned n1, unsigned n2) {
 }
 
 
-} // namespace rat
 } // namespace vnix
 
-#endif // ndef VNIX_RAT_BIT_HPP
+#endif // ndef VNIX_BIT_HPP
