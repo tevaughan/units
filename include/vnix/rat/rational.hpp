@@ -52,7 +52,7 @@ public:
   }
 
   /// Automatically convert to boolean.
-  constexpr operator bool() const { return n() != 0; }
+  constexpr bool to_bool() const { return n() != 0; }
 
   /// Convert to double.
   constexpr double to_double() const { return n() * 1.0 / d(); }
