@@ -1,5 +1,5 @@
 /// @file       rational.hpp
-/// @brief      Definition of vnix::rational.
+/// @brief      Definition of vnix::rational, vnix::common_denom.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.
 
@@ -17,7 +17,7 @@ namespace vnix {
 /// Numerator and denominator are encoded in same unsigned integer word.  They
 /// form a partition of the bits in the word.
 ///
-/// @tparam U  Type of unsigned integer word.
+/// @tparam U  Type of unsigned word in which rational number is encoded
 template <typename U> class rational : public rat::encoding<U> {
   struct dummy_arg {};
 
@@ -30,11 +30,18 @@ public:
   using rat::encoding<U>::n;
   using rat::encoding<U>::d;
 
-  /// Initialize representation.
-  /// @param n  Numerator.
-  /// @param d  Denominator.
+  /// Initialize from numerator and denominator.
+  /// @param n  Numerator   (zero  by default).
+  /// @param d  Denominator (unity by default).
   constexpr rational(int64_t n = 0, int64_t d = 1)
       : rat::encoding<U>(rat::normalized_pair<U>(n, d)) {}
+
+  /// Initialize from other rational.
+  /// @tparam OU  Type of word in which other rational in encoded.
+  /// @param  r   Copy of other rational.
+  template <typename OU>
+  constexpr rational(rational<OU> r)
+      : rat::encoding<U>(rat::normalized_pair<U>(r.n(), r.d())) {}
 
   /// Convert to (signed) integer.
   constexpr S to_int() const {
@@ -49,47 +56,6 @@ public:
 
   /// Convert to double.
   constexpr double to_double() const { return n() * 1.0 / d(); }
-
-  /// Compare for equality with another rational.
-  constexpr bool operator==(rational r) const {
-    return n() == r.n() && d() == r.d();
-  }
-
-  /// Compare for inequality with another rational.
-  constexpr bool operator!=(rational r) const {
-    return n() != r.n() || d() != r.d();
-  }
-
-  /// Copy rational number.
-  /// @param r  Number to copy.
-  /// @return   Copy of number.
-  friend constexpr rational operator+(rational r) { return r; }
-
-  /// Negate a rational number.
-  /// @param r  Number to negate.
-  /// @return   Negative of number.
-  friend constexpr rational operator-(rational r) { return {-r.n(), r.d()}; }
-
-  /// Sum of two rational numbers.
-  /// @param r1  Addend.
-  /// @param r2  Adder.
-  /// @return    Sum.
-  friend constexpr rational operator+(rational r1, rational r2) {
-    U const d1  = r1.d();
-    U const d2  = r2.d();
-    U const g   = gcd(d1, d2);
-    U const d1g = d1 / g;
-    U const d2g = d2 / g;
-    return {r1.n() * d2g + r2.n() * d1g, d1g * d2};
-  }
-
-  /// Difference between two rational numbers.
-  /// @param r1  Minuend.
-  /// @param r2  Subtrahend.
-  /// @return    Difference.
-  friend constexpr rational operator-(rational r1, rational r2) {
-    return -r2 + r1;
-  }
 
   /// Modify this rational number by adding other rational number.
   /// @param r  Other rational number.
@@ -110,28 +76,6 @@ public:
       return {-d(), -n()};
     }
     return {d(), n()};
-  }
-
-  /// Product of two rational numbers.
-  /// @param r1  Multiplicand.
-  /// @param r2  Multiplier.
-  /// @return    Product.
-  friend constexpr rational operator*(rational r1, rational r2) {
-    S const n1 = r1.n();
-    U const d1 = r1.d();
-    S const n2 = r2.n();
-    U const d2 = r2.d();
-    U const ga = gcd((n1 < 0 ? -n1 : n1), d2);
-    U const gb = gcd((n2 < 0 ? -n2 : n2), d1);
-    return {n1 / ga * n2 / gb, d1 / gb * d2 / ga};
-  }
-
-  /// Quotient of two rational numbers.
-  /// @param r1  Dividend.
-  /// @param r2  Divisor.
-  /// @return    Quotient.
-  friend constexpr rational operator/(rational r1, rational r2) {
-    return r1 * r2.reciprocal();
   }
 
   /// Modify this rational number by multiplying by other rational number.
@@ -166,8 +110,130 @@ public:
 };
 
 
+/// Compare rationals for equality.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator==(rational<uint64_t> r1, rational<uint64_t> r2) {
+  return r1.n() == r2.n() && r1.d() == r2.d();
+}
+
+
+/// Compare rationals for inequality.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator!=(rational<uint64_t> r1, rational<uint64_t> r2) {
+  return r1.n() != r2.n() || r1.d() != r2.d();
+}
+
+
+/// Least common denominator (LCD) and numerators corresponding to a pair of
+/// rational numbers.
+struct common_denom {
+  uint64_t const g;   ///< GCD of input denominators.
+  uint64_t const d1g; ///< First  input denominator divided by g.
+  uint64_t const d2g; ///< Second input denominator divided by g;
+  uint64_t const d;   ///< LCD.
+  int64_t const  n1;  ///< First  output numerator, corresponding to LCD.
+  int64_t const  n2;  ///< Second output numerator, corresponding to LCD.
+
+  /// Common denominator and associated numerators for rational pair.
+  /// @tparam U   Type of unsigned integer word in which ration is encoded.
+  /// @param  r1  First  input rational number.
+  /// @param  r2  Second input rational number.
+  template <typename U>
+  constexpr common_denom(rational<U> r1, rational<U> r2)
+      : g(gcd(r1.d(), r2.d())), //
+        d1g(r1.d() / g),        //
+        d2g(r2.d() / g),        //
+        d(d1g * r2.d()),        //
+        n1(r1.n() * d2g),       //
+        n2(r2.n() * d1g) {}
+};
+
+
+/// Compare for ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator<(rational<uint64_t> r1, rational<uint64_t> r2) {
+  common_denom const c(r1, r2);
+  return c.n1 < c.n2;
+}
+
+
+/// Copy rational number.
+/// @tparam U  Type of unsigned word in which rational is encoded.
+/// @param  r  Number to copy.
+/// @return    Copy of number.
+template <typename U> constexpr rational<U> operator+(rational<U> r) {
+  return r;
+}
+
+
+/// Negate rational number.
+/// @tparam U  Type of unsigned word in which rational is encoded.
+/// @param  r  Number to negate.
+/// @return    Negative of number.
+template <typename U> constexpr rational<U> operator-(rational<U> r) {
+  return {-r.n(), r.d()};
+}
+
+
+/// Sum of two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Addend.
+/// @param  r2  Adder.
+/// @return     Sum.
+template <typename U>
+constexpr rational<U> operator+(rational<U> r1, rational<U> r2) {
+  common_denom const c(r1, r2);
+  return {c.n1 + c.n2, c.d};
+}
+
+
+/// Difference between two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Minuend.
+/// @param  r2  Subtrahend.
+/// @return     Difference.
+template <typename U>
+constexpr rational<U> operator-(rational<U> r1, rational<U> r2) {
+  return -r2 + r1;
+}
+
+
+/// Product of two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Multiplicand.
+/// @param  r2  Multiplier.
+/// @return     Product.
+template <typename U>
+constexpr rational<U> operator*(rational<U> r1, rational<U> r2) {
+  int64_t const  n1 = r1.n();
+  int64_t const  n2 = r2.n();
+  uint64_t const d1 = r1.d();
+  uint64_t const d2 = r2.d();
+  uint64_t const ga = gcd((n1 < 0 ? -n1 : n1), d2);
+  uint64_t const gb = gcd((n2 < 0 ? -n2 : n2), d1);
+  return {n1 / ga * n2 / gb, d1 / gb * d2 / ga};
+}
+
+
+/// Quotient of two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Dividend.
+/// @param  r2  Divisor.
+/// @return     Quotient.
+template <typename U>
+constexpr rational<U> operator/(rational<U> r1, rational<U> r2) {
+  return r1 * r2.reciprocal();
+}
+
+
 /// Print rational number to output-stream.
-/// @tparam U  Type of word in which numerator and denominator are encoded.
+/// @tparam U  Type of unsigned word in which rational is encoded.
 /// @param  s  Reference to output-stream.
 /// @param  r  Rational number.
 /// @return    Reference to modified output-stream.
@@ -178,7 +244,7 @@ std::ostream &operator<<(std::ostream &s, rational<U> r) {
 
 
 /// Rational with five bits for numerator and three for denominator.
-using rat8_t  = rational<uint8_t>;
+using rat8_t = rational<uint8_t>;
 
 /// Rational with nine bits for numerator and seven for denominator.
 using rat16_t = rational<uint16_t>;
