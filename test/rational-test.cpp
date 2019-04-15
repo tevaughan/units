@@ -103,5 +103,5 @@ TEST_CASE("Stream-output works as expected.", "[rational]") {
   oss1 << r1;
   oss2 << r2;
   REQUIRE(oss1.str() == "4");
-  REQUIRE(oss2.str() == "[-3/4]");
+  REQUIRE(oss2.str() == "-3/4");
 }

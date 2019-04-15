@@ -159,12 +159,9 @@ constexpr rat::rational<U> operator/(rat::rational<U> r1,
 /// @return    Reference to modified output-stream.
 template <typename U>
 std::ostream &operator<<(std::ostream &s, rat::rational<U> r) {
-  if (r.d() != 1) {
-    s << "[";
-  }
   s << int64_t(r.n());
   if (r.d() != 1) {
-    s << '/' << uint64_t(r.d()) << "]";
+    s << '/' << uint64_t(r.d());
   }
   return s;
 }
