@@ -1,6 +1,10 @@
 # SRCS contains a list of every cpp-file for which an object-file will be
 # compiled.  SRCS is used explicitly by the autodependency code.
-SRCS = tests.cpp gcd-test.cpp bit-range-test.cpp
+SRCS = tests.cpp\
+ gcd-test.cpp\
+ bit-range-test.cpp\
+ rational-base-test.cpp\
+ normalized-pair-test.cpp
 
 # These variables are used explicitly by the autodependency code.
 CPPFLAGS = -I../include

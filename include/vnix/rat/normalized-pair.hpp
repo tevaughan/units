@@ -25,9 +25,9 @@ template <typename U> class normalized_pair : rational_base<U> {
   using rational_base<U>::NMR_BITS;
   using rational_base<U>::DNM_BITS;
 
-  int64_t g_;  ///< Greatest common divisor for initial numer and denom.
-  S       n_;  ///< Normalized numerator.
-  U       d_;  ///< Normalized denominator.
+  uint64_t g_; ///< Greatest common divisor for initial numer and denom.
+  S        n_; ///< Normalized numerator.
+  U        d_; ///< Normalized denominator.
 
   /// Absolute value.
   /// @param x  Positive or negative value.
@@ -63,8 +63,9 @@ public:
     }
   }
 
-  constexpr S n() const { return n_; } ///< Normalized numerator.
-  constexpr U d() const { return d_; } ///< Normalized denominator.
+  constexpr uint64_t g() const { return g_; } ///< GCD.
+  constexpr S        n() const { return n_; } ///< Normalized numerator.
+  constexpr U        d() const { return d_; } ///< Normalized denominator.
 };
 
 

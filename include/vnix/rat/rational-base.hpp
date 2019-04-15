@@ -17,8 +17,7 @@ namespace rat {
 /// numerator and denominator of a rational number.
 ///
 /// @tparam U  Type of unsigned word in which rational number is encoded.
-template <typename U> class rational_base {
-protected:
+template <typename U> struct rational_base {
   using S = typename sgn<U>::type; ///< Signed type corresponding to U.
   enum {
     BITS     = sizeof(U) * 8,   ///< Total number of bits in word.
