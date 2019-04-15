@@ -1,6 +1,7 @@
 # Copyright 2019  Thomas E. Vaughan
 # Distrubited under the terms of GPL, Version 3 or later.  See LICENSE.
 
+# Modify this in order to customize the location for installation.
 PREFIX=/usr/local
 
 .PHONY: test install clean

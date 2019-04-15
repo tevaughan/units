@@ -43,11 +43,11 @@ To build the test and/or install:
 
 ```
 git clone https://github.com/tevaughan/units.git
-cd units         # Change the working directory into the new clone.
-make             # Builds the test program.
-test/units-test  # Run the test program.
-vim Makefile     # Edit PREFIX for installation or CXX to change compiler.
-make install     # Install the headers to $(PREFIX)/include/vnix.
+cd units      # Change the working directory into the new clone.
+make          # Builds the test program.
+test/tests    # Run the tests.
+vim Makefile  # Edit PREFIX for installation or CXX to change compiler.
+make install  # Install the headers to $(PREFIX)/include/vnix.
 ```
 
 ## License
