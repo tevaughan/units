@@ -1,15 +1,21 @@
-CXX = g++
-CC = $(CXX)
+# SRCS contains a list of every cpp-file for which an object-file will be
+# compiled.  SRCS is used explicitly by the autodependency code.
+SRCS = tests.cpp gcd-test.cpp
 
+# These variables are used explicitly by the autodependency code.
 CPPFLAGS = -I../include
 CXXFLAGS = -g -O0 -std=c++17 -Wall
-SRCS = $(shell ls *.cpp)
+CXX      = g++
+
+# CC is used implicitly by the linker and must be set equal to the value stored
+# in CXX.  C++ objects require special handling, and so the C++ compiler must
+# be invoked as the linker.  The C compiler will not do.
+CC = $(CXX)
 
 # ---------- BEG Automatic dependencies for C and C++ files. ----------
 # http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 DEPDIR := .d
 $(shell mkdir -p $(DEPDIR) >/dev/null)
-SRCS=$(shell echo *.cpp)
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
 COMPILE.cc = $(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
 POSTCOMPILE = mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d
@@ -21,15 +27,17 @@ $(DEPDIR)/%.d: ;
 .PRECIOUS: $(DEPDIR)/%.d
 # ---------- END Automatic dependencies for C and C++ files. ----------
 
-.PHONY: clean
+.PHONY: all clean
 
-units-test: units-test.o
+all: tests
+
+tests: $(SRCS:.cpp=.o)
 
 clean:
 	@rm -frv $(DEPDIR)
 	@rm -fv *.o
-	@rm -fv units-test
+	@rm -fv tests
 
-# This must be the last line.
+# This should be the last line.
 # http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 -include $(patsubst %,$(DEPDIR)/%.d,$(basename $(SRCS)))
