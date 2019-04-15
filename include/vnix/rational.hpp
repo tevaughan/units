@@ -23,6 +23,24 @@ constexpr bool operator==(rat::rational<uint64_t> r1,
 }
 
 
+/// Compare rationals for equality.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator==(int64_t r1, rat::rational<uint64_t> r2) {
+  return rat::rational<uint64_t>(r1) == r2;
+}
+
+
+/// Compare rationals for equality.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator==(rat::rational<uint64_t> r1, int64_t r2) {
+  return r1 == rat::rational<uint64_t>(r2);
+}
+
+
 /// Compare rationals for inequality.
 /// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
@@ -33,14 +51,50 @@ constexpr bool operator!=(rat::rational<uint64_t> r1,
 }
 
 
+/// Compare rationals for inequality.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator!=(int64_t r1, rat::rational<uint64_t> r2) {
+  return !(r1 == r2);
+}
+
+
+/// Compare rationals for inequality.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator!=(rat::rational<uint64_t> r1, int64_t r2) {
+  return !(r1 == r2);
+}
+
+
 /// Compare for less-than-or-equal ordering with another rational.
 /// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
 constexpr bool operator<=(rat::rational<uint64_t> r1,
-                         rat::rational<uint64_t> r2) {
+                          rat::rational<uint64_t> r2) {
   rat::common_denom const c(r1, r2);
   return c.n1 <= c.n2;
+}
+
+
+/// Compare for less-than-or-equal ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator<=(int64_t r1, rat::rational<uint64_t> r2) {
+  return rat::rational<uint64_t>(r1) <= r2;
+}
+
+
+/// Compare for less-than-or-equal ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator<=(rat::rational<uint64_t> r1, int64_t r2) {
+  return r1 <= rat::rational<uint64_t>(r2);
 }
 
 
@@ -55,14 +109,50 @@ constexpr bool operator<(rat::rational<uint64_t> r1,
 }
 
 
+/// Compare for less-than ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator<(int64_t r1, rat::rational<uint64_t> r2) {
+  return rat::rational<uint64_t>(r1) < r2;
+}
+
+
+/// Compare for less-than ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator<(rat::rational<uint64_t> r1, int64_t r2) {
+  return r1 < rat::rational<uint64_t>(r2);
+}
+
+
 /// Compare for greater-than-or-equal ordering with another rational.
 /// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
 constexpr bool operator>=(rat::rational<uint64_t> r1,
-                         rat::rational<uint64_t> r2) {
+                          rat::rational<uint64_t> r2) {
   rat::common_denom const c(r1, r2);
   return c.n1 >= c.n2;
+}
+
+
+/// Compare for greater-than-or-equal ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator>=(int64_t r1, rat::rational<uint64_t> r2) {
+  return rat::rational<uint64_t>(r1) >= r2;
+}
+
+
+/// Compare for greater-than-or-equal ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator>=(rat::rational<uint64_t> r1, int64_t r2) {
+  return r1 >= rat::rational<uint64_t>(r2);
 }
 
 
@@ -74,6 +164,24 @@ constexpr bool operator>(rat::rational<uint64_t> r1,
                          rat::rational<uint64_t> r2) {
   rat::common_denom const c(r1, r2);
   return c.n1 > c.n2;
+}
+
+
+/// Compare for greater-than ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator>(int64_t r1, rat::rational<uint64_t> r2) {
+  return rat::rational<uint64_t>(r1) > r2;
+}
+
+
+/// Compare for greater-than ordering with another rational.
+/// Promote both to uint64_t-storage for comparison.
+/// @param r1  Left -hand operand.
+/// @param r2  Right-hand operand.
+constexpr bool operator>(rat::rational<uint64_t> r1, int64_t r2) {
+  return r1 > rat::rational<uint64_t>(r2);
 }
 
 
@@ -110,6 +218,28 @@ constexpr rat::rational<U> operator+(rat::rational<U> r1,
 }
 
 
+/// Sum of two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Addend.
+/// @param  r2  Adder.
+/// @return     Sum.
+template <typename U>
+constexpr rat::rational<U> operator+(int64_t r1, rat::rational<U> r2) {
+  return rat::rational<U>(r1) + r2;
+}
+
+
+/// Sum of two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Addend.
+/// @param  r2  Adder.
+/// @return     Sum.
+template <typename U>
+constexpr rat::rational<U> operator+(rat::rational<U> r1, int64_t r2) {
+  return r1 + rat::rational<U>(r2);
+}
+
+
 /// Difference between two rational numbers.
 /// @tparam U   Type of unsigned word in which rational is encoded.
 /// @param  r1  Minuend.
@@ -118,6 +248,28 @@ constexpr rat::rational<U> operator+(rat::rational<U> r1,
 template <typename U>
 constexpr rat::rational<U> operator-(rat::rational<U> r1,
                                      rat::rational<U> r2) {
+  return -r2 + r1;
+}
+
+
+/// Difference between two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Minuend.
+/// @param  r2  Subtrahend.
+/// @return     Difference.
+template <typename U>
+constexpr rat::rational<U> operator-(int64_t r1, rat::rational<U> r2) {
+  return -r2 + r1;
+}
+
+
+/// Difference between two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Minuend.
+/// @param  r2  Subtrahend.
+/// @return     Difference.
+template <typename U>
+constexpr rat::rational<U> operator-(rat::rational<U> r1, int64_t r2) {
   return -r2 + r1;
 }
 
@@ -140,6 +292,28 @@ constexpr rat::rational<U> operator*(rat::rational<U> r1,
 }
 
 
+/// Product of two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Multiplicand.
+/// @param  r2  Multiplier.
+/// @return     Product.
+template <typename U>
+constexpr rat::rational<U> operator*(int64_t r1, rat::rational<U> r2) {
+  return rat::rational<U>(r1) * r2;
+}
+
+
+/// Product of two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Multiplicand.
+/// @param  r2  Multiplier.
+/// @return     Product.
+template <typename U>
+constexpr rat::rational<U> operator*(rat::rational<U> r1, int64_t r2) {
+  return r1 * rat::rational<U>(r2);
+}
+
+
 /// Quotient of two rational numbers.
 /// @tparam U   Type of unsigned word in which rational is encoded.
 /// @param  r1  Dividend.
@@ -149,6 +323,28 @@ template <typename U>
 constexpr rat::rational<U> operator/(rat::rational<U> r1,
                                      rat::rational<U> r2) {
   return r1 * r2.reciprocal();
+}
+
+
+/// Quotient of two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Dividend.
+/// @param  r2  Divisor.
+/// @return     Quotient.
+template <typename U>
+constexpr rat::rational<U> operator/(int64_t r1, rat::rational<U> r2) {
+  return r1 * r2.reciprocal();
+}
+
+
+/// Quotient of two rational numbers.
+/// @tparam U   Type of unsigned word in which rational is encoded.
+/// @param  r1  Dividend.
+/// @param  r2  Divisor.
+/// @return     Quotient.
+template <typename U>
+constexpr rat::rational<U> operator/(rat::rational<U> r1, int64_t r2) {
+  return r1 * rat::rational<U>(r2).reciprocal();
 }
 
 
