@@ -100,3 +100,28 @@ TEST_CASE("GCD of any relative primes is 1.", "[gcd]") {
   REQUIRE(gcd(9, 7) == 1);
   REQUIRE(gcd(9, 8) == 1);
 }
+
+
+TEST_CASE("GCD of multiple is factor.", "[gcd]") {
+  REQUIRE(gcd(2, 4) == 2);
+  REQUIRE(gcd(2, 6) == 2);
+  REQUIRE(gcd(2, 8) == 2);
+  REQUIRE(gcd(3, 6) == 3);
+  REQUIRE(gcd(3, 9) == 3);
+  REQUIRE(gcd(4, 8) == 4);
+
+  REQUIRE(gcd(4, 2) == 2);
+  REQUIRE(gcd(6, 2) == 2);
+  REQUIRE(gcd(8, 2) == 2);
+  REQUIRE(gcd(6, 3) == 3);
+  REQUIRE(gcd(9, 3) == 3);
+  REQUIRE(gcd(8, 4) == 4);
+}
+
+
+TEST_CASE("Otherwise, GCD works.", "[gcd]") {
+  REQUIRE(gcd(4, 6) == 2);
+  REQUIRE(gcd(6, 4) == 2);
+  REQUIRE(gcd(6, 9) == 3);
+  REQUIRE(gcd(9, 6) == 3);
+}
