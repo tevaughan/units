@@ -36,8 +36,8 @@ public:
   constexpr rational(int64_t n = 0, int64_t d = 1)
       : rat::encoding<U>(rat::normalized_pair<U>(n, d)) {}
 
-  /// Automatically convert to (signed) integer.
-  constexpr operator S() const {
+  /// Convert to (signed) integer.
+  constexpr S to_int() const {
     if (d() != 1) {
       throw "attempted conversion to integer from fraction";
     }
@@ -46,6 +46,9 @@ public:
 
   /// Automatically convert to boolean.
   constexpr operator bool() const { return n() != 0; }
+
+  /// Convert to double.
+  constexpr double to_double() const { return n() * 1.0 / d(); }
 
   /// Compare for equality with another rational.
   constexpr bool operator==(rational r) const {
@@ -174,10 +177,17 @@ std::ostream &operator<<(std::ostream &s, rational<U> r) {
 }
 
 
-using rat8_t  = rational<uint8_t>;  ///< Short-hand.
-using rat16_t = rational<uint16_t>; ///< Short-hand.
-using rat32_t = rational<uint32_t>; ///< Short-hand.
-using rat64_t = rational<uint64_t>; ///< Short-hand.
+/// Rational with five bits for numerator and three for denominator.
+using rat8_t  = rational<uint8_t>;
+
+/// Rational with nine bits for numerator and seven for denominator.
+using rat16_t = rational<uint16_t>;
+
+/// Rational with 17 bits for numerator and 15 for denominator.
+using rat32_t = rational<uint32_t>;
+
+/// Rational with 33 bits for numerator and 31 for denominator.
+using rat64_t = rational<uint64_t>;
 
 
 } // namespace vnix
