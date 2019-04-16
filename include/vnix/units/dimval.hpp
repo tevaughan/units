@@ -1,5 +1,5 @@
 /// @file       units/dimval.hpp
-/// @brief      Definition of vnix::units::dimval.
+/// @brief      Definition of vnix::units::dimval, descendants, and typedefs.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.
 
@@ -17,8 +17,8 @@ namespace vnix {
 namespace units {
 
 
-template <typename T> struct dyndim;
-template <uint64_t D, typename T> class statdim;
+template <typename T> struct basic_dyndim;
+template <uint64_t D, typename T> class basic_statdim;
 
 
 /// Model of a physically dimensioned quantity.
@@ -32,12 +32,12 @@ template <typename T, typename B> class dimval : public number<T>, public B {
 
   /// Allow access to each kind (float or double) of dyndim.
   /// @tparam OT  Type of dyndim's numeric value.
-  template <typename OT> friend struct dyndim;
+  template <typename OT> friend struct basic_dyndim;
 
   /// Allow access to every kind of statdim.
   /// @tparam D   Encoding of dimension in `uint64_t`.
   /// @tparam OT  Type of statdim's numeric value.
-  template <uint64_t D, typename OT> friend class statdim;
+  template <uint64_t D, typename OT> friend class basic_statdim;
 
 protected:
   /// Initialize from numeric value and from dimension.
@@ -198,13 +198,7 @@ public:
 
   /// Print to to output stream.
   friend std::ostream &operator<<(std::ostream &s, dimval const &v) {
-    s << v.v_;
-    print_unit(s, "m", v.d(LEN));
-    print_unit(s, "kg", v.d(MAS));
-    print_unit(s, "s", v.d(TIM));
-    print_unit(s, "C", v.d(CHG));
-    print_unit(s, "K", v.d(TMP));
-    return s;
+    return s << v.v_ << v.d;
   }
 };
 
@@ -224,13 +218,14 @@ constexpr auto pow(dimval<T, B> const &v) {
 
 /// Model of a dynamically dimensioned physical quantity.
 /// @tparam T  Type of numeric value.
-template <typename T> struct dyndim : public dimval<T, dyndim_base> {
+template <typename T> struct basic_dyndim : public dimval<T, dyndim_base> {
   /// Allow dyndim to be initialized from any other dimval whatsoever.
   /// @tparam OT  Other dimval's numeric type.
   /// @tparam OB  Other dimval's base-dimension type.
   /// @param  dv  Other dimval.
   template <typename OT, typename OB>
-  dyndim(dimval<OT, OB> const &dv) : dimval<T, dyndim_base>(dv.v_, dv.d()) {}
+  basic_dyndim(dimval<OT, OB> const &dv)
+      : dimval<T, dyndim_base>(dv.v_, dv.d()) {}
 
   // TBD: dyndim should have a constructor from std::string.
 };
@@ -238,19 +233,19 @@ template <typename T> struct dyndim : public dimval<T, dyndim_base> {
 
 /// Model of a dynamically dimensioned physical quantity with double-precision
 /// numeric value.
-using dyndimd = dyndim<double>;
+using dyndimd = basic_dyndim<double>;
 
 
 /// Model of a dynamically dimensioned physical quantity with single-precision
 /// numeric value.
-using dyndimf = dyndim<float>;
+using dyndimf = basic_dyndim<float>;
 
 
 /// Model of a statically dimensioned physical quantity.
 /// @tparam D  Encoding of dimension in `uint64_t`.
 /// @tparam T  Type numeric value.
 template <uint64_t D, typename T>
-class statdim : public dimval<T, statdim_base<D>> {
+class basic_statdim : public dimval<T, statdim_base<D>> {
   /// Type of compatible statdim.
   /// @tparam OT  Type of numeric value.
   template <typename OT> using stat = dimval<OT, statdim_base<D>>;
@@ -262,7 +257,7 @@ public:
   /// Initialize from compatible statdim.
   /// @tparam OT  Type of numeric value.
   /// @param  dv  Compatible statdim.
-  template <typename OT> statdim(stat<OT> dv) : stat<T>(dv.v_, dv.d()) {}
+  template <typename OT> basic_statdim(stat<OT> dv) : stat<T>(dv.v_, dv.d()) {}
 
   /// Attempt initialization from dyndim.  statdim_base's constructor will
   /// throw exception on incompatible dimension.
@@ -270,7 +265,7 @@ public:
   /// @tparam OT  Type of numeric value.
   /// @param  dv  Instance of dyndim.
   template <typename OT>
-  statdim(dyndim<OT> const &dv) : stat<T>(dv.v_, dv.d()) {}
+  basic_statdim(basic_dyndim<OT> const &dv) : stat<T>(dv.v_, dv.d()) {}
 };
 
 
@@ -278,73 +273,103 @@ public:
 /// numeric value.
 ///
 /// @tparam D  Encoding of dimension in `uint64_t`.
-template <uint64_t D> using statdimd = statdim<D, double>;
+template <uint64_t D> using statdimd = basic_statdim<D, double>;
 
 
 /// Model of a statically dimensioned physical quantity with single-precision
 /// numeric value.
 ///
 /// @tparam D  Encoding of dimension in `uint64_t`.
-template <uint64_t D> using statdimf = statdim<D, float>;
+template <uint64_t D> using statdimf = basic_statdim<D, float>;
 
 
-using timed        = statdim<tim_dim, double>;
-using lengthd      = statdim<len_dim, double>;
-using massd        = statdim<mas_dim, double>;
-using charged      = statdim<chg_dim, double>;
-using temperatured = statdim<tmp_dim, double>;
+using timed        = statdimd<tim_dim>;
+using lengthd      = statdimd<len_dim>;
+using massd        = statdimd<mas_dim>;
+using charged      = statdimd<chg_dim>;
+using temperatured = statdimd<tmp_dim>;
 
 
-using timef        = statdim<tim_dim, float>;
-using lengthf      = statdim<len_dim, float>;
-using massf        = statdim<mas_dim, float>;
-using chargef      = statdim<chg_dim, float>;
-using temperaturef = statdim<tmp_dim, float>;
+using timef        = statdimf<tim_dim>;
+using lengthf      = statdimf<len_dim>;
+using massf        = statdimf<mas_dim>;
+using chargef      = statdimf<chg_dim>;
+using temperaturef = statdimf<tmp_dim>;
 
 
 #ifdef VNIX_UNITS_DBL
 
-struct seconds : public timed {
-  constexpr seconds(double v) : timed(v, tim_dim) {}
+
+using dyndim = dyndimd;
+
+using time        = timed;
+using length      = lengthd;
+using mass        = massd;
+using charge      = charged;
+using temperature = temperatured;
+
+
+struct seconds : public time {
+  constexpr seconds(double v) : time(v, tim_dim) {}
 };
 
-struct meters : public lengthd {
-  constexpr meters(double v) : lengthd(v, len_dim) {}
+
+struct meters : public length {
+  constexpr meters(double v) : length(v, len_dim) {}
 };
 
-struct kilograms : public massd {
-  constexpr kilograms(double v) : massd(v, mas_dim) {}
+
+struct kilograms : public mass {
+  constexpr kilograms(double v) : mass(v, mas_dim) {}
 };
 
-struct coulombs : public charged {
-  constexpr coulombs(double v) : charged(v, chg_dim) {}
+
+struct coulombs : public charge {
+  constexpr coulombs(double v) : charge(v, chg_dim) {}
 };
 
-struct kelvins : public temperatured {
-  constexpr kelvins(double v) : temperatured(v, tmp_dim) {}
+
+struct kelvins : public temperature {
+  constexpr kelvins(double v) : temperature(v, tmp_dim) {}
 };
+
 
 #else
 
-struct seconds : public timef {
-  constexpr seconds(float v) : timef(v, tim_dim) {}
+
+using dyndim = dyndimf;
+
+using time        = timef;
+using length      = lengthf;
+using mass        = massf;
+using charge      = chargef;
+using temperature = temperaturef;
+
+
+struct seconds : public time {
+  constexpr seconds(float v) : time(v, tim_dim) {}
 };
 
-struct meters : public lengthf {
-  constexpr meters(float v) : lengthf(v, len_dim) {}
+
+struct meters : public length {
+  constexpr meters(float v) : length(v, len_dim) {}
 };
 
-struct kilograms : public massf {
-  constexpr kilograms(float v) : massf(v, mas_dim) {}
+
+struct kilograms : public mass {
+  constexpr kilograms(float v) : mass(v, mas_dim) {}
 };
 
-struct coulombs : public chargef {
-  constexpr coulombs(float v) : chargef(v, chg_dim) {}
+
+struct coulombs : public charge {
+  constexpr coulombs(float v) : charge(v, chg_dim) {}
 };
 
-struct kelvins : public temperaturef {
-  constexpr kelvins(float v) : temperaturef(v, tmp_dim) {}
+
+struct kelvins : public temperature {
+  constexpr kelvins(float v) : temperature(v, tmp_dim) {}
 };
+
 
 #endif // def VNIX_UNITS_DBL
 

@@ -1,5 +1,6 @@
 #include "../include/vnix/units/dim.hpp"
 #include "catch.hpp"
+#include <sstream> // for ostringstream
 
 using namespace vnix;
 
@@ -45,4 +46,15 @@ TEST_CASE("Multiplication and division work as expected.", "[dim]") {
   dim    z2({a / f, b / f, c / f, d / f, e / f});
   REQUIRE(x * f == z1);
   REQUIRE(x / f == z2);
+}
+
+
+TEST_CASE("dim can print to stream.", "[dim]") {
+  dim d1({1, -1, rat8_t(1, 2), 0, rat8_t(-2, 3)});
+  dim d2({0, 0, 0, 2, 0});
+  std::ostringstream oss1, oss2;
+  oss1 << d1;
+  oss2 << d2;
+  REQUIRE(oss1.str() == " m^-1 kg^[1/2] s K^[-2/3]");
+  REQUIRE(oss2.str() == " C^2");
 }

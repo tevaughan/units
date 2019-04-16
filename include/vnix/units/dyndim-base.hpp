@@ -12,9 +12,6 @@ namespace vnix {
 namespace units {
 
 
-template <uint64_t D> struct statdim_base;
-
-
 /// Base-type for a dimensioned value whose dimension is specified, perhaps
 /// dynamically at run-time, by way of the constructor.
 ///

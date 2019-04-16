@@ -126,6 +126,39 @@ public:
   constexpr friend dim operator/(dim d, rat f) {
     return d.transform([f](rat x) { return x / f; });
   }
+
+  /// Print to output stream the symbolic contribution from a given unit.
+  /// @param s  Output stream.
+  /// @param u  Abbreviation for unit.
+  /// @param e  Exponent of unit.
+  static std::ostream &print_unit(std::ostream &s, char const *u, rat8_t e) {
+    if (e.to_bool()) {
+      s << " " << u;
+      if (e != rat8_t(1)) {
+        s << "^";
+        if (e.d() != 1) {
+          s << "[";
+        }
+        s << e;
+        if (e.d() != 1) {
+          s << "]";
+        }
+      }
+    }
+    return s;
+  }
+
+  /// Print to to output stream.
+  /// @param s  Reference to stream.
+  /// @param d  Dimension to print.
+  friend std::ostream &operator<<(std::ostream &s, dim d) {
+    print_unit(s, "m", d[LEN]);
+    print_unit(s, "kg", d[MAS]);
+    print_unit(s, "s", d[TIM]);
+    print_unit(s, "C", d[CHG]);
+    print_unit(s, "K", d[TMP]);
+    return s;
+  }
 };
 
 
