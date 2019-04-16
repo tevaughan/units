@@ -9,7 +9,8 @@ SRCS = tests.cpp\
  rational-test.cpp\
  dim-test.cpp\
  statdim-base-test.cpp\
- dyndim-base-test.cpp
+ dyndim-base-test.cpp\
+ dimval-test.cpp
 
 # These variables are used explicitly by the autodependency code.
 CPPFLAGS = -I../include

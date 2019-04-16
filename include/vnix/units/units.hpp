@@ -12,9 +12,9 @@ namespace vnix {
 namespace units {
 
 
-constexpr seconds   s{1.0};  ///< Second.
 constexpr meters    m{1.0};  ///< Meter.
 constexpr kilograms kg{1.0}; ///< Kilogram.
+constexpr seconds   s{1.0};  ///< Second.
 constexpr coulombs  C{1.0};  ///< Coulomb.
 constexpr kelvins   K{1.0};  ///< Kelvin.
 
@@ -61,6 +61,16 @@ constexpr auto erg = dyn * cm;    ///< Erg.
 // Currents.
 constexpr auto A  = C / s;       ///< Amp.
 constexpr auto mA = 1.0E-03 * A; ///< Milliamp.
+
+
+// Some useful statdim types (other than length, time, etc., already defined).
+using force    = decltype(N);
+using energy   = decltype(J);
+using current  = decltype(A);
+using speed    = decltype(m / s);
+using momentum = decltype(kg * m / s);
+using area     = decltype(m * m);
+using pressure = decltype(N / m / m);
 
 
 } // namespace units

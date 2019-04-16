@@ -10,7 +10,6 @@
 #include <vnix/units/dim.hpp>          // for dim
 #include <vnix/units/dyndim-base.hpp>  // for dyndim_base
 #include <vnix/units/number.hpp>       // for number
-#include <vnix/units/print-unit.hpp>   // for print_unit
 #include <vnix/units/statdim-base.hpp> // for statdim_base
 
 namespace vnix {
@@ -334,7 +333,7 @@ struct kelvins : public temperature {
 };
 
 
-#else
+#else // single precision
 
 
 using dyndim = dyndimf;
