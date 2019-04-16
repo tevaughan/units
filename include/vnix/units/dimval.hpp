@@ -53,6 +53,75 @@ public:
   /// @param off  Offset.
   constexpr rat d(base_off off) const { return B::d()[off]; }
 
+  /// Equality-comparison of two dimensioned values.
+  /// This will throw an exception if the dimensions are different.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @tparam OB  Base-dimension type of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
+  /// @return     True only if this and the other be equal.
+  template <typename OT, typename OB>
+  constexpr auto operator==(dimval<OT, OB> const &v) const {
+    B::sum(v); // Check for compatibility of units.
+    return v_ == v.v_;
+  }
+
+  /// Inequality-comparison of two dimensioned values.
+  /// This will throw an exception if the dimensions are different.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @tparam OB  Base-dimension type of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
+  /// @return     True only if this and the other be unequal.
+  template <typename OT, typename OB>
+  constexpr auto operator!=(dimval<OT, OB> const &v) const {
+    return !(this == v);
+  }
+
+  /// Less-than comparison of two dimensioned values.
+  /// This will throw an exception if the dimensions are different.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @tparam OB  Base-dimension type of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
+  /// @return     True only if this be less than the other.
+  template <typename OT, typename OB>
+  constexpr auto operator<(dimval<OT, OB> const &v) const {
+    B::sum(v); // Check for compatibility of units.
+    return v_ < v.v_;
+  }
+
+  /// Less-than-or-equal comparison of two dimensioned values.
+  /// This will throw an exception if the dimensions are different.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @tparam OB  Base-dimension type of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
+  /// @return     True only if this be less than or equal to the other.
+  template <typename OT, typename OB>
+  constexpr auto operator<=(dimval<OT, OB> const &v) const {
+    B::sum(v); // Check for compatibility of units.
+    return v_ <= v.v_;
+  }
+
+  /// Greater-than comparison of two dimensioned values.
+  /// This will throw an exception if the dimensions are different.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @tparam OB  Base-dimension type of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
+  /// @return     True only if this be greater than the other.
+  template <typename OT, typename OB>
+  constexpr auto operator>(dimval<OT, OB> const &v) const {
+    return !(*this <= v);
+  }
+
+  /// Greater-than-or-equal comparison of two dimensioned values.
+  /// This will throw an exception if the dimensions are different.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @tparam OB  Base-dimension type of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
+  /// @return     True only if this be greater than or equal to the other.
+  template <typename OT, typename OB>
+  constexpr auto operator>=(dimval<OT, OB> const &v) const {
+    return !(*this < v);
+  }
+
   /// Sum of two dimensioned values.
   /// @tparam OT  Numeric type of addend.
   /// @tparam OB  Base-dimension type of addend.
@@ -61,7 +130,7 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator+(dimval<OT, OB> const &v) const {
     auto const sdim = B::sum(v); // Check for compatibility of units.
-    return dimval(v_ + v.v_, sdim);
+    return dimval(v_ + v.v_, sdim.d());
   }
 
   /// Difference between two dimensioned values.
@@ -72,7 +141,7 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator-(dimval<OT, OB> const &v) const {
     auto const ddim = B::diff(v); // Check for compatibility of units.
-    return dimval(v_ - v.v_, ddim);
+    return dimval(v_ - v.v_, ddim.d());
   }
 
   /// Modify present instance by adding in a dimensioned value.
@@ -197,7 +266,7 @@ public:
 
   /// Print to to output stream.
   friend std::ostream &operator<<(std::ostream &s, dimval const &v) {
-    return s << v.v_ << v.d;
+    return s << v.v_ << v.d();
   }
 };
 
