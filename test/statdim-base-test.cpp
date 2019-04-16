@@ -37,10 +37,11 @@ TEST_CASE("Sum & diff require same dimension.", "[statdim-base]") {
 
 
 TEST_CASE("Prod & quot change dimension appropriately.", "[statdim-base]") {
-  dim constexpr d1({-1, 1, 1, 0, 0});
-  dim constexpr d2({+1, 0, 0, 0, 0});
-  dim constexpr d3({+0, 1, 1, 0, 0});
-  dim constexpr d4({-2, 1, 1, 0, 0});
+  dim constexpr d1({-1, +1, +1, 0, 0});
+  dim constexpr d2({+1, +0, +0, 0, 0});
+  dim constexpr d3({+0, +1, +1, 0, 0});
+  dim constexpr d4({-2, +1, +1, 0, 0});
+  dim constexpr d5({+1, -1, -1, 0, 0});
 
   statdim_base<d1> sdb1;
   statdim_base<d2> sdb2;
@@ -50,4 +51,20 @@ TEST_CASE("Prod & quot change dimension appropriately.", "[statdim-base]") {
   REQUIRE(sdb1.quot(sdb2).d() == d4);
   REQUIRE(sdb1.prod(ddb2).d() == d3);
   REQUIRE(sdb1.quot(ddb2).d() == d4);
+  REQUIRE(sdb1.recip().d() == d5);
+}
+
+
+TEST_CASE("Pow and sqrt change dimension appropriately.", "[statdim-base]") {
+  using rat = vnix::rat8_t;
+
+  dim constexpr d1({-1, +1, +1, 0, 0});
+  dim constexpr d2({-2, +2, +2, 0, 0});
+  dim constexpr d3({rat(-1, 2), rat(1, 2), rat(1, 2), 0, 0});
+
+  statdim_base<d1> sdb1;
+
+  REQUIRE(sdb1.pow<2>().d() == d2);
+  REQUIRE(sdb1.pow(2).d() == d2);
+  REQUIRE(sdb1.sqrt().d() == d3);
 }
