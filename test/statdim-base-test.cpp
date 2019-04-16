@@ -6,7 +6,7 @@ template <uint64_t D> using statdim_base = vnix::units::statdim_base<D>;
 using dyndim_base                        = vnix::units::dyndim_base;
 
 
-TEST_CASE("Check dimension on initialization from dim.", "[statdim-base]") {
+TEST_CASE("Check dimension on statdim_base from dim.", "[statdim-base]") {
   dim constexpr d({-1, 1, 0, 0, 0});
   dim e({1, 0, 0, 0, 0});
   REQUIRE_NOTHROW(statdim_base<d>(d));
@@ -14,7 +14,7 @@ TEST_CASE("Check dimension on initialization from dim.", "[statdim-base]") {
 }
 
 
-TEST_CASE("Sum & diff require same dimension.", "[statdim-base]") {
+TEST_CASE("Sum & diff require same dimension for statdim.", "[statdim-base]") {
   dim constexpr d1({-1, 1, 1, 0, 0});
   dim constexpr d2({+1, 0, 0, 0, 0});
 
@@ -36,7 +36,7 @@ TEST_CASE("Sum & diff require same dimension.", "[statdim-base]") {
 }
 
 
-TEST_CASE("Prod & quot change dimension appropriately.", "[statdim-base]") {
+TEST_CASE("Prod & quot change dimension for statdim.", "[statdim-base]") {
   dim constexpr d1({-1, +1, +1, 0, 0});
   dim constexpr d2({+1, +0, +0, 0, 0});
   dim constexpr d3({+0, +1, +1, 0, 0});
@@ -55,7 +55,7 @@ TEST_CASE("Prod & quot change dimension appropriately.", "[statdim-base]") {
 }
 
 
-TEST_CASE("Pow and sqrt change dimension appropriately.", "[statdim-base]") {
+TEST_CASE("Pow and sqrt change dimension for statdim.", "[statdim-base]") {
   using rat = vnix::rat8_t;
 
   dim constexpr d1({-1, +1, +1, 0, 0});
