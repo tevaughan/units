@@ -13,6 +13,9 @@
 #include <vnix/units/statdim-base.hpp> // for statdim_base
 
 namespace vnix {
+
+/// Classes and functions supporting the implementation of a model of
+/// physically dimensioned quantities.
 namespace units {
 
 
@@ -488,101 +491,96 @@ template <uint64_t D> using statdimd = basic_statdim<D, double>;
 template <uint64_t D> using statdimf = basic_statdim<D, float>;
 
 
-using dimensionlessd = statdimd<nul_dim>;
-using timed          = statdimd<tim_dim>;
-using lengthd        = statdimd<len_dim>;
-using massd          = statdimd<mas_dim>;
-using charged        = statdimd<chg_dim>;
-using temperatured   = statdimd<tmp_dim>;
+using dimensionlessd = statdimd<nul_dim>; ///< Double-precision dimensionless.
+using timed          = statdimd<tim_dim>; ///< Double-precision time.
+using lengthd        = statdimd<len_dim>; ///< Double-precision length.
+using massd          = statdimd<mas_dim>; ///< Double-precision mass.
+using charged        = statdimd<chg_dim>; ///< Double-precision charge.
+using temperatured   = statdimd<tmp_dim>; ///< Double-precision temperature.
 
 
-using dimensionlessf = statdimf<nul_dim>;
-using timef          = statdimf<tim_dim>;
-using lengthf        = statdimf<len_dim>;
-using massf          = statdimf<mas_dim>;
-using chargef        = statdimf<chg_dim>;
-using temperaturef   = statdimf<tmp_dim>;
+using dimensionlessf = statdimf<nul_dim>; ///< Single-precision dimensionless.
+using timef          = statdimf<tim_dim>; ///< Single-precision time.
+using lengthf        = statdimf<len_dim>; ///< Single-precision length.
+using massf          = statdimf<mas_dim>; ///< Single-precision mass.
+using chargef        = statdimf<chg_dim>; ///< Single-precision charge.
+using temperaturef   = statdimf<tmp_dim>; ///< Single-precision temperature.
 
 
 #ifdef VNIX_UNITS_DBL
 
 
+/// Default precision for statdim.
+/// @tparam D  Encoding of dimensions in uint64_t word.
 template <uint64_t D> using statdim = statdimd<D>;
-using dyndim                        = dyndimd;
-using dimensionless                 = dimensionlessd;
 
-using time        = timed;
-using length      = lengthd;
-using mass        = massd;
-using charge      = charged;
-using temperature = temperatured;
-
-
-struct seconds : public time {
-  constexpr seconds(double v) : time(v, tim_dim) {}
-};
-
-
-struct meters : public length {
-  constexpr meters(double v) : length(v, len_dim) {}
-};
-
-
-struct kilograms : public mass {
-  constexpr kilograms(double v) : mass(v, mas_dim) {}
-};
-
-
-struct coulombs : public charge {
-  constexpr coulombs(double v) : charge(v, chg_dim) {}
-};
-
-
-struct kelvins : public temperature {
-  constexpr kelvins(double v) : temperature(v, tmp_dim) {}
-};
+using dyndim        = dyndimd;        ///< Default precision for dyndim.
+using dimensionless = dimensionlessd; ///< Default precision for dimensionless.
+using time          = timed;          ///< Default precision for time.
+using length        = lengthd;        ///< Default precision for length.
+using mass          = massd;          ///< Default precision for mass.
+using charge        = charged;        ///< Default precision for charge.
+using temperature   = temperatured;   ///< Default precision for temperature.
 
 
 #else // single precision
 
 
+/// Default precision for statdim.
+/// @tparam D  Encoding of dimensions in uint64_t word.
 template <uint64_t D> using statdim = statdimf<D>;
-using dyndim                        = dyndimf;
-using dimensionless                 = dimensionlessf;
 
-using time        = timef;
-using length      = lengthf;
-using mass        = massf;
-using charge      = chargef;
-using temperature = temperaturef;
+using dyndim        = dyndimf;        ///< Default precision for dyndim.
+using dimensionless = dimensionlessf; ///< Default precision for dimensionless.
+using time          = timef;          ///< Default precision for time.
+using length        = lengthf;        ///< Default precision for length.
+using mass          = massf;          ///< Default precision for mass.
+using charge        = chargef;        ///< Default precision for charge.
+using temperature   = temperaturef;   ///< Default precision for temperature.
 
 
+#endif // def VNIX_UNITS_DBL
+
+
+/// Fundamental statdim-type for seconds.
 struct seconds : public time {
+  /// Initialize from number.
+  /// @param v  Number of seconds.
   constexpr seconds(float v) : time(v, tim_dim) {}
 };
 
 
+/// Fundamental statdim-type for meters.
 struct meters : public length {
+  /// Initialize from number.
+  /// @param v  Number of meters.
   constexpr meters(float v) : length(v, len_dim) {}
 };
 
 
+/// Fundamental statdim-type for kilograms.
 struct kilograms : public mass {
+  /// Initialize from number.
+  /// @param v  Number of kilograms.
   constexpr kilograms(float v) : mass(v, mas_dim) {}
 };
 
 
+/// Fundamental statdim-type for coulombs.
 struct coulombs : public charge {
+  /// Initialize from number.
+  /// @param v  Number of coulombs.
   constexpr coulombs(float v) : charge(v, chg_dim) {}
 };
 
 
+/// Fundamental statdim-type for kelvins.
 struct kelvins : public temperature {
+  /// Initialize from number.
+  /// @param v  Number of kelvins.
   constexpr kelvins(float v) : temperature(v, tmp_dim) {}
 };
 
-
-#endif // def VNIX_UNITS_DBL
 
 
 } // namespace units

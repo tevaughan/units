@@ -8,6 +8,7 @@
 
 #include <cstdint> // for uint64_t
 
+/// Thomas E. Vaughan's public software.
 namespace vnix {
 
 

@@ -1,8 +1,8 @@
-# `units`: Header-only C++ Library for Physical Quantities
+# units: Header-only C++ Library for Physical Quantities
 
-Requiring C++-17 or later, the `units` library defines a literal type `dimval`,
-which models a quantity that is dimensioned according to fundamental physical
-units:
+Requiring C++-17 or later, the `units` library defines a literal type
+vnix::units::dimval, which models a quantity that is dimensioned according to
+fundamental physical units:
 
 - meter (for length)
 - kilogram (for mass)
@@ -15,11 +15,11 @@ The user need not use class `dimval` directly.
 - Because `dimval` is a literal type, an instance can be a constant expresion
   (whose value is known at compile-time).
 
-- In the `units` library, many a standard unit (such as `m` for meter and `s`
-  for second) is defined as a constant expression.
+- In the vnix::units library, many a standard unit (such as vnix::units::m for
+  meter and vnix::units::s for second) is defined as a constant expression.
 
 - So, for example, one may write a simple program as follows:
-  ```c++
+  ```
   #include <vnix/unitsd.hpp>
   // Use <vnix/unitsf.hpp> for single-precision units.
   using namespace std;
@@ -52,8 +52,6 @@ make install  # Install the headers to $(PREFIX)/include/vnix.
 
 ## License
 
-GPL3
-
 Copyright 2019  Thomas E. Vaughan
 
-See [LICENSE](LICENSE).
+Distributed according to the terms of the GNU GPL, Version 3 or later.

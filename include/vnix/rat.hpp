@@ -1,4 +1,4 @@
-/// @file       rational.hpp
+/// @file       rat.hpp
 /// @brief      Typedefs for class rational.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

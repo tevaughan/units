@@ -64,13 +64,14 @@ constexpr auto mA = 1.0E-03 * A; ///< Milliamp.
 
 
 // Some useful statdim types (other than length, time, etc., already defined).
-using force    = decltype(N);
-using energy   = decltype(J);
-using current  = decltype(A);
-using speed    = decltype(m / s);
-using momentum = decltype(kg * m / s);
-using area     = decltype(m * m);
-using pressure = decltype(N / m / m);
+using force    = decltype(N);          ///< statdim for force.
+using energy   = decltype(J);          ///< statdim for energy.
+using current  = decltype(A);          ///< statdim for electric current.
+using speed    = decltype(m / s);      ///< statdim for speed.
+using momentum = decltype(kg * m / s); ///< statdim for momentum.
+using area     = decltype(m * m);      ///< statdim for area.
+using volume   = decltype(m * m * m);  ///< statdim for volume.
+using pressure = decltype(N / m / m);  ///< statdim for pressure.
 
 
 } // namespace units

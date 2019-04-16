@@ -11,6 +11,9 @@
 #include <vnix/rat/encoding.hpp>
 
 namespace vnix {
+
+/// Classes and functions supporting the model of a fixed-precision rational
+/// number.
 namespace rat {
 
 

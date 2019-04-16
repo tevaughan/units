@@ -6,8 +6,8 @@
 #ifndef VNIX_UNITS_DIM_HPP
 #define VNIX_UNITS_DIM_HPP
 
-#include <array>             // for array
-#include <vnix/rational.hpp> // for rational
+#include <array>        // for array
+#include <vnix/rat.hpp> // for rational
 
 namespace vnix {
 namespace units {
@@ -114,7 +114,7 @@ public:
   /// Multiply exponents by rational factor.
   /// This is called when a physical quantity is raised to a power.
   /// @param f  Factor.
-  /// @param p  Products.
+  /// @return   Products.
   constexpr dim operator*(rat f) const {
     return transform([f](rat x) { return x * f; });
   }
@@ -122,9 +122,9 @@ public:
   /// Divide exponents by rational factor.
   /// This is called when a physical quantity is raised to a power.
   /// @param f  Factor.
-  /// @param p  Products.
-  constexpr friend dim operator/(dim d, rat f) {
-    return d.transform([f](rat x) { return x / f; });
+  /// @return   Products.
+  constexpr dim operator/(rat f) const {
+    return transform([f](rat x) { return x / f; });
   }
 
   /// Print to output stream the symbolic contribution from a given unit.

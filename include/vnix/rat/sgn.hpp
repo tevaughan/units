@@ -14,20 +14,33 @@ namespace rat {
 
 /// Class encoding signed integer type that corresponds to unsigned type.
 /// Note that only specializations are used.
+/// @see sgn<uint64_t>, sgn<uint32_t>, sgn<uint16_t>, sgn<uint8_t>
 /// @tparam U  Type of unsigned integer word.
 template <typename U> struct sgn;
 
 /// Specialization of sgn for 64-bit integer.
-template <> struct sgn<uint64_t> { using type = int64_t; };
+/// @see sgn
+template <> struct sgn<uint64_t> {
+  using type = int64_t; ///< Signed type.
+};
 
 /// Specialization of sgn for 32-bit integer.
-template <> struct sgn<uint32_t> { using type = int32_t; };
+/// @see sgn
+template <> struct sgn<uint32_t> {
+  using type = int32_t; ///< Signed type.
+};
 
 /// Specialization of sgn for 16-bit integer.
-template <> struct sgn<uint16_t> { using type = int16_t; };
+/// @see sgn
+template <> struct sgn<uint16_t> {
+  using type = int16_t; ///< Signed type.
+};
 
 /// Specialization of sgn for 8-bit integer.
-template <> struct sgn<uint8_t> { using type = int8_t; };
+/// @see sgn
+template <> struct sgn<uint8_t> {
+  using type = int8_t; ///< Signed type.
+};
 
 
 } // namespace rat
