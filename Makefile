@@ -4,7 +4,7 @@
 # Modify this in order to customize the location for installation.
 PREFIX=/usr/local
 
-.PHONY: all doc test install clean
+.PHONY: all docs test install clean
 
 all:
 	@echo "PREFIX (now '$(PREFIX)') in Makefile sets install directory."
@@ -14,12 +14,12 @@ all:
 	@echo "TARGETS"
 	@echo "-------"
 	@echo "all       Print this message."
-	@echo "doc       Invoke doxygen to build documentation."
+	@echo "docs      Invoke doxygen to build documentation."
 	@echo "test      Build and run unit tests."
 	@echo "install   Copy headers to '$(PREFIX)/include'."
 	@echo "clean     Remove objects and executable from test directory."
 
-doc:
+docs:
 	@doxygen
 
 test:

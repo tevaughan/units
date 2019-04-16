@@ -1,0 +1,8 @@
+language: cpp
+dist: xenial
+compiler:
+  - clang
+os:
+  - linux
+script:
+  - make test
