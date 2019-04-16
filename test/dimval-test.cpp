@@ -1,5 +1,6 @@
 #include "../include/vnix/unitsf.hpp"
 #include "catch.hpp"
+#include <sstream> // for ostringstream
 
 using namespace vnix;
 using namespace vnix::units;
@@ -154,7 +155,13 @@ TEST_CASE("pow and sqrt work for dimval.", "[dimval]") {
   REQUIRE(pow(sdv1, rat8_t(2, 3)) == ddv2);
   REQUIRE(sqrt(sdv1) == pow<3, 2>(ddv1));
   std::cout << "sqrt(sdv1) = " << sqrt(sdv1) << std::endl;
-  std::cout << "pow(ddv1, rat8_t(2,3)) = " << pow(ddv1, rat8_t(2, 3))
-            << std::endl;
-  REQUIRE(sqrt(sdv1) == pow(ddv1, rat8_t(3, 2)));
+  std::cout << "pow(ddv1, {2,3}) = " << pow(ddv1, {3, 2}) << std::endl;
+  REQUIRE(sqrt(sdv1) == pow(ddv1, {3, 2}));
+}
+
+
+TEST_CASE("Printing works for dimval.", "[dimval]") {
+  std::ostringstream oss;
+  oss << sqrt(1 / s) * m;
+  REQUIRE(oss.str() == "1 m s^[-1/2]");
 }

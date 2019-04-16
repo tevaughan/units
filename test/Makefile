@@ -40,6 +40,7 @@ $(DEPDIR)/%.d: ;
 .PHONY: all clean
 
 all: tests
+	./tests
 
 tests: $(SRCS:.cpp=.o)
 

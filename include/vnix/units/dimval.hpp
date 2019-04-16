@@ -16,8 +16,17 @@ namespace vnix {
 namespace units {
 
 
+template <typename T, typename B> class dimval;
 template <typename T> class basic_dyndim;
 template <uint64_t D, typename T> class basic_statdim;
+
+// Forward declaration for friend of dimval.
+template <typename T, typename B>
+constexpr auto operator/(double d, dimval<T, B> const &v);
+
+// Forward declaration for friend of dimval.
+template <typename T, typename B>
+constexpr auto operator/(int d, dimval<T, B> const &v);
 
 
 /// Model of a physically dimensioned quantity.
@@ -37,6 +46,14 @@ template <typename T, typename B> class dimval : public number<T>, public B {
   /// @tparam D   Encoding of dimension in `uint64_t`.
   /// @tparam OT  Type of statdim's numeric value.
   template <uint64_t D, typename OT> friend class basic_statdim;
+
+  /// Allow access to every kind of division-operator with number on left.
+  template <typename OT, typename OB>
+  friend constexpr auto operator/(double d, dimval<OT, OB> const &v);
+
+  /// Allow access to every kind of division-operator with number on left.
+  template <typename OT, typename OB>
+  friend constexpr auto operator/(int d, dimval<OT, OB> const &v);
 
 protected:
   /// Initialize from numeric value and from dimension.
@@ -214,24 +231,6 @@ public:
   /// @return   Scaled value.
   friend constexpr dimval operator*(int n, dimval const &v) { return v * n; }
 
-  /// Invert dimensioned value by dividing it into number.
-  /// @param d  Number as dividend.
-  /// @param v  Dimensioned quantitity as divisor.
-  /// @return   Inverted value.
-  friend constexpr auto operator/(double d, dimval const &v) {
-    auto const br = v.recip();
-    return dimval<T, decltype(br)>(d / v.v_, br.d());
-  }
-
-  /// Invert dimensioned value by dividing it into number.
-  /// @param d  Number as dividend.
-  /// @param v  Dimensioned quantitity as divisor.
-  /// @return   Inverted value.
-  friend constexpr auto operator/(int d, dimval const &v) {
-    auto const br = v.recip();
-    return dimval<T, decltype(br)>(d / v.v_, br.d());
-  }
-
   /// Scale dimensioned quantity by dividing by number.
   constexpr dimval operator/(double n) const { return {v_ / n, d()}; }
 
@@ -332,6 +331,34 @@ public:
     return s << v.v_ << v.d();
   }
 };
+
+
+/// Invert dimensioned value by dividing it into number.
+/// This function is a friend of every dimval.
+/// @tparam T  Type of numeric storage in dimval.
+/// @tparam B  Dimension-type for dimval.
+/// @param  d  Number as dividend.
+/// @param  v  Dimensioned quantitity as divisor.
+/// @return    Inverted value.
+template <typename T, typename B>
+constexpr auto operator/(double d, dimval<T, B> const &v) {
+  auto const br = v.recip();
+  return dimval<T, decltype(br)>(d / v.v_, br.d());
+}
+
+
+/// Invert dimensioned value by dividing it into number.
+/// This function is a friend of every dimval.
+/// @tparam T  Type of numeric storage in dimval.
+/// @tparam B  Dimension-type for dimval.
+/// @param  d  Number as dividend.
+/// @param  v  Dimensioned quantitity as divisor.
+/// @return    Inverted value.
+template <typename T, typename B>
+constexpr auto operator/(int d, dimval<T, B> const &v) {
+  auto const br = v.recip();
+  return dimval<T, decltype(br)>(d / v.v_, br.d());
+}
 
 
 /// Raise dimensioned value to rational power.
