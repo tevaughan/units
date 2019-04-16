@@ -13,7 +13,7 @@ SRCS = tests.cpp\
  dimval-test.cpp
 
 # These variables are used explicitly by the autodependency code.
-CPPFLAGS = -I../include
+CPPFLAGS = -I../include -isystem /usr/include/clang/7/include
 CXXFLAGS = -g -O0 -std=c++17 -Wall
 CXX      = clang++
 
