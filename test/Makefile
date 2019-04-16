@@ -7,7 +7,8 @@ SRCS = tests.cpp\
  normalized-pair-test.cpp\
  encoding-test.cpp\
  rational-test.cpp\
- dim-test.cpp
+ dim-test.cpp\
+ statdim-base-test.cpp
 
 # These variables are used explicitly by the autodependency code.
 CPPFLAGS = -I../include
