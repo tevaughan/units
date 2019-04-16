@@ -47,6 +47,12 @@ template <uint64_t D> struct statdim_base {
     }
   }
 
+  /// Test for comparison of dimensioned values.
+  constexpr static void comparison(statdim_base) {}
+
+  /// Test for comparison of dimensioned values.
+  constexpr static void comparison(dyndim_base const &db);
+
   /// Dimension for sum of dimensioned values.
   constexpr static auto sum(statdim_base) { return statdim_base(); }
 
@@ -124,6 +130,15 @@ template <uint64_t D> struct statdim_base {
 
 namespace vnix {
 namespace units {
+
+
+// Test for comparison of dimensioned values.
+template <uint64_t D>
+constexpr void statdim_base<D>::comparison(dyndim_base const &db) {
+  if (d() != db.d()) {
+    throw "incompatible dimensions for comparison";
+  }
+}
 
 
 // Dimension for sum of dimensioned values.

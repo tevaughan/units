@@ -39,6 +39,15 @@ public:
     }
   }
 
+  /// Test for comparison of dimensioned values.
+  /// @tparam B  dyndim_base or statdim_base.
+  /// @param  b  Dimension of right side.
+  template <typename B> constexpr void comparison(B const &b) const {
+    if (d_ != b.d()) {
+      throw "incompatible dimensions for comparison";
+    }
+  }
+
   /// Dimension for sum of dimensioned values.
   /// @tparam B  dyndim_base or statdim_base.
   /// @param  b  Dimension of addend.

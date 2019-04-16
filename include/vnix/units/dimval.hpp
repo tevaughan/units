@@ -83,7 +83,7 @@ public:
   /// @return     True only if this and the other be equal.
   template <typename OT, typename OB>
   constexpr auto operator==(dimval<OT, OB> const &v) const {
-    B::sum(v); // Check for compatibility of units.
+    B::comparison(v); // Check for compatibility of units.
     return v_ == v.v_;
   }
 
@@ -106,7 +106,7 @@ public:
   /// @return     True only if this be less than the other.
   template <typename OT, typename OB>
   constexpr auto operator<(dimval<OT, OB> const &v) const {
-    B::sum(v); // Check for compatibility of units.
+    B::comparison(v); // Check for compatibility of units.
     return v_ < v.v_;
   }
 
@@ -118,7 +118,7 @@ public:
   /// @return     True only if this be less than or equal to the other.
   template <typename OT, typename OB>
   constexpr auto operator<=(dimval<OT, OB> const &v) const {
-    B::sum(v); // Check for compatibility of units.
+    B::comparison(v); // Check for compatibility of units.
     return v_ <= v.v_;
   }
 
@@ -480,8 +480,9 @@ using temperaturef   = statdimf<tmp_dim>;
 #ifdef VNIX_UNITS_DBL
 
 
-using dyndim        = dyndimd;
-using dimensionless = dimensionlessd;
+template <uint64_t D> using statdim = statdimd<D>;
+using dyndim                        = dyndimd;
+using dimensionless                 = dimensionlessd;
 
 using time        = timed;
 using length      = lengthd;
@@ -518,8 +519,9 @@ struct kelvins : public temperature {
 #else // single precision
 
 
-using dyndim        = dyndimf;
-using dimensionless = dimensionlessf;
+template <uint64_t D> using statdim = statdimf<D>;
+using dyndim                        = dyndimf;
+using dimensionless                 = dimensionlessf;
 
 using time        = timef;
 using length      = lengthf;

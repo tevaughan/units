@@ -138,3 +138,23 @@ TEST_CASE("dimval's multiplication and division work.", "[dimval]") {
   REQUIRE((sdv1 *= 2) == 6 * m);
   REQUIRE((sdv1 /= 2) == 3 * m);
 }
+
+
+TEST_CASE("pow and sqrt work for dimval.", "[dimval]") {
+  dyndim ddv1 = 3 * m;
+  dyndim ddv2 = pow<2>(ddv1);
+
+  using volume = decltype(m * m * m);
+  volume sdv1  = pow<3, 2>(ddv2);
+
+  REQUIRE(ddv2 == 9 * m * m);
+  REQUIRE(sqrt(ddv2) == ddv1);
+  REQUIRE(sdv1 == 27 * m * m * m);
+  REQUIRE(pow<2, 3>(sdv1) == ddv2);
+  REQUIRE(pow(sdv1, rat8_t(2, 3)) == ddv2);
+  REQUIRE(sqrt(sdv1) == pow<3, 2>(ddv1));
+  std::cout << "sqrt(sdv1) = " << sqrt(sdv1) << std::endl;
+  std::cout << "pow(ddv1, rat8_t(2,3)) = " << pow(ddv1, rat8_t(2, 3))
+            << std::endl;
+  REQUIRE(sqrt(sdv1) == pow(ddv1, rat8_t(3, 2)));
+}
