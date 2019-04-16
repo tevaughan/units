@@ -40,6 +40,13 @@ template <uint64_t D> struct statdim_base {
   /// Exponent for each unit in dimensioned quantity.
   constexpr static dim d() { return dim(D); }
 
+  /// Throw if dimension be non-null.
+  constexpr static void number() {
+    if (d() != nul_dim) {
+      throw "dimensioned quantity is not a number";
+    }
+  }
+
   /// Dimension for sum of dimensioned values.
   constexpr static auto sum(statdim_base) { return statdim_base(); }
 

@@ -32,6 +32,13 @@ public:
   /// because it needs to be consistent with signature of dyndim.
   constexpr dim d() const { return d_; }
 
+  /// Throw if dimension be non-null.
+  constexpr void number() const {
+    if (d() != nul_dim) {
+      throw "dimensioned quantity is not a number";
+    }
+  }
+
   /// Dimension for sum of dimensioned values.
   /// @tparam B  dyndim_base or statdim_base.
   /// @param  b  Dimension of addend.

@@ -16,7 +16,7 @@ namespace vnix {
 namespace units {
 
 
-template <typename T> struct basic_dyndim;
+template <typename T> class basic_dyndim;
 template <uint64_t D, typename T> class basic_statdim;
 
 
@@ -31,7 +31,7 @@ template <typename T, typename B> class dimval : public number<T>, public B {
 
   /// Allow access to each kind (float or double) of dyndim.
   /// @tparam OT  Type of dyndim's numeric value.
-  template <typename OT> friend struct basic_dyndim;
+  template <typename OT> friend class basic_dyndim;
 
   /// Allow access to every kind of statdim.
   /// @tparam D   Encoding of dimension in `uint64_t`.
@@ -40,14 +40,36 @@ template <typename T, typename B> class dimval : public number<T>, public B {
 
 protected:
   /// Initialize from numeric value and from dimension.
+  /// Constructor takes double, regardless of what T is.
   /// @param v  Numeric value.
   /// @param d  Dimension.
-  constexpr dimval(T v, dim const &d) : number<T>(v), B(d) {}
+  constexpr dimval(double v, dim const &d) : number<T>(v), B(d) {}
 
   using number<T>::v_; ///< Allow access to numeric value.
 
 public:
   using B::d; ///< Allow access to dimension.
+
+  /// Initialize from other dimensioned value.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @tparam OB  Base-dimension type of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
+  template <typename OT, typename OB>
+  constexpr dimval(dimval<OT, OB> const &v) : number<T>(v.v_), B(v.d()) {}
+
+  /// Initialize from dimensionless number.
+  /// @param n  Number.
+  constexpr dimval(double n) : number<T>(n), B(nul_dim) {}
+
+  /// Initialize from dimensionless number.
+  /// @param n  Number.
+  constexpr dimval(int n) : number<T>(n), B(nul_dim) {}
+
+  /// Convert to dimensionless number.
+  constexpr operator double() const {
+    B::number();
+    return v_;
+  }
 
   /// Exponent for base at specified offset.
   /// @param off  Offset.
@@ -73,7 +95,7 @@ public:
   /// @return     True only if this and the other be unequal.
   template <typename OT, typename OB>
   constexpr auto operator!=(dimval<OT, OB> const &v) const {
-    return !(this == v);
+    return !(*this == v);
   }
 
   /// Less-than comparison of two dimensioned values.
@@ -171,25 +193,50 @@ public:
   /// Scale dimensioned value.
   /// @param n  Scale-factor.
   /// @return   Scaled value.
-  constexpr dimval operator*(T n) const { return {v_ * n, d()}; }
+  constexpr dimval operator*(double n) const { return {v_ * n, d()}; }
+
+  /// Scale dimensioned value.
+  /// @param n  Scale-factor.
+  /// @return   Scaled value.
+  constexpr dimval operator*(int n) const { return {v_ * n, d()}; }
 
   /// Scale dimensioned value.
   /// @param n  Scale-factor.
   /// @param v  Original value.
   /// @return   Scaled value.
-  friend constexpr dimval operator*(T n, dimval const &v) { return v * n; }
+  friend constexpr dimval operator*(double n, dimval const &v) {
+    return v * n;
+  }
+
+  /// Scale dimensioned value.
+  /// @param n  Scale-factor.
+  /// @param v  Original value.
+  /// @return   Scaled value.
+  friend constexpr dimval operator*(int n, dimval const &v) { return v * n; }
 
   /// Invert dimensioned value by dividing it into number.
   /// @param d  Number as dividend.
   /// @param v  Dimensioned quantitity as divisor.
   /// @return   Inverted value.
-  friend constexpr auto operator/(T d, dimval const &v) {
+  friend constexpr auto operator/(double d, dimval const &v) {
+    auto const br = v.recip();
+    return dimval<T, decltype(br)>(d / v.v_, br.d());
+  }
+
+  /// Invert dimensioned value by dividing it into number.
+  /// @param d  Number as dividend.
+  /// @param v  Dimensioned quantitity as divisor.
+  /// @return   Inverted value.
+  friend constexpr auto operator/(int d, dimval const &v) {
     auto const br = v.recip();
     return dimval<T, decltype(br)>(d / v.v_, br.d());
   }
 
   /// Scale dimensioned quantity by dividing by number.
-  constexpr dimval operator/(T n) const { return {v_ / n, d()}; }
+  constexpr dimval operator/(double n) const { return {v_ / n, d()}; }
+
+  /// Scale dimensioned quantity by dividing by number.
+  constexpr dimval operator/(int n) const { return {v_ / n, d()}; }
 
   /// Multiply two dimensioned values.
   /// @tparam OT  Numeric type of factor.
@@ -216,7 +263,15 @@ public:
   /// Modify present instance by multiplying in a dimensionless value.
   /// @param v  Dimensionless scale-factor.
   /// @return   Scaled value.
-  constexpr dimval &operator*=(T v) {
+  constexpr dimval &operator*=(double v) {
+    v_ *= v;
+    return *this;
+  }
+
+  /// Modify present instance by multiplying in a dimensionless value.
+  /// @param v  Dimensionless scale-factor.
+  /// @return   Scaled value.
+  constexpr dimval &operator*=(int v) {
     v_ *= v;
     return *this;
   }
@@ -224,7 +279,15 @@ public:
   /// Modify present instance by dividing it by a dimensionless value.
   /// @param v  Dimensionless scale-divisor.
   /// @return   Scaled value.
-  constexpr dimval &operator/=(T v) {
+  constexpr dimval &operator/=(double v) {
+    v_ /= v;
+    return *this;
+  }
+
+  /// Modify present instance by dividing it by a dimensionless value.
+  /// @param v  Dimensionless scale-divisor.
+  /// @return   Scaled value.
+  constexpr dimval &operator/=(int v) {
     v_ /= v;
     return *this;
   }
@@ -286,14 +349,25 @@ constexpr auto pow(dimval<T, B> const &v) {
 
 /// Model of a dynamically dimensioned physical quantity.
 /// @tparam T  Type of numeric value.
-template <typename T> struct basic_dyndim : public dimval<T, dyndim_base> {
-  /// Allow dyndim to be initialized from any other dimval whatsoever.
-  /// @tparam OT  Other dimval's numeric type.
-  /// @tparam OB  Other dimval's base-dimension type.
-  /// @param  dv  Other dimval.
+template <typename T> class basic_dyndim : public dimval<T, dyndim_base> {
+  using dimval<T, dyndim_base>::v_; ///< Allow access to number.
+
+public:
+  /// Initialize from other dimensioned value.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @tparam OB  Dimension-base of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
   template <typename OT, typename OB>
-  basic_dyndim(dimval<OT, OB> const &dv)
-      : dimval<T, dyndim_base>(dv.v_, dv.d()) {}
+  constexpr basic_dyndim(dimval<OT, OB> const &v)
+      : dimval<T, dyndim_base>(v) {}
+
+  /// Convert from number.
+  /// @param v  Number.
+  constexpr basic_dyndim(double v) : dimval<T, dyndim_base>(v, nul_dim) {}
+
+  /// Convert from number.
+  /// @param v  Number.
+  constexpr basic_dyndim(int v) : dimval<T, dyndim_base>(v, nul_dim) {}
 
   // TBD: dyndim should have a constructor from std::string.
 };
@@ -319,21 +393,57 @@ class basic_statdim : public dimval<T, statdim_base<D>> {
   template <typename OT> using stat = dimval<OT, statdim_base<D>>;
 
 protected:
-  using dimval<T, statdim_base<D>>::dimval; ///< Inherit constructor.
+  /// Inherit all of parent's constructors as protected so that descendants
+  /// such as length, time, etc., may call ancestor's constructor from number
+  /// and dimension.
+  using dimval<T, statdim_base<D>>::dimval;
 
 public:
   /// Initialize from compatible statdim.
   /// @tparam OT  Type of numeric value.
   /// @param  dv  Compatible statdim.
-  template <typename OT> basic_statdim(stat<OT> dv) : stat<T>(dv.v_, dv.d()) {}
-
-  /// Attempt initialization from dyndim.  statdim_base's constructor will
-  /// throw exception on incompatible dimension.
-  ///
-  /// @tparam OT  Type of numeric value.
-  /// @param  dv  Instance of dyndim.
   template <typename OT>
-  basic_statdim(basic_dyndim<OT> const &dv) : stat<T>(dv.v_, dv.d()) {}
+  constexpr basic_statdim(stat<OT> dv) : stat<T>(dv.v_, dv.d()) {}
+
+  /// Initialize from dyndim.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
+  template <typename OT>
+  constexpr basic_statdim(dimval<OT, dyndim_base> const &v) : stat<T>(v) {}
+};
+
+
+/// Specialization of basic_statdim for dimensionless quantity.
+template <typename T>
+class basic_statdim<nul_dim, T> : public dimval<T, statdim_base<nul_dim>> {
+  /// Type of compatible statdim.
+  /// @tparam OT  Type of numeric value.
+  template <typename OT> using stat = dimval<OT, statdim_base<nul_dim>>;
+
+  using dimval<T, statdim_base<nul_dim>>::v_; ///< Allow access to number.
+
+public:
+  /// Initialize from compatible (dimensionless) statdim.
+  /// @tparam OT  Type of numeric value.
+  /// @param  dv  Compatible statdim.
+  template <typename OT>
+  constexpr basic_statdim(stat<OT> dv) : stat<T>(dv.v_, dv.d()) {}
+
+  /// Initialize from dyndim.
+  /// @tparam OT  Numeric type of other dimensioned value.
+  /// @param  v   Reference to other dimensioned value.
+  template <typename OT>
+  constexpr basic_statdim(dimval<OT, dyndim_base> const &v) : stat<T>(v) {}
+
+  /// Initialize from number.
+  /// @param v  Number.
+  constexpr basic_statdim(double v) : stat<T>(v, nul_dim) {}
+
+  /// Initialize from number.
+  /// @param v  Number.
+  constexpr basic_statdim(int v) : stat<T>(v, nul_dim) {}
+
+  constexpr operator T() const { return v_; } ///< Convert to number.
 };
 
 
@@ -351,24 +461,27 @@ template <uint64_t D> using statdimd = basic_statdim<D, double>;
 template <uint64_t D> using statdimf = basic_statdim<D, float>;
 
 
-using timed        = statdimd<tim_dim>;
-using lengthd      = statdimd<len_dim>;
-using massd        = statdimd<mas_dim>;
-using charged      = statdimd<chg_dim>;
-using temperatured = statdimd<tmp_dim>;
+using dimensionlessd = statdimd<nul_dim>;
+using timed          = statdimd<tim_dim>;
+using lengthd        = statdimd<len_dim>;
+using massd          = statdimd<mas_dim>;
+using charged        = statdimd<chg_dim>;
+using temperatured   = statdimd<tmp_dim>;
 
 
-using timef        = statdimf<tim_dim>;
-using lengthf      = statdimf<len_dim>;
-using massf        = statdimf<mas_dim>;
-using chargef      = statdimf<chg_dim>;
-using temperaturef = statdimf<tmp_dim>;
+using dimensionlessf = statdimf<nul_dim>;
+using timef          = statdimf<tim_dim>;
+using lengthf        = statdimf<len_dim>;
+using massf          = statdimf<mas_dim>;
+using chargef        = statdimf<chg_dim>;
+using temperaturef   = statdimf<tmp_dim>;
 
 
 #ifdef VNIX_UNITS_DBL
 
 
-using dyndim = dyndimd;
+using dyndim        = dyndimd;
+using dimensionless = dimensionlessd;
 
 using time        = timed;
 using length      = lengthd;
@@ -405,7 +518,8 @@ struct kelvins : public temperature {
 #else // single precision
 
 
-using dyndim = dyndimf;
+using dyndim        = dyndimf;
+using dimensionless = dimensionlessf;
 
 using time        = timef;
 using length      = lengthf;
