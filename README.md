@@ -28,7 +28,7 @@ The user need not use class `dimval` directly.
     - etc.,
 
   is defined as a *type* that you can use.
-  ```{.cpp}
+  ```cpp
   using namespace vnix::units;
   length l1 = 2.4 * m;
   length l2 = 7.7 * cm;
