@@ -1,6 +1,6 @@
 # units: Header-only C++ Library for Physical Quantities
 
-Requiring C++-17 or later, the `units` library defines a literal type
+Requiring C++-14 or later, the `units` library defines a literal type
 vnix::units::dimval, which models a quantity that is dimensioned according to
 fundamental physical units:
 

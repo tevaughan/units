@@ -27,16 +27,25 @@ enum base_off : uint8_t {
 using rat = rat8_t; ///< Type of rational for dimensioned values.
 
 
+struct rat_array {
+  rat a[NUM_BASES];
+};
+
+
 /// Composite dimension, which stores a rational exponent for each base
 /// quantity.
 class dim {
   static_assert(NUM_BASES <= sizeof(uint64_t), "too many bases");
-  std::array<rat, NUM_BASES> e_; ///< Storage for exponents.
+  rat_array            e_; ///< Storage for exponents.
+  constexpr rat *      begin() { return e_.a; }
+  constexpr rat *      end() { return e_.a + NUM_BASES; }
+  constexpr rat const *begin() const { return e_.a; }
+  constexpr rat const *end() const { return e_.a + NUM_BASES; }
 
 public:
   /// Initialize exponents, one for each base quantity.
   /// @param e  Array containing exponents.
-  constexpr dim(std::array<rat, NUM_BASES> e) : e_{e} {}
+  template <typename... T> constexpr dim(T... ts) : e_{ts...} {}
 
   /// Initialize from dim that has been encoded into a uint64_t.
   /// @param u  Encoded data for dim.
@@ -49,23 +58,23 @@ public:
 
   /// Encode data for this dim into a uint64_t.
   constexpr operator uint64_t() const {
-    return (uint64_t(rat::encode(e_[TIM])) << (TIM * 8)) |
-           (uint64_t(rat::encode(e_[LEN])) << (LEN * 8)) |
-           (uint64_t(rat::encode(e_[MAS])) << (MAS * 8)) |
-           (uint64_t(rat::encode(e_[CHG])) << (CHG * 8)) |
-           (uint64_t(rat::encode(e_[TMP])) << (TMP * 8));
+    return (uint64_t(rat::encode(e_.a[TIM])) << (TIM * 8)) |
+           (uint64_t(rat::encode(e_.a[LEN])) << (LEN * 8)) |
+           (uint64_t(rat::encode(e_.a[MAS])) << (MAS * 8)) |
+           (uint64_t(rat::encode(e_.a[CHG])) << (CHG * 8)) |
+           (uint64_t(rat::encode(e_.a[TMP])) << (TMP * 8));
   }
 
   /// Reference to immutable rational exponent at specified offset.
   /// @param off  Offset of exponent.
-  constexpr rat const &operator[](base_off off) const { return e_[off]; }
+  constexpr rat const &operator[](base_off off) const { return e_.a[off]; }
 
   /// Reference to mutable rational exponent at specified offset.
   /// @param off  Offset of exponent.
-  constexpr rat &operator[](base_off off) { return e_[off]; }
+  constexpr rat &operator[](base_off off) { return e_.a[off]; }
 
   /// Reference to immutable array of exponents.
-  constexpr std::array<rat, NUM_BASES> const &exponents() const { return e_; }
+  constexpr rat_array const &exponents() const { return e_; }
 
   /// Combine each exponent with corresponding other exponent via function.
   /// @tparam F  Type of function.
@@ -73,9 +82,10 @@ public:
   /// @param  f  Binary function operating on pair of rationals.
   /// @return    New exponents.
   template <typename F> constexpr dim combine(dim const &d, F f) const {
-    dim  r = *this;
-    auto j = d.e_.begin();
-    for (auto i = r.e_.begin(); i != r.e_.end();) {
+    dim        r    = *this;
+    rat const *j    = d.begin();
+    rat *const rend = r.end();
+    for (rat *i = r.begin(); i != rend;) {
       f(*i++, *j++);
     }
     return r;
@@ -87,45 +97,52 @@ public:
   /// @return    New exponents.
   template <typename F> constexpr dim transform(F f) const {
     dim r = *this;
-    for (auto i = r.e_.begin(); i != r.e_.end(); ++i) {
+    for (auto i = r.begin(); i != r.end(); ++i) {
       *i = f(*i);
     }
     return r;
   }
+
+  constexpr static void accum(rat &x, rat y) { x += y; }
+  constexpr static void decrm(rat &x, rat y) { x -= y; }
+
+  struct mult {
+    rat f;
+    constexpr mult(rat ff) : f(ff) {}
+    constexpr rat operator()(rat x) const { return x * f; }
+  };
+
+  struct divd {
+    rat f;
+    constexpr divd(rat ff) : f(ff) {}
+    constexpr rat operator()(rat x) const { return x / f; }
+  };
 
   /// Add corresponding exponents.
   /// This is called when two physical quantities are multiplied.
   /// Passing lambda in constexpr function requires C++17.
   /// @param a  Addends.
   /// @return   Sums.
-  constexpr dim operator+(dim const &a) const {
-    return combine(a, [](rat &x, rat y) { x += y; });
-  }
+  constexpr dim operator+(dim const &a) const { return combine(a, accum); }
 
   /// Subtract corresponding exponents.
   /// This is called when one physical quantity is divided by another.
   /// Passing lambda in constexpr function requires C++17.
   /// @param s  Subtrahends.
   /// @return   Differences.
-  constexpr dim operator-(dim const &s) const {
-    return combine(s, [](rat &x, rat y) { x -= y; });
-  }
+  constexpr dim operator-(dim const &s) const { return combine(s, decrm); }
 
   /// Multiply exponents by rational factor.
   /// This is called when a physical quantity is raised to a power.
   /// @param f  Factor.
   /// @return   Products.
-  constexpr dim operator*(rat f) const {
-    return transform([f](rat x) { return x * f; });
-  }
+  constexpr dim operator*(rat f) const { return transform(mult(f)); }
 
   /// Divide exponents by rational factor.
   /// This is called when a physical quantity is raised to a power.
   /// @param f  Factor.
   /// @return   Products.
-  constexpr dim operator/(rat f) const {
-    return transform([f](rat x) { return x / f; });
-  }
+  constexpr dim operator/(rat f) const { return transform(divd(f)); }
 
   /// Print to output stream the symbolic contribution from a given unit.
   /// @param s  Output stream.

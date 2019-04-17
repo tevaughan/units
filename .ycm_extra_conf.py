@@ -9,7 +9,7 @@ flags = [
 '-Wall',
 '-Wextra',
 '-Werror',
-'-std=c++17',
+'-std=c++14',
 '-x', 'c++',
 '-isystem', '/usr/include/clang/7/include',
 '-isystem', '/usr/include/clang/6/include',

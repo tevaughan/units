@@ -14,7 +14,7 @@ SRCS = tests.cpp\
 
 # These variables are used explicitly by the autodependency code.
 CPPFLAGS = -I../include -isystem /usr/include/clang/7/include
-CXXFLAGS = -g -O0 -std=c++17 -Wall
+CXXFLAGS = -g -O0 -std=c++14 -Wall
 CXX      = clang++
 
 # CC is used implicitly by the linker and must be set equal to the value stored
