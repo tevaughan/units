@@ -185,4 +185,3 @@ template <uint64_t D> constexpr dyndim_base statdim_base<D>::pow(rat p) {
 } // namespace vnix
 
 #endif // ndef VNIX_UNITS_STATDIM_BASE_HPP
-

@@ -300,8 +300,9 @@ operator/(double d, dimval<T, B> const &v) {
 /// @tparam B  Type of base-class for dimension.
 /// @param  v  Original dimensioned value.
 /// @return    Transformed value of different dimension.
-template <typename T, typename B>
-constexpr auto sqrt(dimval<T,B> const &v) { return v.sqrt(); }
+template <typename T, typename B> constexpr auto sqrt(dimval<T, B> const &v) {
+  return v.sqrt();
+}
 
 
 /// Raise dimensioned value to rational power.
@@ -524,7 +525,6 @@ struct kelvins : public temperature {
   /// @param v  Number of kelvins.
   constexpr kelvins(float v) : temperature(v, tmp_dim) {}
 };
-
 
 
 } // namespace units

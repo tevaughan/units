@@ -73,7 +73,7 @@ TEST_CASE("Multiplication and division work.", "[rational]") {
 
 
 TEST_CASE("Encoding and decoding work as expected.", "[rational]") {
-  rat8_t r1(-3,4);
+  rat8_t  r1(-3, 4);
   uint8_t code = 0xE8 | 0x03;
   REQUIRE(rat8_t::encode(r1) == code);
   REQUIRE(rat8_t::decode(code) == r1);
@@ -81,8 +81,8 @@ TEST_CASE("Encoding and decoding work as expected.", "[rational]") {
 
 
 TEST_CASE("Comparison operators work as expected.", "[rational]") {
-  rat8_t r1(1,2);
-  rat8_t r2(-3,8);
+  rat8_t r1(1, 2);
+  rat8_t r2(-3, 8);
   REQUIRE(r1 == r1);
   REQUIRE(r1 != r2);
   REQUIRE(r1 >= r1);
@@ -102,8 +102,8 @@ TEST_CASE("Unary operators work as expected.", "[rational]") {
 
 
 TEST_CASE("Stream-output works as expected.", "[rational]") {
-  rat8_t r1 = 4;
-  rat8_t r2(-6, 8);
+  rat8_t             r1 = 4;
+  rat8_t             r2(-6, 8);
   std::ostringstream oss1, oss2;
   oss1 << r1;
   oss2 << r2;
