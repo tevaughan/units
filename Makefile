@@ -9,7 +9,7 @@ PREFIX=/usr/local
 all:
 	@echo "PREFIX (now '$(PREFIX)') in Makefile sets install directory."
 	@echo "CXX in test/Makefile sets C++ compiler."
-	@echo "Remember to use '-std=c++17' in your Makefile after install."
+	@echo "Remember to use '-std=c++14' in your Makefile after install."
 	@echo ""
 	@echo "TARGETS"
 	@echo "-------"
