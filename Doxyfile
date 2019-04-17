@@ -1087,10 +1087,10 @@ CLANG_ASSISTED_PARSING = YES
 # specified with INPUT and INCLUDE_PATH.
 # This tag requires that the tag CLANG_ASSISTED_PARSING is set to YES.
 
-CLANG_OPTIONS          =               \
- -std=c++14                            \
- -x c++                                \
- -isystem /usr/include/clang/6/include \
+CLANG_OPTIONS          =                 \
+ -std=c++14                              \
+ -x c++                                  \
+ -isystem /usr/include/clang/3.6/include \
  -I include
 
 #---------------------------------------------------------------------------
