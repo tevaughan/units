@@ -41,8 +41,10 @@ The user need not use class `dimval` directly.
 
 ## Fetching, Building, and Installing
 
-- `clang++-7` and `g++-8.3` are known to work.  Earlier versions might also
-  work, but I have not tested them.
+- `clang++-7` and `g++-8.3` are known to work.
+    - Earlier versions might also work, but I have not tested them.
+    - The default is clang++ because the Travis CI build-machine doesn't have a
+      recent enough g++.
 
 - See https://github.com/tevaughan/units
 
