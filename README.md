@@ -1,8 +1,8 @@
 # units: Header-only C++ Library for Physical Quantities
 
-Requiring C++-14 or later, the `units` library defines a [literal
+Requiring C++-14 or later, the vnix::units library defines a [literal
 type](https://en.cppreference.com/w/cpp/named_req/LiteralType)
-vnix::units::dimval, which models a quantity that has physical dimension.
+vnix::units::dimval that models a quantity with physical dimension.
 
 In the present implementation, there are five fundamental dimensions:
 
@@ -12,13 +12,17 @@ In the present implementation, there are five fundamental dimensions:
 - charge, and
 - temperature.
 
-The user need not use class `dimval` directly.
+The user need not use class dimval directly.
 
-- Because `dimval` is a literal type, an instance can be a constant expression
-  (whose value is known at compile-time).
+- Because class dimval is a literal type, an instance can be a constant
+  expression (whose value is known at compile-time).
 
-- In the vnix::units library, many a standard unit (such as vnix::units::m for
-  meter and vnix::units::s for second) is defined as a constant expression.
+- In the vnix::units library, many a standard unit, such as
+    - vnix::units::m for meter and
+    - vnix::units::s for second,
+
+  is defined as a [constant
+  expression](https://en.cppreference.com/w/cpp/language/constant_expression).
 
 - Many a dimension, such as
     - vnix::units::length,
@@ -27,7 +31,8 @@ The user need not use class `dimval` directly.
     - vnix::units::current,
     - etc.,
 
-  is defined as a *type* that you can use.
+  is defined as a *type* that you can use.  (This type is a descendant of class
+  dimval).
   ```cpp
   using namespace vnix::units;
   length l1 = 2.4 * m;
@@ -58,11 +63,16 @@ The user need not use class `dimval` directly.
 
 - Finally, the type vnix::units::dyndim can be used when the dimension cannot
   be determined at compile-time, such as when the dimension of a variable is to
-  be read from a file at run-time.  In this case, the variable consumes an
-  extra 64 bytes for the dimension (in addition, say, to the 64 bytes used by
-  the double-precision number that is ordinarily stored).
+  be read from a file at run-time.  (Class dyndim is unlike, say, class length
+  in that class dyndim uses storage for the dimension, but class dyndim, too,
+  is a descendant of class dimval.)
 
-- For example, one may write a simple program as follows:
+- In the case of class dyndim, the instance consumes an extra 64 bytes for the
+  dimension (in addition to the 64 bytes used by the double-precision number
+  that is stored when using the double-precision version of, say, class
+  length).
+
+- One may write a simple program, for example, as follows:
   ```cpp
   #include <vnix/unitsd.hpp>
   // Use <vnix/unitsf.hpp> for single-precision units.
@@ -78,9 +88,8 @@ The user need not use class `dimval` directly.
     return 0;
   }
   ```
-  The output looks like this: `750000 m s^-1`.
-
-- See  test/dimval-test.cpp  for this and other examples.
+    - The output looks like this: `750000 m s^-1`.
+    - See  test/dimval-test.cpp  for this and other examples.
 
 - vnix::units::sqrt and vnix::units::pow are provided.
 
