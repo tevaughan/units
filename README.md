@@ -58,6 +58,10 @@ this are here:
 
 https://github.com/EmaroLab/docs/wiki/Automatic-deployment-Doxygen-documentation
 
+If it work, then documentation should be visible here:
+
+https://tevaughan.github.io/units/
+
 
 ## License
 
