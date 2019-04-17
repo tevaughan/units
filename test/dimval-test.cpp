@@ -170,3 +170,14 @@ TEST_CASE("Printing works for dimval.", "[dimval]") {
   oss << sqrt(1.0 / s) * m;
   REQUIRE(oss.str() == "1 m s^[-1/2]");
 }
+
+
+TEST_CASE("Example in 'README.md' works.", "[dimval]") {
+  length      d = 3 * km;
+  units::time t = 4 * ms;
+  auto        v = d / t;
+  std::cout << v << std::endl;
+  std::ostringstream oss;
+  oss << v;
+  REQUIRE(oss.str() == "750000 m s^-1");
+}

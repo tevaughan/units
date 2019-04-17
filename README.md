@@ -32,7 +32,9 @@ The user need not use class `dimval` directly.
     return 0;
   }
   ```
-  The output looks like this: `7.5E+05 m s^-1`.
+  The output looks like this: `750000 m s^-1`.
+
+- See [dimval-test.cpp](test/dimval-test.cpp) for this and other examples.
 
 - sqrt() and pow() are supported.
     - vnix::units::sqrt
