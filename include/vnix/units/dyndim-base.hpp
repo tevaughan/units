@@ -86,9 +86,11 @@ public:
     return d_ - b.d();
   }
 
+  using recip_basedim = dyndim_base;
+
   /// Dimension for reciprocal of dimensioned value.
   /// @return  Dimension of reciprocal.
-  constexpr dyndim_base recip() const { return nul_dim - d_; }
+  constexpr recip_basedim recip() const { return nul_dim - d_; }
 
   /// Dimension for rational power of dimensioned value.
   /// @tparam PN  Numerator   of power.

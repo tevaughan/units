@@ -91,12 +91,11 @@ template <uint64_t D> struct statdim_base {
   /// @return    Dimension of quotient.
   constexpr static dyndim_base quot(dyndim_base const &db);
 
+  using recip_basedim = statdim_base<nul_dim - d()>;
+
   /// Dimension for reciprocal of dimensioned value.
   /// @return  Dimension of reciprocal.
-  constexpr static auto recip() {
-    uint64_t constexpr rd = nul_dim - d();
-    return statdim_base<rd>();
-  }
+  constexpr static recip_basedim recip() { return recip_basedim(); }
 
   /// Dimension for rational power of dimensioned value.
   /// @tparam PN  Numerator   of power.
