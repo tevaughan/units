@@ -26,6 +26,7 @@ The user need not use class `dimval` directly.
     - vnix::units::force,
     - vnix::units::current,
     - etc.,
+
   is defined as a *type* that you can use.
   ```{.cpp}
   using namespace vnix::units;
