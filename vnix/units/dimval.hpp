@@ -14,8 +14,8 @@
 
 namespace vnix {
 
-/// Classes and functions supporting the implementation of a model of
-/// physically dimensioned quantities.
+/// Classes and functions supporting a model of physically dimensioned
+/// quantities.
 namespace units {
 
 

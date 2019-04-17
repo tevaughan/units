@@ -12,7 +12,7 @@
 
 namespace vnix {
 
-/// Classes and functions supporting the model of a fixed-precision rational
+/// Classes and functions supporting a model of a fixed-precision rational
 /// number.
 namespace rat {
 
