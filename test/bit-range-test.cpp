@@ -26,13 +26,9 @@ TEST_CASE("Bit-range can be set.", "[bit-range]") {
     for (unsigned off2 = 0; off2 < 8; ++off2) {
       uint8_t truth = 0;
       if (off1 < off2) {
-        for (unsigned i = off1; i <= off2; ++i) {
-          truth |= (1 << i);
-        }
+        for (unsigned i = off1; i <= off2; ++i) { truth |= (1 << i); }
       } else {
-        for (unsigned i = off2; i <= off1; ++i) {
-          truth |= (1 << i);
-        }
+        for (unsigned i = off2; i <= off1; ++i) { truth |= (1 << i); }
       }
       REQUIRE(bit_range<uint8_t>(off1, off2) == truth);
     }

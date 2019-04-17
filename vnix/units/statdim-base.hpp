@@ -42,9 +42,7 @@ template <uint64_t D> struct statdim_base {
 
   /// Throw if dimension be non-null.
   constexpr static void number() {
-    if (d() != nul_dim) {
-      throw "dimensioned quantity is not a number";
-    }
+    if (d() != nul_dim) { throw "dimensioned quantity is not a number"; }
   }
 
   /// Test for comparison of dimensioned values.
@@ -135,18 +133,14 @@ namespace units {
 // Test for comparison of dimensioned values.
 template <uint64_t D>
 constexpr void statdim_base<D>::comparison(dyndim_base const &db) {
-  if (d() != db.d()) {
-    throw "incompatible dimensions for comparison";
-  }
+  if (d() != db.d()) { throw "incompatible dimensions for comparison"; }
 }
 
 
 // Dimension for sum of dimensioned values.
 template <uint64_t D>
 constexpr dyndim_base statdim_base<D>::sum(dyndim_base const &db) {
-  if (d() != db.d()) {
-    throw "incompatible dimensions for addition";
-  }
+  if (d() != db.d()) { throw "incompatible dimensions for addition"; }
   return d();
 }
 
@@ -154,9 +148,7 @@ constexpr dyndim_base statdim_base<D>::sum(dyndim_base const &db) {
 // Dimension for difference of dimensioned values.
 template <uint64_t D>
 constexpr dyndim_base statdim_base<D>::diff(dyndim_base const &db) {
-  if (d() != db.d()) {
-    throw "incompatible dimensions for subtraction";
-  }
+  if (d() != db.d()) { throw "incompatible dimensions for subtraction"; }
   return d();
 }
 

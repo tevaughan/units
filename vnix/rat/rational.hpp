@@ -50,9 +50,7 @@ public:
 
   /// Convert to (signed) integer.
   constexpr S to_int() const {
-    if (d() != 1) {
-      throw "attempted conversion to integer from fraction";
-    }
+    if (d() != 1) { throw "attempted conversion to integer from fraction"; }
     return n();
   }
 
@@ -84,12 +82,8 @@ public:
 
   /// Reciprocal of this rational number.
   constexpr rational reciprocal() const {
-    if (n() == 0) {
-      throw "attempt to take reciprocal of zero";
-    }
-    if (n() < 0) {
-      return {-d(), -n()};
-    }
+    if (n() == 0) { throw "attempt to take reciprocal of zero"; }
+    if (n() < 0) { return {-d(), -n()}; }
     return {d(), n()};
   }
 
@@ -508,9 +502,7 @@ constexpr rational<U> &rational<U>::operator/=(int64_t r) {
 template <typename U>
 std::ostream &operator<<(std::ostream &s, rational<U> r) {
   s << int64_t(r.n());
-  if (r.d() != 1) {
-    s << '/' << uint64_t(r.d());
-  }
+  if (r.d() != 1) { s << '/' << uint64_t(r.d()); }
   return s;
 }
 

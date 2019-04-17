@@ -34,18 +34,14 @@ public:
 
   /// Throw if dimension be non-null.
   constexpr void number() const {
-    if (d() != nul_dim) {
-      throw "dimensioned quantity is not a number";
-    }
+    if (d() != nul_dim) { throw "dimensioned quantity is not a number"; }
   }
 
   /// Test for comparison of dimensioned values.
   /// @tparam B  dyndim_base or statdim_base.
   /// @param  b  Dimension of right side.
   template <typename B> constexpr void comparison(B const &b) const {
-    if (d_ != b.d()) {
-      throw "incompatible dimensions for comparison";
-    }
+    if (d_ != b.d()) { throw "incompatible dimensions for comparison"; }
   }
 
   /// Dimension for sum of dimensioned values.
@@ -53,9 +49,7 @@ public:
   /// @param  b  Dimension of addend.
   /// @return    Dimension of sum.
   template <typename B> constexpr dyndim_base sum(B const &b) const {
-    if (d_ != b.d()) {
-      throw "incompatible dimensions for addition";
-    }
+    if (d_ != b.d()) { throw "incompatible dimensions for addition"; }
     return d_;
   }
 
@@ -64,9 +58,7 @@ public:
   /// @param  b  Dimension of subtractor.
   /// @return    Dimension of difference.
   template <typename B> constexpr dyndim_base diff(B const &b) const {
-    if (d_ != b.d()) {
-      throw "incompatible dimensions for subtraction";
-    }
+    if (d_ != b.d()) { throw "incompatible dimensions for subtraction"; }
     return d_;
   }
 

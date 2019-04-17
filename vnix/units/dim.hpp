@@ -90,9 +90,7 @@ public:
     dim        r    = *this;
     rat const *j    = d.begin();
     rat *const rend = r.end();
-    for (rat *i = r.begin(); i != rend;) {
-      f(*i++, *j++);
-    }
+    for (rat *i = r.begin(); i != rend;) { f(*i++, *j++); }
     return r;
   }
 
@@ -102,9 +100,7 @@ public:
   /// @return    New exponents.
   template <typename F> constexpr dim transform(F f) const {
     dim r = *this;
-    for (auto i = r.begin(); i != r.end(); ++i) {
-      *i = f(*i);
-    }
+    for (auto i = r.begin(); i != r.end(); ++i) { *i = f(*i); }
     return r;
   }
 
@@ -181,13 +177,9 @@ public:
       s << " " << u;
       if (e != rat8_t(1)) {
         s << "^";
-        if (e.d() != 1) {
-          s << "[";
-        }
+        if (e.d() != 1) { s << "["; }
         s << e;
-        if (e.d() != 1) {
-          s << "]";
-        }
+        if (e.d() != 1) { s << "]"; }
       }
     }
     return s;

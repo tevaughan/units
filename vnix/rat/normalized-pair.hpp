@@ -52,15 +52,9 @@ public:
       throw "null denominator"; // Do not allow division by zero.
     }
     enum { NMAX = uint64_t(1) << (NMR_BITS - 1) };
-    if (n_ >= NMAX) {
-      throw "numerator too large and positive";
-    }
-    if (n_ < -NMAX) {
-      throw "numerator too large and negative";
-    }
-    if (d_ > (uint64_t(1) << DNM_BITS)) {
-      throw "denominator too large";
-    }
+    if (n_ >= NMAX) { throw "numerator too large and positive"; }
+    if (n_ < -NMAX) { throw "numerator too large and negative"; }
+    if (d_ > (uint64_t(1) << DNM_BITS)) { throw "denominator too large"; }
   }
 
   constexpr uint64_t g() const { return g_; } ///< GCD.

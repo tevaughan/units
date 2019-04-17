@@ -20,12 +20,8 @@ template <typename I> constexpr I bit(unsigned n) { return I(1) << n; }
 /// @param  n1  Offset of bit at one   end of range.
 /// @param  n2  Offset of bit at other end of range.
 template <typename I> constexpr I bit_range(unsigned n1, unsigned n2) {
-  if (n1 < n2) {
-    return bit<I>(n1) | bit_range<I>(n1 + 1, n2);
-  }
-  if (n2 < n1) {
-    return bit<I>(n2) | bit_range<I>(n2 + 1, n1);
-  }
+  if (n1 < n2) { return bit<I>(n1) | bit_range<I>(n1 + 1, n2); }
+  if (n2 < n1) { return bit<I>(n2) | bit_range<I>(n2 + 1, n1); }
   return bit<I>(n1);
 }
 
