@@ -12,8 +12,7 @@ flags = [
 '-std=c++14',
 '-x', 'c++',
 '-isystem', '/usr/include/clang/7/include',
-'-isystem', '/usr/include/clang/6/include',
-'-I', 'include',
+'-I', '.',
 ]
 
 

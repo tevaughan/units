@@ -1,4 +1,4 @@
-/// @file       units/dyndim-base.hpp
+/// @file       vnix/units/dyndim-base.hpp
 /// @brief      Definition of vnix::units::dyndim_base.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

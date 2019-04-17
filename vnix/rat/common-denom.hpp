@@ -1,4 +1,4 @@
-/// @file       rat/common-denom.hpp
+/// @file       vnix/rat/common-denom.hpp
 /// @brief      Definition of vnix::rat::common_denom.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

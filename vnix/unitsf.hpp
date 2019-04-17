@@ -1,4 +1,4 @@
-/// @file       unitsf.hpp
+/// @file       vnix/unitsf.hpp
 /// @brief      Definition of single-precision units in namespace vnix::units.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

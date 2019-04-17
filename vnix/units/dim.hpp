@@ -1,4 +1,4 @@
-/// @file       units/dim.hpp
+/// @file       vnix/units/dim.hpp
 /// @brief      Definition of vnix::units::dim.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

@@ -27,8 +27,7 @@ test:
 
 install:
 	@mkdir -p $(PREFIX)/include
-	@cp -av include/vnix $(PREFIX)/include
-	@rm -fv $(PREFIX)/include/vnix/units.md
+	@cp -av vnix $(PREFIX)/include
 
 clean:
 	@$(MAKE) -C test clean

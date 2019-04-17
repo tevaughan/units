@@ -1,4 +1,4 @@
-/// @file       gcd.hpp
+/// @file       vnix/gcd.hpp
 /// @brief      Definition of vnix::gcd.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

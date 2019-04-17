@@ -1,4 +1,4 @@
-#include "../include/vnix/rat.hpp"
+#include "../vnix/rat.hpp"
 #include "catch.hpp"
 #include <sstream> // for ostringstream
 

@@ -1,4 +1,4 @@
-/// @file       bit-range.hpp
+/// @file       vnix/bit-range.hpp
 /// @brief      Definition of vnix::bit, vnix::bit_range.
 /// @copyright  2019 Thomas E. Vaughan
 /// @license    GPL3.

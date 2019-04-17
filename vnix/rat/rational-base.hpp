@@ -1,4 +1,4 @@
-/// @file       rat/rational-base.hpp
+/// @file       vnix/rat/rational-base.hpp
 /// @brief      Definition of vnix::rat::rational_base.
 /// @copyright  2019 Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

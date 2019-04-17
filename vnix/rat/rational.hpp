@@ -1,4 +1,4 @@
-/// @file       rat/rational.hpp
+/// @file       vnix/rat/rational.hpp
 /// @brief      Definition of vnix::rat::rational.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

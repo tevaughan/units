@@ -1,4 +1,4 @@
-#include "../include/vnix/bit-range.hpp"
+#include "../vnix/bit-range.hpp"
 #include "catch.hpp"
 
 using namespace vnix;

@@ -1,7 +1,7 @@
 // Copyright 2019  Thomas E. Vaughan
 // Redistributable according to GPL Version 3 or later.
 
-#include "../include/vnix/rat/encoding.hpp"
+#include "../vnix/rat/encoding.hpp"
 #include "catch.hpp"
 
 using normalized_pair = vnix::rat::normalized_pair<uint8_t>;

@@ -1,4 +1,4 @@
-#include "../include/vnix/units/dim.hpp"
+#include "../vnix/units/dim.hpp"
 #include "catch.hpp"
 #include <sstream> // for ostringstream
 

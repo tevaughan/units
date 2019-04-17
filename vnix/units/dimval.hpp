@@ -1,4 +1,4 @@
-/// @file       units/dimval.hpp
+/// @file       vnix/units/dimval.hpp
 /// @brief      Definition of vnix::units::dimval, descendants, and typedefs.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.
@@ -206,17 +206,11 @@ public:
   /// Scale dimensioned quantity by dividing by number.
   constexpr dimval operator/(double n) const { return {v_ / n, d()}; }
 
-  /// Invert dimensioned value by dividing it into number.
-  /// This function is a friend of every dimval.
-  /// @tparam T  Type of numeric storage in dimval.
-  /// @tparam B  Dimension-type for dimval.
-  /// @param  d  Number as dividend.
-  /// @param  v  Dimensioned quantitity as divisor.
-  /// @return    Inverted value.
-  friend constexpr dimval<T, typename B::recip_basedim>
-  operator/(double d, dimval<T, B> const &v) {
-    auto const br = v.recip();
-    return dimval<T, typename B::recip_basedim>(d / v.v_, br.d());
+  /// Invert dimensioned value.
+  /// @return Reciprocal of dimval.
+  constexpr dimval<T, typename B::recip_basedim> inverse() const {
+    auto const br = this->recip();
+    return dimval<T, typename B::recip_basedim>(1.0 / v_, br.d());
   }
 
   /// Multiply two dimensioned values.
@@ -286,6 +280,19 @@ public:
     return s << v.v_ << v.d();
   }
 };
+
+
+/// Invert dimensioned value by dividing it into number.
+/// @tparam T  Type of numeric storage in dimval.
+/// @tparam B  Type of base-class for dimension.
+/// @param  d  Number as dividend.
+/// @param  v  Dimensioned quantitity as divisor.
+/// @return    Inverted value.
+template <typename T, typename B>
+constexpr dimval<T, typename B::recip_basedim>
+operator/(double d, dimval<T, B> const &v) {
+  return d * v.inverse();
+}
 
 
 /// Take the squre root of a dimensioned quantity.

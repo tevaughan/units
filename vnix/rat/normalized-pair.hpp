@@ -1,4 +1,4 @@
-/// @file       rat/normalized-pair.hpp
+/// @file       vnix/rat/normalized-pair.hpp
 /// @brief      Definition of vnix::rat::normalized_pair.
 /// @copyright  2019 Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

@@ -1,4 +1,4 @@
-/// @file       units/statdim-base.hpp
+/// @file       vnix/units/statdim-base.hpp
 /// @brief      Definition of vnix::units::statdim_base.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.
@@ -92,7 +92,7 @@ template <uint64_t D> struct statdim_base {
   constexpr static dyndim_base quot(dyndim_base const &db);
 
   /// Base-dimensions corresponding to reciprocal of dimensioned quantity.
-  using recip_basedim = statdim_base<nul_dim - d()>;
+  using recip_basedim = statdim_base<uint64_t(nul_dim - d())>;
 
   /// Dimension for reciprocal of dimensioned value.
   /// @return  Dimension of reciprocal.

@@ -1,4 +1,4 @@
-#include "../include/vnix/gcd.hpp"
+#include "../vnix/gcd.hpp"
 #include "catch.hpp"
 
 using vnix::gcd;

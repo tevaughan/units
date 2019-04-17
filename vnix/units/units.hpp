@@ -1,4 +1,4 @@
-/// @file       units.hpp
+/// @file       vnix/units/units.hpp
 /// @brief      Definition of various units in namespace vnix::units.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

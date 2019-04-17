@@ -1,4 +1,4 @@
-#include "../include/vnix/units/statdim-base.hpp"
+#include "../vnix/units/statdim-base.hpp"
 #include "catch.hpp"
 
 using dim                                = vnix::units::dim;

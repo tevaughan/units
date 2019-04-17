@@ -1,4 +1,4 @@
-/// @file       units/number.hpp
+/// @file       vnix/units/number.hpp
 /// @brief      Definition of vnix::units::number.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.

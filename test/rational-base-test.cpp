@@ -1,4 +1,4 @@
-#include "../include/vnix/rat/rational-base.hpp"
+#include "../vnix/rat/rational-base.hpp"
 #include "catch.hpp"
 
 TEST_CASE("Constants are computed correctly.", "[rational-base]") {

@@ -19,7 +19,7 @@ language: cpp
 dist: xenial
 
 compiler:
-  - clang
+  - gcc
 
 os:
   - linux
