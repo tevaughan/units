@@ -12,7 +12,7 @@ fundamental physical units:
 
 The user need not use class `dimval` directly.
 
-- Because `dimval` is a literal type, an instance can be a constant expresion
+- Because `dimval` is a literal type, an instance can be a constant expression
   (whose value is known at compile-time).
 
 - In the vnix::units library, many a standard unit (such as vnix::units::m for
