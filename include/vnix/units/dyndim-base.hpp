@@ -86,6 +86,7 @@ public:
     return d_ - b.d();
   }
 
+  /// Base-dimensions corresponding to reciprocal of dimensioned quantity.
   using recip_basedim = dyndim_base;
 
   /// Dimension for reciprocal of dimensioned value.

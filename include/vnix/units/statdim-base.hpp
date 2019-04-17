@@ -91,6 +91,7 @@ template <uint64_t D> struct statdim_base {
   /// @return    Dimension of quotient.
   constexpr static dyndim_base quot(dyndim_base const &db);
 
+  /// Base-dimensions corresponding to reciprocal of dimensioned quantity.
   using recip_basedim = statdim_base<nul_dim - d()>;
 
   /// Dimension for reciprocal of dimensioned value.

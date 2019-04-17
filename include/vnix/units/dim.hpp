@@ -27,8 +27,9 @@ enum base_off : uint8_t {
 using rat = rat8_t; ///< Type of rational for dimensioned values.
 
 
+/// Array of rational exponents.
 struct rat_array {
-  rat a[NUM_BASES];
+  rat a[NUM_BASES]; ///< Storage for rational exponents.
 };
 
 
@@ -44,7 +45,11 @@ class dim {
 
 public:
   /// Initialize exponents, one for each base quantity.
-  /// @param e  Array containing exponents.
+  ///
+  /// @tparam T   List of types, one for each initializer in list for
+  ///             rat_array.  Each type should be rat.
+  ///
+  /// @param  ts  List of initializers for rat_array.
   template <typename... T> constexpr dim(T... ts) : e_{ts...} {}
 
   /// Initialize from dim that has been encoded into a uint64_t.
@@ -103,18 +108,41 @@ public:
     return r;
   }
 
+  /// Function used to add corresponding exponents.
+  /// @param x  Reference incremented by corresponding exponent.
+  /// @param y  Corresponding exponent.
   constexpr static void accum(rat &x, rat y) { x += y; }
+
+  /// Function used to subtract corresponding exponents.
+  /// @param x  Reference decremented by corresponding exponent.
+  /// @param y  Corresponding exponent.
   constexpr static void decrm(rat &x, rat y) { x -= y; }
 
+  /// Function object used for multiplying every exponent by a single factor.
   struct mult {
-    rat f;
+    rat f; ///< Factor by which to multiply exponents.
+
+    /// Initialize from factor by which to multiply exponents.
+    /// @param ff  Factor.
     constexpr mult(rat ff) : f(ff) {}
+
+    /// Multiply an exponent by the factor.
+    /// @param x  Input  exponent.
+    /// @return   Output exponent.
     constexpr rat operator()(rat x) const { return x * f; }
   };
 
+  /// Function object used for dividing every exponent by a single factor.
   struct divd {
-    rat f;
+    rat f; ///< Factor by which to divide exponents.
+
+    /// Initialize from factor by which to divide exponents.
+    /// @param ff  Factor.
     constexpr divd(rat ff) : f(ff) {}
+
+    /// Divide an exponent by the factor.
+    /// @param x  Input  exponent.
+    /// @return   output exponent.
     constexpr rat operator()(rat x) const { return x / f; }
   };
 

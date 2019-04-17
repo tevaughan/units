@@ -4,7 +4,7 @@
 # Modify this in order to customize the location for installation.
 PREFIX=/usr/local
 
-.PHONY: all docs test install clean
+.PHONY: all doc test install clean
 
 all:
 	@echo "PREFIX (now '$(PREFIX)') in Makefile sets install directory."
@@ -19,7 +19,7 @@ all:
 	@echo "install   Copy headers to '$(PREFIX)/include'."
 	@echo "clean     Remove objects and executable from test directory."
 
-docs:
+doc:
 	@doxygen
 
 test:
@@ -32,4 +32,4 @@ install:
 
 clean:
 	@$(MAKE) -C test clean
-	@rm -rfv doc
+	@rm -rfv html
