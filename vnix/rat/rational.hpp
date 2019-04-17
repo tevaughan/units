@@ -313,7 +313,7 @@ template <typename U> constexpr rational<U> operator-(rational<U> r) {
 template <typename U>
 constexpr rational<U> operator+(rational<U> r1, rational<U> r2) {
   rat::common_denom const c(r1, r2);
-  return {c.n1 + c.n2, c.d};
+  return {c.n1 + c.n2, c.lcd};
 }
 
 

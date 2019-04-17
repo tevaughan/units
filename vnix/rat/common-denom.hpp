@@ -17,16 +17,18 @@ template <typename U> class rational;
 
 /// Least common denominator (LCD) and numerators corresponding to a pair of
 /// rational numbers.
-struct common_denom {
+class common_denom {
   uint64_t const g;   ///< GCD of input denominators.
   uint64_t const d1g; ///< First  input denominator divided by g.
   uint64_t const d2g; ///< Second input denominator divided by g;
-  int64_t const  d;   ///< LCD (signed because den arg to rational is signed).
-  int64_t const  n1;  ///< First  output numerator, corresponding to LCD.
-  int64_t const  n2;  ///< Second output numerator, corresponding to LCD.
+
+public:
+  int64_t const lcd; ///< Output LCD.
+  int64_t const n1;  ///< First  output numerator, corresponding to LCD.
+  int64_t const n2;  ///< Second output numerator, corresponding to LCD.
 
   /// Common denominator and associated numerators for rational pair.
-  /// @tparam U   Type of unsigned integer word in which ration is encoded.
+  /// @tparam U   Type of unsigned integer word in which rational is encoded.
   /// @param  r1  First  input rational number.
   /// @param  r2  Second input rational number.
   template <typename U>
@@ -34,7 +36,7 @@ struct common_denom {
       : g(gcd(r1.d(), r2.d())), //
         d1g(r1.d() / g),        //
         d2g(r2.d() / g),        //
-        d(d1g * r2.d()),        //
+        lcd(d1g * r2.d()),      //
         n1(r1.n() * d2g),       //
         n2(r2.n() * d1g) {}
 };
