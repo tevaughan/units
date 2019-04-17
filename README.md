@@ -25,14 +25,14 @@ The user need not use class `dimval` directly.
   using namespace std;
   using namespace vnix::units;
   int main() {
-    length      d = 3 * m;
-    units::time t = 4 * s;
+    length      d = 3 * km;
+    units::time t = 4 * ms;
     auto        v = d / t;
     cout << v << endl;
     return 0;
   }
   ```
-  The output looks like this: `0.75 m s^-1`.
+  The output looks like this: `7.5E+05 m s^-1`.
 
 - sqrt() and pow() are supported.
     - vnix::units::sqrt
