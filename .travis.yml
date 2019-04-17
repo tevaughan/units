@@ -13,6 +13,7 @@ addons:
       - doxygen
       - doxygen-latex
       - graphviz
+      - libclang-common-3.6-dev
 
 language: cpp
 
