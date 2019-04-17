@@ -38,6 +38,8 @@ script:
 # Generate doxygen documentation.
 after_success:
   - doxygen Doxyfile
+  - touch html/.nojekyll
+  - touch .nojekyll
 
 # Push doxygen documentation to gh-pages.
 deploy:
