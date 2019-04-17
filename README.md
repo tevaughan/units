@@ -14,15 +14,14 @@ In the present implementation, there are five fundamental dimensions:
 
 The user need not use class dimval directly.
 
-- Because class dimval is a literal type, an instance can be a constant
-  expression (whose value is known at compile-time).
+- Because class dimval is a literal type, an instance can be a [constant
+  expression](https://en.cppreference.com/w/cpp/language/constant_expression).
 
 - In the vnix::units library, many a standard unit, such as
     - vnix::units::m for meter and
     - vnix::units::s for second,
 
-  is defined as a [constant
-  expression](https://en.cppreference.com/w/cpp/language/constant_expression).
+  is defined as a constant expression.
 
 - Many a dimension, such as
     - vnix::units::length,

@@ -44,7 +44,7 @@ script:
 # way that does not store history there.
 #
 # - A side-effect is that any attempt manually to push a '.nojekyll' file to
-#   the root of the filesystem on the gh-pages branch ends up produceing
+#   the root of the filesystem on the gh-pages branch ends up producing
 #   divergent branches and not working.
 #
 # - So the '.nojekyll' file needs to be written here.
