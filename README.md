@@ -12,9 +12,9 @@ In the present implementation, there are five fundamental dimensions:
 - charge, and
 - temperature.
 
-The user need not use class dimval directly.
+The user need not use vnix::units::dimval directly.
 
-- Because class dimval is a literal type, an instance can be a [constant
+- Because vnix::units::dimval is a literal type, an instance can be a [constant
   expression](https://en.cppreference.com/w/cpp/language/constant_expression).
 
 - In the vnix::units library, many a standard unit, such as
@@ -30,8 +30,8 @@ The user need not use class dimval directly.
     - vnix::units::current,
     - etc.,
 
-  is defined as a *type* that you can use.  (This type is a descendant of class
-  dimval).
+  is defined as a *type* that you can use.  (This type is a descendant of
+  vnix::units::dimval).
   ```cpp
   using namespace vnix::units;
   length l1 = 2.4 * m;
@@ -54,7 +54,7 @@ The user need not use class dimval directly.
   when declaring a variable, and so a result of multiplication, division, and
   exponentiation is legal even if there be no named type for the corresponding
   dimension.  (The type will then be a generic kind of vnix::units::statdim,
-  itself a descendant of class dimval.)
+  itself a descendant of vnix::units::dimval.)
   ```cpp
   using namespace vnix::units;
   length foo = 3 * m;
@@ -63,14 +63,17 @@ The user need not use class dimval directly.
 
 - Finally, the type vnix::units::dyndim can be used when the dimension cannot
   be determined at compile-time, such as when the dimension of a variable is to
-  be read from a file at run-time.  (Class dyndim is unlike, say, class length
-  in that class dyndim uses storage for the dimension, but class dyndim, too,
-  is a descendant of class dimval.)
+  be read from a file at run-time.
 
-- In the case of class dyndim, the instance consumes an extra 64 bytes for the
-  dimension (in addition to the 64 bytes used by the double-precision number
-  that is stored when using the double-precision version of, say, class
-  length).
+- Using memory in the instance to store the dimension, vnix::units:dyndim is
+  unlike, say, vnix::units::length, which does not use memory in the instance
+  to store the dimension; yet vnix::units::dyndim, too, is a descendant of
+  vnix::units::dimval.
+
+- In the case of vnix::units::dyndim, the instance consumes an extra eight
+  bytes for the dimension (in addition to the eight bytes used by the
+  double-precision number that is stored when using the double-precision
+  version of, say, vnix::units::length).
 
 - One may write a simple program, for example, as follows:
   ```cpp
