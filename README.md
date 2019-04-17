@@ -54,11 +54,12 @@ The user need not use class dimval directly.
 - The `auto` keyword in modern C++ allows one not to have to specify the type
   when declaring a variable, and so a result of multiplication, division, and
   exponentiation is legal even if there be no named type for the corresponding
-  dimension.
+  dimension.  (The type will then be a generic kind of vnix::units::statdim,
+  itself a descendant of class dimval.)
   ```cpp
   using namespace vnix::units;
   length foo = 3 * m;
-  auto bar = sqrt(foo);
+  auto bar = sqrt(foo);  // No simple name for this type.
   ```
 
 - Finally, the type vnix::units::dyndim can be used when the dimension cannot
