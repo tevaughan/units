@@ -44,16 +44,18 @@ The user need not use class `dimval` directly.
 - `clang++-7` and `g++-8.3` are known to work.  Earlier versions might also
   work, but I have not tested them.
 
-To build the test and/or install:
+- See https://github.com/tevaughan/units
 
-```
-git clone https://github.com/tevaughan/units.git
-cd units      # Change the working directory into the new clone.
-vim Makefile  # Edit PREFIX for installation or CXX to change compiler.
-make          # Build and run the tests.
-make doc      # Build the documentation via Doxygen.
-make install  # Install the headers to $(PREFIX)/include/vnix.
-```
+- To build the test and/or install:
+
+  ```
+  git clone https://github.com/tevaughan/units.git
+  cd units      # Change the working directory into the new clone.
+  vim Makefile  # Edit PREFIX for installation or CXX to change compiler.
+  make          # Build and run the tests.
+  make doc      # Build the documentation via Doxygen.
+  make install  # Install the headers to $(PREFIX)/include/vnix.
+  ```
 
 
 ## Documentation
