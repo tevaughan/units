@@ -275,28 +275,26 @@ public:
     return rt(std::pow(v_, p.to_double()), pdim.d());
   }
 
-  /// Raise dimensioned value to rational power.
-  /// @param v  Original dimensioned value.
-  /// @param p  Rational power.
-  /// @return   Transformed value of different dimension.
-  constexpr friend auto pow(dimval const &v, rat p) { return v.pow(p); }
-
   /// Take the squre root of a dimensioned quantity.
   constexpr auto sqrt() const {
     auto const rdim = B::sqrt();
     return dimval<T, decltype(rdim)>(std::sqrt(v_), rdim.d());
   }
 
-  /// Take the squre root of a dimensioned quantity.
-  /// @param v  Original dimensioned value.
-  /// @return   Transformed value of different dimension.
-  constexpr friend auto sqrt(dimval const &v) { return v.sqrt(); }
-
   /// Print to to output stream.
   friend std::ostream &operator<<(std::ostream &s, dimval const &v) {
     return s << v.v_ << v.d();
   }
 };
+
+
+/// Take the squre root of a dimensioned quantity.
+/// @tparam T  Type for numeric storage.
+/// @tparam B  Type of base-class for dimension.
+/// @param  v  Original dimensioned value.
+/// @return    Transformed value of different dimension.
+template <typename T, typename B>
+constexpr auto sqrt(dimval<T,B> const &v) { return v.sqrt(); }
 
 
 /// Raise dimensioned value to rational power.
@@ -309,6 +307,18 @@ public:
 template <int64_t PN, int64_t PD = 1, typename T, typename B>
 constexpr auto pow(dimval<T, B> const &v) {
   return v.template pow<PN, PD>();
+}
+
+
+/// Raise dimensioned value to rational power.
+/// @tparam T  Type for numeric storage.
+/// @tparam B  Type of base-class for dimension.
+/// @param  v  Original dimensioned value.
+/// @param  p  Rational power.
+/// @return    Transformed value of different dimension.
+template <typename T, typename B>
+constexpr auto pow(dimval<T, B> const &v, rat p) {
+  return v.pow(p);
 }
 
 
