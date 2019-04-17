@@ -1,4 +1,4 @@
-# This will run on the continer-based infrastructure.
+# This will run on the container-based infrastructure.
 sudo: false
 
 # White list.
@@ -6,7 +6,8 @@ branches:
   only:
     - master
 
-# Install dependencies.
+# libclang-common-3.6-dev is necessary for doxygen in the xenial distribution
+# to use clang-assisted parsing.  See dist below.
 addons:
   apt:
     packages:
@@ -17,20 +18,28 @@ addons:
 
 language: cpp
 
+# libclang-common-3.6-dev is necessary for doxygen in the xenial distribution
+# to use clang-assisted parsing.  See addons above.
 dist: xenial
 
+# 'clang' and 'gcc' are options, but the gcc shipped with the xenial
+# distribution does not support a constexpr function that throws.  See dist
+# above.
 compiler:
   - clang
 
 os:
   - linux
 
+# Build and run unit tests.
 script:
   - make test
 
+# Generate doxygen documentation.
 after_success:
   - doxygen Doxyfile
 
+# Push doxygen documentation to gh-pages.
 deploy:
   provider: pages
   skip_cleanup: true

@@ -1,10 +1,16 @@
+## @file       ".ycm_extra_conf.py"
+#  @brief      Configuration for vim's YouCompleteMe plugin.
+#  @copyright  2019  Thomas E. Vaughan
+#  @license    GPL Version 3 or later.
+
 import os
 
 DIR_OF_THIS_SCRIPT = os.path.abspath( os.path.dirname( __file__ ) )
 
-# These are the compilation flags that will be used in case there's no
-# compilation database set (by default, one is not set).
-# CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
+## Compilation flags that will be used in case there's no
+#  compilation database set (by default, one is not set).
+#
+#  CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
 flags = [
 '-Wall',
 '-Wextra',
@@ -15,9 +21,14 @@ flags = [
 '-I', '.',
 ]
 
+## Variable that seems necessary for new YCM.
+#  SOURCE_EXTENSIONS is used by FindCorrespondingSourceFile.
+SOURCE_EXTENSIONS  = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]
 
-# First are functions that seem necessary for older YCM.
-
+## @name OlderGroup
+#  Functions that seem necessary for older YCM.
+#
+#  @{
 def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
   if not working_directory:
     return list( flags )
@@ -42,22 +53,22 @@ def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
       new_flags.append( new_flag )
   return new_flags
 
-# This seems to be the entry point for older YCM; this function is called by
-# ycmd to produce flags for a file.
+## This seems to be the entry point for older YCM; this function is called by
+#  ycmd to produce flags for a file.
 def FlagsForFile( filename, **kwargs ):
   final_flags = MakeRelativePathsInFlagsAbsolute(flags, DIR_OF_THIS_SCRIPT)
   return {
     'flags': final_flags,
   }
+## @}
 
-
-# Second are functions that seem necessary for newer YCM.
-
+## @name NewerGroup
+#  Functions that seem necessary for newer YCM.
+#
+#  @{
 def IsHeaderFile( filename ):
   extension = os.path.splitext( filename )[ 1 ]
   return extension in [ '.h', '.hxx', '.hpp', '.hh' ]
-
-SOURCE_EXTENSIONS  = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]
 
 def FindCorrespondingSourceFile( filename ):
   if IsHeaderFile( filename ):
@@ -68,7 +79,7 @@ def FindCorrespondingSourceFile( filename ):
         return replacement_file
   return filename
 
-# This seems to be the entry point for newer YCM.
+## This seems to be the entry point for newer YCM.
 def Settings( **kwargs ):
   if kwargs[ 'language' ] == 'cfamily':
     filename = FindCorrespondingSourceFile( kwargs[ 'filename' ] )
@@ -78,3 +89,5 @@ def Settings( **kwargs ):
       'override_filename': filename
     }
   return {}
+## @}
+

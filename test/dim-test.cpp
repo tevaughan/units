@@ -1,11 +1,14 @@
+/// @file       test/dim-test.cpp
+/// @brief      Test-cases for vnix::units::dim.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL, Version 3 or later.
+
 #include "../vnix/units/dim.hpp"
 #include "catch.hpp"
 #include <sstream> // for ostringstream
 
 using namespace vnix;
-
-using dim      = units::dim;
-using base_off = units::base_off;
+using namespace vnix::units;
 
 
 TEST_CASE("dim can be initialized from array.", "[dim]") {

@@ -1,3 +1,8 @@
+/// @file       test/rational-test.cpp
+/// @brief      Test-cases for vnix::rat::rational.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL, Version 3 or later.
+
 #include "../vnix/rat.hpp"
 #include "catch.hpp"
 #include <sstream> // for ostringstream

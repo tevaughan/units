@@ -1,7 +1,13 @@
+/// @file       test/bit-range-test.cpp
+/// @brief      Test-cases for vnix::bit_range.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL, Version 3 or later.
+
 #include "../vnix/bit-range.hpp"
 #include "catch.hpp"
 
 using namespace vnix;
+
 
 TEST_CASE("Bit can be set.", "[bit]") {
   REQUIRE(bit<uint8_t>(0) == 0x01);
@@ -13,6 +19,7 @@ TEST_CASE("Bit can be set.", "[bit]") {
   REQUIRE(bit<uint8_t>(6) == 0x40);
   REQUIRE(bit<uint8_t>(7) == 0x80);
 }
+
 
 TEST_CASE("Bit-range can be set.", "[bit-range]") {
   for (unsigned off1 = 0; off1 < 8; ++off1) {

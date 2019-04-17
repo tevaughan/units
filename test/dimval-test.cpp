@@ -1,3 +1,8 @@
+/// @file       test/dimval-test.cpp
+/// @brief      Test-cases for vnix::units::dimval.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL, Version 3 or later.
+
 #include "../vnix/unitsf.hpp"
 #include "catch.hpp"
 #include <sstream> // for ostringstream

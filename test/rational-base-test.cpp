@@ -1,3 +1,8 @@
+/// @file       test/rational-base-test.cpp
+/// @brief      Test-cases for vnix::rat::rational_base.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL, Version 3 or later.
+
 #include "../vnix/rat/rational-base.hpp"
 #include "catch.hpp"
 

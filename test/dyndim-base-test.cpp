@@ -1,3 +1,8 @@
+/// @file       test/dyndim-base-test.cpp
+/// @brief      Test-cases for vnix::units::dyndim_base.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL, Version 3 or later.
+
 #include "../vnix/units/statdim-base.hpp"
 #include "catch.hpp"
 

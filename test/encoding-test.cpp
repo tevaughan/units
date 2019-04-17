@@ -1,5 +1,7 @@
-// Copyright 2019  Thomas E. Vaughan
-// Redistributable according to GPL Version 3 or later.
+/// @file       test/encoding-test.cpp
+/// @brief      Test-cases for vnix::rat::encoding.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL, Version 3 or later.
 
 #include "../vnix/rat/encoding.hpp"
 #include "catch.hpp"
