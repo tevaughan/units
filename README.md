@@ -25,9 +25,9 @@ The user need not use class `dimval` directly.
   using namespace std;
   using namespace vnix::units;
   int main() {
-    auto d = 3 * m;
-    auto t = 4 * s;
-    auto v = d / t;
+    length      d = 3 * m;
+    units::time t = 4 * s;
+    auto        v = d / t;
     cout << v << endl;
     return 0;
   }
