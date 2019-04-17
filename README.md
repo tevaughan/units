@@ -50,6 +50,17 @@ vim Makefile  # Edit PREFIX for installation or CXX to change compiler.
 make install  # Install the headers to $(PREFIX)/include/vnix.
 ```
 
+## Documentation
+
+I am attempting to set up a gh-pages branch to which Travis CI can push
+whenever there be an ordinary push to master.  The instructions on how to do
+this are here:
+
+https://gist.github.com/francesco-romano/351a6ae457860c14ee7e907f2b0fc1a5
+
+This is from Francesco-Romano on Apr 21, 2017.
+
+
 ## License
 
 Copyright 2019  Thomas E. Vaughan
