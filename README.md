@@ -38,7 +38,7 @@ The user need not use class `dimval` directly.
 - A variable of such a type knows its dimension without requiring any storage
   to keep track of the dimension.  The compiler keeps track and will find any
   bug related to a failure of dimensional analysis.
-  ```{.cpp}
+  ```cpp
   using namespace vnix::units;
   area a = 2.4 * m * 3.6; // OOPS!  Compiler generates error.
   ```
@@ -50,7 +50,7 @@ The user need not use class `dimval` directly.
   when declaring a variable, and so a result of multiplication, division, and
   exponentiation is legal even if there be no named type for the corresponding
   dimension.
-  ```{.cpp}
+  ```cpp
   using namespace vnix::units;
   length foo = 3 * m;
   auto bar = sqrt(foo);
@@ -63,7 +63,7 @@ The user need not use class `dimval` directly.
   the double-precision number that is ordinarily stored).
 
 - For example, one may write a simple program as follows:
-  ```{.cpp}
+  ```cpp
   #include <vnix/unitsd.hpp>
   // Use <vnix/unitsf.hpp> for single-precision units.
   using namespace std;
