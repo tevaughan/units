@@ -13,8 +13,11 @@ addons:
     packages:
       - doxygen
       - doxygen-latex
+      - doxygen-gui
       - graphviz
       - libclang-common-3.6-dev
+      - python-pygments
+      - python3-pygments
 
 language: cpp
 
