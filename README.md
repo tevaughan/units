@@ -34,6 +34,11 @@ The user need not use class `dimval` directly.
   ```
   The output looks like this: `0.75 m s^-1`.
 
+- sqrt() and pow() are supported.
+    - vnix::units::sqrt
+    - vnix::units::pow
+
+
 ## Fetching, Building, and Installing
 
 - `clang++-7` and `g++-8.3` are known to work.  Earlier versions might also
@@ -44,23 +49,21 @@ To build the test and/or install:
 ```
 git clone https://github.com/tevaughan/units.git
 cd units      # Change the working directory into the new clone.
-make          # Builds the test program.
-test/tests    # Run the tests.
 vim Makefile  # Edit PREFIX for installation or CXX to change compiler.
+make          # Build and run the tests.
+make doc      # Build the documentation via Doxygen.
 make install  # Install the headers to $(PREFIX)/include/vnix.
 ```
 
+
 ## Documentation
 
-I am attempting to set up a gh-pages branch to which Travis CI can push
-whenever there be an ordinary push to master.  The instructions on how to do
-this are here:
-
-https://github.com/EmaroLab/docs/wiki/Automatic-deployment-Doxygen-documentation
-
-If it work, then documentation should be visible here:
-
 https://tevaughan.github.io/units/
+
+(The documentation site is generated via a gh-pages branch to which Travis CI
+can push whenever there be an ordinary push to the master branch.  The
+instructions on how to do this are
+[here](https://github.com/EmaroLab/docs/wiki/Automatic-deployment-Doxygen-documentation).)
 
 
 ## License
