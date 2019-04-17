@@ -36,6 +36,25 @@ script:
   - make test
 
 # Generate doxygen documentation.
+#
+# It seems that travis's deployment to the gh-pages branch is done in a cool
+# way that does not store history there.
+#
+# - A side-effect is that any attempt manually to push a '.nojekyll' file to
+#   the root of the filesystem on the gh-pages branch ends up produceing
+#   divergent branches and not working.
+#
+# - So the '.nojekyll' file needs to be written here.
+#
+# - I'm not sure where it needs to go, and so I put it both under html and at
+#   the root.
+#
+# - I need a '.nojekyll' file because one of the files documented by doxygen is
+#   '.ycm_extra_conf.py' on the master branch.
+#
+# - Apparently because its name begins with '.', doxygen generates a file whose
+#   name begins with '_', but jekyll does not allow the copying of such a file
+#   over to gh-pages.
 after_success:
   - doxygen Doxyfile
   - touch html/.nojekyll
