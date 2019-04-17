@@ -162,6 +162,6 @@ TEST_CASE("pow and sqrt work for dimval.", "[dimval]") {
 
 TEST_CASE("Printing works for dimval.", "[dimval]") {
   std::ostringstream oss;
-  oss << sqrt(1 / s) * m;
+  oss << sqrt(1.0 / s) * m;
   REQUIRE(oss.str() == "1 m s^[-1/2]");
 }
