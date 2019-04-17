@@ -125,13 +125,13 @@ TEST_CASE("dimval's multiplication and division work.", "[dimval]") {
   REQUIRE(sdv1 / ddv2 == 1.5 * m / N);
   REQUIRE(sdv1 / sdv2 == 1.5 * m / N);
 
-  REQUIRE(ddv1 / ddv1 == 1);
-  REQUIRE(ddv1 / sdv1 == 1);
-  REQUIRE(sdv1 / sdv1 == 1);
-  REQUIRE(sdv1 / ddv1 == 1);
+  REQUIRE(ddv1 / ddv1 == dimensionless(1));
+  REQUIRE(ddv1 / sdv1 == dimensionless(1));
+  REQUIRE(sdv1 / sdv1 == dimensionless(1));
+  REQUIRE(sdv1 / ddv1 == dimensionless(1));
 
-  REQUIRE(ddv2 * 0.5 / N == 1);
-  REQUIRE(sdv2 * 0.5 / N == 1);
+  REQUIRE(ddv2 * 0.5 / N == dimensionless(1));
+  REQUIRE(sdv2 * 0.5 / N == dimensionless(1));
 
   REQUIRE((ddv1 *= 2) == 6 * m);
   REQUIRE((ddv1 /= 2) == 3 * m);

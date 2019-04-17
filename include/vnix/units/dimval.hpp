@@ -27,10 +27,6 @@ template <uint64_t D, typename T> class basic_statdim;
 template <typename T, typename B>
 constexpr auto operator/(double d, dimval<T, B> const &v);
 
-// Forward declaration for friend of dimval.
-template <typename T, typename B>
-constexpr auto operator/(int d, dimval<T, B> const &v);
-
 
 /// Model of a physically dimensioned quantity.
 /// @tparam T  Type of storage (e.g., float or double) for numerical quantity.
@@ -53,10 +49,6 @@ template <typename T, typename B> class dimval : public number<T>, public B {
   /// Allow access to every kind of division-operator with number on left.
   template <typename OT, typename OB>
   friend constexpr auto operator/(double d, dimval<OT, OB> const &v);
-
-  /// Allow access to every kind of division-operator with number on left.
-  template <typename OT, typename OB>
-  friend constexpr auto operator/(int d, dimval<OT, OB> const &v);
 
 protected:
   /// Initialize from numeric value and from dimension.
@@ -81,12 +73,8 @@ public:
   /// @param n  Number.
   constexpr dimval(double n) : number<T>(n), B(nul_dim) {}
 
-  /// Initialize from dimensionless number.
-  /// @param n  Number.
-  constexpr dimval(int n) : number<T>(n), B(nul_dim) {}
-
   /// Convert to dimensionless number.
-  constexpr operator double() const {
+  constexpr double to_double() const {
     B::number();
     return v_;
   }
@@ -217,28 +205,14 @@ public:
 
   /// Scale dimensioned value.
   /// @param n  Scale-factor.
-  /// @return   Scaled value.
-  constexpr dimval operator*(int n) const { return {v_ * n, d()}; }
-
-  /// Scale dimensioned value.
-  /// @param n  Scale-factor.
   /// @param v  Original value.
   /// @return   Scaled value.
   friend constexpr dimval operator*(double n, dimval const &v) {
     return v * n;
   }
 
-  /// Scale dimensioned value.
-  /// @param n  Scale-factor.
-  /// @param v  Original value.
-  /// @return   Scaled value.
-  friend constexpr dimval operator*(int n, dimval const &v) { return v * n; }
-
   /// Scale dimensioned quantity by dividing by number.
   constexpr dimval operator/(double n) const { return {v_ / n, d()}; }
-
-  /// Scale dimensioned quantity by dividing by number.
-  constexpr dimval operator/(int n) const { return {v_ / n, d()}; }
 
   /// Multiply two dimensioned values.
   /// @tparam OT  Numeric type of factor.
@@ -270,26 +244,10 @@ public:
     return *this;
   }
 
-  /// Modify present instance by multiplying in a dimensionless value.
-  /// @param v  Dimensionless scale-factor.
-  /// @return   Scaled value.
-  constexpr dimval &operator*=(int v) {
-    v_ *= v;
-    return *this;
-  }
-
   /// Modify present instance by dividing it by a dimensionless value.
   /// @param v  Dimensionless scale-divisor.
   /// @return   Scaled value.
   constexpr dimval &operator/=(double v) {
-    v_ /= v;
-    return *this;
-  }
-
-  /// Modify present instance by dividing it by a dimensionless value.
-  /// @param v  Dimensionless scale-divisor.
-  /// @return   Scaled value.
-  constexpr dimval &operator/=(int v) {
     v_ /= v;
     return *this;
   }
@@ -350,20 +308,6 @@ constexpr auto operator/(double d, dimval<T, B> const &v) {
 }
 
 
-/// Invert dimensioned value by dividing it into number.
-/// This function is a friend of every dimval.
-/// @tparam T  Type of numeric storage in dimval.
-/// @tparam B  Dimension-type for dimval.
-/// @param  d  Number as dividend.
-/// @param  v  Dimensioned quantitity as divisor.
-/// @return    Inverted value.
-template <typename T, typename B>
-constexpr auto operator/(int d, dimval<T, B> const &v) {
-  auto const br = v.recip();
-  return dimval<T, decltype(br)>(d / v.v_, br.d());
-}
-
-
 /// Raise dimensioned value to rational power.
 /// @tparam PN  Numerator of power.
 /// @tparam PD  Denominator of power (by default, 1).
@@ -394,10 +338,6 @@ public:
   /// Convert from number.
   /// @param v  Number.
   constexpr basic_dyndim(double v) : dimval<T, dyndim_base>(v, nul_dim) {}
-
-  /// Convert from number.
-  /// @param v  Number.
-  constexpr basic_dyndim(int v) : dimval<T, dyndim_base>(v, nul_dim) {}
 
   // TBD: dyndim should have a constructor from std::string.
 };
@@ -469,11 +409,7 @@ public:
   /// @param v  Number.
   constexpr basic_statdim(double v) : stat<T>(v, nul_dim) {}
 
-  /// Initialize from number.
-  /// @param v  Number.
-  constexpr basic_statdim(int v) : stat<T>(v, nul_dim) {}
-
-  constexpr operator T() const { return v_; } ///< Convert to number.
+  constexpr operator double() const { return v_; } ///< Convert to number.
 };
 
 
