@@ -64,7 +64,9 @@ struct common_denom_params {
   enum {
     LCD_BITS = clamp64(DB1 + DB2), ///< For storage of LCD.
     N1_BITS  = clamp64(NB1 + DB2), ///< For storage of first  numerator.
-    N2_BITS  = clamp64(NB2 + DB1)  ///< For storage of second numerator.
+    N2_BITS  = clamp64(NB2 + DB1), ///< For storage of second numerator.
+    /// For use by client for storage of sum of numerators.
+    NMR_BITS = (N1_BITS > N2_BITS ? N1_BITS : N2_BITS)
   };
 
   using lcd_t = typename int_types<LCD_BITS>::UF; ///< Type of LCD.

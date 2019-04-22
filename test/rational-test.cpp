@@ -40,9 +40,9 @@ TEST_CASE("Conversion-constructor works as expected.", "[rational]") {
 
 TEST_CASE("Addition and subtraction work.", "[rational]") {
   rat8_t r1(3, 2);
-  r1 += 1;
+  r1 += rat16_t(1);
   REQUIRE(r1 == rat8_t(5, 2));
-  r1 -= 1;
+  r1 -= rat32_t(1);
   REQUIRE(r1 == rat8_t(3, 2));
   rat16_t constexpr r2(-3, 4);
   rat16_t constexpr r3(1, 6);

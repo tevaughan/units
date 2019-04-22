@@ -13,11 +13,11 @@ using namespace vnix::units;
 
 TEST_CASE("dim can be initialized from array.", "[dim]") {
   dim d({1, 2, 3, 4, 5});
-  REQUIRE(d[base_off::TIM] == 1);
-  REQUIRE(d[base_off::LEN] == 2);
-  REQUIRE(d[base_off::MAS] == 3);
-  REQUIRE(d[base_off::CHG] == 4);
-  REQUIRE(d[base_off::TMP] == 5);
+  REQUIRE(d[base_off::TIM] == rat8_t(1));
+  REQUIRE(d[base_off::LEN] == rat8_t(2));
+  REQUIRE(d[base_off::MAS] == rat8_t(3));
+  REQUIRE(d[base_off::CHG] == rat8_t(4));
+  REQUIRE(d[base_off::TMP] == rat8_t(5));
 }
 
 

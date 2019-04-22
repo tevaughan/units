@@ -70,12 +70,14 @@ public:
   /// Modify this rational number by adding other rational number.
   /// @param r  Other rational number.
   /// @return   Reference to this rational number (after addition).
-  constexpr rational &operator+=(rational r);
+  template <unsigned ONB, unsigned ODB>
+  constexpr rational &operator+=(rational<ONB, ODB> r);
 
   /// Modify this rational number by subtracting other rational number.
   /// @param r  Other rational number.
   /// @return   Reference to this rational number (after subtraction).
-  constexpr rational &operator-=(rational r);
+  template <unsigned ONB, unsigned ODB>
+  constexpr rational &operator-=(rational<ONB, ODB> r);
 
   /// Reciprocal of this rational number.
   constexpr rational reciprocal() const {
@@ -87,12 +89,14 @@ public:
   /// Modify this rational number by multiplying by other rational number.
   /// @param r  Other rational number.
   /// @return   Reference to this rational number (after multiplication).
-  constexpr rational &operator*=(rational r);
+  template <unsigned ONB, unsigned ODB>
+  constexpr rational &operator*=(rational<ONB, ODB> r);
 
   /// Modify this rational number by dividing by other rational number.
   /// @param r  Other rational number.
   /// @return   Reference to this rational number (after division).
-  constexpr rational &operator/=(rational r);
+  template <unsigned ONB, unsigned ODB>
+  constexpr rational &operator/=(rational<ONB, ODB> r);
 
   /// Encoding from rational number.
   constexpr static UF encode(rational r) { return r.c_; }
@@ -103,58 +107,58 @@ public:
 
 
 /// Compare rationals for equality.
-/// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
-constexpr bool operator==(rational<33, 31> r1, rational<33, 31> r2) {
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr bool operator==(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   return r1.n() == r2.n() && r1.d() == r2.d();
 }
 
 
 /// Compare rationals for inequality.
-/// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
-constexpr bool operator!=(rational<33, 31> r1, rational<33, 31> r2) {
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr bool operator!=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   return !(r1 == r2);
 }
 
 
 /// Compare for less-than-or-equal ordering with another rational.
-/// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
-constexpr bool operator<=(rational<33, 31> r1, rational<33, 31> r2) {
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr bool operator<=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
   return c.n1 <= c.n2;
 }
 
 
 /// Compare for less-than ordering with another rational.
-/// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
-constexpr bool operator<(rational<33, 31> r1, rational<33, 31> r2) {
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr bool operator<(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
   return c.n1 < c.n2;
 }
 
 
 /// Compare for greater-than-or-equal ordering with another rational.
-/// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
-constexpr bool operator>=(rational<33, 31> r1, rational<33, 31> r2) {
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr bool operator>=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
   return c.n1 >= c.n2;
 }
 
 
 /// Compare for greater-than ordering with another rational.
-/// Promote both to uint64_t-storage for comparison.
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
-constexpr bool operator>(rational<33, 31> r1, rational<33, 31> r2) {
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr bool operator>(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
   return c.n1 > c.n2;
 }
@@ -183,91 +187,90 @@ constexpr rational<NB, DB> operator-(rational<NB, DB> r) {
 
 
 /// Sum of two rational numbers.
-/// @tparam U   Type of unsigned word in which rational is encoded.
 /// @param  r1  Addend.
 /// @param  r2  Adder.
 /// @return     Sum.
-template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> operator+(rational<NB, DB> r1,
-                                     rational<NB, DB> r2) {
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr auto operator+(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
-  return rational<NB, DB>(c.n1 + c.n2, c.lcd);
+  return rational<c.NMR_BITS, c.LCD_BITS>(c.n1 + c.n2, c.lcd);
 }
 
 
 // Modify rational number by adding other rational number.
 template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> &rational<NB, DB>::operator+=(rational<NB, DB> r) {
+template <unsigned ONB, unsigned ODB>
+constexpr rational<NB, DB> &rational<NB, DB>::
+                            operator+=(rational<ONB, ODB> r) {
   return *this = *this + r;
 }
 
 
 /// Difference between two rational numbers.
-/// @tparam U   Type of unsigned word in which rational is encoded.
 /// @param  r1  Minuend.
 /// @param  r2  Subtrahend.
 /// @return     Difference.
-template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> operator-(rational<NB, DB> r1,
-                                     rational<NB, DB> r2) {
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr auto operator-(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   return -r2 + r1;
 }
 
 
 // Modify this rational number by subtracting other rational number.
 template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> &rational<NB, DB>::operator-=(rational<NB, DB> r) {
+template <unsigned ONB, unsigned ODB>
+constexpr rational<NB, DB> &rational<NB, DB>::
+                            operator-=(rational<ONB, ODB> r) {
   return *this = *this - r;
 }
 
 
 /// Product of two rational numbers.
-/// @tparam U   Type of unsigned word in which rational is encoded.
 /// @param  r1  Multiplicand.
 /// @param  r2  Multiplier.
 /// @return     Product.
-template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> operator*(rational<NB, DB> r1,
-                                     rational<NB, DB> r2) {
-  typename rational<NB, DB>::SF const n1 = r1.n();
-  typename rational<NB, DB>::SF const n2 = r2.n();
-  typename rational<NB, DB>::SF const d1 = r1.d();
-  typename rational<NB, DB>::SF const d2 = r2.d();
-  typename rational<NB, DB>::SF const ga = gcd((n1 < 0 ? -n1 : n1), d2);
-  typename rational<NB, DB>::SF const gb = gcd((n2 < 0 ? -n2 : n2), d1);
-  return {typename rational<NB, DB>::SF(n1 / ga * n2 / gb),
-          typename rational<NB, DB>::SF(d1 / gb * d2 / ga)};
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr auto operator*(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
+  auto const n1 = r1.n();
+  auto const n2 = r2.n();
+  auto const d1 = r1.d();
+  auto const d2 = r2.d();
+  auto const ga = gcd(n1, d2);
+  auto const gb = gcd(n2, d1);
+  enum { NB = (NB1 > NB2 ? NB1 : NB2), DB = (DB1 > DB2 ? DB1 : DB2) };
+  return rational<NB, DB>(n1 / ga * n2 / gb, d1 / gb * d2 / ga);
 }
 
 
 /// Quotient of two rational numbers.
-/// @tparam U   Type of unsigned word in which rational is encoded.
 /// @param  r1  Dividend.
 /// @param  r2  Divisor.
 /// @return     Quotient.
-template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> operator/(rational<NB, DB> r1,
-                                     rational<NB, DB> r2) {
+template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
+constexpr auto operator/(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   return r1 * r2.reciprocal();
 }
 
 
 // Modify this rational number by multiplying by other rational number.
 template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> &rational<NB, DB>::operator*=(rational<NB, DB> r) {
+template <unsigned ONB, unsigned ODB>
+constexpr rational<NB, DB> &rational<NB, DB>::
+                            operator*=(rational<ONB, ODB> r) {
   return *this = (*this) * r;
 }
 
 
 // Modify this rational number by dividing by other rational number.
 template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> &rational<NB, DB>::operator/=(rational<NB, DB> r) {
+template <unsigned ONB, unsigned ODB>
+constexpr rational<NB, DB> &rational<NB, DB>::
+                            operator/=(rational<ONB, ODB> r) {
   return *this = (*this) / r;
 }
 
 
 /// Print rational number to output-stream.
-/// @tparam U  Type of unsigned word in which rational is encoded.
 /// @param  s  Reference to output-stream.
 /// @param  r  Rational number.
 /// @return    Reference to modified output-stream.
