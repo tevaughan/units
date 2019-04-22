@@ -1,5 +1,5 @@
 /// @file       vnix/rat/rational.hpp
-/// @brief      Definition of vnix::rat::rational.
+/// @brief      Definition of vnix::rat::rational and operators for it.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.
 
@@ -68,14 +68,18 @@ public:
   constexpr double to_double() const { return n() * 1.0 / d(); }
 
   /// Modify this rational number by adding other rational number.
-  /// @param r  Other rational number.
-  /// @return   Reference to this rational number (after addition).
+  /// @tparam ONB  Number of numerator  -bits in other rational.
+  /// @tparam ODB  Number of denominator-bits in other rational.
+  /// @param r     Other rational number.
+  /// @return      Reference to this rational number (after addition).
   template <unsigned ONB, unsigned ODB>
   constexpr rational &operator+=(rational<ONB, ODB> r);
 
   /// Modify this rational number by subtracting other rational number.
-  /// @param r  Other rational number.
-  /// @return   Reference to this rational number (after subtraction).
+  /// @tparam ONB  Number of numerator  -bits in other rational.
+  /// @tparam ODB  Number of denominator-bits in other rational.
+  /// @param r     Other rational number.
+  /// @return      Reference to this rational number (after subtraction).
   template <unsigned ONB, unsigned ODB>
   constexpr rational &operator-=(rational<ONB, ODB> r);
 
@@ -87,14 +91,18 @@ public:
   }
 
   /// Modify this rational number by multiplying by other rational number.
-  /// @param r  Other rational number.
-  /// @return   Reference to this rational number (after multiplication).
+  /// @tparam ONB  Number of numerator  -bits in other rational.
+  /// @tparam ODB  Number of denominator-bits in other rational.
+  /// @param r     Other rational number.
+  /// @return      Reference to this rational number (after multiplication).
   template <unsigned ONB, unsigned ODB>
   constexpr rational &operator*=(rational<ONB, ODB> r);
 
   /// Modify this rational number by dividing by other rational number.
-  /// @param r  Other rational number.
-  /// @return   Reference to this rational number (after division).
+  /// @tparam ONB  Number of numerator  -bits in other rational.
+  /// @tparam ODB  Number of denominator-bits in other rational.
+  /// @param r     Other rational number.
+  /// @return      Reference to this rational number (after division).
   template <unsigned ONB, unsigned ODB>
   constexpr rational &operator/=(rational<ONB, ODB> r);
 
@@ -107,8 +115,12 @@ public:
 
 
 /// Compare rationals for equality.
-/// @param r1  Left -hand operand.
-/// @param r2  Right-hand operand.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Left -hand operand.
+/// @param  r2   Right-hand operand.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr bool operator==(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   return r1.n() == r2.n() && r1.d() == r2.d();
@@ -116,8 +128,12 @@ constexpr bool operator==(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 
 
 /// Compare rationals for inequality.
-/// @param r1  Left -hand operand.
-/// @param r2  Right-hand operand.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Left -hand operand.
+/// @param  r2   Right-hand operand.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr bool operator!=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   return !(r1 == r2);
@@ -125,8 +141,12 @@ constexpr bool operator!=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 
 
 /// Compare for less-than-or-equal ordering with another rational.
-/// @param r1  Left -hand operand.
-/// @param r2  Right-hand operand.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Left -hand operand.
+/// @param  r2   Right-hand operand.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr bool operator<=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
@@ -135,8 +155,12 @@ constexpr bool operator<=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 
 
 /// Compare for less-than ordering with another rational.
-/// @param r1  Left -hand operand.
-/// @param r2  Right-hand operand.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Left -hand operand.
+/// @param  r2   Right-hand operand.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr bool operator<(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
@@ -145,8 +169,12 @@ constexpr bool operator<(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 
 
 /// Compare for greater-than-or-equal ordering with another rational.
-/// @param r1  Left -hand operand.
-/// @param r2  Right-hand operand.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Left -hand operand.
+/// @param  r2   Right-hand operand.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr bool operator>=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
@@ -155,8 +183,12 @@ constexpr bool operator>=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 
 
 /// Compare for greater-than ordering with another rational.
-/// @param r1  Left -hand operand.
-/// @param r2  Right-hand operand.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Left -hand operand.
+/// @param  r2   Right-hand operand.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr bool operator>(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
@@ -167,8 +199,8 @@ constexpr bool operator>(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 /// Copy rational number by way of unary operator+.
 /// @tparam NB  Number of bits for numerator.
 /// @tparam DB  Number of bits for denominator.
-/// @param  r         Number to copy.
-/// @return           Copy of number.
+/// @param  r   Number to copy.
+/// @return     Copy of number.
 template <unsigned NB, unsigned DB>
 constexpr rational<NB, DB> operator+(rational<NB, DB> r) {
   return r;
@@ -178,8 +210,8 @@ constexpr rational<NB, DB> operator+(rational<NB, DB> r) {
 /// Negate rational number.
 /// @tparam NB  Number of bits for numerator.
 /// @tparam DB  Number of bits for denominator.
-/// @param  r         Number to negate.
-/// @return           Negative of number.
+/// @param  r   Number to negate.
+/// @return     Negative of number.
 template <unsigned NB, unsigned DB>
 constexpr rational<NB, DB> operator-(rational<NB, DB> r) {
   return rational<NB, DB>(-r.n(), r.d());
@@ -187,9 +219,13 @@ constexpr rational<NB, DB> operator-(rational<NB, DB> r) {
 
 
 /// Sum of two rational numbers.
-/// @param  r1  Addend.
-/// @param  r2  Adder.
-/// @return     Sum.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Addend.
+/// @param  r2   Adder.
+/// @return      Sum.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr auto operator+(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const c = common_denom(r1, r2);
@@ -207,9 +243,13 @@ constexpr rational<NB, DB> &rational<NB, DB>::
 
 
 /// Difference between two rational numbers.
-/// @param  r1  Minuend.
-/// @param  r2  Subtrahend.
-/// @return     Difference.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Minuend.
+/// @param  r2   Subtrahend.
+/// @return      Difference.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr auto operator-(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   return -r2 + r1;
@@ -226,9 +266,13 @@ constexpr rational<NB, DB> &rational<NB, DB>::
 
 
 /// Product of two rational numbers.
-/// @param  r1  Multiplicand.
-/// @param  r2  Multiplier.
-/// @return     Product.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Multiplicand.
+/// @param  r2   Multiplier.
+/// @return      Product.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr auto operator*(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const n1 = r1.n();
@@ -243,9 +287,13 @@ constexpr auto operator*(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 
 
 /// Quotient of two rational numbers.
-/// @param  r1  Dividend.
-/// @param  r2  Divisor.
-/// @return     Quotient.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @tparam NB2  Number of numerator  -bits in right-hand rational.
+/// @tparam DB2  Number of denominator-bits in right-hand rational.
+/// @param  r1   Dividend.
+/// @param  r2   Divisor.
+/// @return      Quotient.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr auto operator/(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   return r1 * r2.reciprocal();
@@ -271,9 +319,11 @@ constexpr rational<NB, DB> &rational<NB, DB>::
 
 
 /// Print rational number to output-stream.
-/// @param  s  Reference to output-stream.
-/// @param  r  Rational number.
-/// @return    Reference to modified output-stream.
+/// @tparam NB  Number of bits for numerator   of rational.
+/// @tparam DB  Number of bits for denominator of rational.
+/// @param  s   Reference to output-stream.
+/// @param  r   Rational number.
+/// @return     Reference to modified output-stream.
 template <unsigned NB, unsigned DB>
 std::ostream &operator<<(std::ostream &s, rational<NB, DB> r) {
   s << int_fast64_t(r.n());
