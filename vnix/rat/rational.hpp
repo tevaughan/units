@@ -125,7 +125,7 @@ constexpr bool operator!=(rational<33, 31> r1, rational<33, 31> r2) {
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
 constexpr bool operator<=(rational<33, 31> r1, rational<33, 31> r2) {
-  common_denom const c(r1, r2);
+  auto const c = common_denom(r1, r2);
   return c.n1 <= c.n2;
 }
 
@@ -135,7 +135,7 @@ constexpr bool operator<=(rational<33, 31> r1, rational<33, 31> r2) {
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
 constexpr bool operator<(rational<33, 31> r1, rational<33, 31> r2) {
-  rat::common_denom const c(r1, r2);
+  auto const c = common_denom(r1, r2);
   return c.n1 < c.n2;
 }
 
@@ -145,7 +145,7 @@ constexpr bool operator<(rational<33, 31> r1, rational<33, 31> r2) {
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
 constexpr bool operator>=(rational<33, 31> r1, rational<33, 31> r2) {
-  common_denom const c(r1, r2);
+  auto const c = common_denom(r1, r2);
   return c.n1 >= c.n2;
 }
 
@@ -155,7 +155,7 @@ constexpr bool operator>=(rational<33, 31> r1, rational<33, 31> r2) {
 /// @param r1  Left -hand operand.
 /// @param r2  Right-hand operand.
 constexpr bool operator>(rational<33, 31> r1, rational<33, 31> r2) {
-  rat::common_denom const c(r1, r2);
+  auto const c = common_denom(r1, r2);
   return c.n1 > c.n2;
 }
 
@@ -190,7 +190,7 @@ constexpr rational<NB, DB> operator-(rational<NB, DB> r) {
 template <unsigned NB, unsigned DB>
 constexpr rational<NB, DB> operator+(rational<NB, DB> r1,
                                      rational<NB, DB> r2) {
-  rat::common_denom const c(r1, r2);
+  auto const c = common_denom(r1, r2);
   return rational<NB, DB>(c.n1 + c.n2, c.lcd);
 }
 
