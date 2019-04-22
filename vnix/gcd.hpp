@@ -12,9 +12,7 @@
 namespace vnix {
 
 
-/// Output type resulting from promition of two input types through modular
-/// division.
-///
+/// Output-type resulting from modular division of input-types.
 /// @tparam U  One   input type.
 /// @tparam V  Other input type.
 template <typename U, typename V> using gcd_promoted = decltype(U() % V());
@@ -36,11 +34,7 @@ template <typename A, typename B> constexpr gcd_promoted<A, B> gcd(A a, B b) {
 } // namespace impl
 
 
-/// Greatest common divisor of two numbers.
-///
-/// If either number be negative, then it is treated as positive; the sign is
-/// ignore.
-///
+/// Greatest common divisor of two numbers; only absolute values are used.
 /// @param a  First  number.
 /// @param b  Second number.
 /// @return   Greatest common divisor.

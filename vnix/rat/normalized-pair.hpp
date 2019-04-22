@@ -51,8 +51,8 @@ public:
   /// that the numerator and denominator are relatively prime, and that each
   /// fits in its allocation of bits within the word.
   ///
-  /// @param n  Initial numerator.
-  /// @param d  Initial denominator.
+  /// @param nn  Initial numerator.
+  /// @param dd  Initial denominator.
   constexpr normalized_pair(SF nn, SF dd) : pair_(pair(nn, dd)) {
     enum {
       NMAX = UF(1) << (NMR_BITS - 1), // maximum magnitude of numerator
