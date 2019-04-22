@@ -6,8 +6,9 @@
 #ifndef VNIX_RAT_NORMALIZED_PAIR_HPP
 #define VNIX_RAT_NORMALIZED_PAIR_HPP
 
-#include <vnix/gcd.hpp>
-#include <vnix/rat/rational-base.hpp>
+#include <utility>            // for pair
+#include <vnix/gcd.hpp>       // for gcd
+#include <vnix/int-types.hpp> // for int_types
 
 namespace vnix {
 namespace rat {
@@ -21,14 +22,26 @@ namespace rat {
 ///
 /// @tparam NMR_BITS  Number of bits for numerator.
 /// @tparam DNM_BITS  Number of bits for denominator.
-template <unsigned NMR_BITS, unsigned DNM_BITS>
-class normalized_pair : rational_base<NMR_BITS, DNM_BITS> {
-  using P = rational_base<NMR_BITS, DNM_BITS>; ///< Type of parent.
-  using typename P::UF;
-  using typename P::SF;
-  UF g_; ///< Greatest common divisor for initial numer and denom.
-  SF n_; ///< Normalized numerator.
-  UF d_; ///< Normalized denominator.
+template <unsigned NMR_BITS, unsigned DNM_BITS> class normalized_pair {
+  // Each type used here is big enough to hold both the numerator and the
+  // denominator of the associated rational number.  This will work even when
+  // no bits are assigned to the denominator.  Otherwise, there are extra bits
+  // that can handle a pair that are initially far from being relatively prime.
+  using types = int_types<NMR_BITS + DNM_BITS>; ///< Working integer-types.
+  using SF    = typename types::SF; ///< Fastest large-enough signed type.
+  using UF    = typename types::UF; ///< Fastest large-enough unsigned type.
+
+  std::pair<SF, UF> pair_; ///< Normalized numerator and denominator.
+
+  /// Normalize numerator and denominator.
+  /// @param n  Input numerator.
+  /// @param d  Input denominator.
+  /// @return   Normalized numerator and denominator.
+  constexpr static std::pair<SF, UF> pair(SF n, SF d) {
+    UF const g = gcd(n, d);
+    if (d < 0) { return {-n / g, -d / g}; }
+    return {n / g, d / g};
+  }
 
 public:
   /// Initialize normalized numerator and denominator for encoding of rational
@@ -40,22 +53,19 @@ public:
   ///
   /// @param n  Initial numerator.
   /// @param d  Initial denominator.
-  constexpr normalized_pair(SF n, SF d)
-      : g_(gcd(n, d)),                //
-        n_(d < 0 ? -n / g_ : n / g_), //
-        d_(d < 0 ? -d / g_ : d / g_) {
-    if (d == 0) {
-      throw "null denominator"; // Do not allow division by zero.
-    }
-    enum { NMAX = UF(1) << (NMR_BITS - 1) };
-    if (n_ >= NMAX) { throw "numerator too large and positive"; }
-    if (n_ < -NMAX) { throw "numerator too large and negative"; }
-    if (d_ > (UF(1) << DNM_BITS)) { throw "denominator too large"; }
+  constexpr normalized_pair(SF nn, SF dd) : pair_(pair(nn, dd)) {
+    enum {
+      NMAX = UF(1) << (NMR_BITS - 1), // maximum magnitude of numerator
+      DMAX = UF(1) << (DNM_BITS)      // maximum value of denominator
+    };
+    if (dd == 0) { throw "null denominator (division by zero)"; }
+    if (n() >= NMAX) { throw "numerator too large and positive"; }
+    if (n() < -NMAX) { throw "numerator too large and negative"; }
+    if (d() > +DMAX) { throw "denominator too large"; }
   }
 
-  constexpr UF g() const { return g_; } ///< GCD.
-  constexpr SF n() const { return n_; } ///< Normalized numerator.
-  constexpr UF d() const { return d_; } ///< Normalized denominator.
+  constexpr SF n() const { return pair_.first; }  ///< Normalized numerator.
+  constexpr UF d() const { return pair_.second; } ///< Normalized denominator.
 };
 
 

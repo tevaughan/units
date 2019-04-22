@@ -7,6 +7,7 @@
 #define VNIX_RAT_ENCODING_HPP
 
 #include <vnix/rat/normalized-pair.hpp>
+#include <vnix/rat/rational-base.hpp>
 
 namespace vnix {
 namespace rat {
