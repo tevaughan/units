@@ -12,11 +12,19 @@
 namespace vnix {
 
 
-/// Greatest common divisor of two unsigned numbers.
+/// Output type resulting from promition of two input types through modular
+/// division.
+///
+/// @tparam U  One   input type.
+/// @tparam V  Other input type.
+template <typename U, typename V> using promoted = decltype(U() % V());
+
+
+/// Greatest common divisor of two numbers.
 /// @param a  First  number.
 /// @param b  Second number.
 /// @return   Greatest common divisor.
-constexpr uint64_t gcd(uint64_t a, uint64_t b) {
+template <typename A, typename B> constexpr promoted<A, B> gcd(A a, B b) {
   if (b == 0) {
     return a;
   } else {
