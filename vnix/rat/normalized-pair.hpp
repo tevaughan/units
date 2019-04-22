@@ -30,11 +30,6 @@ class normalized_pair : rational_base<NMR_BITS, DNM_BITS> {
   SF n_; ///< Normalized numerator.
   UF d_; ///< Normalized denominator.
 
-  /// Absolute value.
-  /// @param x  Positive or negative value.
-  /// @return   Corresponding positive value.
-  constexpr static SF abs(SF x) { return x > 0 ? x : -x; }
-
 public:
   /// Initialize normalized numerator and denominator for encoding of rational
   /// number.
@@ -46,9 +41,9 @@ public:
   /// @param n  Initial numerator.
   /// @param d  Initial denominator.
   constexpr normalized_pair(SF n, SF d)
-      : g_(gcd(abs(n), abs(d))),       //
-        n_(d >= 0 ? n / g_ : -n / g_), //
-        d_(d >= 0 ? d / g_ : -d / g_) {
+      : g_(gcd(n, d)),                //
+        n_(d < 0 ? -n / g_ : n / g_), //
+        d_(d < 0 ? -d / g_ : d / g_) {
     if (d == 0) {
       throw "null denominator"; // Do not allow division by zero.
     }
