@@ -12,7 +12,7 @@ namespace vnix {
 namespace rat {
 
 
-template <typename U> class rational;
+template <unsigned NB, unsigned DB> class rational;
 
 
 /// Least common denominator (LCD) and numerators corresponding to a pair of
@@ -28,11 +28,12 @@ public:
   int64_t const n2;  ///< Second output numerator, corresponding to LCD.
 
   /// Common denominator and associated numerators for rational pair.
-  /// @tparam U   Type of unsigned integer word in which rational is encoded.
+  /// @tparam NB  Number of bits for numerator.
+  /// @tparam DB  Number of bits for denominator.
   /// @param  r1  First  input rational number.
   /// @param  r2  Second input rational number.
-  template <typename U>
-  constexpr common_denom(rational<U> r1, rational<U> r2)
+  template <unsigned NB, unsigned DB>
+  constexpr common_denom(rational<NB, DB> r1, rational<NB, DB> r2)
       : g(gcd(r1.d(), r2.d())), //
         d1g(r1.d() / g),        //
         d2g(r2.d() / g),        //

@@ -17,22 +17,23 @@ namespace rat {
 /// encoded into the same word.
 ///
 /// These separate numbers are guaranteed to be normalized so that they can be
-/// encoded into a word of type U.
+/// encoded into a word of type rational_base<NMR_BITS, DNM_BITS>::US.
 ///
-/// @tparam U  Type of unsigned word in which rational number will be encoded.
-template <typename U> class normalized_pair : rational_base<U> {
-  using typename rational_base<U>::S;
-  using rational_base<U>::NMR_BITS;
-  using rational_base<U>::DNM_BITS;
-
-  uint64_t g_; ///< Greatest common divisor for initial numer and denom.
-  S        n_; ///< Normalized numerator.
-  U        d_; ///< Normalized denominator.
+/// @tparam NMR_BITS  Number of bits for numerator.
+/// @tparam DNM_BITS  Number of bits for denominator.
+template <unsigned NMR_BITS, unsigned DNM_BITS>
+class normalized_pair : rational_base<NMR_BITS, DNM_BITS> {
+  using P = rational_base<NMR_BITS, DNM_BITS>; ///< Type of parent.
+  using typename P::UF;
+  using typename P::SF;
+  UF g_; ///< Greatest common divisor for initial numer and denom.
+  SF n_; ///< Normalized numerator.
+  UF d_; ///< Normalized denominator.
 
   /// Absolute value.
   /// @param x  Positive or negative value.
   /// @return   Corresponding positive value.
-  constexpr static int64_t abs(int64_t x) { return x > 0 ? x : -x; }
+  constexpr static SF abs(SF x) { return x > 0 ? x : -x; }
 
 public:
   /// Initialize normalized numerator and denominator for encoding of rational
@@ -44,22 +45,22 @@ public:
   ///
   /// @param n  Initial numerator.
   /// @param d  Initial denominator.
-  constexpr normalized_pair(int64_t n, int64_t d)
+  constexpr normalized_pair(SF n, SF d)
       : g_(gcd(abs(n), abs(d))),       //
         n_(d >= 0 ? n / g_ : -n / g_), //
         d_(d >= 0 ? d / g_ : -d / g_) {
     if (d == 0) {
       throw "null denominator"; // Do not allow division by zero.
     }
-    enum { NMAX = uint64_t(1) << (NMR_BITS - 1) };
+    enum { NMAX = UF(1) << (NMR_BITS - 1) };
     if (n_ >= NMAX) { throw "numerator too large and positive"; }
     if (n_ < -NMAX) { throw "numerator too large and negative"; }
-    if (d_ > (uint64_t(1) << DNM_BITS)) { throw "denominator too large"; }
+    if (d_ > (UF(1) << DNM_BITS)) { throw "denominator too large"; }
   }
 
-  constexpr uint64_t g() const { return g_; } ///< GCD.
-  constexpr S        n() const { return n_; } ///< Normalized numerator.
-  constexpr U        d() const { return d_; } ///< Normalized denominator.
+  constexpr UF g() const { return g_; } ///< GCD.
+  constexpr SF n() const { return n_; } ///< Normalized numerator.
+  constexpr UF d() const { return d_; } ///< Normalized denominator.
 };
 
 

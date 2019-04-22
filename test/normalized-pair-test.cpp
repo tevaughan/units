@@ -6,7 +6,7 @@
 #include "../vnix/rat/normalized-pair.hpp"
 #include "catch.hpp"
 
-using normalized_pair = vnix::rat::normalized_pair<uint8_t>;
+using normalized_pair = vnix::rat::normalized_pair<5, 3>;
 
 
 TEST_CASE("Input fraction has positive denominator.", "[normalized-pair]") {

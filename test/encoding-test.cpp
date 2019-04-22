@@ -6,14 +6,19 @@
 #include "../vnix/rat/encoding.hpp"
 #include "catch.hpp"
 
-using normalized_pair = vnix::rat::normalized_pair<uint8_t>;
-using encoding        = vnix::rat::encoding<uint8_t>;
+using np8_t = vnix::rat::normalized_pair<5, 3>;
+using np9_t = vnix::rat::normalized_pair<5, 4>;
+using en8_t = vnix::rat::encoding<5, 3>;
+using en9_t = vnix::rat::encoding<5, 4>;
 
 
 TEST_CASE("Limiting values are encoded and decoded.", "[encoding]") {
-  encoding const e1(normalized_pair(-16, 1));
-  encoding const e2(normalized_pair(+15, 1));
-  encoding const e3(normalized_pair(+1, 8));
+  en8_t const e1(np8_t(-16, 1));
+  en8_t const e2(np8_t(+15, 1));
+  en8_t const e3(np8_t(+1, 8));
+  en9_t const e4(np9_t(-16, 1));
+  en9_t const e5(np9_t(+15, 1));
+  en9_t const e6(np9_t(+1, 16));
 
   REQUIRE(e1.n() == -16);
   REQUIRE(e1.d() == 1);
@@ -23,4 +28,13 @@ TEST_CASE("Limiting values are encoded and decoded.", "[encoding]") {
 
   REQUIRE(e3.n() == +1);
   REQUIRE(e3.d() == 8);
+
+  REQUIRE(e4.n() == -16);
+  REQUIRE(e4.d() == 1);
+
+  REQUIRE(e5.n() == +15);
+  REQUIRE(e5.d() == 1);
+
+  REQUIRE(e6.n() == +1);
+  REQUIRE(e6.d() == 16);
 }
