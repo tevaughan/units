@@ -18,37 +18,37 @@ namespace rat {
 /// @tparam DNM_BITS  Number of bits for denominator.
 template <unsigned NMR_BITS, unsigned DNM_BITS>
 class encoding : public rational_base<NMR_BITS, DNM_BITS> {
-  using P = rational_base<NMR_BITS, DNM_BITS>;
-
-protected:
-  using US = typename P::US;
-  using UF = typename P::UF;
-  using SS = typename P::SS;
-  using SF = typename P::SF;
-
-  /// Unsigned word in which numerator and denominator are encoded.
-  US c_;
-
-  using P::DNM_MASK;
-  using P::NMR_MASK;
-
-  /// Construct from code-word.
-  /// @param c  Code-word.
-  constexpr encoding(UF c) : c_(c) {}
+  using P = rational_base<NMR_BITS, DNM_BITS>; ///< Type of parent.
 
 public:
-  using type = US; ///< Type of unsigned word for encoding.
+  using type = typename P::US; ///< Type of unsigned word for encoding.
 
-  /// Initialize encoding of rational number in unsigned word.
+protected:
+  type c_;           ///< Unsigned word storing encoding.
+  using P::DNM_MASK; ///< Mask for denominator in encoded word.
+
+  /// Allow descendant to construct from code-word.
+  /// @param c  Code-word.
+  constexpr encoding(typename P::UF c) : c_(c) {}
+
+public:
+  /// Initialize from normalized numerator and denominator.
   /// @param p  Normalized numerator and denominator.
   constexpr encoding(normalized_pair<NMR_BITS, DNM_BITS> p)
-      : c_((US(p.n()) << DNM_BITS) | ((p.d() - 1) & DNM_MASK)) {}
+      : c_((type(p.n()) << DNM_BITS) | ((p.d() - 1) & DNM_MASK)) {}
 
   /// Normalized numerator.
-  constexpr SF n() const { return SS(c_) >> DNM_BITS; }
+  constexpr typename int_types<NMR_BITS>::SF n() const {
+    // Cast unsigned code-word to corresponding signed type so that right-shift
+    // will pad with ones if numerator be negative.  This is necessary because
+    // shifted value at the end needs to be negative in that case.
+    return typename P::SS(c_) >> DNM_BITS;
+  }
 
   /// Normalized denominator.
-  constexpr UF d() const { return (c_ & DNM_MASK) + 1; }
+  constexpr typename int_types<DNM_BITS>::UF d() const {
+    return (c_ & DNM_MASK) + 1;
+  }
 };
 
 
