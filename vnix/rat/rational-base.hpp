@@ -22,15 +22,17 @@ namespace rat {
 /// @tparam NDB  Number of bits for positive denominator.
 template <unsigned NMR_BITS, unsigned DNM_BITS>
 struct rational_base : public int_types<NMR_BITS + DNM_BITS> {
+  /// Total number of bits used by rational number.
   enum {
     BITS = NMR_BITS + DNM_BITS ///< Total number of bits.
   };
-  using P = int_types<BITS>; ///< Type of parent.
+
+  using typename int_types<BITS>::US; ///< Smallest acceptable unsigned type.
+
+  /// Mask for each of numerator and denominator.
   enum {
-    /// Mask for denominator.
-    DNM_MASK = bit_range<typename P::US>(0, DNM_BITS - 1),
-    /// Mask for numerator.
-    NMR_MASK = bit_range<typename P::US>(DNM_BITS, BITS - 1)
+    DNM_MASK = bit_range<US>(0, DNM_BITS - 1),   ///< Mask for denominator.
+    NMR_MASK = bit_range<US>(DNM_BITS, BITS - 1) ///< Mask for numerator.
   };
 };
 
