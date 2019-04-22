@@ -25,9 +25,10 @@ namespace impl {
 /// @param a  First  nonnegative number.
 /// @param b  Second nonnegative number.
 /// @return   Greatest common divisor.
-template <typename A, typename B> constexpr gcd_promoted<A, B> gcd(A a, B b) {
+template <typename A, typename B>
+constexpr gcd_promoted<A, B> basic_gcd(A a, B b) {
   if (b == 0) { return a; }
-  return impl::gcd(b, a % b);
+  return basic_gcd(b, a % b);
 }
 
 
@@ -42,7 +43,7 @@ template <typename A, typename B> constexpr gcd_promoted<A, B> gcd(A a, B b) {
   if (a < 0) { a = -a; }
   if (b == 0) { return a; }
   if (b < 0) { b = -b; }
-  return impl::gcd(b, a % b);
+  return impl::basic_gcd(b, a % b);
 }
 
 
