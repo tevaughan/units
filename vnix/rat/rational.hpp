@@ -62,7 +62,7 @@ public:
   constexpr bool to_bool() const { return n() != 0; }
 
   /// Convert to float.
-  constexpr double to_float() const { return n() * 1.0f / d(); }
+  constexpr float to_float() const { return n() * 1.0f / d(); }
 
   /// Convert to double.
   constexpr double to_double() const { return n() * 1.0 / d(); }
@@ -177,8 +177,7 @@ constexpr bool operator<(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 /// @param  r2   Right-hand operand.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr bool operator>=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
-  auto const c = common_denom(r1, r2);
-  return c.n1 >= c.n2;
+  return !(r1 < r2);
 }
 
 
@@ -191,8 +190,7 @@ constexpr bool operator>=(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 /// @param  r2   Right-hand operand.
 template <unsigned NB1, unsigned DB1, unsigned NB2, unsigned DB2>
 constexpr bool operator>(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
-  auto const c = common_denom(r1, r2);
-  return c.n1 > c.n2;
+  return !(r1 <= r2);
 }
 
 
@@ -202,7 +200,7 @@ constexpr bool operator>(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 /// @param  r   Number to copy.
 /// @return     Copy of number.
 template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> operator+(rational<NB, DB> r) {
+constexpr auto operator+(rational<NB, DB> r) {
   return r;
 }
 
@@ -213,7 +211,7 @@ constexpr rational<NB, DB> operator+(rational<NB, DB> r) {
 /// @param  r   Number to negate.
 /// @return     Negative of number.
 template <unsigned NB, unsigned DB>
-constexpr rational<NB, DB> operator-(rational<NB, DB> r) {
+constexpr auto operator-(rational<NB, DB> r) {
   return rational<NB, DB>(-r.n(), r.d());
 }
 
