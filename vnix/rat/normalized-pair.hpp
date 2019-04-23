@@ -28,7 +28,7 @@ template <unsigned NMR_BITS, unsigned DNM_BITS> class normalized_pair {
   // no bits are assigned to the denominator.  Otherwise, there are extra bits
   // that can handle a pair that are initially far from being relatively prime.
   using types = int_types<NMR_BITS + DNM_BITS>; ///< Working integer-types.
-  using SF    = typename types::SF; ///< Fastest large-enough signed type.
+  using SF    = typename types::SF; ///< Fastest large-enough   signed type.
   using UF    = typename types::UF; ///< Fastest large-enough unsigned type.
 
   std::pair<SF, UF> pair_; ///< Normalized numerator and denominator.

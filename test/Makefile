@@ -3,7 +3,6 @@
 SRCS = tests.cpp\
  gcd-test.cpp\
  bit-range-test.cpp\
- rational-base-test.cpp\
  normalized-pair-test.cpp\
  encoding-test.cpp\
  rational-test.cpp\

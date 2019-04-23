@@ -12,6 +12,14 @@ using en8_t = vnix::rat::encoding<5, 3>;
 using en9_t = vnix::rat::encoding<5, 4>;
 
 
+TEST_CASE("Constants are computed correctly.", "[encoding]") {
+  using en = vnix::rat::encoding<5, 3>;
+  REQUIRE(en::BITS == 8);
+  REQUIRE(en::DNM_MASK == 0x07);
+  REQUIRE(en::NMR_MASK == 0xF8);
+}
+
+
 TEST_CASE("Limiting values are encoded and decoded.", "[encoding]") {
   en8_t const e1(np8_t(-16, 1));
   en8_t const e2(np8_t(+15, 1));

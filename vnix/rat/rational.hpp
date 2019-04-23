@@ -27,22 +27,25 @@ namespace rat {
 template <unsigned NB, unsigned DB> class rational : public encoding<NB, DB> {
   struct dummy_arg {};
   using P = encoding<NB, DB>;
-  using typename P::type;
 
+public:
+  using typename P::stype;
+  using typename P::utype;
+
+private:
   /// Construct from encoding.
   /// @param u  Encoding of rational number.
-  constexpr rational(type u, dummy_arg) : P(u) {}
+  constexpr rational(utype u, dummy_arg) : P(u) {}
 
 public:
   using P::d;
   using P::n;
-  using typename P::SF;
-  using typename P::UF;
 
   /// Initialize from numerator and denominator.
   /// @param n  Numerator   (zero  by default).
   /// @param d  Denominator (unity by default).
-  constexpr rational(SF n = 0, SF d = 1) : P(normalized_pair<NB, DB>(n, d)) {}
+  constexpr rational(stype n = 0, stype d = 1)
+      : P(normalized_pair<NB, DB>(n, d)) {}
 
   /// Initialize from other rational.
   /// @tparam ONB  Number of numerator-bits in other type of rational.
@@ -53,7 +56,7 @@ public:
       : P(normalized_pair<NB, DB>(r.n(), r.d())) {}
 
   /// Convert to (signed) integer.
-  constexpr SF to_int() const {
+  constexpr stype to_int() const {
     if (d() != 1) { throw "attempted conversion to integer from fraction"; }
     return n();
   }
@@ -107,10 +110,10 @@ public:
   constexpr rational &operator/=(rational<ONB, ODB> r);
 
   /// Encoding from rational number.
-  constexpr static UF encode(rational r) { return r.c_; }
+  constexpr static utype encode(rational r) { return r.c_; }
 
   /// Rational number from encoding.
-  constexpr static rational decode(UF u) { return {u, dummy_arg()}; }
+  constexpr static rational decode(utype u) { return {u, dummy_arg()}; }
 };
 
 
