@@ -16,8 +16,7 @@ namespace rat {
 /// Encoding of numerator and denominator into unsigned word.
 /// @tparam NMR_BITS  Number of bits for numerator.
 /// @tparam DNM_BITS  Number of bits for denominator.
-template <unsigned NMR_BITS, unsigned DNM_BITS>
-class encoding {
+template <unsigned NMR_BITS, unsigned DNM_BITS> class encoding {
 public:
   enum { /** Total number of bits. */ BITS = NMR_BITS + DNM_BITS };
   using utype = typename int_types<BITS>::US; ///< Unsigned type for encoding.
@@ -29,6 +28,15 @@ public:
     NMR_MASK = bit_range<utype>(DNM_BITS, BITS - 1) ///< Mask for numerator.
   };
 
+private:
+  /// Calculated encoding from normalized numerator and denominator.
+  /// @param p  Normalized numerator and denominator.
+  constexpr static utype encode(normalized_pair<NMR_BITS, DNM_BITS> p) {
+    utype const num_enc = utype(p.n()) << DNM_BITS;
+    utype const den_enc = (p.d() - 1) & DNM_MASK;
+    return num_enc | den_enc;
+  }
+
 protected:
   utype c_; ///< Unsigned word storing encoding.
 
@@ -39,15 +47,19 @@ protected:
 public:
   /// Initialize from normalized numerator and denominator.
   /// @param p  Normalized numerator and denominator.
-  constexpr encoding(normalized_pair<NMR_BITS, DNM_BITS> p)
-      : c_((utype(p.n()) << DNM_BITS) | ((p.d() - 1) & DNM_MASK)) {}
+  constexpr encoding(normalized_pair<NMR_BITS, DNM_BITS> p) : c_(encode(p)) {}
 
   /// Normalized numerator.
   constexpr typename int_types<NMR_BITS>::SF n() const {
-    // Cast unsigned code-word to corresponding signed type so that right-shift
-    // will pad with ones if numerator be negative.  This is necessary because
-    // shifted value at the end needs to be negative in that case.
-    return stype(c_) >> DNM_BITS;
+    // Perform arithmetic right-shift on signed number.  With C++20, this could
+    // be done simply as 'return stype(c_) >> DNM_BITS'.
+    utype const sign_bit = c_ & bit<utype>(BITS - 1);
+    utype const shifted  = c_ >> DNM_BITS;
+    enum { UTYPE_BITS = 8 * sizeof(utype) };
+    if (sign_bit && NMR_BITS < UTYPE_BITS) {
+      return shifted | bit_range<utype>(NMR_BITS, UTYPE_BITS - 1);
+    }
+    return shifted;
   }
 
   /// Normalized denominator.
