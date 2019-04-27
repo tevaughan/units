@@ -57,9 +57,9 @@ public:
     utype const shifted  = c_ >> DNM_BITS;
     enum { UTYPE_BITS = 8 * sizeof(utype) };
     if (sign_bit && NMR_BITS < UTYPE_BITS) {
-      return shifted | bit_range<utype>(NMR_BITS, UTYPE_BITS - 1);
+      return stype(shifted | bit_range<utype>(NMR_BITS, UTYPE_BITS - 1));
     }
-    return shifted;
+    return stype(shifted);
   }
 
   /// Normalized denominator.
