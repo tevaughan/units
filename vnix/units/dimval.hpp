@@ -452,79 +452,57 @@ using chargef        = statdimf<chg_dim>; ///< Single-precision charge.
 using temperaturef   = statdimf<tmp_dim>; ///< Single-precision temperature.
 
 
-#ifdef VNIX_UNITS_DBL
-
-
-/// Default precision for statdim.
-/// @tparam D  Encoding of dimensions in dim::word.
-template <dim::word D> using statdim = statdimd<D>;
-
-using dyndim        = dyndimd;        ///< Default precision for dyndim.
-using dimensionless = dimensionlessd; ///< Default precision for dimensionless.
-using time          = timed;          ///< Default precision for time.
-using length        = lengthd;        ///< Default precision for length.
-using mass          = massd;          ///< Default precision for mass.
-using charge        = charged;        ///< Default precision for charge.
-using temperature   = temperatured;   ///< Default precision for temperature.
-
-
-#else // single precision
-
-
-/// Default precision for statdim.
-/// @tparam D  Encoding of dimensions in dim::word.
-template <dim::word D> using statdim = statdimf<D>;
-
-using dyndim        = dyndimf;        ///< Default precision for dyndim.
-using dimensionless = dimensionlessf; ///< Default precision for dimensionless.
-using time          = timef;          ///< Default precision for time.
-using length        = lengthf;        ///< Default precision for length.
-using mass          = massf;          ///< Default precision for mass.
-using charge        = chargef;        ///< Default precision for charge.
-using temperature   = temperaturef;   ///< Default precision for temperature.
-
-
-#endif // def VNIX_UNITS_DBL
-
-
 /// Fundamental statdim-type for seconds.
-struct seconds : public time {
+template <typename T> struct seconds : public basic_statdim<tim_dim, T> {
   /// Initialize from number.
   /// @param v  Number of seconds.
-  constexpr seconds(float v) : time(v, tim_dim) {}
+  constexpr seconds(float v) : basic_statdim<tim_dim, T>(v, tim_dim) {}
 };
 
 
 /// Fundamental statdim-type for meters.
-struct meters : public length {
+template <typename T> struct meters : public basic_statdim<len_dim, T> {
   /// Initialize from number.
   /// @param v  Number of meters.
-  constexpr meters(float v) : length(v, len_dim) {}
+  constexpr meters(float v) : basic_statdim<len_dim, T>(v, len_dim) {}
 };
 
 
 /// Fundamental statdim-type for kilograms.
-struct kilograms : public mass {
+template <typename T> struct kilograms : public basic_statdim<mas_dim, T> {
   /// Initialize from number.
   /// @param v  Number of kilograms.
-  constexpr kilograms(float v) : mass(v, mas_dim) {}
+  constexpr kilograms(float v) : basic_statdim<mas_dim, T>(v, mas_dim) {}
 };
 
 
 /// Fundamental statdim-type for coulombs.
-struct coulombs : public charge {
+template <typename T> struct coulombs : public basic_statdim<chg_dim, T> {
   /// Initialize from number.
   /// @param v  Number of coulombs.
-  constexpr coulombs(float v) : charge(v, chg_dim) {}
+  constexpr coulombs(float v) : basic_statdim<chg_dim, T>(v, chg_dim) {}
 };
 
 
 /// Fundamental statdim-type for kelvins.
-struct kelvins : public temperature {
+template <typename T> struct kelvins : public basic_statdim<tmp_dim, T> {
   /// Initialize from number.
   /// @param v  Number of kelvins.
-  constexpr kelvins(float v) : temperature(v, tmp_dim) {}
+  constexpr kelvins(float v) : basic_statdim<tmp_dim, T>(v, tmp_dim) {}
 };
+
+
+using secondsd   = seconds<double>;
+using metersd    = meters<double>;
+using kilogramsd = kilograms<double>;
+using coulombsd  = coulombs<double>;
+using kelvinsd   = kelvins<double>;
+
+using secondsf   = seconds<float>;
+using metersf    = meters<float>;
+using kilogramsf = kilograms<float>;
+using coulombsf  = coulombs<float>;
+using kelvinsf   = kelvins<float>;
 
 
 } // namespace units

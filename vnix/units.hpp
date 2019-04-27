@@ -1,4 +1,4 @@
-/// @file       vnix/units/units.hpp
+/// @file       vnix/units.hpp
 /// @brief      Definition of various units in namespace vnix::units.
 /// @copyright  2019  Thomas E. Vaughan
 /// @license    GPL Version 3 or later.
@@ -12,11 +12,11 @@ namespace vnix {
 namespace units {
 
 
-constexpr meters    m{1.0};  ///< Meter.
-constexpr kilograms kg{1.0}; ///< Kilogram.
-constexpr seconds   s{1.0};  ///< Second.
-constexpr coulombs  C{1.0};  ///< Coulomb.
-constexpr kelvins   K{1.0};  ///< Kelvin.
+constexpr metersd    m{1.0};  ///< Meter.
+constexpr kilogramsd kg{1.0}; ///< Kilogram.
+constexpr secondsd   s{1.0};  ///< Second.
+constexpr coulombsd  C{1.0};  ///< Coulomb.
+constexpr kelvinsd   K{1.0};  ///< Kelvin.
 
 // Lengths based on meter.
 constexpr auto km     = 1.0E+03 * m; ///< Kilometer.
