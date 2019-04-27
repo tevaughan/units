@@ -90,17 +90,17 @@ public:
   /// @tparam PD  Denominator of power.
   /// @return     Dimension   of result.
   template <int64_t PN, int64_t PD = 1> constexpr dyndim_base pow() const {
-    return d_ * rat(PN, PD);
+    return d_ * dim::rat(PN, PD);
   }
 
   /// Dimension for rational power of dimensioned value.
   /// @param  p  Rational power.
   /// @return    Dimension of result.
-  constexpr dyndim_base pow(rat p) const { return d_ * p; }
+  constexpr dyndim_base pow(dim::rat p) const { return d_ * p; }
 
   /// Dimension for square-root of dimensioned value.
   /// @return  Dimension of square-root.
-  constexpr dyndim_base sqrt() const { return d_ / rat(2); }
+  constexpr dyndim_base sqrt() const { return d_ / dim::rat(2); }
 };
 
 

@@ -19,8 +19,10 @@ namespace rat {
 template <unsigned NMR_BITS, unsigned DNM_BITS> class encoding {
 public:
   enum { /** Total number of bits. */ BITS = NMR_BITS + DNM_BITS };
-  using utype = typename int_types<BITS>::US; ///< Unsigned type for encoding.
-  using stype = typename int_types<BITS>::SS; ///< Signed   type for encoding.
+  using utype  = typename int_types<BITS>::US; ///< Unsigned type for encoding.
+  using stype  = typename int_types<BITS>::SS; ///< Signed   type for encoding.
+  using uftype = typename int_types<BITS>::UF; ///< Unsigned fast type.
+  using sftype = typename int_types<BITS>::SF; ///< Signed   fast type.
 
   /// Mask for each of numerator and denominator.
   enum {
@@ -53,13 +55,13 @@ public:
   constexpr typename int_types<NMR_BITS>::SF n() const {
     // Perform arithmetic right-shift on signed number.  With C++20, this could
     // be done simply as 'return stype(c_) >> DNM_BITS'.
-    utype const sign_bit = c_ & bit<utype>(BITS - 1);
-    utype const shifted  = c_ >> DNM_BITS;
-    enum { UTYPE_BITS = 8 * sizeof(utype) };
-    if (sign_bit && NMR_BITS < UTYPE_BITS) {
-      return stype(shifted | bit_range<utype>(NMR_BITS, UTYPE_BITS - 1));
+    uftype const sign_bit = c_ & bit<uftype>(BITS - 1);
+    uftype const shifted  = c_ >> DNM_BITS;
+    enum { UFTYPE_BITS = 8 * sizeof(uftype) };
+    if (sign_bit && NMR_BITS < UFTYPE_BITS) {
+      return sftype(shifted | bit_range<uftype>(NMR_BITS, UFTYPE_BITS - 1));
     }
-    return stype(shifted);
+    return sftype(shifted);
   }
 
   /// Normalized denominator.

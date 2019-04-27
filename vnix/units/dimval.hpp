@@ -21,7 +21,7 @@ namespace units {
 
 template <typename T, typename B> class dimval;
 template <typename T> class basic_dyndim;
-template <uint64_t D, typename T> class basic_statdim;
+template <dim::word D, typename T> class basic_statdim;
 
 
 /// Model of a physically dimensioned quantity.
@@ -38,9 +38,9 @@ template <typename T, typename B> class dimval : public number<T>, public B {
   template <typename OT> friend class basic_dyndim;
 
   /// Allow access to every kind of statdim.
-  /// @tparam D   Encoding of dimension in `uint64_t`.
+  /// @tparam D   Encoding of dimension in dim::word.
   /// @tparam OT  Type of statdim's numeric value.
-  template <uint64_t D, typename OT> friend class basic_statdim;
+  template <dim::word D, typename OT> friend class basic_statdim;
 
 protected:
   /// Initialize from numeric value and from dimension.
@@ -73,7 +73,7 @@ public:
 
   /// Exponent for base at specified offset.
   /// @param off  Offset.
-  constexpr rat d(base_off off) const { return B::d()[off]; }
+  constexpr dim::rat d(base_off off) const { return B::d()[off]; }
 
   /// Equality-comparison of two dimensioned values.
   /// This will throw an exception if the dimensions are different.
@@ -263,7 +263,7 @@ public:
   /// Raise dimensioned value to rational power.
   /// @param p  Rational power.
   /// @return   Transformed value of different dimension.
-  constexpr auto pow(rat p) const {
+  constexpr auto pow(dim::rat p) const {
     auto const pdim = B::pow(p);
     using rt        = dimval<T, decltype(pdim)>;
     return rt(std::pow(v_, p.to_double()), pdim.d());
@@ -325,7 +325,7 @@ constexpr auto pow(dimval<T, B> const &v) {
 /// @param  p  Rational power.
 /// @return    Transformed value of different dimension.
 template <typename T, typename B>
-constexpr auto pow(dimval<T, B> const &v, rat p) {
+constexpr auto pow(dimval<T, B> const &v, dim::rat p) {
   return v.pow(p);
 }
 
@@ -363,9 +363,9 @@ using dyndimf = basic_dyndim<float>;
 
 
 /// Model of a statically dimensioned physical quantity.
-/// @tparam D  Encoding of dimension in `uint64_t`.
+/// @tparam D  Encoding of dimension in dim::word.
 /// @tparam T  Type numeric value.
-template <uint64_t D, typename T>
+template <dim::word D, typename T>
 class basic_statdim : public dimval<T, statdim_base<D>> {
   /// Type of compatible statdim.
   /// @tparam OT  Type of numeric value.
@@ -425,15 +425,15 @@ public:
 /// Model of a statically dimensioned physical quantity with double-precision
 /// numeric value.
 ///
-/// @tparam D  Encoding of dimension in `uint64_t`.
-template <uint64_t D> using statdimd = basic_statdim<D, double>;
+/// @tparam D  Encoding of dimension in dim::word.
+template <dim::word D> using statdimd = basic_statdim<D, double>;
 
 
 /// Model of a statically dimensioned physical quantity with single-precision
 /// numeric value.
 ///
-/// @tparam D  Encoding of dimension in `uint64_t`.
-template <uint64_t D> using statdimf = basic_statdim<D, float>;
+/// @tparam D  Encoding of dimension in dim::word.
+template <dim::word D> using statdimf = basic_statdim<D, float>;
 
 
 using dimensionlessd = statdimd<nul_dim>; ///< Double-precision dimensionless.
@@ -456,8 +456,8 @@ using temperaturef   = statdimf<tmp_dim>; ///< Single-precision temperature.
 
 
 /// Default precision for statdim.
-/// @tparam D  Encoding of dimensions in uint64_t word.
-template <uint64_t D> using statdim = statdimd<D>;
+/// @tparam D  Encoding of dimensions in dim::word.
+template <dim::word D> using statdim = statdimd<D>;
 
 using dyndim        = dyndimd;        ///< Default precision for dyndim.
 using dimensionless = dimensionlessd; ///< Default precision for dimensionless.
@@ -472,8 +472,8 @@ using temperature   = temperatured;   ///< Default precision for temperature.
 
 
 /// Default precision for statdim.
-/// @tparam D  Encoding of dimensions in uint64_t word.
-template <uint64_t D> using statdim = statdimf<D>;
+/// @tparam D  Encoding of dimensions in dim::word.
+template <dim::word D> using statdim = statdimf<D>;
 
 using dyndim        = dyndimf;        ///< Default precision for dyndim.
 using dimensionless = dimensionlessf; ///< Default precision for dimensionless.

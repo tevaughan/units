@@ -28,17 +28,17 @@ template <unsigned NMR_BITS, unsigned DNM_BITS> class normalized_pair {
   // no bits are assigned to the denominator.  Otherwise, there are extra bits
   // that can handle a pair that are initially far from being relatively prime.
   using types = int_types<NMR_BITS + DNM_BITS>; ///< Working integer-types.
-  using SF    = typename types::SF; ///< Fastest large-enough   signed type.
-  using UF    = typename types::UF; ///< Fastest large-enough unsigned type.
+  using S     = typename types::SF; ///< Fastest large-enough   signed type.
+  using U     = typename types::UF; ///< Fastest large-enough unsigned type.
 
-  std::pair<SF, UF> pair_; ///< Normalized numerator and denominator.
+  std::pair<S, U> pair_; ///< Normalized numerator and denominator.
 
   /// Normalize numerator and denominator.
   /// @param n  Input numerator.
   /// @param d  Input denominator.
   /// @return   Normalized numerator and denominator.
-  constexpr static std::pair<SF, UF> pair(SF n, SF d) {
-    UF const g = gcd(n, d);
+  constexpr static std::pair<S, U> pair(S n, S d) {
+    U const g = gcd(n, d);
     if (d < 0) { return {-n / g, -d / g}; }
     return {n / g, d / g};
   }
@@ -53,10 +53,10 @@ public:
   ///
   /// @param nn  Initial numerator.
   /// @param dd  Initial denominator.
-  constexpr normalized_pair(SF nn, SF dd) : pair_(pair(nn, dd)) {
+  constexpr normalized_pair(S nn, S dd) : pair_(pair(nn, dd)) {
     enum {
-      NMAX = UF(1) << (NMR_BITS - 1), // maximum magnitude of numerator
-      DMAX = UF(1) << (DNM_BITS)      // maximum value of denominator
+      NMAX = U(1) << (NMR_BITS - 1), // maximum magnitude of numerator
+      DMAX = U(1) << (DNM_BITS)      // maximum value of denominator
     };
     if (dd == 0) { throw "null denominator (division by zero)"; }
     if (n() >= NMAX) { throw "numerator too large and positive"; }
@@ -64,8 +64,8 @@ public:
     if (d() > +DMAX) { throw "denominator too large"; }
   }
 
-  constexpr SF n() const { return pair_.first; }  ///< Normalized numerator.
-  constexpr UF d() const { return pair_.second; } ///< Normalized denominator.
+  constexpr S n() const { return pair_.first; }  ///< Normalized numerator.
+  constexpr U d() const { return pair_.second; } ///< Normalized denominator.
 };
 
 

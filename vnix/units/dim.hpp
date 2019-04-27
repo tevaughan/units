@@ -14,7 +14,7 @@ namespace units {
 
 
 /// Offset of exponent for each base quantity.
-enum base_off : uint8_t {
+enum base_off {
   TIM,      ///< Offset of exponent for time.
   LEN,      ///< Offset of exponent for length.
   MAS,      ///< Offset of exponent for mass.
@@ -24,73 +24,96 @@ enum base_off : uint8_t {
 };
 
 
-using rat = rat8_t; ///< Type of rational for dimensioned values.
-
-
-/// Array of rational exponents.
-struct rat_array {
-  rat a[NUM_BASES]; ///< Storage for rational exponents.
-};
-
-
 /// Composite dimension, which stores a rational exponent for each base
 /// quantity.
 class dim {
-  static_assert(NUM_BASES <= sizeof(uint64_t), "too many bases");
-  rat_array            e_; ///< Storage for exponents.
-  constexpr rat *      begin() { return e_.a; }
-  constexpr rat *      end() { return e_.a + NUM_BASES; }
-  constexpr rat const *begin() const { return e_.a; }
-  constexpr rat const *end() const { return e_.a + NUM_BASES; }
+public:
+  using rat = rational<4, 2>; ///< Type of rational for dimensioned values.
+
+  /// Type of unsigned word in which dimensions are encoded.
+  using word = int_types<NUM_BASES * rat::BITS>::US;
+
+private:
+  static_assert(NUM_BASES * rat::BITS <= 64, "too many bits for bases");
+  word e_; ///< Storage for exponents.
+
+  enum {
+    /// Maximum number of bits to shift an encoding of a rational exponent.
+    MAX_SHIFT = (NUM_BASES - 1) * rat::BITS
+  };
+
+  /// Encode exponent associated with highest base_off at highest bit-offsets.
+  /// @tparam T  Type that is convertible rat.
+  /// @tparam t  Exponent to be encoded.
+  template <typename T> constexpr static word encode(T t) {
+    return rat::encode(t) << MAX_SHIFT;
+  }
+
+  /// Encode exponents, with higher base_off at higher bit-offsets.
+  /// @tparam T   Type that is convertible to rat.
+  /// @tparam U   List of types, each convertible to rat.
+  /// @param  t   Exponent to be encoded at lowest bit-offsets.
+  /// @param  us  Exponents to be encoded at higher bit-offsets.
+  template <typename T, typename... U>
+  constexpr static word encode(T t, U... us) {
+    constexpr auto N = sizeof...(us);
+    static_assert(N < NUM_BASES, "too many exponents");
+    constexpr auto SHIFT = MAX_SHIFT - N * rat::BITS;
+    constexpr word MASK  = bit_range<word>(0, rat::BITS - 1) << SHIFT;
+    word const     e     = rat::encode(t) << SHIFT;
+    return (e & MASK) | (encode(us...) & ~MASK);
+  }
 
 public:
+  /// Initialize from dim that has been encoded into a word.
+  /// @param u  Encoded data for dim.
+  constexpr explicit dim(word u) : e_(u) {}
+
   /// Initialize exponents, one for each base quantity.
   ///
   /// @tparam T   List of types, one for each initializer in list for
   ///             rat_array.  Each type should be rat.
   ///
   /// @param  ts  List of initializers for rat_array.
-  template <typename... T> constexpr dim(T... ts) : e_{ts...} {}
-
-  /// Initialize from dim that has been encoded into a uint64_t.
-  /// @param u  Encoded data for dim.
-  constexpr explicit dim(uint64_t u)
-      : e_{rat::decode((u >> (TIM * 8)) & 0xFF),
-           rat::decode((u >> (LEN * 8)) & 0xFF),
-           rat::decode((u >> (MAS * 8)) & 0xFF),
-           rat::decode((u >> (CHG * 8)) & 0xFF),
-           rat::decode((u >> (TMP * 8)) & 0xFF)} {}
-
-  /// Encode data for this dim into a uint64_t.
-  constexpr operator uint64_t() const {
-    return (uint64_t(rat::encode(e_.a[TIM])) << (TIM * 8)) |
-           (uint64_t(rat::encode(e_.a[LEN])) << (LEN * 8)) |
-           (uint64_t(rat::encode(e_.a[MAS])) << (MAS * 8)) |
-           (uint64_t(rat::encode(e_.a[CHG])) << (CHG * 8)) |
-           (uint64_t(rat::encode(e_.a[TMP])) << (TMP * 8));
+  template <typename... T> constexpr dim(T... ts) : e_(encode(ts...)) {
+    static_assert(sizeof...(ts) == NUM_BASES, "illegal number of bases");
   }
 
-  /// Reference to immutable rational exponent at specified offset.
-  /// @param off  Offset of exponent.
-  constexpr rat const &operator[](base_off off) const { return e_.a[off]; }
+  /// Encode data for this dim into a word.
+  constexpr operator word() const { return e_; }
 
-  /// Reference to mutable rational exponent at specified offset.
+  /// Rational exponent at specified offset.
   /// @param off  Offset of exponent.
-  constexpr rat &operator[](base_off off) { return e_.a[off]; }
+  constexpr rat exp(base_off off) const {
+    constexpr auto mask = bit_range<word>(0, rat::BITS - 1);
+    return rat::decode((e_ >> (off * rat::BITS)) & mask);
+  }
 
-  /// Reference to immutable array of exponents.
-  constexpr rat_array const &exponents() const { return e_; }
+  /// Rational exponent at specified offset.
+  /// @param off  Offset of exponent.
+  constexpr rat operator[](base_off off) const { return exp(off); }
+
+  /// Set rational exponent at specified offset.
+  /// @param off  Offset of exponent.
+  /// @param r    Rational exponent.
+  constexpr void set(base_off off, rat r) {
+    unsigned const bit_off = off * rat::BITS;
+    word const     expon   = rat::encode(r) << bit_off;
+    auto const     mask    = bit_range<word>(0, rat::BITS - 1) << bit_off;
+    e_                     = (e_ & ~mask) | (expon & mask);
+  }
 
   /// Combine each exponent with corresponding other exponent via function.
-  /// @tparam F  Type of function.
-  /// @param  d  Other exponents.
-  /// @param  f  Binary function operating on pair of rationals.
-  /// @return    New exponents.
+  /// @tparam F  Type of function for combining two rationals to make third.
+  /// @param  d  Other rational exponents.
+  /// @param  f  Function operating on pair of rationals.
+  /// @return    New rational exponents.
   template <typename F> constexpr dim combine(dim const &d, F f) const {
-    dim        r    = *this;
-    rat const *j    = d.begin();
-    rat *const rend = r.end();
-    for (rat *i = r.begin(); i != rend;) { f(*i++, *j++); }
+    dim r(word(0));
+    for (unsigned b = 0; b < NUM_BASES; ++b) {
+      auto const off = base_off(b);
+      r.set(off, f(exp(off), d.exp(off)));
+    }
     return r;
   }
 
@@ -99,20 +122,19 @@ public:
   /// @param  f  Unary function operating on rational.
   /// @return    New exponents.
   template <typename F> constexpr dim transform(F f) const {
-    dim r = *this;
-    for (auto i = r.begin(); i != r.end(); ++i) { *i = f(*i); }
+    dim r(word(0));
+    for (unsigned b = 0; b < NUM_BASES; ++b) {
+      auto const off = base_off(b);
+      r.set(off, f(exp(off)));
+    }
     return r;
   }
 
   /// Function used to add corresponding exponents.
-  /// @param x  Reference incremented by corresponding exponent.
-  /// @param y  Corresponding exponent.
-  constexpr static void accum(rat &x, rat y) { x += y; }
+  constexpr static rat add(rat x, rat y) { return x + y; }
 
   /// Function used to subtract corresponding exponents.
-  /// @param x  Reference decremented by corresponding exponent.
-  /// @param y  Corresponding exponent.
-  constexpr static void decrm(rat &x, rat y) { x -= y; }
+  constexpr static rat sbtrct(rat x, rat y) { return x - y; }
 
   /// Function object used for multiplying every exponent by a single factor.
   struct mult {
@@ -147,14 +169,14 @@ public:
   /// Passing lambda in constexpr function requires C++17.
   /// @param a  Addends.
   /// @return   Sums.
-  constexpr dim operator+(dim const &a) const { return combine(a, accum); }
+  constexpr dim operator+(dim const &a) const { return combine(a, add); }
 
   /// Subtract corresponding exponents.
   /// This is called when one physical quantity is divided by another.
   /// Passing lambda in constexpr function requires C++17.
   /// @param s  Subtrahends.
   /// @return   Differences.
-  constexpr dim operator-(dim const &s) const { return combine(s, decrm); }
+  constexpr dim operator-(dim const &s) const { return combine(s, sbtrct); }
 
   /// Multiply exponents by rational factor.
   /// This is called when a physical quantity is raised to a power.
@@ -172,10 +194,10 @@ public:
   /// @param s  Output stream.
   /// @param u  Abbreviation for unit.
   /// @param e  Exponent of unit.
-  static std::ostream &print_unit(std::ostream &s, char const *u, rat8_t e) {
+  static std::ostream &print_unit(std::ostream &s, char const *u, rat e) {
     if (e.to_bool()) {
       s << " " << u;
-      if (e != rat8_t(1)) {
+      if (e != rat(1)) {
         s << "^";
         if (e.d() != 1) { s << "["; }
         s << e;

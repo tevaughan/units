@@ -13,19 +13,21 @@ using namespace vnix::units;
 
 TEST_CASE("dimval's dimension is accessible.", "[dimval]") {
   dyndim ddv = sqrt(m / s);
+
+  REQUIRE(ddv.d(base_off::LEN) == dim::rat(1, 2));
+  REQUIRE(ddv.d(base_off::TIM) == dim::rat(-1, 2));
+
   speed  sdv = m / s;
 
-  REQUIRE(ddv.d(base_off::LEN) == rat8_t(1, 2));
-  REQUIRE(sdv.d(base_off::LEN) == rat8_t(1));
-  REQUIRE(ddv.d(base_off::TIM) == rat8_t(-1, 2));
-  REQUIRE(sdv.d(base_off::TIM) == rat8_t(-1));
+  REQUIRE(sdv.d(base_off::LEN) == dim::rat(1));
+  REQUIRE(sdv.d(base_off::TIM) == dim::rat(-1));
 }
 
 
 TEST_CASE("dimval's comparisons work.", "[dimval]") {
   dyndim      ddv1 = sqrt(m / s);
-  dyndim      ddv2 = 2 * s;
   auto        sdv1 = ddv1;
+  dyndim      ddv2 = 2 * s;
   units::time sdv2 = ddv2;
 
   REQUIRE(ddv1 == ddv1);
@@ -136,7 +138,7 @@ TEST_CASE("dimval's multiplication and division work.", "[dimval]") {
   REQUIRE(sdv1 / ddv1 == dimensionless(1));
 
   REQUIRE(ddv2 * 0.5 / N == dimensionless(1));
-  REQUIRE(sdv2 * 0.5 / N == dimensionless(1));
+  REQUIRE((sdv2 / N) == dimensionless(2));
 
   REQUIRE((ddv1 *= 2) == 6 * m);
   REQUIRE((ddv1 /= 2) == 3 * m);
@@ -157,7 +159,7 @@ TEST_CASE("pow and sqrt work for dimval.", "[dimval]") {
   REQUIRE(sqrt(ddv2) == ddv1);
   REQUIRE(sdv1 == 27 * m * m * m);
   REQUIRE(pow<2, 3>(sdv1) == ddv2);
-  REQUIRE(pow(sdv1, rat8_t(2, 3)) == ddv2);
+  REQUIRE(pow(sdv1, dim::rat(2, 3)) == ddv2);
   REQUIRE(sqrt(sdv1) == pow<3, 2>(ddv1));
   std::cout << "sqrt(sdv1) = " << sqrt(sdv1) << std::endl;
   std::cout << "pow(ddv1, {2,3}) = " << pow(ddv1, {3, 2}) << std::endl;

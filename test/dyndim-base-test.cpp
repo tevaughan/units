@@ -61,7 +61,7 @@ TEST_CASE("Prod & quot change dimension for dyndim.", "[dyndim-base]") {
 
 
 TEST_CASE("Pow and sqrt change dimension for dyndim.", "[dyndim-base]") {
-  using rat = vnix::rat8_t;
+  using rat = dim::rat;
 
   dim constexpr d1({-1, +1, +1, 0, 0});
   dim constexpr d2({-2, +2, +2, 0, 0});

@@ -283,9 +283,9 @@ constexpr auto operator*(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
   auto const ga = gcd(n1, d2);
   auto const gb = gcd(n2, d1);
   enum { NB = (NB1 > NB2 ? NB1 : NB2), DB = (DB1 > DB2 ? DB1 : DB2) };
-  using SF = typename int_types<NB>::SF;
-  using UF = typename int_types<DB>::UF;
-  return rational<NB, DB>(SF(n1) / ga * n2 / gb, UF(d1) / gb * d2 / ga);
+  using S = typename int_types<NB>::SF;
+  using U = typename int_types<DB>::UF;
+  return rational<NB, DB>(S(n1) / ga * n2 / gb, U(d1) / gb * d2 / ga);
 }
 
 

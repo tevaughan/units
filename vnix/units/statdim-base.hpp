@@ -25,8 +25,8 @@ class dyndim_base;
 /// For dyndim_base, the dimension is known statically at compile-time only if
 /// the dimension be specified to the constructor as a constant expression.
 ///
-/// @tparam D  Encoding of dimensional exponents as a `uint64_t`.
-template <uint64_t D> struct statdim_base {
+/// @tparam D  Encoding of dimensional exponents as a dim::word.
+template <dim::word D> struct statdim_base {
   /// Check for compatibility on contruction from dim.
   /// @param dd  Candidate dimension.
   constexpr statdim_base(dim dd) {
@@ -64,10 +64,10 @@ template <uint64_t D> struct statdim_base {
   constexpr static dyndim_base diff(dyndim_base const &db);
 
   /// Dimension for product of dimensioned values.
-  /// @tparam OD  Encoding of factor's dimension in `uint64_t`.
+  /// @tparam OD  Encoding of factor's dimension in dim::word.
   /// @return     Dimension of product.
-  template <uint64_t OD> constexpr static auto prod(statdim_base<OD>) {
-    uint64_t constexpr rd = d() + dim(OD);
+  template <dim::word OD> constexpr static auto prod(statdim_base<OD>) {
+    dim::word constexpr rd = d() + dim(OD);
     return statdim_base<rd>();
   }
 
@@ -77,10 +77,10 @@ template <uint64_t D> struct statdim_base {
   constexpr static dyndim_base prod(dyndim_base const &db);
 
   /// Dimension for quotient of dimensioned values.
-  /// @tparam D  Encoding of divisor's dimension in `uint64_t`.
+  /// @tparam D  Encoding of divisor's dimension in dim::word.
   /// @return    Dimension of quotient.
-  template <uint64_t OD> constexpr static auto quot(statdim_base<OD>) {
-    uint64_t constexpr rd = d() - dim(OD);
+  template <dim::word OD> constexpr static auto quot(statdim_base<OD>) {
+    dim::word constexpr rd = d() - dim(OD);
     return statdim_base<rd>();
   }
 
@@ -90,7 +90,7 @@ template <uint64_t D> struct statdim_base {
   constexpr static dyndim_base quot(dyndim_base const &db);
 
   /// Base-dimensions corresponding to reciprocal of dimensioned quantity.
-  using recip_basedim = statdim_base<uint64_t(nul_dim - d())>;
+  using recip_basedim = statdim_base<dim::word(nul_dim - d())>;
 
   /// Dimension for reciprocal of dimensioned value.
   /// @return  Dimension of reciprocal.
@@ -101,19 +101,19 @@ template <uint64_t D> struct statdim_base {
   /// @tparam PD  Denominator of power.
   /// @return     Dimension   of result.
   template <int64_t PN, int64_t PD = 1> constexpr static auto pow() {
-    uint64_t constexpr rd = d() * rat(PN, PD);
+    dim::word constexpr rd = d() * dim::rat(PN, PD);
     return statdim_base<rd>();
   }
 
   /// Dimension for rational power of dimensioned value.
   /// @param  p  Rational power.
   /// @return    Dimension of result.
-  constexpr static dyndim_base pow(rat p);
+  constexpr static dyndim_base pow(dim::rat p);
 
   /// Dimension for square-root of dimensioned value.
   /// @return  Dimension of square-root.
   constexpr static auto sqrt() {
-    uint64_t constexpr rd = d() / rat(2);
+    dim::word constexpr rd = d() / dim::rat(2);
     return statdim_base<rd>();
   }
 };
@@ -131,14 +131,14 @@ namespace units {
 
 
 // Test for comparison of dimensioned values.
-template <uint64_t D>
+template <dim::word D>
 constexpr void statdim_base<D>::comparison(dyndim_base const &db) {
   if (d() != db.d()) { throw "incompatible dimensions for comparison"; }
 }
 
 
 // Dimension for sum of dimensioned values.
-template <uint64_t D>
+template <dim::word D>
 constexpr dyndim_base statdim_base<D>::sum(dyndim_base const &db) {
   if (d() != db.d()) { throw "incompatible dimensions for addition"; }
   return d();
@@ -146,7 +146,7 @@ constexpr dyndim_base statdim_base<D>::sum(dyndim_base const &db) {
 
 
 // Dimension for difference of dimensioned values.
-template <uint64_t D>
+template <dim::word D>
 constexpr dyndim_base statdim_base<D>::diff(dyndim_base const &db) {
   if (d() != db.d()) { throw "incompatible dimensions for subtraction"; }
   return d();
@@ -154,21 +154,21 @@ constexpr dyndim_base statdim_base<D>::diff(dyndim_base const &db) {
 
 
 // Dimension for product of dimensioned values.
-template <uint64_t D>
+template <dim::word D>
 constexpr dyndim_base statdim_base<D>::prod(dyndim_base const &db) {
   return d() + db.d();
 }
 
 
 // Dimension for quotient of dimensioned values.
-template <uint64_t D>
+template <dim::word D>
 constexpr dyndim_base statdim_base<D>::quot(dyndim_base const &db) {
   return d() - db.d();
 }
 
 
 // Dimension for rational power of dimensioned value.
-template <uint64_t D> constexpr dyndim_base statdim_base<D>::pow(rat p) {
+template <dim::word D> constexpr dyndim_base statdim_base<D>::pow(dim::rat p) {
   return d() * p;
 }
 

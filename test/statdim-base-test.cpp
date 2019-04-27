@@ -61,15 +61,14 @@ TEST_CASE("Prod & quot change dimension for statdim.", "[statdim-base]") {
 
 
 TEST_CASE("Pow and sqrt change dimension for statdim.", "[statdim-base]") {
-  using rat = vnix::rat8_t;
-
   dim constexpr d1({-1, +1, +1, 0, 0});
   dim constexpr d2({-2, +2, +2, 0, 0});
-  dim constexpr d3({rat(-1, 2), rat(1, 2), rat(1, 2), 0, 0});
 
   statdim_base<d1> sdb1;
 
   REQUIRE(sdb1.pow<2>().d() == d2);
   REQUIRE(sdb1.pow(2).d() == d2);
+
+  dim constexpr d3({dim::rat(-1, 2), dim::rat(1, 2), dim::rat(1, 2), 0, 0});
   REQUIRE(sdb1.sqrt().d() == d3);
 }
