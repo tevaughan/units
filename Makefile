@@ -2,7 +2,10 @@
 # Distrubited under the terms of GPL, Version 3 or later.  See LICENSE.
 
 # Modify this in order to customize the location for installation.
-PREFIX=/usr/local
+PREFIX = /usr/local
+
+# Ruby-script used to generate files under vnix and under test.
+export PROCESS_TEMPLATE = $(PWD)/erb-yml/process-template
 
 .PHONY: all doc test install clean
 

@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+
+# Print information about usage of program.
+def usage
+  print "\n"
+  print "usage: #{$0} <basename>\n"
+  print "\n"
+  print "Read '<basename>.erb' template and <basename>.yml data-file.\n"
+  print "Make data available to template via variable 'yml'.\n"
+  print "Process template, and write result to file '<basename>'.\n"
+  print "\n"
+end
+
+
+require 'erb'   # for ERB
+require 'yaml'  # for YAML
+
+
+# Process command-line arguments.
+basename = nil
+ARGV.each do |a|
+  if basename.nil?
+    basename = a
+  else
+    usage
+    raise "Unexpected argument #{a}."
+  end
+end
+if basename.nil?
+  usage
+  raise "No basename specified."
+end
+
+
+# Construct name of each input file.
+ymlfile = "#{basename}.yml"
+erbfile = "#{basename}.erb"
+
+
+# Read YAML data from '<basename>.yml'.
+yml = YAML.load(File.read(ymlfile))
+if yml.nil?
+  raise "no data in '#{ymlfile}'"
+end
+
+
+# Read ERB template from '<basename>.erb'.
+erb = ERB.new(File.read(erbfile))
+if erb.nil?
+  raise "no data in '#{erbfile}'"
+end
+
+
+# Write result to '<basename>'.
+File.open(basename, 'w') do |f|
+  f.write erb.result
+end
+
+
+# vim: set tw=79 sw=2 expandtab:
