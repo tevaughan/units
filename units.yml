@@ -1,30 +1,46 @@
 ---
-base:
-  - [length,      meters,   m, cm, mm, mum, nm, pm, fm, km, Mm]
-  - [mass,        grams,    g, mg, mug, ng, pg, kg, Mg]
-  - [time,        seconds,  s, ms, mus, ns, ps, fs]
-  - [charge,      coulombs, C, mC, muC, nC, pC]
-  - [temperature, kelvins,  K, mK, muK, nK]
+basis:
+  - {dim: length,      plural: meters,   sym: m, scale: [c,m,mu,n,p,f,k,M]}
+  - {dim: mass,        plural: grams,    sym: g, scale: [m,mu,n,p,k,M]}
+  - {dim: time,        plural: seconds,  sym: s, scale: [m,mu,n,p,f]}
+  - {dim: charge,      plural: coulombs, sym: C, scale: [m,mu,n,p]}
+  - {dim: temperature, plural: kelvins,  sym: K, scale: [m,mu,n]}
 
-derived_dims:
-  - [speed,        length/time]
-  - [acceleration, speed/time]
-  - [momentum,     mass*speed]
-  - [force,        mass*acceleration]
-  - [current,      charge/time]
-  - [energy,       force*length]
-  - [power,        energy/time]
-  - [area,         length*length]
-  - [volume,       area*length]
-  - [pressure,     force/area]
+derivatives:
+  dims:
+    - speed        = length / time
+    - acceleration = speed  / time
+    - momentum     = mass   * speed
+    - force        = mass   * acceleration
+    - current      = charge / time
+    - energy       = force  * length
+    - power        = energy / time
+    - area         = length * length
+    - volume       = area   * length
+    - pressure     = force  / area
+  units:
+    - {plural: feet,   sym: ft = 0.3048*m, scale: [k]}
+    - {plural: inches, sym: in = ft/12,    scale: []}
+    - {plural: yards,  sym: yd = 3*ft,     scale: []}
+    - {plural: miles,  sym: mi = 5280*ft,  scale: []}
+    - {plural: newtons
+      derivation: kg*m/s/s
+      symbol    : N
+      scalings  : [m, mu, k, M]
+    - {plural: dynes
+      derivation: g*cm/s/s
+      symbol    : dyn
+      scalings  : []
+    - {plural: joules
+      derivation: N*m
+      symbol    : J
+      scalings  : [m, mu, k, M]
+    - {plural: ergs
+      derivation: dyn*cm
+      symbol    : erg
+      scalings  : []
+    - {plural: amperes
+      derivation: C/s
+      symbol    : A
+      scalings  : [m, mu]
 
-derived_units:
-  - [feet,     0.3048*m, ft, kft]
-  - [inches,   ft/12,    in]
-  - [yards,    3*ft,     yd]
-  - [miles,    5280*ft,  mi]
-  - [newtons,  kg*m/s/s, N, mN, muN, kN, MN]
-  - [dynes,    g*cm/s/s, dyn]
-  - [joules,   N*m,      J, mJ, muJ, kJ, MJ]
-  - [ergs,     dyn*cm,   erg]
-  - [amperes,  C/s,      A, mA, muA]
