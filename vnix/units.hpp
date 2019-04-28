@@ -12,11 +12,19 @@ namespace vnix {
 namespace units {
 
 
-constexpr metersd    m{1.0};  ///< Meter.
-constexpr kilogramsd kg{1.0}; ///< Kilogram.
-constexpr secondsd   s{1.0};  ///< Second.
-constexpr coulombsd  C{1.0};  ///< Coulomb.
-constexpr kelvinsd   K{1.0};  ///< Kelvin.
+constexpr meters<long double>    operator"" _m(long double v) { return v; }
+constexpr kilograms<long double> operator"" _kg(long double v) { return v; }
+constexpr seconds<long double>   operator"" _s(long double v) { return v; }
+constexpr coulombs<long double>  operator"" _C(long double v) { return v; }
+constexpr kelvins<long double>   operator"" _K(long double v) { return v; }
+
+constexpr auto operator"" _km(long double v) { return v * 1000.0_m; }
+
+constexpr auto m  = 1.0_m;  ///< Meter.
+constexpr auto kg = 1.0_kg; ///< Kilogram.
+constexpr auto s  = 1.0_s;  ///< Second.
+constexpr auto C  = 1.0_C;  ///< Coulomb.
+constexpr auto K  = 1.0_K;  ///< Kelvin.
 
 // Lengths based on meter.
 constexpr auto km     = 1.0E+03 * m; ///< Kilometer.

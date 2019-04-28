@@ -192,6 +192,13 @@ public:
   /// Scale dimensioned value.
   /// @param  n   Scale-factor.
   /// @return     Scaled value.
+  constexpr auto operator*(long double n) const {
+    return dimval<decltype(T() * double()), B>(v_ * n, d());
+  }
+
+  /// Scale dimensioned value.
+  /// @param  n   Scale-factor.
+  /// @return     Scaled value.
   constexpr auto operator*(double n) const {
     return dimval<decltype(T() * double()), B>(v_ * n, d());
   }
@@ -214,6 +221,14 @@ public:
   /// @param  n   Scale-factor.
   /// @param  v   Original value.
   /// @return     Scaled value.
+  friend constexpr auto operator*(long double n, dimval const &v) {
+    return v * n;
+  }
+
+  /// Scale dimensioned value.
+  /// @param  n   Scale-factor.
+  /// @param  v   Original value.
+  /// @return     Scaled value.
   friend constexpr auto operator*(double n, dimval const &v) { return v * n; }
 
   /// Scale dimensioned value.
@@ -227,6 +242,14 @@ public:
   /// @param  v   Original value.
   /// @return     Scaled value.
   friend constexpr auto operator*(int n, dimval const &v) { return v * n; }
+
+  using ldbl = long double;
+
+  /// Scale dimensioned quantity by dividing by number.
+  /// @param  n   Scale-divisor.
+  constexpr auto operator/(long double n) const {
+    return dimval<decltype(T() / ldbl()), B>(v_ / n, d());
+  }
 
   /// Scale dimensioned quantity by dividing by number.
   /// @param  n   Scale-divisor.
@@ -278,6 +301,14 @@ public:
   /// Modify present instance by multiplying in a dimensionless value.
   /// @param  v   Dimensionless scale-factor.
   /// @return     Scaled value.
+  constexpr dimval &operator*=(long double v) {
+    v_ *= v;
+    return *this;
+  }
+
+  /// Modify present instance by multiplying in a dimensionless value.
+  /// @param  v   Dimensionless scale-factor.
+  /// @return     Scaled value.
   constexpr dimval &operator*=(double v) {
     v_ *= v;
     return *this;
@@ -296,6 +327,14 @@ public:
   /// @return     Scaled value.
   constexpr dimval &operator*=(int v) {
     v_ *= v;
+    return *this;
+  }
+
+  /// Modify present instance by dividing it by a dimensionless value.
+  /// @param  v   Dimensionless scale-divisor.
+  /// @return     Scaled value.
+  constexpr dimval &operator/=(long double v) {
+    v_ /= v;
     return *this;
   }
 
@@ -352,6 +391,18 @@ public:
     return s << v.v_ << v.d();
   }
 };
+
+
+/// Invert dimensioned value by dividing it into number.
+/// @tparam T   Type of numeric storage in dimval.
+/// @tparam B   Type of base-class for dimension.
+/// @param  d   Number as dividend.
+/// @param  v   Dimensioned quantitity as divisor.
+/// @return     Inverted value.
+template <typename T, typename B>
+constexpr auto operator/(long double d, dimval<T, B> const &v) {
+  return d * v.inverse();
+}
 
 
 /// Invert dimensioned value by dividing it into number.
