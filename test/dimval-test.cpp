@@ -158,8 +158,8 @@ TEST_CASE("pow and sqrt work for dimval.", "[dimval]") {
   REQUIRE(ddv2 == 9 * m * m);
   REQUIRE(sqrt(ddv2) == ddv1);
   REQUIRE(sdv1 == 27 * m * m * m);
-  REQUIRE((pow<2, 3>(sdv1) / ddv2).to_double() == Approx(1));
-  REQUIRE((pow(sdv1, dim::rat(2, 3)) / ddv2).to_double() == Approx(1));
+  REQUIRE((pow<2, 3>(sdv1) / ddv2).to_number() == Approx(1));
+  REQUIRE((pow(sdv1, dim::rat(2, 3)) / ddv2).to_number() == Approx(1));
   REQUIRE(sqrt(sdv1) == pow<3, 2>(ddv1));
   std::cout << "sqrt(sdv1) = " << sqrt(sdv1) << std::endl;
   std::cout << "pow(ddv1, {2,3}) = " << pow(ddv1, {3, 2}) << std::endl;

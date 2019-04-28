@@ -44,10 +44,9 @@ template <typename T, typename B> class dimval : public number<T>, public B {
 
 protected:
   /// Initialize from numeric value and from dimension.
-  /// Constructor takes double, regardless of what T is.
   /// @param v  Numeric value.
   /// @param d  Dimension.
-  constexpr dimval(double v, dim const &d) : number<T>(v), B(d) {}
+  constexpr dimval(T v, dim const &d) : number<T>(v), B(d) {}
 
   using number<T>::v_; ///< Allow access to numeric value.
 
@@ -63,10 +62,10 @@ public:
 
   /// Initialize from dimensionless number.
   /// @param n  Number.
-  constexpr dimval(double n) : number<T>(n), B(nul_dim) {}
+  constexpr dimval(T n) : number<T>(n), B(nul_dim) {}
 
   /// Convert to dimensionless number.
-  constexpr double to_double() const {
+  constexpr T to_number() const {
     B::number();
     return v_;
   }
@@ -152,7 +151,7 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator+(dimval<OT, OB> const &v) const {
     auto const sdim = B::sum(v); // Check for compatibility of units.
-    return dimval(v_ + v.v_, sdim.d());
+    return dimval<decltype(T() + OT()), B>(v_ + v.v_, sdim.d());
   }
 
   /// Difference between two dimensioned values.
@@ -163,7 +162,7 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator-(dimval<OT, OB> const &v) const {
     auto const ddim = B::diff(v); // Check for compatibility of units.
-    return dimval(v_ - v.v_, ddim.d());
+    return dimval<decltype(T() - OT()), B>(v_ - v.v_, ddim.d());
   }
 
   /// Modify present instance by adding in a dimensioned value.
@@ -191,20 +190,61 @@ public:
   }
 
   /// Scale dimensioned value.
-  /// @param n  Scale-factor.
-  /// @return   Scaled value.
-  constexpr dimval operator*(double n) const { return {v_ * n, d()}; }
+  /// @param  n   Scale-factor.
+  /// @return     Scaled value.
+  constexpr auto operator*(double n) const {
+    return dimval<decltype(T() * double()), B>(v_ * n, d());
+  }
 
   /// Scale dimensioned value.
-  /// @param n  Scale-factor.
-  /// @param v  Original value.
-  /// @return   Scaled value.
-  friend constexpr dimval operator*(double n, dimval const &v) {
-    return v * n;
+  /// @param  n   Scale-factor.
+  /// @return     Scaled value.
+  constexpr auto operator*(float n) const {
+    return dimval<decltype(T() * float()), B>(v_ * n, d());
+  }
+
+  /// Scale dimensioned value.
+  /// @param  n   Scale-factor.
+  /// @return     Scaled value.
+  constexpr auto operator*(int n) const {
+    return dimval<decltype(T() * int()), B>(v_ * n, d());
+  }
+
+  /// Scale dimensioned value.
+  /// @param  n   Scale-factor.
+  /// @param  v   Original value.
+  /// @return     Scaled value.
+  friend constexpr auto operator*(double n, dimval const &v) { return v * n; }
+
+  /// Scale dimensioned value.
+  /// @param  n   Scale-factor.
+  /// @param  v   Original value.
+  /// @return     Scaled value.
+  friend constexpr auto operator*(float n, dimval const &v) { return v * n; }
+
+  /// Scale dimensioned value.
+  /// @param  n   Scale-factor.
+  /// @param  v   Original value.
+  /// @return     Scaled value.
+  friend constexpr auto operator*(int n, dimval const &v) { return v * n; }
+
+  /// Scale dimensioned quantity by dividing by number.
+  /// @param  n   Scale-divisor.
+  constexpr auto operator/(double n) const {
+    return dimval<decltype(T() / double()), B>(v_ / n, d());
   }
 
   /// Scale dimensioned quantity by dividing by number.
-  constexpr dimval operator/(double n) const { return {v_ / n, d()}; }
+  /// @param  n   Scale-divisor.
+  constexpr auto operator/(float n) const {
+    return dimval<decltype(T() / float()), B>(v_ / n, d());
+  }
+
+  /// Scale dimensioned quantity by dividing by number.
+  /// @param  n   Scale-divisor.
+  constexpr auto operator/(int n) const {
+    return dimval<decltype(T() / int()), B>(v_ / n, d());
+  }
 
   /// Invert dimensioned value.
   /// @return Reciprocal of dimval.
@@ -236,17 +276,49 @@ public:
   }
 
   /// Modify present instance by multiplying in a dimensionless value.
-  /// @param v  Dimensionless scale-factor.
-  /// @return   Scaled value.
+  /// @param  v   Dimensionless scale-factor.
+  /// @return     Scaled value.
   constexpr dimval &operator*=(double v) {
     v_ *= v;
     return *this;
   }
 
+  /// Modify present instance by multiplying in a dimensionless value.
+  /// @param  v   Dimensionless scale-factor.
+  /// @return     Scaled value.
+  constexpr dimval &operator*=(float v) {
+    v_ *= v;
+    return *this;
+  }
+
+  /// Modify present instance by multiplying in a dimensionless value.
+  /// @param  v   Dimensionless scale-factor.
+  /// @return     Scaled value.
+  constexpr dimval &operator*=(int v) {
+    v_ *= v;
+    return *this;
+  }
+
   /// Modify present instance by dividing it by a dimensionless value.
-  /// @param v  Dimensionless scale-divisor.
-  /// @return   Scaled value.
+  /// @param  v   Dimensionless scale-divisor.
+  /// @return     Scaled value.
   constexpr dimval &operator/=(double v) {
+    v_ /= v;
+    return *this;
+  }
+
+  /// Modify present instance by dividing it by a dimensionless value.
+  /// @param  v   Dimensionless scale-divisor.
+  /// @return     Scaled value.
+  constexpr dimval &operator/=(float v) {
+    v_ /= v;
+    return *this;
+  }
+
+  /// Modify present instance by dividing it by a dimensionless value.
+  /// @param  v   Dimensionless scale-divisor.
+  /// @return     Scaled value.
+  constexpr dimval &operator/=(int v) {
     v_ /= v;
     return *this;
   }
@@ -283,14 +355,37 @@ public:
 
 
 /// Invert dimensioned value by dividing it into number.
-/// @tparam T  Type of numeric storage in dimval.
-/// @tparam B  Type of base-class for dimension.
-/// @param  d  Number as dividend.
-/// @param  v  Dimensioned quantitity as divisor.
-/// @return    Inverted value.
+/// @tparam T   Type of numeric storage in dimval.
+/// @tparam B   Type of base-class for dimension.
+/// @param  d   Number as dividend.
+/// @param  v   Dimensioned quantitity as divisor.
+/// @return     Inverted value.
 template <typename T, typename B>
-constexpr dimval<T, typename B::recip_basedim>
-operator/(double d, dimval<T, B> const &v) {
+constexpr auto operator/(double d, dimval<T, B> const &v) {
+  return d * v.inverse();
+}
+
+
+/// Invert dimensioned value by dividing it into number.
+/// @tparam T   Type of numeric storage in dimval.
+/// @tparam B   Type of base-class for dimension.
+/// @param  d   Number as dividend.
+/// @param  v   Dimensioned quantitity as divisor.
+/// @return     Inverted value.
+template <typename T, typename B>
+constexpr auto operator/(float d, dimval<T, B> const &v) {
+  return d * v.inverse();
+}
+
+
+/// Invert dimensioned value by dividing it into number.
+/// @tparam T   Type of numeric storage in dimval.
+/// @tparam B   Type of base-class for dimension.
+/// @param  d   Number as dividend.
+/// @param  v   Dimensioned quantitity as divisor.
+/// @return     Inverted value.
+template <typename T, typename B>
+constexpr auto operator/(int d, dimval<T, B> const &v) {
   return d * v.inverse();
 }
 
@@ -346,7 +441,7 @@ public:
 
   /// Convert from number.
   /// @param v  Number.
-  constexpr basic_dyndim(double v) : dimval<T, dyndim_base>(v, nul_dim) {}
+  constexpr basic_dyndim(T v) : dimval<T, dyndim_base>(v, nul_dim) {}
 
   // TBD: dyndim should have a constructor from std::string.
 };
@@ -416,9 +511,9 @@ public:
 
   /// Initialize from number.
   /// @param v  Number.
-  constexpr basic_statdim(double v) : stat<T>(v, nul_dim) {}
+  constexpr basic_statdim(T v) : stat<T>(v, nul_dim) {}
 
-  constexpr operator double() const { return v_; } ///< Convert to number.
+  constexpr operator T() const { return v_; } ///< Convert to number.
 };
 
 
@@ -456,7 +551,7 @@ using temperaturef   = statdimf<tmp_dim>; ///< Single-precision temperature.
 template <typename T> struct seconds : public basic_statdim<tim_dim, T> {
   /// Initialize from number.
   /// @param v  Number of seconds.
-  constexpr seconds(float v) : basic_statdim<tim_dim, T>(v, tim_dim) {}
+  constexpr seconds(T v) : basic_statdim<tim_dim, T>(v, tim_dim) {}
 };
 
 
@@ -464,7 +559,7 @@ template <typename T> struct seconds : public basic_statdim<tim_dim, T> {
 template <typename T> struct meters : public basic_statdim<len_dim, T> {
   /// Initialize from number.
   /// @param v  Number of meters.
-  constexpr meters(float v) : basic_statdim<len_dim, T>(v, len_dim) {}
+  constexpr meters(T v) : basic_statdim<len_dim, T>(v, len_dim) {}
 };
 
 
@@ -472,7 +567,7 @@ template <typename T> struct meters : public basic_statdim<len_dim, T> {
 template <typename T> struct kilograms : public basic_statdim<mas_dim, T> {
   /// Initialize from number.
   /// @param v  Number of kilograms.
-  constexpr kilograms(float v) : basic_statdim<mas_dim, T>(v, mas_dim) {}
+  constexpr kilograms(T v) : basic_statdim<mas_dim, T>(v, mas_dim) {}
 };
 
 
@@ -480,7 +575,7 @@ template <typename T> struct kilograms : public basic_statdim<mas_dim, T> {
 template <typename T> struct coulombs : public basic_statdim<chg_dim, T> {
   /// Initialize from number.
   /// @param v  Number of coulombs.
-  constexpr coulombs(float v) : basic_statdim<chg_dim, T>(v, chg_dim) {}
+  constexpr coulombs(T v) : basic_statdim<chg_dim, T>(v, chg_dim) {}
 };
 
 
@@ -488,7 +583,7 @@ template <typename T> struct coulombs : public basic_statdim<chg_dim, T> {
 template <typename T> struct kelvins : public basic_statdim<tmp_dim, T> {
   /// Initialize from number.
   /// @param v  Number of kelvins.
-  constexpr kelvins(float v) : basic_statdim<tmp_dim, T>(v, tmp_dim) {}
+  constexpr kelvins(T v) : basic_statdim<tmp_dim, T>(v, tmp_dim) {}
 };
 
 
