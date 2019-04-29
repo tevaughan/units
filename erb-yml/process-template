@@ -4,11 +4,11 @@
 # Print information about usage of program.
 def usage
   print "\n"
-  print "usage: #{$0} <basename>\n"
+  print "usage: #{$0} <data>.yml <out-file-name>.erb\n"
   print "\n"
-  print "Read '<basename>.erb' template and <basename>.yml data-file.\n"
-  print "Make data available to template via variable 'yml'.\n"
-  print "Process template, and write result to file '<basename>'.\n"
+  print "Read '<out-file-name>.erb' and '<data>.yml'.\n"
+  print "Make data available to erb template via variable 'yml'.\n"
+  print "Process template, and write result to file '<out-file-name>'.\n"
   print "\n"
 end
 
@@ -18,42 +18,47 @@ require 'yaml'  # for YAML
 
 
 # Process command-line arguments.
-basename = nil
+ymlfile = nil
+erbfile = nil
 ARGV.each do |a|
-  if basename.nil?
-    basename = a
+  if ymlfile.nil? && a =~ /\.yml$/
+    ymlfile = a
+  elsif erbfile.nil? && a =~ /\.erb$/
+    erbfile = a
   else
     usage
     raise "Unexpected argument #{a}."
   end
 end
-if basename.nil?
+if ymlfile.nil?
   usage
-  raise "No basename specified."
+  raise "No YAML-file specified."
+end
+if erbfile.nil?
+  usage
+  raise "No erb-file specified."
 end
 
 
-# Construct name of each input file.
-ymlfile = "#{basename}.yml"
-erbfile = "#{basename}.erb"
-
-
-# Read YAML data from '<basename>.yml'.
+# Read YAML data.
 yml = YAML.load(File.read(ymlfile))
 if yml.nil?
   raise "no data in '#{ymlfile}'"
 end
 
 
-# Read ERB template from '<basename>.erb'.
+# Read ERB template.
 erb = ERB.new(File.read(erbfile))
 if erb.nil?
   raise "no data in '#{erbfile}'"
 end
 
 
-# Write result to '<basename>'.
-File.open(basename, 'w') do |f|
+# Write result to '<out-file-name>'.
+puts "erbfile='#{erbfile}'"
+m = erbfile.match /(.*)\.erb/;
+out_file = m[1];
+File.open(out_file, 'w') do |f|
   f.write erb.result
 end
 
