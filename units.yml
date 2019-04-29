@@ -1,46 +1,31 @@
 ---
 basis:
-  - {dim: length,      plural: meters,   sym: m, scale: [c,m,mu,n,p,f,k,M]}
-  - {dim: mass,        plural: grams,    sym: g, scale: [m,mu,n,p,k,M]}
-  - {dim: time,        plural: seconds,  sym: s, scale: [m,mu,n,p,f]}
-  - {dim: charge,      plural: coulombs, sym: C, scale: [m,mu,n,p]}
-  - {dim: temperature, plural: kelvins,  sym: K, scale: [m,mu,n]}
+  - {dim: length,      ctor: meters,   sym: m, scales: [c,m,mu,n,p,f,k,M]}
+  - {dim: mass,        ctor: grams,    sym: g, scales: [m,mu,n,p,k,M]}
+  - {dim: time,        ctor: seconds,  sym: s, scales: [m,mu,n,p,f]}
+  - {dim: charge,      ctor: coulombs, sym: C, scales: [m,mu,n,p]}
+  - {dim: temperature, ctor: kelvins,  sym: K, scales: [m,mu,n]}
 
 derivatives:
-  dims:
-    - speed        = length / time
-    - acceleration = speed  / time
-    - momentum     = mass   * speed
-    - force        = mass   * acceleration
-    - current      = charge / time
-    - energy       = force  * length
-    - power        = energy / time
-    - area         = length * length
-    - volume       = area   * length
-    - pressure     = force  / area
   units:
-    - {plural: feet,   sym: ft = 0.3048*m, scale: [k]}
-    - {plural: inches, sym: in = ft/12,    scale: []}
-    - {plural: yards,  sym: yd = 3*ft,     scale: []}
-    - {plural: miles,  sym: mi = 5280*ft,  scale: []}
-    - {plural: newtons
-      derivation: kg*m/s/s
-      symbol    : N
-      scalings  : [m, mu, k, M]
-    - {plural: dynes
-      derivation: g*cm/s/s
-      symbol    : dyn
-      scalings  : []
-    - {plural: joules
-      derivation: N*m
-      symbol    : J
-      scalings  : [m, mu, k, M]
-    - {plural: ergs
-      derivation: dyn*cm
-      symbol    : erg
-      scalings  : []
-    - {plural: amperes
-      derivation: C/s
-      symbol    : A
-      scalings  : [m, mu]
-
+    - {ctor: feet,    sym: ft  = 0.3048*m, scales: [k]}
+    - {ctor: inches,  sym: in  = ft/12,    scales: []}
+    - {ctor: yards,   sym: yd  = 3*ft,     scales: []}
+    - {ctor: miles,   sym: mi  = 5280*ft,  scales: []}
+    - {ctor: newtons, sym: N   = kg*m/s/s, scales: [m,mu,k,M]}
+    - {ctor: dynes,   sym: dyn = g*cm/s/s, scales: []}
+    - {ctor: joules,  sym: J   = N*m,      scales: [m,mu,k,M,G]}
+    - {ctor: ergs,    sym: erg = dyn*cm,   scales: []}
+    - {ctor: watts,   sym: W   = J/s,      scales: [m,mu,k,M,G]}
+    - {ctor: amperes, sym: A   = C/s,      scales: [m,mu]}
+  dims:
+    - speed        = type(m/s)
+    - acceleration = type(m/s/s)
+    - momentum     = type(g*m/s)
+    - force        = type(N)
+    - current      = type(C/s)
+    - energy       = type(J)
+    - power        = type(W)
+    - area         = type(m*m)
+    - volume       = type(m*m*m)
+    - pressure     = type(N/m/m)
