@@ -4,12 +4,9 @@
 # Modify this in order to customize the location for installation.
 PREFIX = /usr/local
 
-# Ruby-script used to generate files under vnix and under test.
-export PROCESS_TEMPLATE = $(PWD)/erb-yml/process-template
+.PHONY: help doc test install clean
 
-.PHONY: all doc test install clean
-
-all:
+help:
 	@echo "PREFIX (now '$(PREFIX)') in Makefile sets install directory."
 	@echo "CXX in test/Makefile sets C++ compiler."
 	@echo "Remember to use '-std=c++14' in your Makefile after install."
@@ -22,13 +19,16 @@ all:
 	@echo "install   Copy headers to '$(PREFIX)/include'."
 	@echo "clean     Remove objects and executable from test directory."
 
-doc:
+units.hpp: units.hpp.erb units.yml
+	./process-template units.hpp.erb units.yml
+
+doc: units.hpp
 	@doxygen
 
-test:
+test: units.hpp
 	@$(MAKE) -C test
 
-install:
+install: units.hpp
 	@mkdir -p $(PREFIX)/include
 	@cp -av vnix $(PREFIX)/include
 
