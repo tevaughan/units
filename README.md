@@ -119,7 +119,7 @@ The user need not use vnix::units::dimval directly.
   git clone https://github.com/tevaughan/units.git
   cd units      # Change the working directory into the new clone.
   vim Makefile  # Edit PREFIX for installation or CXX to change compiler.
-  make          # Build and run the tests.
+  make test     # Build and run the tests.
   make doc      # Build the documentation via Doxygen.
   make install  # Install the headers to $(PREFIX)/include/vnix.
   ```
