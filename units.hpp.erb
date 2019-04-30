@@ -16,27 +16,50 @@ namespace units {
 <%for i in yml["basis"]%>
 <%c=0%>
 constexpr dim <%=i["dim"]%>_dim(
-<%for j in yml["basis"]%><%=c==0 ? "" : ","%><%=i==j ? 1 : 0%><%c=1%><%end%>);
+<%for j in yml["basis"]%>
+<%=c==0 ? "" : ","%><%c=1%>
+<%=i==j ? 1 : 0%>
+<%end%>
+);
 
 <%end%>
-
 namespace flt {
 
-<% for i in yml["basis"] %>
-struct <%=i["ctor"]%> : public statdim<<%=i["dim"]%>_dim> {
-  <%=i["ctor"]%>(float v) : statdim<<%=i["dim"]%>_dim>(v) {}
+<%for i in yml["basis"]%>
+<%c=i["ctor"]%><%d=i["dim"]+"_dim"%>
+struct <%=c%> : public basic_statdim<<%=d%>, float> {
+  constexpr <%=c%>(float v) : basic_statdim<<%=d%>, float>(v) {}
 };
 
-<% end %>
+constexpr <%=c%> operator"" _<%=i["sym"]%>(long double v) { return v; }
 
+<%end%>
 } // namespace flt
 
 namespace dbl {
 
+<%for i in yml["basis"]%>
+<%c=i["ctor"]%><%d=i["dim"]+"_dim"%>
+struct <%=c%> : public basic_statdim<<%=d%>, double> {
+  constexpr <%=c%>(double v) : basic_statdim<<%=d%>>(v, double) {}
+};
+
+constexpr <%=c%> operator"" _<%=i["sym"]%>(long double v) { return v; }
+
+<%end%>
 } // namespace dbl
 
 namespace ldbl {
 
+<%for i in yml["basis"]%>
+<%c=i["ctor"]%><%d=i["dim"]+"_dim"%>
+struct <%=c%> : public basic_statdim<<%=d%>, long double> {
+  constexpr <%=c%>(long double v) : basic_statdim<<%=d%>, long double>(v) {}
+};
+
+constexpr <%=c%> operator"" _<%=i["sym"]%>(long double v) { return v; }
+
+<%end%>
 } // namespace ldbl
 
 } // namespace units
