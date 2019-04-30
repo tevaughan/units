@@ -29,7 +29,7 @@ dim-base-off: dim-base-off.hpp
 	@cp -v dim-base-off.hpp vnix/units
 
 units: units.hpp
-#	@cp -v units.hpp vnix
+	@cp -v units.hpp vnix
 
 doc: $(GENERATED_CXX)
 	@doxygen
