@@ -13,7 +13,7 @@ using namespace vnix::units;
 
 TEST_CASE("dimval's dimension is accessible.", "[dimval]") {
   using namespace flt;
-  dyndimd ddv = sqrt(m / s);
+  dyndim ddv = sqrt(m / s);
 
   REQUIRE(ddv.d(dim::off::off(0)) == dim::rat(1, 2));
   REQUIRE(ddv.d(dim::off::off(2)) == dim::rat(-1, 2));
@@ -27,9 +27,9 @@ TEST_CASE("dimval's dimension is accessible.", "[dimval]") {
 
 TEST_CASE("dimval's comparisons work.", "[dimval]") {
   using namespace dbl;
-  dyndimf   ddv1 = sqrt(m / s);
+  dyndim    ddv1 = sqrt(m / s);
   auto      sdv1 = ddv1;
-  dyndimd   ddv2 = 2.0_s;
+  dyndim    ddv2 = 2.0_s;
   dbl::time sdv2 = ddv2;
 
   REQUIRE(ddv1 == ddv1);
@@ -72,8 +72,8 @@ TEST_CASE("dimval's comparisons work.", "[dimval]") {
 
 TEST_CASE("dimval's addition and subtraction work.", "[dimval]") {
   using namespace ldbl;
-  dyndimd    ddv1 = sqrt(m / s);
-  dyndimf    ddv2 = 2 * s;
+  dyndim     ddv1 = sqrt(m / s);
+  dyndim     ddv2 = 2 * s;
   auto       sdv1 = ddv1;
   ldbl::time sdv2 = ddv2;
 
@@ -102,8 +102,8 @@ TEST_CASE("dimval's addition and subtraction work.", "[dimval]") {
   REQUIRE((sdv1 += ddv1) == 2 * ddv1);
   REQUIRE((sdv1 -= ddv1) == ddv1);
 
-  REQUIRE((ddv1 += dyndimd(sdv1)) == 2 * sdv1);
-  REQUIRE((ddv1 -= dyndimf(sdv1)) == sdv1);
+  REQUIRE((ddv1 += dyndim(sdv1)) == 2 * sdv1);
+  REQUIRE((ddv1 -= dyndim(sdv1)) == sdv1);
   REQUIRE((sdv2 += dbl::time(ddv2)) == 2 * ddv2);
   REQUIRE((sdv2 -= flt::time(ddv2)) == ddv2);
 
@@ -121,10 +121,10 @@ TEST_CASE("dimval's addition and subtraction work.", "[dimval]") {
 
 TEST_CASE("dimval's multiplication and division work.", "[dimval]") {
   using namespace flt;
-  dyndimd ddv1 = 3.0_m;
-  dyndimf ddv2 = 2.0_N;
-  length  sdv1 = ddv1;
-  force   sdv2 = ddv2;
+  dyndim ddv1 = 3.0_m;
+  dyndim ddv2 = 2.0_N;
+  length sdv1 = ddv1;
+  force  sdv2 = ddv2;
 
   REQUIRE(ddv1 * ddv2 == 6 * J);
   REQUIRE(ddv1 * sdv2 == 6 * J);
@@ -154,8 +154,8 @@ TEST_CASE("dimval's multiplication and division work.", "[dimval]") {
 
 TEST_CASE("pow and sqrt work for dimval.", "[dimval]") {
   using namespace dbl;
-  dyndimd ddv1 = 3 * m;
-  dyndimf ddv2 = pow<2>(ddv1);
+  dyndim ddv1 = 3 * m;
+  dyndim ddv2 = pow<2>(ddv1);
 
   using volume = decltype(m * m * m);
   volume sdv1  = pow<3, 2>(ddv2);
@@ -185,7 +185,7 @@ TEST_CASE("Example in 'README.md' works.", "[dimval]") {
   length    d = 3.0_km;
   flt::time t = 4.0_ms;
   std::cout << "d=" << d << " t=" << t << std::endl;
-  auto      v = d / t;
+  auto v = d / t;
   std::cout << v << std::endl;
   std::ostringstream oss;
   oss << v;

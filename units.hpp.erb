@@ -89,6 +89,8 @@ end
 /// Single-precision dimensions and units.
 namespace flt {
 
+using dyndim = basic_dyndim<float>;
+
 <% for i in yml["basis"]                       %>
 <%   c = i["ctor"]                             %>
 <%   d = i["dim"] + "_dim"                     %>
@@ -144,6 +146,8 @@ using <%= i %>;
 /// Double-precision dimensions and units.
 namespace dbl {
 
+using dyndim = basic_dyndim<double>;
+
 <% for i in yml["basis"]                        %>
 <%   c = i["ctor"]                              %>
 <%   d = i["dim"] + "_dim"                      %>
@@ -198,6 +202,8 @@ using <%= i %>;
 
 /// Extended-precision dimensions and units.
 namespace ldbl {
+
+using dyndim = basic_dyndim<long double>;
 
 <% for i in yml["basis"]                             %>
 <%   c = i["ctor"]                                   %>

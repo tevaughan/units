@@ -24,16 +24,16 @@ The user need not use vnix::units::dimval directly.
   expression](https://en.cppreference.com/w/cpp/language/constant_expression).
 
 - In the vnix::units library, many a standard unit, such as
-    - vnix::units::m for meter and
-    - vnix::units::s for second,
+    - vnix::units::flt::m for single-precision meter and
+    - vnix::units::dbl::s for double-precision second,
 
   is defined as a constant expression.
 
 - Many a dimension, such as
-    - vnix::units::length,
-    - vnix::units::mass,
-    - vnix::units::force,
-    - vnix::units::current,
+    - vnix::units::flt::length  (single precision),
+    - vnix::units::dbl::mass  (double precision),
+    - vnix::units::ldbl::force  (long-double precision),
+    - vnix::units::flt::current,
     - etc.,
 
   is defined as a *type* that you can use.  (This type is a descendant of
@@ -49,8 +49,8 @@ The user need not use vnix::units::dimval directly.
   to keep track of the dimension.  The compiler keeps track and will find any
   bug related to a failure of dimensional analysis.
   ```cpp
-  using namespace vnix::units;
-  area a = 2.4 * m * 3.6; // OOPS!  Compiler generates error.
+  using namespace vnix::units::dbl; // For double-precision types.
+  area a = 2.4 * m * 3.6;           // OOPS!  Compiler error: RHS not area!
   ```
 
 - The dimension of a variable is specified by a set of five rational exponents,
@@ -62,31 +62,32 @@ The user need not use vnix::units::dimval directly.
   dimension.  (The type will then be a generic kind of vnix::units::statdim,
   itself a descendant of vnix::units::dimval.)
   ```cpp
-  using namespace vnix::units;
+  using namespace vnix::units::ldbl; // For long-double types.
   length foo = 3 * m;
-  auto bar = sqrt(foo);  // No simple name for this type.
+  auto bar = sqrt(foo);              // No simple name for this type.
   ```
 
-- Finally, the type vnix::units::dyndim can be used when the dimension cannot
-  be determined at compile-time, such as when the dimension of a variable is to
-  be read from a file at run-time.
+- Finally, the type vnix::units::flt::dyndim (or vnix::units::dbl::dyndim or
+  vnix::units::ldbl::dyndim) can be used when the dimension cannot be
+  determined at compile-time, such as when the dimension of a variable is to be
+  read from a file at run-time.
 
-- Using memory in the instance to store the dimension, vnix::units:dyndim is
-  unlike, say, vnix::units::length, which does not use memory in the instance
-  to store the dimension; yet vnix::units::dyndim, too, is a descendant of
-  vnix::units::dimval.
+- Using memory in the instance to store the dimension, vnix::units::flt::dyndim
+  is unlike, say, vnix::units::flt::length, which does not use memory in the
+  instance to store the dimension; yet vnix::units::flt::dyndim, too, is a
+  descendant of vnix::units::dimval.
 
-- In the case of vnix::units::dyndim, the instance consumes an extra eight
-  bytes for the dimension (in addition to the eight bytes used by the
-  double-precision number that is stored when using the double-precision
-  version of, say, vnix::units::length).
+- In the case of vnix::units::flt::dyndim, the instance consumes an extra four
+  bytes for the dimension (in addition to the four bytes used by the
+  single-precision floating-point number that is stored when using, say,
+  vnix::units::flt::length).
 
 - One may write a simple program, for example, as follows:
   ```cpp
   #include <vnix/unitsd.hpp>
   // Use <vnix/unitsf.hpp> for single-precision units.
   using namespace std;
-  using namespace vnix::units;
+  using namespace vnix::units::flt;
   int main() {
     // Explicit namespace needed for 'time' in order to avoid collision with
     // function in C standard library.

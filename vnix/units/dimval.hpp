@@ -498,16 +498,6 @@ public:
 };
 
 
-/// Model of a dynamically dimensioned physical quantity with double-precision
-/// numeric value.
-using dyndimd = basic_dyndim<double>;
-
-
-/// Model of a dynamically dimensioned physical quantity with single-precision
-/// numeric value.
-using dyndimf = basic_dyndim<float>;
-
-
 /// Model of a statically dimensioned physical quantity.
 /// @tparam D  Encoding of dimension in dim::word.
 /// @tparam T  Type numeric value.
@@ -569,20 +559,6 @@ public:
 
   constexpr operator T() const { return v_; } ///< Convert to number.
 };
-
-
-/// Model of a statically dimensioned physical quantity with double-precision
-/// numeric value.
-///
-/// @tparam D  Encoding of dimension in dim::word.
-template <dim::word D> using statdimd = basic_statdim<D, double>;
-
-
-/// Model of a statically dimensioned physical quantity with single-precision
-/// numeric value.
-///
-/// @tparam D  Encoding of dimension in dim::word.
-template <dim::word D> using statdimf = basic_statdim<D, float>;
 
 
 } // namespace units
