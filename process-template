@@ -60,7 +60,7 @@ end
 
 # Write result to '<out-file-name>'.
 puts "erbfile='#{erbfile}'"
-m = erbfile.match(/(.*)\.erb/);
+m = erbfile.match(/(.*)\.erb/)
 out_file = m[1];
 File.open(out_file, 'w') do |f|
   f.write erb.result
