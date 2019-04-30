@@ -48,7 +48,11 @@ end
 
 
 # Read ERB template.
-erb = ERB.new(File.read(erbfile))
+#
+# The second and third arguments to new(), and the third argument in
+# particular, tell ERB to remove the newline otherwise generated for every line
+# starting with '<%' and ending with '%>'.
+erb = ERB.new(File.read(erbfile), nil, '<>')
 if erb.nil?
   raise "no data in '#{erbfile}'"
 end
@@ -56,7 +60,7 @@ end
 
 # Write result to '<out-file-name>'.
 puts "erbfile='#{erbfile}'"
-m = erbfile.match /(.*)\.erb/;
+m = erbfile.match(/(.*)\.erb/);
 out_file = m[1];
 File.open(out_file, 'w') do |f|
   f.write erb.result

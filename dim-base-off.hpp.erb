@@ -1,0 +1,55 @@
+/// @file       vnix/units/dim-base-off.hpp
+/// @brief      Definition of dim_base_off.
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL Version 3 or later.
+
+// THIS FILE IS GENERATED FROM 'dim-base-off.hpp.erb'.
+
+#ifndef VNIX_UNITS_DIM_BASE_OFF_HPP
+#define VNIX_UNITS_DIM_BASE_OFF_HPP
+
+#include <array>
+
+namespace vnix {
+namespace units {
+
+
+/// Enumeration of offsets, one for each base dimension in class dim.
+struct dim_base_off {
+  /// C-style enumeration of offsets.
+  enum off {
+<% for i in yml["basis"] %>
+     <%= i["dim"] %>, ///< Offset of rational exponent for <%= i["dim"] %>.
+<% end %>
+  };
+
+  off offset; ///< Allow declaration of meaningful instance of dim_base_off.
+
+  /// Automatically convert instance to type of enum.
+  constexpr operator off() const { return offset; }
+
+  /// Allow construction of constant-expression instance.
+  constexpr dim_base_off(off os) : offset(os) {}
+
+  /// Array of enumerated offsets for iterating.
+  constexpr static
+  std::array<off, <%= yml["basis"].size %>> const array = {
+<% for i in yml["basis"] %>
+    <%= i["dim"] %>,
+<% end %>
+  };
+
+  /// Array of basis-dimension symbols, one for each offset.
+  constexpr static
+  std::array<char const *, <%= yml["basis"].size %>> const sym = {
+<% for i in yml["basis"] %>
+    "<%= i["sym"] %>",
+<% end %>
+  };
+};
+
+
+} // namespace units
+} // namespace vnix
+
+#endif // ndef VNIX_UNITS_DIM_BASE_OFF_HPP

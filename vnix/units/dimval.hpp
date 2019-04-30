@@ -62,7 +62,7 @@ public:
 
   /// Initialize from dimensionless number.
   /// @param n  Number.
-  constexpr dimval(T n) : number<T>(n), B(nul_dim) {}
+  constexpr dimval(T n) : number<T>(n), B(dim()) {}
 
   /// Convert to dimensionless number.
   constexpr T to_number() const {
@@ -72,7 +72,7 @@ public:
 
   /// Exponent for base at specified offset.
   /// @param off  Offset.
-  constexpr dim::rat d(base_off off) const { return B::d()[off]; }
+  constexpr dim::rat d(dim::off off) const { return B::d()[off]; }
 
   /// Equality-comparison of two dimensioned values.
   /// This will throw an exception if the dimensions are different.
@@ -492,7 +492,7 @@ public:
 
   /// Convert from number.
   /// @param v  Number.
-  constexpr basic_dyndim(T v) : dimval<T, dyndim_base>(v, nul_dim) {}
+  constexpr basic_dyndim(T v) : dimval<T, dyndim_base>(v, dim()) {}
 
   // TBD: dyndim should have a constructor from std::string.
 };
@@ -538,6 +538,9 @@ public:
 };
 
 
+constexpr static dim nul_dim; ///< Null dimension.
+
+
 /// Specialization of basic_statdim for dimensionless quantity.
 template <typename T>
 class basic_statdim<nul_dim, T> : public dimval<T, statdim_base<nul_dim>> {
@@ -580,75 +583,6 @@ template <dim::word D> using statdimd = basic_statdim<D, double>;
 ///
 /// @tparam D  Encoding of dimension in dim::word.
 template <dim::word D> using statdimf = basic_statdim<D, float>;
-
-
-using dimensionlessd = statdimd<nul_dim>; ///< Double-precision dimensionless.
-using timed          = statdimd<tim_dim>; ///< Double-precision time.
-using lengthd        = statdimd<len_dim>; ///< Double-precision length.
-using massd          = statdimd<mas_dim>; ///< Double-precision mass.
-using charged        = statdimd<chg_dim>; ///< Double-precision charge.
-using temperatured   = statdimd<tmp_dim>; ///< Double-precision temperature.
-
-
-using dimensionlessf = statdimf<nul_dim>; ///< Single-precision dimensionless.
-using timef          = statdimf<tim_dim>; ///< Single-precision time.
-using lengthf        = statdimf<len_dim>; ///< Single-precision length.
-using massf          = statdimf<mas_dim>; ///< Single-precision mass.
-using chargef        = statdimf<chg_dim>; ///< Single-precision charge.
-using temperaturef   = statdimf<tmp_dim>; ///< Single-precision temperature.
-
-
-/// Fundamental statdim-type for seconds.
-template <typename T> struct seconds : public basic_statdim<tim_dim, T> {
-  /// Initialize from number.
-  /// @param v  Number of seconds.
-  constexpr seconds(T v) : basic_statdim<tim_dim, T>(v, tim_dim) {}
-};
-
-
-/// Fundamental statdim-type for meters.
-template <typename T> struct meters : public basic_statdim<len_dim, T> {
-  /// Initialize from number.
-  /// @param v  Number of meters.
-  constexpr meters(T v) : basic_statdim<len_dim, T>(v, len_dim) {}
-};
-
-
-/// Fundamental statdim-type for kilograms.
-template <typename T> struct kilograms : public basic_statdim<mas_dim, T> {
-  /// Initialize from number.
-  /// @param v  Number of kilograms.
-  constexpr kilograms(T v) : basic_statdim<mas_dim, T>(v, mas_dim) {}
-};
-
-
-/// Fundamental statdim-type for coulombs.
-template <typename T> struct coulombs : public basic_statdim<chg_dim, T> {
-  /// Initialize from number.
-  /// @param v  Number of coulombs.
-  constexpr coulombs(T v) : basic_statdim<chg_dim, T>(v, chg_dim) {}
-};
-
-
-/// Fundamental statdim-type for kelvins.
-template <typename T> struct kelvins : public basic_statdim<tmp_dim, T> {
-  /// Initialize from number.
-  /// @param v  Number of kelvins.
-  constexpr kelvins(T v) : basic_statdim<tmp_dim, T>(v, tmp_dim) {}
-};
-
-
-using secondsd   = seconds<double>;
-using metersd    = meters<double>;
-using kilogramsd = kilograms<double>;
-using coulombsd  = coulombs<double>;
-using kelvinsd   = kelvins<double>;
-
-using secondsf   = seconds<float>;
-using metersf    = meters<float>;
-using kilogramsf = kilograms<float>;
-using coulombsf  = coulombs<float>;
-using kelvinsf   = kelvins<float>;
 
 
 } // namespace units

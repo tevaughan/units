@@ -8,12 +8,20 @@
 #ifndef VNIX_UNITS_HPP
 #define VNIX_UNITS_HPP
 
+#include <vnix/units/dim.hpp>
+
 namespace vnix {
 namespace units {
 
-The value of yml is <%= yml %>.
+<% for i in yml["basis"] %><% c = 0 %>
+constexpr dim <%= i["dim"] %>_dim(<% for j in yml["basis"] %><%= c == 0 ? "" : "," %><%= i == j ? 1 : 0 %><% c = 1 %><% end %>);
+<% end %>
 
 namespace flt {
+
+<% for i in yml["basis"] %>
+
+<% end %>
 
 } // namespace flt
 

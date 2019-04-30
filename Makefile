@@ -4,7 +4,10 @@
 # Modify this in order to customize the location for installation.
 PREFIX = /usr/local
 
-.PHONY: help doc test install clean
+# Basename for each gnenerated hpp file.
+GENERATED_CXX = dim-base-off units
+
+.PHONY: help doc test install clean $(GENERATED_CXX)
 
 help:
 	@echo "PREFIX (now '$(PREFIX)') in Makefile sets install directory."
@@ -19,19 +22,26 @@ help:
 	@echo "install   Copy headers to '$(PREFIX)/include'."
 	@echo "clean     Remove objects and executable from test directory."
 
-units.hpp: units.hpp.erb units.yml
-	./process-template units.hpp.erb units.yml
+% : %.erb units.yml
+	./process-template $^
 
-doc: units.hpp
+dim-base-off: dim-base-off.hpp
+	@cp -v dim-base-off.hpp vnix/units
+
+units: units.hpp
+#	@cp -v units.hpp vnix
+
+doc: $(GENERATED_CXX)
 	@doxygen
 
-test: units.hpp
+test: $(GENERATED_CXX)
 	@$(MAKE) -C test
 
-install: units.hpp
+install: $(GENERATED_CXX)
 	@mkdir -p $(PREFIX)/include
 	@cp -av vnix $(PREFIX)/include
 
 clean:
 	@$(MAKE) -C test clean
 	@rm -rfv html
+	@rm -fv $(GENERATED_CXX:=.hpp)
