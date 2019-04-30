@@ -65,4 +65,3 @@ TEST_CASE("Multiplication and division work as expected.", "[dim]") {
   REQUIRE(x * b == z1);
   REQUIRE(x / b == z2);
 }
-

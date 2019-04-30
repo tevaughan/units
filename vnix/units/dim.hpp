@@ -224,13 +224,9 @@ public:
     return transform(divd(f));
   }
 
-  constexpr bool operator==(basic_dim const &d) const {
-    return e_ == d.e_;
-  }
+  constexpr bool operator==(basic_dim const &d) const { return e_ == d.e_; }
 
-  constexpr bool operator!=(basic_dim const &d) const {
-    return e_ != d.e_;
-  }
+  constexpr bool operator!=(basic_dim const &d) const { return e_ != d.e_; }
 
   /// Print to output stream the symbolic contribution from a given unit.
   /// @param s  Output stream.
