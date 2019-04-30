@@ -19,13 +19,13 @@ derivatives:
     - {ctor: watts,   sym: W   = J/s,      scales: [m,mu,k,M,G]}
     - {ctor: amperes, sym: A   = C/s,      scales: [m,mu]}
   dims:
-    - speed        = type(m/s)
-    - acceleration = type(m/s/s)
-    - momentum     = type(g*m/s)
-    - force        = type(N)
-    - current      = type(C/s)
-    - energy       = type(J)
-    - power        = type(W)
-    - area         = type(m*m)
-    - volume       = type(m*m*m)
-    - pressure     = type(N/m/m)
+    - speed        = decltype(m/s)
+    - acceleration = decltype(m/s/s)
+    - momentum     = decltype(g*m/s)
+    - force        = decltype(N)
+    - current      = decltype(C/s)
+    - energy       = decltype(J)
+    - power        = decltype(W)
+    - area         = decltype(m*m)
+    - volume       = decltype(m*m*m)
+    - pressure     = decltype(N/m/m)

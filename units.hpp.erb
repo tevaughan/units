@@ -85,6 +85,8 @@ end
 ); ///< Exponents for <%= d %>.
 <% end                                    %>
 
+
+/// Single-precision dimensions and units.
 namespace flt {
 
 <% for i in yml["basis"]                %>
@@ -129,8 +131,14 @@ constexpr auto operator"" _<%= ss %>(long double v) { return v*<%= ss %>; }
 
 <%   end                                %>
 <% end                                  %>
+<% for i in yml["derivatives"]["dims"]  %>
+using <%= i %>;
+<% end                                  %>
+
 } // namespace flt
 
+
+/// Double-precision dimensions and units.
 namespace dbl {
 
 <% for i in yml["basis"]                %>
@@ -175,8 +183,14 @@ constexpr auto operator"" _<%= ss %>(long double v) { return v*<%= ss %>; }
 
 <%   end                                %>
 <% end                                  %>
+<% for i in yml["derivatives"]["dims"]  %>
+using <%= i %>;
+<% end                                  %>
+
 } // namespace dbl
 
+
+/// Extended-precision dimensions and units.
 namespace ldbl {
 
 <% for i in yml["basis"]                    %>
@@ -221,6 +235,10 @@ constexpr auto operator"" _<%= ss %>(long double v) { return v*<%= ss %>; }
 
 <%   end                                    %>
 <% end                                      %>
+<% for i in yml["derivatives"]["dims"]      %>
+using <%= i %>;
+<% end                                      %>
+
 } // namespace ldbl
 
 } // namespace units
