@@ -13,53 +13,160 @@
 namespace vnix {
 namespace units {
 
-<%for i in yml["basis"]%>
-<%c=0%>
-constexpr dim <%=i["dim"]%>_dim(
-<%for j in yml["basis"]%>
-<%=c==0 ? "" : ","%><%c=1%>
-<%=i==j ? 1 : 0%>
-<%end%>
-);
+<%
+max_dim_len = 0
+for i in yml["basis"]
+  if i["dim"].length > max_dim_len
+    max_dim_len = i["dim"].length
+  end
+end
 
-<%end%>
+class Scale
+  attr_reader :name, :valu
+  def initialize(sym)
+    case sym
+    when "P"
+      @name = "peta"
+      @valu = 1.0E+15
+    when "T"
+      @name = "tera"
+      @valu = 1.0E+12
+    when "G"
+      @name = "giga"
+      @valu = 1.0E+09
+    when "M"
+      @name = "mega"
+      @valu = 1.0E+06
+    when "k"
+      @name = "kilo"
+      @valu = 1.0E+03
+    when "h"
+      @name = "hecto"
+      @valu = 1.0E+02
+    when "da"
+      @name = "deca"
+      @valu = 1.0E+01
+    when "d"
+      @name = "deci"
+      @valu = 1.0E-01
+    when "c"
+      @name = "centi"
+      @valu = 1.0E-02
+    when "m"
+      @name = "milli"
+      @valu = 1.0E-03
+    when "mu"
+      @name = "micro"
+      @valu = 1.0E-06
+    when "n"
+      @name = "nano"
+      @valu = 1.0E-09
+    when "p"
+      @name = "pico"
+      @valu = 1.0E-12
+    when "f"
+      @name = "femto"
+      @valu = 1.0E-15
+    else
+      raise "illegal symbol #{sym}"
+    end
+  end
+end
+%>
+<% for i in yml["basis"]                  %>
+<%   first = 0                            %>
+<%   d = i["dim"]                         %>
+<%   d = " "*(max_dim_len - d.length) + d %>
+<% %>constexpr dim <%= d %>_dim(<% %>
+<%   for j in yml["basis"]                %>
+<%= first == 0 ? "" : "," %><%= i == j ? 1 : 0 %>
+<%     first = 1                          %>
+<%   end                                  %>
+); ///< Exponents for <%= d %>.
+<% end                                    %>
+
 namespace flt {
 
-<%for i in yml["basis"]%>
-<%c=i["ctor"]%><%d=i["dim"]+"_dim"%>
-struct <%=c%> : public basic_statdim<<%=d%>, float> {
-  constexpr <%=c%>(float v) : basic_statdim<<%=d%>, float>(v) {}
+<% for i in yml["basis"]              %>
+<%   c = i["ctor"]                    %>
+<%   d = i["dim"] + "_dim"            %>
+<%   p = "basic_statdim<#{d}, float>" %>
+struct <%= c %> : public <%= p %> {
+  constexpr <%= c %>(float v) : <%= p %>(v) {}
 };
 
-constexpr <%=c%> operator"" _<%=i["sym"]%>(long double v) { return v; }
+constexpr <%= c %> operator"" _<%= i["sym"] %>(long double v) { return v; }
+constexpr auto <%= i["sym"] %> = <%= c %>(1);
 
-<%end%>
+<%   for j in i["scales"]             %>
+<%     sc = Scale.new(j).name + c     %>
+<%     sf = Scale.new(j).valu         %>
+<%     ss = j + i["sym"]              %>
+struct <%= sc %> : public <%= p %> {
+  constexpr <%= sc %>(float v) : <%= p %>(<%= sf %>*v) {}
+};
+
+constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return <%= sf %>*v; }
+constexpr auto <%= ss %> = <%= sc %>(1);
+
+<%   end                              %>
+<% end                                %>
 } // namespace flt
 
 namespace dbl {
 
-<%for i in yml["basis"]%>
-<%c=i["ctor"]%><%d=i["dim"]+"_dim"%>
-struct <%=c%> : public basic_statdim<<%=d%>, double> {
-  constexpr <%=c%>(double v) : basic_statdim<<%=d%>>(v, double) {}
+<% for i in yml["basis"]               %>
+<%   c = i["ctor"]                     %>
+<%   d = i["dim"] + "_dim"             %>
+<%   p = "basic_statdim<#{d}, double>" %>
+struct <%= c %> : public <%= p %> {
+  constexpr <%= c %>(double v) : <%= p %>(v) {}
 };
 
-constexpr <%=c%> operator"" _<%=i["sym"]%>(long double v) { return v; }
+constexpr <%= c %> operator"" _<%= i["sym"] %>(long double v) { return v; }
+constexpr auto <%= i["sym"] %> = <%= c %>(1);
 
-<%end%>
+<%   for j in i["scales"]              %>
+<%     sc = Scale.new(j).name + c      %>
+<%     sf = Scale.new(j).valu          %>
+<%     ss = j + i["sym"]               %>
+struct <%= sc %> : public <%= p %> {
+  constexpr <%= sc %>(double v) : <%= p %>(<%= sf %>*v) {}
+};
+
+constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return <%= sf %>*v; }
+constexpr auto <%= ss %> = <%= sc %>(1);
+
+<%   end                               %>
+<% end                                 %>
 } // namespace dbl
 
 namespace ldbl {
 
-<%for i in yml["basis"]%>
-<%c=i["ctor"]%><%d=i["dim"]+"_dim"%>
-struct <%=c%> : public basic_statdim<<%=d%>, long double> {
-  constexpr <%=c%>(long double v) : basic_statdim<<%=d%>, long double>(v) {}
+<% for i in yml["basis"]                    %>
+<%   c = i["ctor"]                          %>
+<%   d = i["dim"] + "_dim"                  %>
+<%   p = "basic_statdim<#{d}, long double>" %>
+struct <%= c %> : public <%= p %> {
+  constexpr <%= c %>(long double v) : <%= p %>(v) {}
 };
 
-constexpr <%=c%> operator"" _<%=i["sym"]%>(long double v) { return v; }
+constexpr <%= c %> operator"" _<%= i["sym"] %>(long double v) { return v; }
+constexpr auto <%= i["sym"] %> = <%= c %>(1);
 
-<%end%>
+<%   for j in i["scales"]                   %>
+<%     sc = Scale.new(j).name + c           %>
+<%     sf = Scale.new(j).valu               %>
+<%     ss = j + i["sym"]                    %>
+struct <%= sc %> : public <%= p %> {
+  constexpr <%= sc %>(long double v) : <%= p %>(<%= sf %>*v) {}
+};
+
+constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return <%= sf %>*v; }
+constexpr auto <%= ss %> = <%= sc %>(1);
+
+<%   end                                    %>
+<% end                                      %>
 } // namespace ldbl
 
 } // namespace units
