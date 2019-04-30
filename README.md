@@ -84,15 +84,14 @@ The user need not use vnix::units::dimval directly.
 
 - One may write a simple program, for example, as follows:
   ```cpp
-  #include <vnix/unitsd.hpp>
-  // Use <vnix/unitsf.hpp> for single-precision units.
+  #include <vnix/units.hpp>
   using namespace std;
-  using namespace vnix::units::flt;
+  using namespace vnix::units::flt; // or vnix::units::dbl or vnix::units::ldbl
   int main() {
     // Explicit namespace needed for 'time' in order to avoid collision with
     // function in C standard library.
-    length      d = 3 * km;
-    units::time t = 4 * ms;
+    length      d = 3.0_km;  // User-defined literal.
+    units::time t = 4 * ms;  // Multiplication of number by unit.
     dyndim      v = d / t;
     cout << v << endl;
     return 0;
