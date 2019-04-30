@@ -94,7 +94,8 @@ namespace flt {
 <%   d = i["dim"] + "_dim"                     %>
 <%   p = "basic_statdim<#{d}.encode(), float>" %>
 struct <%= c %> : public <%= p %> {
-  constexpr <%= c %>(float v) : <%= p %>(v, <%= d %>) {}
+  constexpr <%= c %>(float v) :
+    <%= p %>(v, <%= d %>) {}
 };
 
 constexpr <%= c %> operator"" _<%= i["sym"] %>(long double v) { return v; }
@@ -106,10 +107,11 @@ using <%= i["dim"] %> = <%= p %>;
 <%     sf = Scale.new(j).valu                  %>
 <%     ss = j + i["sym"]                       %>
 struct <%= sc %> : public <%= p %> {
-  constexpr <%= sc %>(float v) : <%= p %>(<%= sf %>*v, <%= d %>) {}
+  constexpr <%= sc %>(float v) :
+    <%= p %>(<%= sf %>*v, <%= d %>) {}
 };
 
-constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return <%= sf %>*v; }
+constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return v; }
 constexpr auto <%= ss %> = <%= sc %>(1);
 
 <%   end                                       %>
@@ -147,7 +149,8 @@ namespace dbl {
 <%   d = i["dim"] + "_dim"                      %>
 <%   p = "basic_statdim<#{d}.encode(), double>" %>
 struct <%= c %> : public <%= p %> {
-  constexpr <%= c %>(double v) : <%= p %>(v, <%= d %>) {}
+  constexpr <%= c %>(double v) :
+    <%= p %>(v, <%= d %>) {}
 };
 
 constexpr <%= c %> operator"" _<%= i["sym"] %>(long double v) { return v; }
@@ -159,10 +162,11 @@ using <%= i["dim"] %> = <%= p %>;
 <%     sf = Scale.new(j).valu                   %>
 <%     ss = j + i["sym"]                        %>
 struct <%= sc %> : public <%= p %> {
-  constexpr <%= sc %>(double v) : <%= p %>(<%= sf %>*v, <%= d %>) {}
+  constexpr <%= sc %>(double v) :
+    <%= p %>(<%= sf %>*v, <%= d %>) {}
 };
 
-constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return <%= sf %>*v; }
+constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return v; }
 constexpr auto <%= ss %> = <%= sc %>(1);
 
 <%   end                                        %>
@@ -200,7 +204,8 @@ namespace ldbl {
 <%   d = i["dim"] + "_dim"                           %>
 <%   p = "basic_statdim<#{d}.encode(), long double>" %>
 struct <%= c %> : public <%= p %> {
-  constexpr <%= c %>(long double v) : <%= p %>(v, <%= d %>) {}
+  constexpr <%= c %>(long double v) :
+    <%= p %>(v, <%= d %>) {}
 };
 
 constexpr <%= c %> operator"" _<%= i["sym"] %>(long double v) { return v; }
@@ -212,10 +217,11 @@ using <%= i["dim"] %> = <%= p %>;
 <%     sf = Scale.new(j).valu                        %>
 <%     ss = j + i["sym"]                             %>
 struct <%= sc %> : public <%= p %> {
-  constexpr <%= sc %>(long double v) : <%= p %>(<%= sf %>*v, <%= d %>) {}
+  constexpr <%= sc %>(long double v) :
+    <%= p %>(<%= sf %>*v, <%= d %>) {}
 };
 
-constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return <%= sf %>*v; }
+constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return v; }
 constexpr auto <%= ss %> = <%= sc %>(1);
 
 <%   end                                             %>
@@ -240,7 +246,7 @@ constexpr auto operator"" _<%= ss %>(long double v) { return v*<%= ss %>; }
 <% end                                               %>
 <% for i in yml["derivatives"]["dims"]               %>
 using <%= i %>;
-<%          end                                      %>
+<% end                                               %>
 
 } // namespace ldbl
 

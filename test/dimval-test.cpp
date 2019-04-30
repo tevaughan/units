@@ -29,7 +29,7 @@ TEST_CASE("dimval's comparisons work.", "[dimval]") {
   using namespace dbl;
   dyndimf   ddv1 = sqrt(m / s);
   auto      sdv1 = ddv1;
-  dyndimd   ddv2 = 2 * s;
+  dyndimd   ddv2 = 2.0_s;
   dbl::time sdv2 = ddv2;
 
   REQUIRE(ddv1 == ddv1);
@@ -121,8 +121,8 @@ TEST_CASE("dimval's addition and subtraction work.", "[dimval]") {
 
 TEST_CASE("dimval's multiplication and division work.", "[dimval]") {
   using namespace flt;
-  dyndimd ddv1 = 3 * m;
-  dyndimf ddv2 = 2 * N;
+  dyndimd ddv1 = 3.0_m;
+  dyndimf ddv2 = 2.0_N;
   length  sdv1 = ddv1;
   force   sdv2 = ddv2;
 
@@ -182,8 +182,9 @@ TEST_CASE("Printing works for dimval.", "[dimval]") {
 
 TEST_CASE("Example in 'README.md' works.", "[dimval]") {
   using namespace flt;
-  length    d = 3 * km;
-  flt::time t = 4 * ms;
+  length    d = 3.0_km;
+  flt::time t = 4.0_ms;
+  std::cout << "d=" << d << " t=" << t << std::endl;
   auto      v = d / t;
   std::cout << v << std::endl;
   std::ostringstream oss;
