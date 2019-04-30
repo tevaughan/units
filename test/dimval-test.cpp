@@ -12,23 +12,25 @@ using namespace vnix::units;
 
 
 TEST_CASE("dimval's dimension is accessible.", "[dimval]") {
+  using namespace flt;
   dyndimd ddv = sqrt(m / s);
 
-  REQUIRE(ddv.d(base_off::LEN) == dim::rat(1, 2));
-  REQUIRE(ddv.d(base_off::TIM) == dim::rat(-1, 2));
+  REQUIRE(ddv.d(dim::off::off(0)) == dim::rat(1, 2));
+  REQUIRE(ddv.d(dim::off::off(2)) == dim::rat(-1, 2));
 
   speed sdv = m / s;
 
-  REQUIRE(sdv.d(base_off::LEN) == dim::rat(1));
-  REQUIRE(sdv.d(base_off::TIM) == dim::rat(-1));
+  REQUIRE(sdv.d(dim::off::off(0)) == dim::rat(1));
+  REQUIRE(sdv.d(dim::off::off(2)) == dim::rat(-1));
 }
 
 
 TEST_CASE("dimval's comparisons work.", "[dimval]") {
-  dyndimf      ddv1 = sqrt(m / s);
-  auto         sdv1 = ddv1;
-  dyndimd      ddv2 = 2 * s;
-  units::timed sdv2 = ddv2;
+  using namespace dbl;
+  dyndimf   ddv1 = sqrt(m / s);
+  auto      sdv1 = ddv1;
+  dyndimd   ddv2 = 2 * s;
+  dbl::time sdv2 = ddv2;
 
   REQUIRE(ddv1 == ddv1);
   REQUIRE(ddv1 == sdv1);
@@ -69,10 +71,11 @@ TEST_CASE("dimval's comparisons work.", "[dimval]") {
 
 
 TEST_CASE("dimval's addition and subtraction work.", "[dimval]") {
-  dyndimd      ddv1 = sqrt(m / s);
-  dyndimf      ddv2 = 2 * s;
-  auto         sdv1 = ddv1;
-  units::timed sdv2 = ddv2;
+  using namespace ldbl;
+  dyndimd    ddv1 = sqrt(m / s);
+  dyndimf    ddv2 = 2 * s;
+  auto       sdv1 = ddv1;
+  ldbl::time sdv2 = ddv2;
 
   REQUIRE(ddv1 + ddv1 == 2 * ddv1);
   REQUIRE(ddv1 + sdv1 == 2 * ddv1);
@@ -101,8 +104,8 @@ TEST_CASE("dimval's addition and subtraction work.", "[dimval]") {
 
   REQUIRE((ddv1 += dyndimd(sdv1)) == 2 * sdv1);
   REQUIRE((ddv1 -= dyndimf(sdv1)) == sdv1);
-  REQUIRE((sdv2 += units::timed(ddv2)) == 2 * ddv2);
-  REQUIRE((sdv2 -= units::timef(ddv2)) == ddv2);
+  REQUIRE((sdv2 += dbl::time(ddv2)) == 2 * ddv2);
+  REQUIRE((sdv2 -= flt::time(ddv2)) == ddv2);
 
   REQUIRE_THROWS(ddv1 += ddv2);
   REQUIRE_THROWS(ddv1 += sdv2);
@@ -117,28 +120,29 @@ TEST_CASE("dimval's addition and subtraction work.", "[dimval]") {
 
 
 TEST_CASE("dimval's multiplication and division work.", "[dimval]") {
+  using namespace flt;
   dyndimd ddv1 = 3 * m;
   dyndimf ddv2 = 2 * N;
-  lengthd sdv1 = ddv1;
+  length  sdv1 = ddv1;
   force   sdv2 = ddv2;
 
   REQUIRE(ddv1 * ddv2 == 6 * J);
   REQUIRE(ddv1 * sdv2 == 6 * J);
-  REQUIRE(ddv1 / ddv2 == 1.5 * m / N);
-  REQUIRE(ddv1 / sdv2 == 1.5 * m / N);
+  REQUIRE((ddv1 / ddv2 / m * N).to_number() == Approx(1.5));
+  REQUIRE((ddv1 / sdv2 / m * N).to_number() == Approx(1.5));
 
   REQUIRE(sdv1 * ddv2 == 6 * J);
   REQUIRE(sdv1 * sdv2 == 6 * J);
-  REQUIRE(sdv1 / ddv2 == 1.5 * m / N);
-  REQUIRE(sdv1 / sdv2 == 1.5 * m / N);
+  REQUIRE((sdv1 / ddv2 / m * N).to_number() == Approx(1.5));
+  REQUIRE((sdv1 / sdv2 / m * N).to_number() == Approx(1.5));
 
-  REQUIRE(ddv1 / ddv1 == dimensionlessd(1));
-  REQUIRE(ddv1 / sdv1 == dimensionlessf(1));
-  REQUIRE(sdv1 / sdv1 == dimensionlessd(1));
-  REQUIRE(sdv1 / ddv1 == dimensionlessf(1));
+  REQUIRE((ddv1 / ddv1).to_number() == 1);
+  REQUIRE((ddv1 / sdv1).to_number() == 1);
+  REQUIRE((sdv1 / sdv1).to_number() == 1);
+  REQUIRE((sdv1 / ddv1).to_number() == 1);
 
-  REQUIRE(ddv2 * 0.5 / N == dimensionlessd(1));
-  REQUIRE((sdv2 / N) == dimensionlessf(2));
+  REQUIRE((ddv2 * 0.5 / N).to_number() == 1);
+  REQUIRE((sdv2 / N).to_number() == 2);
 
   REQUIRE((ddv1 *= 2) == 6 * m);
   REQUIRE((ddv1 /= 2) == 3 * m);
@@ -149,6 +153,7 @@ TEST_CASE("dimval's multiplication and division work.", "[dimval]") {
 
 
 TEST_CASE("pow and sqrt work for dimval.", "[dimval]") {
+  using namespace dbl;
   dyndimd ddv1 = 3 * m;
   dyndimf ddv2 = pow<2>(ddv1);
 
@@ -169,15 +174,17 @@ TEST_CASE("pow and sqrt work for dimval.", "[dimval]") {
 
 TEST_CASE("Printing works for dimval.", "[dimval]") {
   std::ostringstream oss;
+  using namespace ldbl;
   oss << sqrt(1.0 / s) * m;
   REQUIRE(oss.str() == "1 m s^[-1/2]");
 }
 
 
 TEST_CASE("Example in 'README.md' works.", "[dimval]") {
-  lengthd      d = 3 * km;
-  units::timed t = 4 * ms;
-  auto         v = d / t;
+  using namespace flt;
+  length    d = 3 * km;
+  flt::time t = 4 * ms;
+  auto      v = d / t;
   std::cout << v << std::endl;
   std::ostringstream oss;
   oss << v;

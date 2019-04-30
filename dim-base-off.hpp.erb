@@ -15,9 +15,9 @@ namespace units {
 
 
 /// Enumeration of offsets, one for each base dimension in class dim.
-struct dim_base_off {
+template <typename T> struct basic_dim_base_off {
   /// C-style enumeration of offsets.
-  enum off {
+  enum off : T {
 <% for i in yml["basis"] %>
      <%= i["dim"] %>, ///< Offset of rational exponent for <%= i["dim"] %>.
 <% end %>
@@ -29,25 +29,36 @@ struct dim_base_off {
   constexpr operator off() const { return offset; }
 
   /// Allow construction of constant-expression instance.
-  constexpr dim_base_off(off os) : offset(os) {}
+  constexpr basic_dim_base_off(off os) : offset(os) {}
+
+  /// Number of offsets.
+  constexpr static T num_offs = <%= yml["basis"].size %>;
 
   /// Array of enumerated offsets for iterating.
-  constexpr static
-  std::array<off, <%= yml["basis"].size %>> const array = {
+  constexpr static off const array[num_offs] = {
 <% for i in yml["basis"] %>
-    <%= i["dim"] %>,
+<%= i["dim"] %>
+<% %>,<% %>
 <% end %>
-  };
-
-  /// Array of basis-dimension symbols, one for each offset.
-  constexpr static
-  std::array<char const *, <%= yml["basis"].size %>> const sym = {
-<% for i in yml["basis"] %>
-    "<%= i["sym"] %>",
-<% end %>
-  };
 };
 
+  /// Array of basis-dimension symbols, one for each offset.
+  constexpr static char const *const sym[num_offs] = {
+<% for i in yml["basis"] %>
+<% %>"<%= i["sym"] %>",<% %>
+<% end %>
+};
+};
+
+template <typename T>
+constexpr typename basic_dim_base_off<T>::off const
+basic_dim_base_off<T>::array[basic_dim_base_off<T>::num_offs];
+
+template <typename T>
+constexpr char const *const
+basic_dim_base_off<T>::sym[basic_dim_base_off<T>::num_offs];
+
+using dim_base_off = basic_dim_base_off<uint_fast8_t>;
 
 } // namespace units
 } // namespace vnix

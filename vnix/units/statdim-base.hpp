@@ -67,7 +67,7 @@ template <dim::word D> struct statdim_base {
   /// @tparam OD  Encoding of factor's dimension in dim::word.
   /// @return     Dimension of product.
   template <dim::word OD> constexpr static auto prod(statdim_base<OD>) {
-    dim::word constexpr rd = d() + dim(OD);
+    dim::word constexpr rd = (d() + dim(OD)).encode();
     return statdim_base<rd>();
   }
 
@@ -80,7 +80,7 @@ template <dim::word D> struct statdim_base {
   /// @tparam D  Encoding of divisor's dimension in dim::word.
   /// @return    Dimension of quotient.
   template <dim::word OD> constexpr static auto quot(statdim_base<OD>) {
-    dim::word constexpr rd = d() - dim(OD);
+    dim::word constexpr rd = (d() - dim(OD)).encode();
     return statdim_base<rd>();
   }
 
@@ -89,8 +89,11 @@ template <dim::word D> struct statdim_base {
   /// @return    Dimension of quotient.
   constexpr static dyndim_base quot(dyndim_base const &db);
 
-  /// Base-dimensions corresponding to reciprocal of dimensioned quantity.
-  using recip_basedim = statdim_base<dim::word(nul_dim - d())>;
+  /// Dimensions corresponding to reciprocal of dimensioned quantity.
+  constexpr static auto recip_dim = nul_dim - d();
+
+  /// Base-dimension-type corresponding to reciprocal of dimensioned quantity.
+  using recip_basedim = statdim_base<recip_dim.encode()>;
 
   /// Dimension for reciprocal of dimensioned value.
   /// @return  Dimension of reciprocal.
@@ -101,7 +104,7 @@ template <dim::word D> struct statdim_base {
   /// @tparam PD  Denominator of power.
   /// @return     Dimension   of result.
   template <int64_t PN, int64_t PD = 1> constexpr static auto pow() {
-    dim::word constexpr rd = d() * dim::rat(PN, PD);
+    dim::word constexpr rd = (d() * dim::rat(PN, PD)).encode();
     return statdim_base<rd>();
   }
 
@@ -113,7 +116,7 @@ template <dim::word D> struct statdim_base {
   /// Dimension for square-root of dimensioned value.
   /// @return  Dimension of square-root.
   constexpr static auto sqrt() {
-    dim::word constexpr rd = d() / dim::rat(2);
+    dim::word constexpr rd = (d() / dim::rat(2)).encode();
     return statdim_base<rd>();
   }
 };

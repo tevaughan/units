@@ -538,17 +538,17 @@ public:
 };
 
 
-constexpr static dim nul_dim; ///< Null dimension.
+constexpr auto nul_code = nul_dim.encode();
 
 
 /// Specialization of basic_statdim for dimensionless quantity.
 template <typename T>
-class basic_statdim<nul_dim, T> : public dimval<T, statdim_base<nul_dim>> {
+class basic_statdim<nul_code, T> : public dimval<T, statdim_base<nul_code>> {
   /// Type of compatible statdim.
   /// @tparam OT  Type of numeric value.
-  template <typename OT> using stat = dimval<OT, statdim_base<nul_dim>>;
+  template <typename OT> using stat = dimval<OT, statdim_base<nul_code>>;
 
-  using dimval<T, statdim_base<nul_dim>>::v_; ///< Allow access to number.
+  using dimval<T, statdim_base<nul_code>>::v_; ///< Allow access to number.
 
 public:
   /// Initialize from compatible (dimensionless) statdim.

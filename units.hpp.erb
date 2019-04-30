@@ -89,51 +89,52 @@ end
 /// Single-precision dimensions and units.
 namespace flt {
 
-<% for i in yml["basis"]                %>
-<%   c = i["ctor"]                      %>
-<%   d = i["dim"] + "_dim"              %>
-<%   p = "basic_statdim<#{d}, float>"   %>
+<% for i in yml["basis"]                       %>
+<%   c = i["ctor"]                             %>
+<%   d = i["dim"] + "_dim"                     %>
+<%   p = "basic_statdim<#{d}.encode(), float>" %>
 struct <%= c %> : public <%= p %> {
-  constexpr <%= c %>(float v) : <%= p %>(v) {}
+  constexpr <%= c %>(float v) : <%= p %>(v, <%= d %>) {}
 };
 
 constexpr <%= c %> operator"" _<%= i["sym"] %>(long double v) { return v; }
 constexpr auto <%= i["sym"] %> = <%= c %>(1);
+using <%= i["dim"] %> = <%= p %>;
 
-<%   for j in i["scales"]               %>
-<%     sc = Scale.new(j).name + c       %>
-<%     sf = Scale.new(j).valu           %>
-<%     ss = j + i["sym"]                %>
+<%   for j in i["scales"]                      %>
+<%     sc = Scale.new(j).name + c              %>
+<%     sf = Scale.new(j).valu                  %>
+<%     ss = j + i["sym"]                       %>
 struct <%= sc %> : public <%= p %> {
-  constexpr <%= sc %>(float v) : <%= p %>(<%= sf %>*v) {}
+  constexpr <%= sc %>(float v) : <%= p %>(<%= sf %>*v, <%= d %>) {}
 };
 
 constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return <%= sf %>*v; }
 constexpr auto <%= ss %> = <%= sc %>(1);
 
-<%   end                                %>
-<% end                                  %>
-<% for i in yml["derivatives"]["units"] %>
-<%   c = i["ctor"]                      %>
+<%   end                                       %>
+<% end                                         %>
+<% for i in yml["derivatives"]["units"]        %>
+<%   c = i["ctor"]                             %>
 constexpr auto <%= i["sym"] %>;
-<%   m = i["sym"].match(/(\S*)\s*=/)    %>
-<%   s = m[1]                           %>
+<%   m = i["sym"].match(/(\S*)\s*=/)           %>
+<%   s = m[1]                                  %>
 constexpr auto <%= c %>(float v) { return v*<%= s %>; }
 constexpr auto operator"" _<%= s %>(long double v) { return v*<%= s %>; }
 
-<%   for j in i["scales"]               %>
-<%     sc = Scale.new(j).name + c       %>
-<%     sf = Scale.new(j).valu           %>
-<%     ss = j + s                       %>
+<%   for j in i["scales"]                      %>
+<%     sc = Scale.new(j).name + c              %>
+<%     sf = Scale.new(j).valu                  %>
+<%     ss = j + s                              %>
 constexpr auto <%= ss %> = <%= sf %>*<%= s %>;
 constexpr auto <%= sc %>(float v) { return v*<%= ss %>; }
 constexpr auto operator"" _<%= ss %>(long double v) { return v*<%= ss %>; }
 
-<%   end                                %>
-<% end                                  %>
-<% for i in yml["derivatives"]["dims"]  %>
+<%   end                                       %>
+<% end                                         %>
+<% for i in yml["derivatives"]["dims"]         %>
 using <%= i %>;
-<% end                                  %>
+<% end                                         %>
 
 } // namespace flt
 
@@ -141,51 +142,52 @@ using <%= i %>;
 /// Double-precision dimensions and units.
 namespace dbl {
 
-<% for i in yml["basis"]                %>
-<%   c = i["ctor"]                      %>
-<%   d = i["dim"] + "_dim"              %>
-<%   p = "basic_statdim<#{d}, double>"  %>
+<% for i in yml["basis"]                        %>
+<%   c = i["ctor"]                              %>
+<%   d = i["dim"] + "_dim"                      %>
+<%   p = "basic_statdim<#{d}.encode(), double>" %>
 struct <%= c %> : public <%= p %> {
-  constexpr <%= c %>(double v) : <%= p %>(v) {}
+  constexpr <%= c %>(double v) : <%= p %>(v, <%= d %>) {}
 };
 
 constexpr <%= c %> operator"" _<%= i["sym"] %>(long double v) { return v; }
 constexpr auto <%= i["sym"] %> = <%= c %>(1);
+using <%= i["dim"] %> = <%= p %>;
 
-<%   for j in i["scales"]               %>
-<%     sc = Scale.new(j).name + c       %>
-<%     sf = Scale.new(j).valu           %>
-<%     ss = j + i["sym"]                %>
+<%   for j in i["scales"]                       %>
+<%     sc = Scale.new(j).name + c               %>
+<%     sf = Scale.new(j).valu                   %>
+<%     ss = j + i["sym"]                        %>
 struct <%= sc %> : public <%= p %> {
-  constexpr <%= sc %>(double v) : <%= p %>(<%= sf %>*v) {}
+  constexpr <%= sc %>(double v) : <%= p %>(<%= sf %>*v, <%= d %>) {}
 };
 
 constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return <%= sf %>*v; }
 constexpr auto <%= ss %> = <%= sc %>(1);
 
-<%   end                                %>
-<% end                                  %>
-<% for i in yml["derivatives"]["units"] %>
-<%   c = i["ctor"]                      %>
+<%   end                                        %>
+<% end                                          %>
+<% for i in yml["derivatives"]["units"]         %>
+<%   c = i["ctor"]                              %>
 constexpr auto <%= i["sym"] %>;
-<%   m = i["sym"].match(/(\S*)\s*=/)    %>
-<%   s = m[1]                           %>
+<%   m = i["sym"].match(/(\S*)\s*=/)            %>
+<%   s = m[1]                                   %>
 constexpr auto <%= c %>(double v) { return v*<%= s %>; }
 constexpr auto operator"" _<%= s %>(long double v) { return v*<%= s %>; }
 
-<%   for j in i["scales"]               %>
-<%     sc = Scale.new(j).name + c       %>
-<%     sf = Scale.new(j).valu           %>
-<%     ss = j + s                       %>
+<%   for j in i["scales"]                       %>
+<%     sc = Scale.new(j).name + c               %>
+<%     sf = Scale.new(j).valu                   %>
+<%     ss = j + s                               %>
 constexpr auto <%= ss %> = <%= sf %>*<%= s %>;
 constexpr auto <%= sc %>(double v) { return v*<%= ss %>; }
 constexpr auto operator"" _<%= ss %>(long double v) { return v*<%= ss %>; }
 
-<%   end                                %>
-<% end                                  %>
-<% for i in yml["derivatives"]["dims"]  %>
+<%   end                                        %>
+<% end                                          %>
+<% for i in yml["derivatives"]["dims"]          %>
 using <%= i %>;
-<% end                                  %>
+<% end                                          %>
 
 } // namespace dbl
 
@@ -193,51 +195,52 @@ using <%= i %>;
 /// Extended-precision dimensions and units.
 namespace ldbl {
 
-<% for i in yml["basis"]                    %>
-<%   c = i["ctor"]                          %>
-<%   d = i["dim"] + "_dim"                  %>
-<%   p = "basic_statdim<#{d}, long double>" %>
+<% for i in yml["basis"]                             %>
+<%   c = i["ctor"]                                   %>
+<%   d = i["dim"] + "_dim"                           %>
+<%   p = "basic_statdim<#{d}.encode(), long double>" %>
 struct <%= c %> : public <%= p %> {
-  constexpr <%= c %>(long double v) : <%= p %>(v) {}
+  constexpr <%= c %>(long double v) : <%= p %>(v, <%= d %>) {}
 };
 
 constexpr <%= c %> operator"" _<%= i["sym"] %>(long double v) { return v; }
 constexpr auto <%= i["sym"] %> = <%= c %>(1);
+using <%= i["dim"] %> = <%= p %>;
 
-<%   for j in i["scales"]                   %>
-<%     sc = Scale.new(j).name + c           %>
-<%     sf = Scale.new(j).valu               %>
-<%     ss = j + i["sym"]                    %>
+<%   for j in i["scales"]                            %>
+<%     sc = Scale.new(j).name + c                    %>
+<%     sf = Scale.new(j).valu                        %>
+<%     ss = j + i["sym"]                             %>
 struct <%= sc %> : public <%= p %> {
-  constexpr <%= sc %>(long double v) : <%= p %>(<%= sf %>*v) {}
+  constexpr <%= sc %>(long double v) : <%= p %>(<%= sf %>*v, <%= d %>) {}
 };
 
 constexpr <%= sc %> operator"" _<%= ss %>(long double v) { return <%= sf %>*v; }
 constexpr auto <%= ss %> = <%= sc %>(1);
 
-<%   end                                    %>
-<% end                                      %>
-<% for i in yml["derivatives"]["units"]     %>
-<%   c = i["ctor"]                          %>
+<%   end                                             %>
+<% end                                               %>
+<% for i in yml["derivatives"]["units"]              %>
+<%   c = i["ctor"]                                   %>
 constexpr auto <%= i["sym"] %>;
-<%   m = i["sym"].match(/(\S*)\s*=/)        %>
-<%   s = m[1]                               %>
+<%   m = i["sym"].match(/(\S*)\s*=/)                 %>
+<%   s = m[1]                                        %>
 constexpr auto <%= c %>(long double v) { return v*<%= s %>; }
 constexpr auto operator"" _<%= s %>(long double v) { return v*<%= s %>; }
 
-<%   for j in i["scales"]                   %>
-<%     sc = Scale.new(j).name + c           %>
-<%     sf = Scale.new(j).valu               %>
-<%     ss = j + s                           %>
+<%   for j in i["scales"]                            %>
+<%     sc = Scale.new(j).name + c                    %>
+<%     sf = Scale.new(j).valu                        %>
+<%     ss = j + s                                    %>
 constexpr auto <%= ss %> = <%= sf %>*<%= s %>;
 constexpr auto <%= sc %>(long double v) { return v*<%= ss %>; }
 constexpr auto operator"" _<%= ss %>(long double v) { return v*<%= ss %>; }
 
-<%   end                                    %>
-<% end                                      %>
-<% for i in yml["derivatives"]["dims"]      %>
+<%   end                                             %>
+<% end                                               %>
+<% for i in yml["derivatives"]["dims"]               %>
 using <%= i %>;
-<% end                                      %>
+<%          end                                      %>
 
 } // namespace ldbl
 

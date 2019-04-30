@@ -303,6 +303,19 @@ constexpr auto operator/(rational<NB1, DB1> r1, rational<NB2, DB2> r2) {
 }
 
 
+/// Quotient of two rational numbers.
+/// @tparam NB1  Number of numerator  -bits in left -hand rational.
+/// @tparam DB1  Number of denominator-bits in left -hand rational.
+/// @param  r1   Dividend.
+/// @param  r2   Divisor.
+/// @return      Quotient.
+template <unsigned NB1, unsigned DB1>
+constexpr auto operator/(rational<NB1, DB1>                 r1,
+                         typename rational<NB1, DB1>::stype r2) {
+  return r1 * rational<NB1, DB1>(r2).reciprocal();
+}
+
+
 // Modify this rational number by multiplying by other rational number.
 template <unsigned NB, unsigned DB>
 template <unsigned ONB, unsigned ODB>

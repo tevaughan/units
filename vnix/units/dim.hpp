@@ -27,7 +27,7 @@ public:
   using off = DBO;            ///< Type of offset for each base-element.
 
   enum {
-    NUM_BASES = DBO::array.size(),    ///< Number of bases for dimension.
+    NUM_BASES = DBO::num_offs,        ///< Number of bases for dimension.
     NUM_BITS  = NUM_BASES * rat::BITS ///< Number of bits in instance of dim.
   };
 
@@ -50,6 +50,7 @@ private:
     return rat::encode(t) << MAX_SHIFT;
   }
 
+#if 1
   /// Encode exponents, with higher DBO at higher bit-offsets.
   /// @tparam T   Type that is convertible to rat.
   /// @tparam U   List of types, each convertible to rat.
@@ -64,13 +65,28 @@ private:
     word const     e     = rat::encode(t) << SHIFT;
     return (e & MASK) | (encode(us...) & ~MASK);
   }
+#endif
+
+  constexpr static word encode(std::array<rat, NUM_BASES> const &a) {
+    word es = 0;
+    for (uint_fast8_t i = 0; i < NUM_BASES; ++i) {
+      auto const SHIFT = i * rat::BITS;
+      word const MASK  = bit_range<word>(0, rat::BITS - 1) << SHIFT;
+      word const e     = rat::encode(a[i]) << SHIFT;
+      es |= (e & MASK);
+    }
+    return es;
+  }
 
 public:
+  constexpr basic_dim() : e_(0) {}
+
   /// Initialize from dim that has been encoded into a word.
   /// By default, initialize null (dimensionless) dim.
   /// @param u  Encoded data for dim.
-  constexpr explicit basic_dim(word u = 0) : e_(u) {}
+  constexpr explicit basic_dim(word u) : e_(u) {}
 
+#if 1
   /// Initialize exponents, one for each base quantity.
   ///
   /// @tparam T   List of types, one for each initializer in list for
@@ -80,9 +96,12 @@ public:
   template <typename... T> constexpr basic_dim(T... ts) : e_(encode(ts...)) {
     static_assert(sizeof...(ts) == NUM_BASES, "illegal number of bases");
   }
+#endif
+
+  constexpr basic_dim(std::array<rat, NUM_BASES> const &a) : e_(encode(a)) {}
 
   /// Encode data for this dim into a word.
-  constexpr operator word() const { return e_; }
+  constexpr word encode() const { return e_; }
 
   /// Rational exponent at specified offset.
   /// @param off  Offset of exponent.
@@ -113,9 +132,9 @@ public:
   template <typename F>
   constexpr basic_dim combine(basic_dim const &d, F f) const {
     basic_dim r(word(0));
-    for (unsigned b = 0; b < NUM_BASES; ++b) {
-      auto const off = DBO(b);
-      r.set(off, f(exp(off), d.exp(off)));
+    for (auto b : off::array) {
+      auto const os = DBO(b);
+      r.set(os, f(exp(os), d.exp(os)));
     }
     return r;
   }
@@ -126,9 +145,9 @@ public:
   /// @return    New exponents.
   template <typename F> constexpr basic_dim transform(F f) const {
     basic_dim r(word(0));
-    for (unsigned b = 0; b < NUM_BASES; ++b) {
-      auto const off = DBO(b);
-      r.set(off, f(exp(off)));
+    for (auto b : off::array) {
+      auto const os = DBO(b);
+      r.set(os, f(exp(os)));
     }
     return r;
   }
@@ -197,6 +216,22 @@ public:
   /// @return   Products.
   constexpr basic_dim operator/(rat f) const { return transform(divd(f)); }
 
+  /// Divide exponents by rational factor.
+  /// This is called when a physical quantity is raised to a power.
+  /// @param f  Factor.
+  /// @return   Products.
+  constexpr basic_dim operator/(rat::stype f) const {
+    return transform(divd(f));
+  }
+
+  constexpr bool operator==(basic_dim const &d) const {
+    return e_ == d.e_;
+  }
+
+  constexpr bool operator!=(basic_dim const &d) const {
+    return e_ != d.e_;
+  }
+
   /// Print to output stream the symbolic contribution from a given unit.
   /// @param s  Output stream.
   /// @param u  Abbreviation for unit.
@@ -227,6 +262,9 @@ public:
 /// Define dim as specification of basic_dim by way of YAML- and ERB-generated
 /// type dim_base_off.
 using dim = basic_dim<dim_base_off>;
+
+
+constexpr static dim nul_dim; ///< Null dimension.
 
 
 } // namespace units
