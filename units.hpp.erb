@@ -8,18 +8,24 @@
 #ifndef VNIX_UNITS_HPP
 #define VNIX_UNITS_HPP
 
-#include <vnix/units/dim.hpp>
+#include <vnix/units/dimval.hpp>
 
 namespace vnix {
 namespace units {
 
-<% for i in yml["basis"] %><% c = 0 %>
-constexpr dim <%= i["dim"] %>_dim(<% for j in yml["basis"] %><%= c == 0 ? "" : "," %><%= i == j ? 1 : 0 %><% c = 1 %><% end %>);
-<% end %>
+<%for i in yml["basis"]%>
+<%c=0%>
+constexpr dim <%=i["dim"]%>_dim(
+<%for j in yml["basis"]%><%=c==0 ? "" : ","%><%=i==j ? 1 : 0%><%c=1%><%end%>);
+
+<%end%>
 
 namespace flt {
 
 <% for i in yml["basis"] %>
+struct <%=i["ctor"]%> : public statdim<<%=i["dim"]%>_dim> {
+  <%=i["ctor"]%>(float v) : statdim<<%=i["dim"]%>_dim>(v) {}
+};
 
 <% end %>
 
