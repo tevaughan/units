@@ -45,3 +45,4 @@ clean:
 	@$(MAKE) -C test clean
 	@rm -rfv html
 	@rm -fv $(GENERATED_CXX:=.hpp)
+	@rm -fv vnix/units/dim-base-off.hpp vnix/units.hpp
