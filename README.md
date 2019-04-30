@@ -39,9 +39,9 @@ The user need not use vnix::units::dimval directly.
   is defined as a *type* that you can use.  (This type is a descendant of
   vnix::units::dimval).
   ```cpp
-  using namespace vnix::units;
-  length l1 = 2.4 * m;
-  length l2 = 7.7 * cm;
+  using namespace vnix::units::flt; // For single-precision types.
+  length l1 = 2.4 * m;              // Construct by multiplying unit.
+  length l2 = 7.7_cm;               // Construct via user-defined literal.
   area   a  = l1 * l2;
   ```
 
