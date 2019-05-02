@@ -91,10 +91,10 @@ end
 /// struct.
 namespace impl {
 
-<% for i in yml["basis"]                   %>
-<%   c = i["ctor"]                         %>
-<%   d = i["dim"] + "_dim"                 %>
-<%   p = "basic_statdim<#{d}.encode(), T>" %>
+<% for i in yml["basis"]                                %>
+<%   c = i["ctor"]                                      %>
+<%   d = i["dim"] + "_dim"                              %>
+<%   p = "basic_statdim<#{d}.encode(), T>"              %>
 /// Template used to construct a number of <%= c %>.
 /// @tparam T  Numeric type (float, double, etc.).
 template <typename T>
@@ -104,9 +104,14 @@ struct <%= c %> : public <%= p %> {
     <%= p %>(v, <%= d %>) {}
 };
 
-<%   for j in i["scales"]                  %>
-<%     sc = Scale.new(j).name + c          %>
-<%     sf = Scale.new(j).valu              %>
+/// Template-variable for symbol for <%= c %>.
+/// @tparam T  Numeric type (float, double, etc.).
+template <typename T> constexpr <%= c %><T> <%= i["sym"] %>(T(1));
+
+<%   for j in i["scales"]                               %>
+<%     sc = Scale.new(j).name + c                       %>
+<%     sf = Scale.new(j).valu                           %>
+<%     ss = j + i["sym"]                                %>
 /// Template used to construct a number of <%= sc %>.
 /// @tparam T  Numeric type (float, double, etc.).
 template <typename T>
@@ -116,8 +121,19 @@ struct <%= sc %> : public <%= p %> {
     <%= p %>(<%= sf %>*v, <%= d %>) {}
 };
 
-<%   end                                   %>
-<% end                                     %>
+/// Template-variable for symbol for <%= sc %>.
+/// @tparam T  Numeric type (float, double, etc.).
+template <typename T> constexpr <%= sc %><T> <%= ss %>(T(1));
+
+<%   end                                                %>
+<% end                                                  %>
+<% for i in yml["derivatives"]["units"]                 %>
+<%   c = i["ctor"]                                      %>
+<%   m = i["sym"].match(/(\S+)\s*=\s*(\S+)/)            %>
+<%   s = m[1]  # Symbol.                                %>
+<%   e = m[2].gsub(/([_A-Za-z][_A-Za-z0-9]*)/, '\1<T>') %>
+template <typename T> constexpr auto <%= s %> = <%= e %>;
+<% end                                                  %>
 } // namespace impl
 
 
@@ -160,26 +176,25 @@ constexpr auto operator"" _<%= i["sym"] %>(long double v) {
   return <%= c %>(float(v));
 }
 
-constexpr auto <%= i["sym"] %> = <%= c %>(float(1));
+constexpr auto <%= i["sym"] %> = impl::<%= i["sym"] %><float>;
 using <%= i["dim"] %> = <%= p %>;
 
 <%   for j in i["scales"]                      %>
 <%     sc = Scale.new(j).name + c              %>
-<%     sf = Scale.new(j).valu                  %>
 <%     ss = j + i["sym"]                       %>
 constexpr auto operator"" _<%= ss %>(long double v) {
   return <%= sc %>(float(v));
 }
 
-constexpr auto <%= ss %> = <%= sc %>(float(1));
+constexpr auto <%= ss %> = impl::<%= ss %><float>;
 
 <%   end                                       %>
 <% end                                         %>
 <% for i in yml["derivatives"]["units"]        %>
 <%   c = i["ctor"]                             %>
-constexpr auto <%= i["sym"] %>;
-<%   m = i["sym"].match(/(\S*)\s*=/)           %>
-<%   s = m[1]                                  %>
+<%   m = i["sym"].match(/(\S+)\s*=\s*(\S+)/)   %>
+<%   s = m[1]  # Symbol.                       %>
+constexpr auto <%= s %> = impl::<%= s %><float>;
 constexpr auto <%= c %>(float v) { return v*<%= s %>; }
 
 constexpr auto operator"" _<%= s %>(long double v) {
@@ -219,26 +234,25 @@ constexpr auto operator"" _<%= i["sym"] %>(long double v) {
   return <%= c %>(double(v));
 }
 
-constexpr auto <%= i["sym"] %> = <%= c %>(double(1));
+constexpr auto <%= i["sym"] %> = impl::<%= i["sym"] %><double>;
 using <%= i["dim"] %> = <%= p %>;
 
 <%   for j in i["scales"]                       %>
 <%     sc = Scale.new(j).name + c               %>
-<%     sf = Scale.new(j).valu                   %>
 <%     ss = j + i["sym"]                        %>
 constexpr auto operator"" _<%= ss %>(long double v) {
   return <%= sc %>(double(v));
 }
 
-constexpr auto <%= ss %> = <%= sc %>(double(1));
+constexpr auto <%= ss %> = impl::<%= ss %><double>;
 
 <%   end                                        %>
 <% end                                          %>
 <% for i in yml["derivatives"]["units"]         %>
 <%   c = i["ctor"]                              %>
-constexpr auto <%= i["sym"] %>;
 <%   m = i["sym"].match(/(\S*)\s*=/)            %>
 <%   s = m[1]                                   %>
+constexpr auto <%= s %> = impl::<%= s %><double>;
 constexpr auto <%= c %>(double v) { return v*<%= s %>; }
 
 constexpr auto operator"" _<%= s %>(long double v) {
@@ -278,26 +292,25 @@ constexpr auto operator"" _<%= i["sym"] %>(long double v) {
   return <%= c %>(v);
 }
 
-constexpr auto <%= i["sym"] %> = <%= c %>((long double)1);
+constexpr auto <%= i["sym"] %> = impl::<%= i["sym"] %><long double>;
 using <%= i["dim"] %> = <%= p %>;
 
 <%   for j in i["scales"]                            %>
 <%     sc = Scale.new(j).name + c                    %>
-<%     sf = Scale.new(j).valu                        %>
 <%     ss = j + i["sym"]                             %>
 constexpr auto operator"" _<%= ss %>(long double v) {
   return <%= sc %>(v);
 }
 
-constexpr auto <%= ss %> = <%= sc %>((long double)1);
+constexpr auto <%= ss %> = impl::<%= ss %><long double>;
 
 <%   end                                             %>
 <% end                                               %>
 <% for i in yml["derivatives"]["units"]              %>
 <%   c = i["ctor"]                                   %>
-constexpr auto <%= i["sym"] %>;
 <%   m = i["sym"].match(/(\S*)\s*=/)                 %>
 <%   s = m[1]                                        %>
+constexpr auto <%= s %> = impl::<%= s %><long double>;
 constexpr auto <%= c %>(long double v) { return v*<%= s %>; }
 
 constexpr auto operator"" _<%= s %>(long double v) {
