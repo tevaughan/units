@@ -132,36 +132,63 @@ template <typename T> constexpr <%= sc %><T> <%= ss %>(T(1));
 <%   m = i["sym"].match(/(\S+)\s*=\s*(\S+)/)            %>
 <%   s = m[1]  # Symbol.                                %>
 <%   e = m[2].gsub(/([_A-Za-z][_A-Za-z0-9]*)/, '\1<T>') %>
+/// Template-variable for symbol for <%= c %>.
 template <typename T> constexpr auto <%= s %> = <%= e %>;
+
+<%   for j in i["scales"]                               %>
+<%     sc = Scale.new(j).name + c                       %>
+<%     sf = Scale.new(j).valu                           %>
+<%     ss = j + s                                       %>
+/// Template-variable for symbol for <%= sc %>.
+template <typename T> constexpr auto <%= ss %> = <%= sf %>*<%= s %><T>;
+
+<%   end                                                %>
 <% end                                                  %>
 } // namespace impl
 
 
-<% for i in yml["basis"]                   %>
-<%   c = i["ctor"]                         %>
-<%   d = i["dim"] + "_dim"                 %>
-<%   p = "basic_statdim<#{d}.encode(), T>" %>
+<% for i in yml["basis"]                       %>
+<%   c = i["ctor"]                             %>
+<%   d = i["dim"] + "_dim"                     %>
+<%   p = "basic_statdim<#{d}.encode(), T>"     %>
 /// Produce dimensioned quantity from number of <%= c %>.
 /// @tparam T  Numeric type stored in dimensioned quantity.
 /// @param  v  Number of <%= c %>
 template <typename T>
-constexpr <%= p %> <%= c %>(T v) {
-  return impl::<%= c %><T>(v);
-}
+constexpr auto <%= c %>(T v) { return impl::<%= c %><T>(v); }
 
-<%   for j in i["scales"]                  %>
-<%     sc = Scale.new(j).name + c          %>
+<%   for j in i["scales"]                      %>
+<%     sc = Scale.new(j).name + c              %>
 /// Produce dimensioned quantity from number of <%= sc %>.
 /// @tparam T  Numeric type stored in dimensioned quantity.
 /// @param  v  Number of <%= sc %>
 template <typename T>
-constexpr <%= p %> <%= sc %>(T v) {
-  return impl::<%= sc %><T>(v);
-};
+constexpr auto <%= sc %>(T v) { return impl::<%= sc %><T>(v); };
 
-<%   end                                   %>
-<% end                                     %>
+<%   end                                       %>
+<% end                                         %>
+<% for i in yml["derivatives"]["units"]        %>
+<%   c = i["ctor"]                             %>
+<%   m = i["sym"].match(/(\S+)\s*=\s*(\S+)/)   %>
+<%   s = m[1]  # Symbol.                       %>
+/// Produce dimensioned quantity from number of <%= c %>.
+/// @tparam T  Numeric type stored in dimensioned quantity.
+/// @param  v  Number of <%= c %>.
+template <typename T>
+constexpr auto <%= c %>(T v) { return v*impl::<%= s %><T>; }
 
+<%   for j in i["scales"]                      %>
+<%     sc = Scale.new(j).name + c              %>
+<%     sf = Scale.new(j).valu                  %>
+<%     ss = j + s                              %>
+/// Produce dimensioned quantity from number of <%= sc %>.
+/// @tparam T  Numeric type stored in dimensioned quantity.
+/// @param  v  Number of <%= sc %>.
+template <typename T>
+constexpr auto <%= sc %>(T v) { return v*impl::<%= ss %><T>; }
+
+<%   end                                       %>
+<% end                                         %>
 
 /// Single-precision dimensions and units.
 namespace flt {
@@ -195,7 +222,6 @@ constexpr auto <%= ss %> = impl::<%= ss %><float>;
 <%   m = i["sym"].match(/(\S+)\s*=\s*(\S+)/)   %>
 <%   s = m[1]  # Symbol.                       %>
 constexpr auto <%= s %> = impl::<%= s %><float>;
-constexpr auto <%= c %>(float v) { return v*<%= s %>; }
 
 constexpr auto operator"" _<%= s %>(long double v) {
   return float(v)*<%= s %>;
@@ -203,10 +229,8 @@ constexpr auto operator"" _<%= s %>(long double v) {
 
 <%   for j in i["scales"]                      %>
 <%     sc = Scale.new(j).name + c              %>
-<%     sf = Scale.new(j).valu                  %>
 <%     ss = j + s                              %>
-constexpr auto <%= ss %> = <%= sf %>*<%= s %>;
-constexpr auto <%= sc %>(float v) { return v*<%= ss %>; }
+constexpr auto <%= ss %> = impl::<%= ss %><float>;
 
 constexpr auto operator"" _<%= ss %>(long double v) {
   return float(v)*<%= ss %>;
@@ -253,7 +277,6 @@ constexpr auto <%= ss %> = impl::<%= ss %><double>;
 <%   m = i["sym"].match(/(\S*)\s*=/)            %>
 <%   s = m[1]                                   %>
 constexpr auto <%= s %> = impl::<%= s %><double>;
-constexpr auto <%= c %>(double v) { return v*<%= s %>; }
 
 constexpr auto operator"" _<%= s %>(long double v) {
   return double(v)*<%= s %>;
@@ -261,10 +284,8 @@ constexpr auto operator"" _<%= s %>(long double v) {
 
 <%   for j in i["scales"]                       %>
 <%     sc = Scale.new(j).name + c               %>
-<%     sf = Scale.new(j).valu                   %>
 <%     ss = j + s                               %>
-constexpr auto <%= ss %> = <%= sf %>*<%= s %>;
-constexpr auto <%= sc %>(double v) { return v*<%= ss %>; }
+constexpr auto <%= ss %> = impl::<%= ss %><double>;
 
 constexpr auto operator"" _<%= ss %>(long double v) {
   return double(v)*<%= ss %>;
@@ -311,7 +332,6 @@ constexpr auto <%= ss %> = impl::<%= ss %><long double>;
 <%   m = i["sym"].match(/(\S*)\s*=/)                 %>
 <%   s = m[1]                                        %>
 constexpr auto <%= s %> = impl::<%= s %><long double>;
-constexpr auto <%= c %>(long double v) { return v*<%= s %>; }
 
 constexpr auto operator"" _<%= s %>(long double v) {
   return v*<%= s %>;
@@ -319,10 +339,8 @@ constexpr auto operator"" _<%= s %>(long double v) {
 
 <%   for j in i["scales"]                            %>
 <%     sc = Scale.new(j).name + c                    %>
-<%     sf = Scale.new(j).valu                        %>
 <%     ss = j + s                                    %>
-constexpr auto <%= ss %> = <%= sf %>*<%= s %>;
-constexpr auto <%= sc %>(long double v) { return v*<%= ss %>; }
+constexpr auto <%= ss %> = impl::<%= ss %><long double>;
 
 constexpr auto operator"" _<%= ss %>(long double v) {
   return v*<%= ss %>;
@@ -335,6 +353,7 @@ using <%= i %>;
 <% end                                               %>
 
 } // namespace ldbl
+
 
 } // namespace units
 } // namespace vnix
