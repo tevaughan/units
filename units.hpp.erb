@@ -1,9 +1,14 @@
-/// @file   vnix/units.hpp
+/// @file       vnix/units.hpp
 ///
-/// @brief  Definition of various units in namespaces
-///         vnix::units::flt,
-///         vnix::units::dbl, and
-///         vnix::units::ldbl.
+/// @brief      Definition of various units in namespaces
+///             vnix::units::flt,
+///             vnix::units::dbl, and
+///             vnix::units::ldbl.
+///
+/// @copyright  2019  Thomas E. Vaughan
+/// @license    GPL, Version 3 or later.
+
+// This file was machine-generated from 'units.hpp.erb'.
 
 #ifndef VNIX_UNITS_HPP
 #define VNIX_UNITS_HPP
@@ -193,26 +198,35 @@ constexpr auto <%= sc %>(T v) { return v*impl::<%= ss %><T>; }
 /// Single-precision dimensions and units.
 namespace flt {
 
+/// Type of dimensioned value whose dimension is not known at compile-time.
 using dyndim = basic_dyndim<float>;
 
 <% for i in yml["basis"]                       %>
 <%   c = i["ctor"]                             %>
 <%   d = i["dim"] + "_dim"                     %>
 <%   p = "basic_statdim<#{d}.encode(), float>" %>
+/// Interpret a number, suffixed with '_<%= i["sym"] %>',
+/// as a (literal) number of <%= c %>.
 constexpr auto operator"" _<%= i["sym"] %>(long double v) {
   return <%= c %>(float(v));
 }
 
+/// Constant-expression symbol for <%= i["sym"] %>.
 constexpr auto <%= i["sym"] %> = impl::<%= i["sym"] %><float>;
+
+/// Type for variable of dimension <%= i["dim"] %>.
 using <%= i["dim"] %> = <%= p %>;
 
 <%   for j in i["scales"]                      %>
 <%     sc = Scale.new(j).name + c              %>
 <%     ss = j + i["sym"]                       %>
+/// Interpret a number, suffixed with '_<%= ss %>',
+/// as a (literal) number of <%= sc %>.
 constexpr auto operator"" _<%= ss %>(long double v) {
   return <%= sc %>(float(v));
 }
 
+/// Constant-expression symbol for <%= ss %>.
 constexpr auto <%= ss %> = impl::<%= ss %><float>;
 
 <%   end                                       %>
@@ -221,8 +235,11 @@ constexpr auto <%= ss %> = impl::<%= ss %><float>;
 <%   c = i["ctor"]                             %>
 <%   m = i["sym"].match(/(\S+)\s*=\s*(\S+)/)   %>
 <%   s = m[1]  # Symbol.                       %>
+/// Constant-expression symbol for <%= s %>.
 constexpr auto <%= s %> = impl::<%= s %><float>;
 
+/// Interpret a number, suffixed with '_<%= s %>',
+/// as a (literal) number of <%= c %>.
 constexpr auto operator"" _<%= s %>(long double v) {
   return float(v)*<%= s %>;
 }
@@ -230,8 +247,11 @@ constexpr auto operator"" _<%= s %>(long double v) {
 <%   for j in i["scales"]                      %>
 <%     sc = Scale.new(j).name + c              %>
 <%     ss = j + s                              %>
+/// Constant-expression symbol for <%= ss %>.
 constexpr auto <%= ss %> = impl::<%= ss %><float>;
 
+/// Interpret a number, suffixed with '_<%= ss %>',
+/// as a (literal) number of <%= sc %>.
 constexpr auto operator"" _<%= ss %>(long double v) {
   return float(v)*<%= ss %>;
 }
@@ -248,26 +268,35 @@ using <%= i %>;
 /// Double-precision dimensions and units.
 namespace dbl {
 
+/// Type of dimensioned value whose dimension is not known at compile-time.
 using dyndim = basic_dyndim<double>;
 
 <% for i in yml["basis"]                        %>
 <%   c = i["ctor"]                              %>
 <%   d = i["dim"] + "_dim"                      %>
 <%   p = "basic_statdim<#{d}.encode(), double>" %>
+/// Interpret a number, suffixed with '_<%= i["sym"] %>',
+/// as a (literal) number of <%= c %>.
 constexpr auto operator"" _<%= i["sym"] %>(long double v) {
   return <%= c %>(double(v));
 }
 
+/// Constant-expression symbol for <%= i["sym"] %>.
 constexpr auto <%= i["sym"] %> = impl::<%= i["sym"] %><double>;
+
+/// Type for variable of dimension <%= i["dim"] %>.
 using <%= i["dim"] %> = <%= p %>;
 
 <%   for j in i["scales"]                       %>
 <%     sc = Scale.new(j).name + c               %>
 <%     ss = j + i["sym"]                        %>
+/// Interpret a number, suffixed with '_<%= ss %>',
+/// as a (literal) number of <%= sc %>.
 constexpr auto operator"" _<%= ss %>(long double v) {
   return <%= sc %>(double(v));
 }
 
+/// Constant-expression symbol for <%= ss %>.
 constexpr auto <%= ss %> = impl::<%= ss %><double>;
 
 <%   end                                        %>
@@ -276,8 +305,11 @@ constexpr auto <%= ss %> = impl::<%= ss %><double>;
 <%   c = i["ctor"]                              %>
 <%   m = i["sym"].match(/(\S*)\s*=/)            %>
 <%   s = m[1]                                   %>
+/// Constant-expression symbol for <%= s %>.
 constexpr auto <%= s %> = impl::<%= s %><double>;
 
+/// Interpret a number, suffixed with '_<%= s %>',
+/// as a (literal) number of <%= c %>.
 constexpr auto operator"" _<%= s %>(long double v) {
   return double(v)*<%= s %>;
 }
@@ -285,8 +317,11 @@ constexpr auto operator"" _<%= s %>(long double v) {
 <%   for j in i["scales"]                       %>
 <%     sc = Scale.new(j).name + c               %>
 <%     ss = j + s                               %>
+/// Constant-expression symbol for <%= ss %>.
 constexpr auto <%= ss %> = impl::<%= ss %><double>;
 
+/// Interpret a number, suffixed with '_<%= ss %>',
+/// as a (literal) number of <%= sc %>.
 constexpr auto operator"" _<%= ss %>(long double v) {
   return double(v)*<%= ss %>;
 }
@@ -303,26 +338,35 @@ using <%= i %>;
 /// Extended-precision dimensions and units.
 namespace ldbl {
 
+/// Type of dimensioned value whose dimension is not known at compile-time.
 using dyndim = basic_dyndim<long double>;
 
 <% for i in yml["basis"]                             %>
 <%   c = i["ctor"]                                   %>
 <%   d = i["dim"] + "_dim"                           %>
 <%   p = "basic_statdim<#{d}.encode(), long double>" %>
+/// Interpret a number, suffixed with '_<%= i["sym"] %>',
+/// as a (literal) number of <%= c %>.
 constexpr auto operator"" _<%= i["sym"] %>(long double v) {
   return <%= c %>(v);
 }
 
+/// Constant-expression symbol for <%= i["sym"] %>.
 constexpr auto <%= i["sym"] %> = impl::<%= i["sym"] %><long double>;
+
+/// Type for variable of dimension <%= i["dim"] %>.
 using <%= i["dim"] %> = <%= p %>;
 
 <%   for j in i["scales"]                            %>
 <%     sc = Scale.new(j).name + c                    %>
 <%     ss = j + i["sym"]                             %>
+/// Interpret a number, suffixed with '_<%= ss %>',
+/// as a (literal) number of <%= sc %>.
 constexpr auto operator"" _<%= ss %>(long double v) {
   return <%= sc %>(v);
 }
 
+/// Constant-expression symbol for <%= ss %>.
 constexpr auto <%= ss %> = impl::<%= ss %><long double>;
 
 <%   end                                             %>
@@ -331,8 +375,11 @@ constexpr auto <%= ss %> = impl::<%= ss %><long double>;
 <%   c = i["ctor"]                                   %>
 <%   m = i["sym"].match(/(\S*)\s*=/)                 %>
 <%   s = m[1]                                        %>
+/// Constant-expression symbol for <%= s %>.
 constexpr auto <%= s %> = impl::<%= s %><long double>;
 
+/// Interpret a number, suffixed with '_<%= s %>',
+/// as a (literal) number of <%= c %>.
 constexpr auto operator"" _<%= s %>(long double v) {
   return v*<%= s %>;
 }
@@ -340,8 +387,11 @@ constexpr auto operator"" _<%= s %>(long double v) {
 <%   for j in i["scales"]                            %>
 <%     sc = Scale.new(j).name + c                    %>
 <%     ss = j + s                                    %>
+/// Constant-expression symbol for <%= ss %>.
 constexpr auto <%= ss %> = impl::<%= ss %><long double>;
 
+/// Interpret a number, suffixed with '_<%= ss %>',
+/// as a (literal) number of <%= sc %>.
 constexpr auto operator"" _<%= ss %>(long double v) {
   return v*<%= ss %>;
 }
