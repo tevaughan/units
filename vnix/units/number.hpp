@@ -24,6 +24,8 @@ protected:
   /// Initialize numeric value and exponents of units.
   /// @param v  Numeric value that multiplies units.
   constexpr number(T v) : v_(v) {}
+
+  number() {}  ///< By default, do not initialize.
 };
 
 

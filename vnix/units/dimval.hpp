@@ -48,6 +48,10 @@ protected:
   /// @param d  Dimension.
   constexpr dimval(T v, dim const &d) : number<T>(v), B(d) {}
 
+  /// Initialize dimension, but leave number undefined.
+  /// @param d  Dimension.
+  dimval(dim const &d) : B(d) {}
+
   using number<T>::v_; ///< Allow access to numeric value.
 
 public:
@@ -514,6 +518,9 @@ protected:
   using dimval<T, statdim_base<D>>::dimval;
 
 public:
+  /// By default, initialize dimension, but leave number uninitialized.
+  basic_statdim() : stat<T>(this->d()) {}
+
   /// Initialize from compatible statdim.
   /// @tparam OT  Type of numeric value.
   /// @param  dv  Compatible statdim.

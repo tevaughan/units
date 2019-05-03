@@ -91,9 +91,9 @@ end
 <% end                                    %>
 
 
-/// Template structs that user need not ever use.  Each template struct defined
-/// in impl is called by a vnix::units function whose name is the same as the
-/// struct.
+/// Template structs that user would use only to extend the library.  Each
+/// template struct defined in impl is called by a vnix::units function whose
+/// name is the same as the struct.
 namespace impl {
 
 <% for i in yml["basis"]                                %>
