@@ -288,7 +288,7 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator*(dimval<OT, OB> const &v) const {
     auto const pdim = B::prod(v);
-    return dimval<T, decltype(pdim)>(v_ * v.v_, pdim.d());
+    return dimval<decltype(v_ * v.v_), decltype(pdim)>(v_ * v.v_, pdim.d());
   }
 
   /// Divide two dimensioned values.
