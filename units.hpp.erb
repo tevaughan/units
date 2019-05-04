@@ -115,6 +115,9 @@ struct <%= c %> : public <%= p %> {
   {}
 };
 
+template <typename T>
+constexpr long double const <%= c %><T>::sf;
+
 /// Template-variable for symbol for <%= c %>.
 /// @tparam T  Numeric type (float, double, etc.).
 template <typename T> constexpr <%= c %><T> <%= i["sym"] %>(T(1));
@@ -137,6 +140,9 @@ struct <%= sc %> : public <%= p %> {
       <%= d %>)
   {}
 };
+
+template <typename T>
+constexpr long double const <%= sc %><T>::sf;
 
 /// Template-variable for symbol for <%= sc %>.
 /// @tparam T  Numeric type (float, double, etc.).
@@ -172,6 +178,9 @@ struct <%= c %> : public <%= p %> {
   {}
 };
 
+template <typename T>
+constexpr long double const <%= c %><T>::sf;
+
 /// Template-variable for symbol for <%= c %>.
 /// @tparam T  Numeric type (float, double, etc.).
 template <typename T> constexpr <%= c %><T> <%= s %>(T(1));
@@ -194,6 +203,9 @@ struct <%= sc %> : public <%= p %> {
       <%= d %>)
   {}
 };
+
+template <typename T>
+constexpr long double const <%= sc %><T>::sf;
 
 /// Template-variable for symbol for <%= sc %>.
 /// @tparam T  Numeric type (float, double, etc.).

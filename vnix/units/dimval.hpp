@@ -55,7 +55,8 @@ protected:
   using number<T>::v_; ///< Allow access to numeric value.
 
 public:
-  using B::d; ///< Allow access to dimension.
+  using B::d;          ///< Allow access to dimension.
+  dimval() : B(d()) {} ///< By default, do not initialize.
 
   /// Initialize from other dimensioned value.
   /// @tparam OT  Numeric type of other dimensioned value.
