@@ -40,7 +40,7 @@ $(DEPDIR)/%.d: ;
 
 all: tests
 	@rm -frv kcov
-	@kcov --exclude-path=/usr/include,$(PWD) kcov ./tests
+	@kcov --include-pattern=vnix kcov ./tests
 
 tests: $(SRCS:.cpp=.o)
 
