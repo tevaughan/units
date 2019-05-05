@@ -60,7 +60,7 @@ script:
 #   name begins with '_', but jekyll does not allow the copying of such a file
 #   over to gh-pages.
 after_success:
-  - kcov --exclude-path=/usr/include,$(PWD)/test . ./test/tests
+  - kcov --exclude-path=/usr/include,./test . ./test/tests
   - bash <(curl -s https://codecov.io/bash)
   - doxygen Doxyfile
   - touch html/.nojekyll
