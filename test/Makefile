@@ -39,14 +39,13 @@ $(DEPDIR)/%.d: ;
 .PHONY: all clean
 
 all: tests
-	@mkdir -p ../html
-	@rm -frv ../html/kcov
-	@kcov --exclude-path=/usr/include,$(PWD) ../html/kcov ./tests
+	@rm -frv kcov
+	@kcov --exclude-path=/usr/include,$(PWD) kcov ./tests
 
 tests: $(SRCS:.cpp=.o)
 
 clean:
-	@rm -frv ../html/kcov
+	@rm -frv kcov
 	@rm -frv $(DEPDIR)
 	@rm -fv *.o
 	@rm -fv tests

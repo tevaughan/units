@@ -60,6 +60,7 @@ script:
 #   name begins with '_', but jekyll does not allow the copying of such a file
 #   over to gh-pages.
 after_success:
+  - bash <(curl -s https://codecov.io/bash) -s test/kcov
   - doxygen Doxyfile
   - touch html/.nojekyll
   - touch .nojekyll
