@@ -37,6 +37,16 @@ constexpr auto invert(Eigen::Matrix<S, R, C, OPT, MR, MC> const &m) {
 }
 
 
+/// Integer typedef defined by number<OT> only if OT be an acceptable
+/// scalar-type.
+///
+/// This typedef is used to support SFINAE, which limits the scope of some of
+/// the template member functions defined here in dimval.
+///
+/// @tparam OT  Type of scalar.
+template <typename OT> using otest = typename number<OT>::test;
+
+
 /// Model of a physically dimensioned quantity.
 /// @tparam T  Type of storage (e.g., float or double) for numerical
 /// quantity.
@@ -216,15 +226,6 @@ public:
     return *this;
   }
 
-  /// Integer typedef defined by number<OT> only if OT be an acceptable
-  /// scalar-type.
-  ///
-  /// This typedef is used to support SFINAE, which limits the scope of some of
-  /// the template member functions defined here in dimval.
-  ///
-  /// @tparam OT  Type of scalar.
-  template <typename OT> using otest = typename number<OT>::test;
-
   /// Scale dimensioned value.
   ///
   /// This function's scope for matching the template-type parameter is limited
@@ -255,29 +256,15 @@ public:
   }
 
   /// Scale dimensioned quantity by dividing by number.
+  ///
+  /// This function's scope for matching the template-type parameter is limited
+  /// by SFINAE.
+  ///
+  /// @tparam OT  Type of scale-factor.
   /// @param  n   Scale-divisor.
-  constexpr auto operator/(long double n) const {
-    auto quot = v_ / n;
-    return dimval<decltype(quot), B>(quot, d());
-  }
-
-  /// Scale dimensioned quantity by dividing by number.
-  /// @param  n   Scale-divisor.
-  constexpr auto operator/(double n) const {
-    auto quot = v_ / n;
-    return dimval<decltype(quot), B>(quot, d());
-  }
-
-  /// Scale dimensioned quantity by dividing by number.
-  /// @param  n   Scale-divisor.
-  constexpr auto operator/(float n) const {
-    auto quot = v_ / n;
-    return dimval<decltype(quot), B>(quot, d());
-  }
-
-  /// Scale dimensioned quantity by dividing by number.
-  /// @param  n   Scale-divisor.
-  constexpr auto operator/(int n) const {
+  /// @return     Scaled value.
+  template <typename OT, otest<OT> = 0>
+  constexpr auto operator/(OT const &n) const {
     auto quot = v_ / n;
     return dimval<decltype(quot), B>(quot, d());
   }
@@ -314,65 +301,29 @@ public:
   }
 
   /// Modify present instance by multiplying in a dimensionless value.
+  ///
+  /// This function's scope for matching the template-type parameter is limited
+  /// by SFINAE.
+  ///
+  /// @tparam OT  Type of scale-factor.
   /// @param  v   Dimensionless scale-factor.
   /// @return     Scaled value.
-  constexpr dimval &operator*=(long double v) {
-    v_ *= v;
-    return *this;
-  }
-
-  /// Modify present instance by multiplying in a dimensionless value.
-  /// @param  v   Dimensionless scale-factor.
-  /// @return     Scaled value.
-  constexpr dimval &operator*=(double v) {
-    v_ *= v;
-    return *this;
-  }
-
-  /// Modify present instance by multiplying in a dimensionless value.
-  /// @param  v   Dimensionless scale-factor.
-  /// @return     Scaled value.
-  constexpr dimval &operator*=(float v) {
-    v_ *= v;
-    return *this;
-  }
-
-  /// Modify present instance by multiplying in a dimensionless value.
-  /// @param  v   Dimensionless scale-factor.
-  /// @return     Scaled value.
-  constexpr dimval &operator*=(int v) {
+  template <typename OT, otest<OT> = 0>
+  constexpr dimval &operator*=(OT const &v) {
     v_ *= v;
     return *this;
   }
 
   /// Modify present instance by dividing it by a dimensionless value.
+  ///
+  /// This function's scope for matching the template-type parameter is limited
+  /// by SFINAE.
+  ///
+  /// @tparam OT  Type of scale-factor.
   /// @param  v   Dimensionless scale-divisor.
   /// @return     Scaled value.
-  constexpr dimval &operator/=(long double v) {
-    v_ /= v;
-    return *this;
-  }
-
-  /// Modify present instance by dividing it by a dimensionless value.
-  /// @param  v   Dimensionless scale-divisor.
-  /// @return     Scaled value.
-  constexpr dimval &operator/=(double v) {
-    v_ /= v;
-    return *this;
-  }
-
-  /// Modify present instance by dividing it by a dimensionless value.
-  /// @param  v   Dimensionless scale-divisor.
-  /// @return     Scaled value.
-  constexpr dimval &operator/=(float v) {
-    v_ /= v;
-    return *this;
-  }
-
-  /// Modify present instance by dividing it by a dimensionless value.
-  /// @param  v   Dimensionless scale-divisor.
-  /// @return     Scaled value.
-  constexpr dimval &operator/=(int v) {
+  template <typename OT, otest<OT> = 0>
+  constexpr dimval &operator/=(OT const &v) {
     v_ /= v;
     return *this;
   }
@@ -421,49 +372,18 @@ public:
 
 
 /// Invert dimensioned value by dividing it into number.
+///
+/// This function's scope for matching the template-type parameter is limited
+/// by SFINAE.
+///
+/// @tparam OT  Type of scale-factor.
 /// @tparam T   Type of numeric storage in dimval.
 /// @tparam B   Type of base-class for dimension.
 /// @param  d   Number as dividend.
 /// @param  v   Dimensioned quantitity as divisor.
 /// @return     Inverted value.
-template <typename T, typename B>
-constexpr auto operator/(long double d, dimval<T, B> const &v) {
-  return d * v.inverse();
-}
-
-
-/// Invert dimensioned value by dividing it into number.
-/// @tparam T   Type of numeric storage in dimval.
-/// @tparam B   Type of base-class for dimension.
-/// @param  d   Number as dividend.
-/// @param  v   Dimensioned quantitity as divisor.
-/// @return     Inverted value.
-template <typename T, typename B>
-constexpr auto operator/(double d, dimval<T, B> const &v) {
-  return d * v.inverse();
-}
-
-
-/// Invert dimensioned value by dividing it into number.
-/// @tparam T   Type of numeric storage in dimval.
-/// @tparam B   Type of base-class for dimension.
-/// @param  d   Number as dividend.
-/// @param  v   Dimensioned quantitity as divisor.
-/// @return     Inverted value.
-template <typename T, typename B>
-constexpr auto operator/(float d, dimval<T, B> const &v) {
-  return d * v.inverse();
-}
-
-
-/// Invert dimensioned value by dividing it into number.
-/// @tparam T   Type of numeric storage in dimval.
-/// @tparam B   Type of base-class for dimension.
-/// @param  d   Number as dividend.
-/// @param  v   Dimensioned quantitity as divisor.
-/// @return     Inverted value.
-template <typename T, typename B>
-constexpr auto operator/(int d, dimval<T, B> const &v) {
+template <typename OT, typename T, typename B, otest<OT> = 0>
+constexpr auto operator/(OT const &d, dimval<T, B> const &v) {
   return d * v.inverse();
 }
 
