@@ -1,14 +1,12 @@
 # units: Header-only C++ Library for Physical Quantities
 
-Requiring C++-14 or later, and having no external dependencies, the vnix::units
-library defines a [literal
+The vnix::units library defines a [literal
 type](https://en.cppreference.com/w/cpp/named_req/LiteralType)
-vnix::units::dimval that models a quantity with physical dimension.  This
-serves as the basis for a complete system of dimensioned types and units.
-
-[vnix::units, while extensively tested and functional, is immature in terms of
-features and portability in comparison with existing efforts like [that of Nic
-Holthaus](https://github.com/nholthaus/units).]
+vnix::units::dimval that models a quantity with physical dimension.
+    - requires C++-14 or later
+    - no external dependencies
+    - [documentation](https://tevaughan.github.io/units/)
+    - [coverage-report for unit-tests](https://tevaughan.github.io/units/kcov/index.html)
 
 In the present implementation, there are five fundamental dimensions:
 
