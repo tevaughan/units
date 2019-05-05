@@ -6,7 +6,7 @@
 #ifndef VNIX_UNITS_DIMVAL_HPP
 #define VNIX_UNITS_DIMVAL_HPP
 
-#include <cmath>                       // for sqrt
+#include <cmath>                       // for sqrt, pow
 #include <vnix/units/dim.hpp>          // for dim
 #include <vnix/units/dyndim-base.hpp>  // for dyndim_base
 #include <vnix/units/number.hpp>       // for number
@@ -24,10 +24,25 @@ template <typename T> class basic_dyndim;
 template <dim::word D, typename T> class basic_statdim;
 
 
+/// Return the reciprocal of an instance of type T.
+///
+/// Specialize this as necessary to handle different types, for example, the
+/// inverse of a matrix.
+template <typename T> constexpr auto invert(T v) { return T(1) / v; }
+
+/// Specialization of invert() for Eigen::Matrix.
+template <typename S, int R, int C, int OPT, int MR, int MC>
+constexpr auto invert(Eigen::Matrix<S, R, C, OPT, MR, MC> const &m) {
+  return m.inverse();
+}
+
+
 /// Model of a physically dimensioned quantity.
-/// @tparam T  Type of storage (e.g., float or double) for numerical quantity.
+/// @tparam T  Type of storage (e.g., float or double) for numerical
+/// quantity.
 /// @tparam B  Base-class (statdim_base or dyndim_base) for dimension.
-template <typename T, typename B> class dimval : public number<T>, public B {
+template <typename T, typename B>
+class dimval : protected number<T>, public B {
   /// Allow access to every kind of dimval.
   /// @tparam OT  Type of other dimval's numeric value.
   /// @tparam OB  Type of other dimval's base-class for dimension.
@@ -43,11 +58,6 @@ template <typename T, typename B> class dimval : public number<T>, public B {
   template <dim::word D, typename OT> friend class basic_statdim;
 
 protected:
-  /// Initialize from numeric value and from dimension.
-  /// @param v  Numeric value.
-  /// @param d  Dimension.
-  constexpr dimval(T v, dim const &d) : number<T>(v), B(d) {}
-
   /// Initialize dimension, but leave number undefined.
   /// @param d  Dimension.
   dimval(dim const &d) : B(d) {}
@@ -58,6 +68,16 @@ public:
   using B::d;          ///< Allow access to dimension.
   dimval() : B(d()) {} ///< By default, do not initialize.
 
+  /// Initialize from numeric value and from dimension.
+  ///
+  /// NOTE: This is public not because it ought to be called by the user but
+  /// because there is no easy way to allow every friend operator access to
+  /// every kind of dimval.
+  ///
+  /// @param v  Numeric value.
+  /// @param d  Dimension.
+  constexpr dimval(T const &v, dim const &d) : number<T>(v), B(d) {}
+
   /// Initialize from other dimensioned value.
   /// @tparam OT  Numeric type of other dimensioned value.
   /// @tparam OB  Base-dimension type of other dimensioned value.
@@ -67,7 +87,7 @@ public:
 
   /// Initialize from dimensionless number.
   /// @param n  Number.
-  constexpr dimval(T n) : number<T>(n), B(dim()) {}
+  constexpr dimval(T const &n) : number<T>(n), B(dim()) {}
 
   /// Convert to dimensionless number.
   constexpr T to_number() const {
@@ -156,7 +176,8 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator+(dimval<OT, OB> const &v) const {
     auto const sdim = B::sum(v); // Check for compatibility of units.
-    return dimval<decltype(T() + OT()), B>(v_ + v.v_, sdim.d());
+    auto       sum  = v_ + v.v_;
+    return dimval<decltype(sum), B>(sum, sdim.d());
   }
 
   /// Difference between two dimensioned values.
@@ -167,7 +188,8 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator-(dimval<OT, OB> const &v) const {
     auto const ddim = B::diff(v); // Check for compatibility of units.
-    return dimval<decltype(T() - OT()), B>(v_ - v.v_, ddim.d());
+    auto       diff = v_ - v.v_;
+    return dimval<decltype(diff), B>(diff, ddim.d());
   }
 
   /// Modify present instance by adding in a dimensioned value.
@@ -194,91 +216,77 @@ public:
     return *this;
   }
 
+  /// Integer typedef defined by number<OT> only if OT be an acceptable
+  /// scalar-type.
+  ///
+  /// This typedef is used to support SFINAE, which limits the scope of some of
+  /// the template member functions defined here in dimval.
+  ///
+  /// @tparam OT  Type of scalar.
+  template <typename OT> using otest = typename number<OT>::test;
+
   /// Scale dimensioned value.
+  ///
+  /// This function's scope for matching the template-type parameter is limited
+  /// by SFINAE.
+  ///
+  /// @tparam OT  Type of scale-factor.
   /// @param  n   Scale-factor.
   /// @return     Scaled value.
-  constexpr auto operator*(long double n) const {
-    return dimval<decltype(T() * double()), B>(v_ * n, d());
+  template <typename OT, otest<OT> = 0>
+  constexpr auto operator*(OT const &n) const {
+    auto prod = v_ * n;
+    return dimval<decltype(prod), B>(prod, d());
   }
 
   /// Scale dimensioned value.
-  /// @param  n   Scale-factor.
-  /// @return     Scaled value.
-  constexpr auto operator*(double n) const {
-    return dimval<decltype(T() * double()), B>(v_ * n, d());
-  }
-
-  /// Scale dimensioned value.
-  /// @param  n   Scale-factor.
-  /// @return     Scaled value.
-  constexpr auto operator*(float n) const {
-    return dimval<decltype(T() * float()), B>(v_ * n, d());
-  }
-
-  /// Scale dimensioned value.
-  /// @param  n   Scale-factor.
-  /// @return     Scaled value.
-  constexpr auto operator*(int n) const {
-    return dimval<decltype(T() * int()), B>(v_ * n, d());
-  }
-
-  /// Scale dimensioned value.
+  ///
+  /// This function's scope for matching the template-type parameter is limited
+  /// by SFINAE.
+  ///
+  /// @tparam OT  Type of scale-factor.
   /// @param  n   Scale-factor.
   /// @param  v   Original value.
   /// @return     Scaled value.
-  friend constexpr auto operator*(long double n, dimval const &v) {
-    return v * n;
+  template <typename OT, otest<OT> = 0>
+  friend constexpr auto operator*(OT const &n, dimval const &v) {
+    auto prod = n * v.v_;
+    return dimval<decltype(prod), B>(prod, v.d());
   }
-
-  /// Scale dimensioned value.
-  /// @param  n   Scale-factor.
-  /// @param  v   Original value.
-  /// @return     Scaled value.
-  friend constexpr auto operator*(double n, dimval const &v) { return v * n; }
-
-  /// Scale dimensioned value.
-  /// @param  n   Scale-factor.
-  /// @param  v   Original value.
-  /// @return     Scaled value.
-  friend constexpr auto operator*(float n, dimval const &v) { return v * n; }
-
-  /// Scale dimensioned value.
-  /// @param  n   Scale-factor.
-  /// @param  v   Original value.
-  /// @return     Scaled value.
-  friend constexpr auto operator*(int n, dimval const &v) { return v * n; }
-
-  using ldbl = long double;
 
   /// Scale dimensioned quantity by dividing by number.
   /// @param  n   Scale-divisor.
   constexpr auto operator/(long double n) const {
-    return dimval<decltype(T() / ldbl()), B>(v_ / n, d());
+    auto quot = v_ / n;
+    return dimval<decltype(quot), B>(quot, d());
   }
 
   /// Scale dimensioned quantity by dividing by number.
   /// @param  n   Scale-divisor.
   constexpr auto operator/(double n) const {
-    return dimval<decltype(T() / double()), B>(v_ / n, d());
+    auto quot = v_ / n;
+    return dimval<decltype(quot), B>(quot, d());
   }
 
   /// Scale dimensioned quantity by dividing by number.
   /// @param  n   Scale-divisor.
   constexpr auto operator/(float n) const {
-    return dimval<decltype(T() / float()), B>(v_ / n, d());
+    auto quot = v_ / n;
+    return dimval<decltype(quot), B>(quot, d());
   }
 
   /// Scale dimensioned quantity by dividing by number.
   /// @param  n   Scale-divisor.
   constexpr auto operator/(int n) const {
-    return dimval<decltype(T() / int()), B>(v_ / n, d());
+    auto quot = v_ / n;
+    return dimval<decltype(quot), B>(quot, d());
   }
 
   /// Invert dimensioned value.
   /// @return Reciprocal of dimval.
   constexpr dimval<T, typename B::recip_basedim> inverse() const {
     auto const br = this->recip();
-    return dimval<T, typename B::recip_basedim>(1.0 / v_, br.d());
+    return dimval<T, typename B::recip_basedim>(invert(v_), br.d());
   }
 
   /// Multiply two dimensioned values.
@@ -289,7 +297,8 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator*(dimval<OT, OB> const &v) const {
     auto const pdim = B::prod(v);
-    return dimval<decltype(v_ * v.v_), decltype(pdim)>(v_ * v.v_, pdim.d());
+    auto prod = v_ * v.v_;
+    return dimval<decltype(prod), decltype(pdim)>(prod, pdim.d());
   }
 
   /// Divide two dimensioned values.
@@ -300,7 +309,8 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator/(dimval<OT, OB> const &v) const {
     auto const qdim = B::quot(v);
-    return dimval<T, decltype(qdim)>(v_ / v.v_, qdim.d());
+    auto quot = v_ / v.v_;
+    return dimval<decltype(quot), decltype(qdim)>(v_ / v.v_, qdim.d());
   }
 
   /// Modify present instance by multiplying in a dimensionless value.
@@ -368,28 +378,40 @@ public:
   }
 
   /// Raise dimensioned value to rational power.
+  ///
+  /// FIXME: Calling std::pow() with explicit namespace 'std' is bad because it
+  /// prevents using a different sqrt whenever T is not one that std::pow()
+  /// handles.  However, I cannot figure out how to keep the compiler from
+  /// trying to match vnix:units::pow for the call that initializes the local
+  /// variable 'powr' in the body of the function below.
+  ///
   /// @tparam PN  Numerator of power.
   /// @tparam PD  Denominator of power (by default, 1).
   /// @return     Transformed value of different dimension.
   template <int64_t PN, int64_t PD = 1> constexpr auto pow() const {
     auto const pdim = B::template pow<PN, PD>();
-    return dimval<T, decltype(pdim)>(std::pow(v_, PN * 1.0 / PD), pdim.d());
+    auto const powr = std::pow(v_, PN * 1.0 / PD);
+    return dimval<T, decltype(pdim)>(powr, pdim.d());
   }
 
   /// Raise dimensioned value to rational power.
+  ///
+  /// FIXME: Calling std::pow() with explicit namespace 'std' is bad because it
+  /// prevents using a different sqrt whenever T is not one that std::pow()
+  /// handles.  However, I cannot figure out how to keep the compiler from
+  /// trying to match vnix:units::pow for the call that initializes the local
+  /// variable 'powr' in the body of the function below.
+  ///
   /// @param p  Rational power.
   /// @return   Transformed value of different dimension.
   constexpr auto pow(dim::rat p) const {
     auto const pdim = B::pow(p);
-    using rt        = dimval<T, decltype(pdim)>;
-    return rt(std::pow(v_, p.to_double()), pdim.d());
+    auto const powr = std::pow(v_, p.to_double());
+    return dimval<T, decltype(pdim)>(powr, pdim.d());
   }
 
   /// Take the squre root of a dimensioned quantity.
-  constexpr auto sqrt() const {
-    auto const rdim = B::sqrt();
-    return dimval<T, decltype(rdim)>(std::sqrt(v_), rdim.d());
-  }
+  constexpr auto sqrt() const;
 
   /// Print to to output stream.
   friend std::ostream &operator<<(std::ostream &s, dimval const &v) {
@@ -455,6 +477,16 @@ template <typename T, typename B> constexpr auto sqrt(dimval<T, B> const &v) {
   return v.sqrt();
 }
 
+// FIXME: Calling std::sqrt() with explicit namespace 'std' is bad because it
+// prevents using a different sqrt whenever T is not one that std::sqrt()
+// handles.  However, I cannot figure out how to keep the compiler from trying
+// to match vnix:units::sqrt for the call that initializes the local variable
+// 'root' in the body of the function below.
+template <typename T, typename B> constexpr auto dimval<T, B>::sqrt() const {
+  auto const rdim = B::sqrt();
+  T const    root = std::sqrt(v_);
+  return dimval<T, decltype(rdim)>(root, rdim.d());
+}
 
 /// Raise dimensioned value to rational power.
 /// @tparam PN  Numerator of power.
