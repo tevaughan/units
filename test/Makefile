@@ -39,11 +39,13 @@ $(DEPDIR)/%.d: ;
 .PHONY: all clean
 
 all: tests
-	./tests
+	@rm -frv cov-html
+	@kcov --exclude-path=/usr/include,$(PWD) cov-html ./tests
 
 tests: $(SRCS:.cpp=.o)
 
 clean:
+	@rm -frv cov-html
 	@rm -frv $(DEPDIR)
 	@rm -fv *.o
 	@rm -fv tests

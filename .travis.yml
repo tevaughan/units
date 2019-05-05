@@ -15,6 +15,7 @@ addons:
       - doxygen-latex
       - doxygen-gui
       - graphviz
+      - kcov
       - libclang-common-3.6-dev
       - python-pygments
       - python3-pygments
