@@ -3,10 +3,11 @@
 The vnix::units library defines a [literal
 type](https://en.cppreference.com/w/cpp/named_req/LiteralType)
 vnix::units::dimval that models a quantity with physical dimension.
-    - requires C++-14 or later
-    - no external dependencies
-    - [documentation](https://tevaughan.github.io/units/)
-    - [coverage-report for unit-tests](https://tevaughan.github.io/units/kcov/index.html)
+
+- requires C++-14 or later
+- no external dependencies
+- [documentation](https://tevaughan.github.io/units/)
+- [coverage-report for unit-tests](https://tevaughan.github.io/units/kcov/index.html)
 
 In the present implementation, there are five fundamental dimensions:
 
