@@ -25,9 +25,9 @@ template <dim::word D, typename T> class basic_statdim;
 
 
 /// Return the reciprocal of an instance of type T.
-///
-/// Specialize this as necessary to handle different types, for example, the
-/// inverse of a matrix.
+/// Specialize this as necessary for matrix, etc.
+/// @tparam T  Numeric type of dimensioned quantity.
+/// @param  v  Numeric value stored in dimensioned quantity.
 template <typename T> constexpr auto invert(T v) { return T(1) / v; }
 
 /// Specialization of invert() for Eigen::Matrix.
@@ -48,8 +48,7 @@ template <typename OT> using otest = typename number<OT>::test;
 
 
 /// Model of a physically dimensioned quantity.
-/// @tparam T  Type of storage (e.g., float or double) for numerical
-/// quantity.
+/// @tparam T  Type of storage (e.g., float or double) for numerical quantity.
 /// @tparam B  Base-class (statdim_base or dyndim_base) for dimension.
 template <typename T, typename B>
 class dimval : protected number<T>, public B {
@@ -284,7 +283,7 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator*(dimval<OT, OB> const &v) const {
     auto const pdim = B::prod(v);
-    auto prod = v_ * v.v_;
+    auto       prod = v_ * v.v_;
     return dimval<decltype(prod), decltype(pdim)>(prod, pdim.d());
   }
 
@@ -296,7 +295,7 @@ public:
   template <typename OT, typename OB>
   constexpr auto operator/(dimval<OT, OB> const &v) const {
     auto const qdim = B::quot(v);
-    auto quot = v_ / v.v_;
+    auto       quot = v_ / v.v_;
     return dimval<decltype(quot), decltype(qdim)>(v_ / v.v_, qdim.d());
   }
 
@@ -329,40 +328,30 @@ public:
   }
 
   /// Raise dimensioned value to rational power.
-  ///
-  /// FIXME: Calling std::pow() with explicit namespace 'std' is bad because it
-  /// prevents using a different sqrt whenever T is not one that std::pow()
-  /// handles.  However, I cannot figure out how to keep the compiler from
-  /// trying to match vnix:units::pow for the call that initializes the local
-  /// variable 'powr' in the body of the function below.
-  ///
   /// @tparam PN  Numerator of power.
   /// @tparam PD  Denominator of power (by default, 1).
   /// @return     Transformed value of different dimension.
-  template <int64_t PN, int64_t PD = 1> constexpr auto pow() const {
+  template <int64_t PN, int64_t PD = 1> constexpr auto power() const {
     auto const pdim = B::template pow<PN, PD>();
-    auto const powr = std::pow(v_, PN * 1.0 / PD);
+    auto const powr = pow(v_, PN * 1.0 / PD);
     return dimval<T, decltype(pdim)>(powr, pdim.d());
   }
 
   /// Raise dimensioned value to rational power.
-  ///
-  /// FIXME: Calling std::pow() with explicit namespace 'std' is bad because it
-  /// prevents using a different sqrt whenever T is not one that std::pow()
-  /// handles.  However, I cannot figure out how to keep the compiler from
-  /// trying to match vnix:units::pow for the call that initializes the local
-  /// variable 'powr' in the body of the function below.
-  ///
   /// @param p  Rational power.
   /// @return   Transformed value of different dimension.
-  constexpr auto pow(dim::rat p) const {
+  constexpr auto power(dim::rat p) const {
     auto const pdim = B::pow(p);
-    auto const powr = std::pow(v_, p.to_double());
+    auto const powr = pow(v_, p.to_double());
     return dimval<T, decltype(pdim)>(powr, pdim.d());
   }
 
-  /// Take the squre root of a dimensioned quantity.
-  constexpr auto sqrt() const;
+  /// Square-root of a dimensioned quantity.
+  constexpr auto square_root() const {
+    auto const rdim = B::sqrt();
+    T const    root = sqrt(v_);
+    return dimval<T, decltype(rdim)>(root, rdim.d());
+  }
 
   /// Print to to output stream.
   friend std::ostream &operator<<(std::ostream &s, dimval const &v) {
@@ -393,19 +382,9 @@ constexpr auto operator/(OT const &d, dimval<T, B> const &v) {
 /// @tparam B  Type of base-class for dimension.
 /// @param  v  Original dimensioned value.
 /// @return    Transformed value of different dimension.
-template <typename T, typename B> constexpr auto sqrt(dimval<T, B> const &v) {
-  return v.sqrt();
-}
-
-// FIXME: Calling std::sqrt() with explicit namespace 'std' is bad because it
-// prevents using a different sqrt whenever T is not one that std::sqrt()
-// handles.  However, I cannot figure out how to keep the compiler from trying
-// to match vnix:units::sqrt for the call that initializes the local variable
-// 'root' in the body of the function below.
-template <typename T, typename B> constexpr auto dimval<T, B>::sqrt() const {
-  auto const rdim = B::sqrt();
-  T const    root = std::sqrt(v_);
-  return dimval<T, decltype(rdim)>(root, rdim.d());
+template <typename T, typename B, otest<T> = 0>
+constexpr auto sqrt(dimval<T, B> const &v) {
+  return v.square_root();
 }
 
 /// Raise dimensioned value to rational power.
@@ -417,7 +396,7 @@ template <typename T, typename B> constexpr auto dimval<T, B>::sqrt() const {
 /// @return     Transformed value of different dimension.
 template <int64_t PN, int64_t PD = 1, typename T, typename B>
 constexpr auto pow(dimval<T, B> const &v) {
-  return v.template pow<PN, PD>();
+  return v.template power<PN, PD>();
 }
 
 
@@ -429,7 +408,7 @@ constexpr auto pow(dimval<T, B> const &v) {
 /// @return    Transformed value of different dimension.
 template <typename T, typename B>
 constexpr auto pow(dimval<T, B> const &v, dim::rat p) {
-  return v.pow(p);
+  return v.power(p);
 }
 
 
