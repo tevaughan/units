@@ -7,7 +7,6 @@ vnix::units::dimval that models a quantity with physical dimension.
 - requires C++-14 or later
 - no external dependencies
 - [documentation](https://tevaughan.github.io/units/)
-- [coverage-report for unit-tests](https://tevaughan.github.io/units/kcov/index.html)
 
 In the present implementation, there are five fundamental dimensions:
 
