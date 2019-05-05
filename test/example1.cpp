@@ -200,10 +200,11 @@ int main() {
     using namespace vnix::units;
     using namespace vnix::units::flt;
     AngleAxisf r(M_PI / 6, Vector3f(0, 0, 1));
+    auto       f = newtons(Vector3f(1, 0, 0));
     auto       d = meters(Vector3f(0, 1, 0));
     auto       v = d / (2.5_s);
     flt::time  t = 3.0_s;
-    cout << r.toRotationMatrix() * (d + v * t) << endl;
+    cout << (r.toRotationMatrix() * f).cross(d + v * t) << endl;
   } catch (char const *e) { cerr << e << endl; }
 
   return 0;

@@ -254,6 +254,61 @@ public:
     return dimval<decltype(prod), B>(prod, v.d());
   }
 
+  /// Multiply two dimensioned values.
+  /// @tparam OT  Numeric type of factor.
+  /// @tparam OB  Base-dimension type of factor.
+  /// @param  v   Factor.
+  /// @return     Product.
+  template <typename OT, typename OB>
+  constexpr auto operator*(dimval<OT, OB> const &v) const {
+    auto const pdim = B::prod(v);
+    auto       prod = v_ * v.v_;
+    return dimval<decltype(prod), decltype(pdim)>(prod, pdim.d());
+  }
+
+  /// Support dot-product in case it be supported by numeric type.
+  /// @tparam OT  Numeric type of factor.
+  /// @param  n   Factor.
+  /// @return     Dot-product.
+  template <typename OT, otest<OT> = 0> constexpr auto dot(OT const &n) const {
+    auto prod = v_.dot(n);
+    return dimval<decltype(prod), B>(prod, d());
+  }
+
+  /// Support dot-product in case it be supported by numeric type.
+  /// @tparam OT  Numeric type of factor.
+  /// @tparam OB  Base-dimension type of factor.
+  /// @param  v   Factor.
+  /// @return     Dot-product.
+  template <typename OT, typename OB>
+  constexpr auto dot(dimval<OT, OB> const &v) const {
+    auto const pdim = B::prod(v);
+    auto       prod = v_.dot(v.v_);
+    return dimval<decltype(prod), decltype(pdim)>(prod, pdim.d());
+  }
+
+  /// Support cross-product in case it be supported by numeric type.
+  /// @tparam OT  Numeric type of factor.
+  /// @param  n   Factor.
+  /// @return     Cross-product.
+  template <typename OT, otest<OT> = 0>
+  constexpr auto cross(OT const &n) const {
+    auto prod = v_.cross(n);
+    return dimval<decltype(prod), B>(prod, d());
+  }
+
+  /// Support cross-product in case it be supported by numeric type.
+  /// @tparam OT  Numeric type of factor.
+  /// @tparam OB  Base-dimension type of factor.
+  /// @param  v   Factor.
+  /// @return     Dot-product.
+  template <typename OT, typename OB>
+  constexpr auto cross(dimval<OT, OB> const &v) const {
+    auto const pdim = B::prod(v);
+    auto       prod = v_.cross(v.v_);
+    return dimval<decltype(prod), decltype(pdim)>(prod, pdim.d());
+  }
+
   /// Scale dimensioned quantity by dividing by number.
   ///
   /// This function's scope for matching the template-type parameter is limited
@@ -273,18 +328,6 @@ public:
   constexpr dimval<T, typename B::recip_basedim> inverse() const {
     auto const br = this->recip();
     return dimval<T, typename B::recip_basedim>(invert(v_), br.d());
-  }
-
-  /// Multiply two dimensioned values.
-  /// @tparam OT  Numeric type of factor.
-  /// @tparam OB  Base-dimension type of factor.
-  /// @param  v   Factor.
-  /// @return     Product.
-  template <typename OT, typename OB>
-  constexpr auto operator*(dimval<OT, OB> const &v) const {
-    auto const pdim = B::prod(v);
-    auto       prod = v_ * v.v_;
-    return dimval<decltype(prod), decltype(pdim)>(prod, pdim.d());
   }
 
   /// Divide two dimensioned values.
