@@ -39,9 +39,8 @@ In the present implementation, there are five fundamental dimensions:
 - charge, and
 - temperature.
 
-Class vnix::units::dim stores a six-bit rational exponent for each fundamental
-dimension, and class vnix::units::dimval associates a set of exponents with
-numeric value.
+Internally, units::dim stores a six-bit rational exponent for each fundamental
+dimension, and units::dimval associates a set of exponents with numeric value.
 
 However, the user need not even know about dim and dimval.
 One may write a simple program, for example, as follows:
@@ -74,12 +73,14 @@ int main() {
   expression](https://en.cppreference.com/w/cpp/language/constant_expression).
 
 - In the vnix::units library, many a standard unit, such as
+
     - vnix::units::flt::m for single-precision meter and
     - vnix::units::dbl::s for double-precision second,
 
   is defined as a constant expression.
 
 - Many a dimension, such as
+
     - vnix::units::flt::length  (single precision),
     - vnix::units::dbl::mass  (double precision),
     - vnix::units::ldbl::force  (long-double precision),
@@ -103,14 +104,11 @@ int main() {
   area a = 2.4 * m * 3.6;           // OOPS!  Compiler error: RHS not area!
   ```
 
-- The dimension of a variable is specified by a set of five rational exponents,
-  one for each of the five fundamental dimensions.
-
 - The `auto` keyword in modern C++ allows one not to have to specify the type
   when declaring a variable, and so a result of multiplication, division, and
-  exponentiation is legal even if there be no named type for the corresponding
-  dimension.  (The type will then be a generic kind of vnix::units::statdim,
-  itself a descendant of vnix::units::dimval.)
+  exponentiation can be stored even if there be no named type for the
+  corresponding dimension.  (The type will then be a generic kind of
+  vnix::units::statdim, itself a descendant of vnix::units::dimval.)
   ```cpp
   using namespace vnix::units::ldbl; // For long-double types.
   length foo = 3 * m;
