@@ -8,14 +8,23 @@ any quantity with physical dimension.
       git-clone
 - compiler for C++-14 or later required
 - interoperability with [Eigen](http://eigen.tuxfamily.org/) supported
-- on each push to github, actions taken via
-  [TravisCI](https://travis-ci.org/tevaughan/units):
-    - unit tests evaluated
-    - [code-coverage analysis](https://codecov.io/gh/tevaughan/units) for
-      unit-tests performed by [kcov](https://github.com/SimonKagstrom/kcov) and
-      published via [codecov.io](https://codecov.io).
-    - [documentation](https://tevaughan.github.io/units/) generated and
-      published to github-pages
+
+
+## Continuous Integration
+
+The [github-site for units](https://github.com/tevaughan/units) is connected to
+[TravisCI](https://travis-ci.org).
+
+On each push to github, several actions are taken via
+[TravisCI](https://travis-ci.org/tevaughan/units).
+    - Unit tests evaluated, and status is reported on
+      [the units page at TravisCI](https://travis-ci.org/tevaughan/units).
+    - [kcov](https://github.com/SimonKagstrom/kcov) is executed onthe unit-test
+      executable, and the result is pushed to [codecov.io](https://codecov.io),
+      where [the result is published](https://codecov.io/gh/tevaughan/units).
+    - Doxygen is run on the tree of headers, the resulting
+      [static web site](https://tevaughan.github.io/units/) is published via
+      github-pages
 
 
 ## Overview
