@@ -175,5 +175,5 @@ int main() {
 
 Copyright 2019 Thomas E. Vaughan; all rights reserved.
 
-Distributed according to the terms of the BDS three-clause license; see
+Distributed according to the terms of the BSD three-clause license; see
 LICENSE.
