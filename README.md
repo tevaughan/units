@@ -5,9 +5,9 @@ any quantity with physical dimension.
 
 - compiler for C++-14 or later required
 - no external dependencies
-- interoperability with [Eigein](http://eigen.tuxfamily.org/) supported
+- interoperability with [Eigen](http://eigen.tuxfamily.org/) supported
 - on each push to github, actions take via
-  [TravisCI][https://travis-ci.org/tevaughan/units]:
+  [TravisCI](https://travis-ci.org/tevaughan/units):
     - unit tests evaluated
     - [code-coverage analysis](https://codecov.io/gh/tevaughan/units) for
       unit-tests performed by [kcov](https://github.com/SimonKagstrom/kcov) and
