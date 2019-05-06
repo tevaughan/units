@@ -1,15 +1,19 @@
+# Copyright 2019, Thomas E. Vaughan; all rights reserved.
+# Distributed under the terms of the BSD three-clause license; see LICENSE.
+
 # SRCS contains a list of every cpp-file for which an object-file will be
 # compiled.  SRCS is used explicitly by the autodependency code.
 SRCS = tests.cpp\
- gcd-test.cpp\
  bit-range-test.cpp\
- normalized-pair-test.cpp\
- encoding-test.cpp\
- rational-test.cpp\
+ common-denom-test.cpp\
  dim-test.cpp\
- statdim-base-test.cpp\
+ dimval-test.cpp\
  dyndim-base-test.cpp\
- dimval-test.cpp
+ encoding-test.cpp\
+ gcd-test.cpp\
+ normalized-pair-test.cpp\
+ rational-test.cpp\
+ statdim-base-test.cpp
 
 # These variables are used explicitly by the autodependency code.
 CPPFLAGS = -I.. #-isystem /usr/include/clang/7/include
