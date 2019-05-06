@@ -3,17 +3,18 @@
 The vnix::units library defines types and constants that can be used to model
 any quantity with physical dimension.
 
-- compiler for C++-14 or later required
 - no external dependencies
+- compiler for C++-14 or later required
 - interoperability with [Eigen](http://eigen.tuxfamily.org/) supported
-- on each push to github, actions take via
+- on each push to github, actions taken via
   [TravisCI](https://travis-ci.org/tevaughan/units):
     - unit tests evaluated
     - [code-coverage analysis](https://codecov.io/gh/tevaughan/units) for
       unit-tests performed by [kcov](https://github.com/SimonKagstrom/kcov) and
-      published to `codecov.io`.
+      published via [codecov.io](https://codecov.io).
     - [documentation](https://tevaughan.github.io/units/) generated and
       published to github-pages
+
 
 ## Overview
 
@@ -25,7 +26,32 @@ In the present implementation, there are five fundamental dimensions:
 - charge, and
 - temperature.
 
-The user need not use vnix::units::dimval directly.
+Class vnix::units::dim stores a six-bit rational exponent for each fundamental
+dimension, and class vnix::units::dimval associates a set of exponents with
+numeric value.
+
+However, the user need not even know about dim and dimval.
+One may write a simple program, for example, as follows:
+```cpp
+#include <vnix/units.hpp>
+using namespace std;
+using namespace vnix::units::flt; // or vnix::units::dbl or vnix::units::ldbl
+int main() {
+  // Explicit namespace needed for 'time' in order to avoid collision with
+  // function in C standard library.
+  units::flt::time t  = 4 * ms;  // Multiplication of number by unit.
+  length           d  = 3.0_km;  // Literal for unit.
+  speed            v1 = d / t;   // Dimension stored in type of v1.
+  dyndim           v2 = d / t;   // Dimension stored in instance of v2.
+  cout << v1 << endl;
+  return 0;
+}
+```
+- The output looks like this: `750000 m s^-1`.
+- See  test/dimval-test.cpp  for this and other examples.
+
+
+## Some Details
 
 - Because vnix::units::dimval is a literal type, an instance can be a [constant
   expression](https://en.cppreference.com/w/cpp/language/constant_expression).
@@ -88,24 +114,6 @@ The user need not use vnix::units::dimval directly.
   bytes for the dimension (in addition to the four bytes used by the
   single-precision floating-point number that is stored when using, say,
   vnix::units::flt::length).
-
-- One may write a simple program, for example, as follows:
-  ```cpp
-  #include <vnix/units.hpp>
-  using namespace std;
-  using namespace vnix::units::flt; // or vnix::units::dbl or vnix::units::ldbl
-  int main() {
-    // Explicit namespace needed for 'time' in order to avoid collision with
-    // function in C standard library.
-    length      d = 3.0_km;  // User-defined literal.
-    units::time t = 4 * ms;  // Multiplication of number by unit.
-    dyndim      v = d / t;
-    cout << v << endl;
-    return 0;
-  }
-  ```
-    - The output looks like this: `750000 m s^-1`.
-    - See  test/dimval-test.cpp  for this and other examples.
 
 - vnix::units::sqrt and vnix::units::pow are provided.
 
