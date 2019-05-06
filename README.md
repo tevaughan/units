@@ -1,12 +1,21 @@
 # units: Header-only C++ Library for Physical Quantities
 
-The vnix::units library defines a [literal
-type](https://en.cppreference.com/w/cpp/named_req/LiteralType)
-vnix::units::dimval that models a quantity with physical dimension.
+The vnix::units library defines types and constants that can be used to model
+any quantity with physical dimension.
 
-- requires C++-14 or later
+- compiler for C++-14 or later required
 - no external dependencies
-- [documentation](https://tevaughan.github.io/units/)
+- interoperability with [Eigein](http://eigen.tuxfamily.org/) supported
+- on each push to github, actions take via
+  [TravisCI][https://travis-ci.org/tevaughan/units]:
+    - unit tests evaluated
+    - [code-coverage analysis](https://codecov.io/gh/tevaughan/units) for
+      unit-tests performed by [kcov](https://github.com/SimonKagstrom/kcov) and
+      published to `codecov.io`.
+    - [documentation](https://tevaughan.github.io/units/) generated and
+      published to github-pages
+
+## Overview
 
 In the present implementation, there are five fundamental dimensions:
 
