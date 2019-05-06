@@ -10,7 +10,7 @@ any quantity with physical dimension.
 - interoperability with [Eigen](http://eigen.tuxfamily.org/) supported
 
 
-## Continuous Integration
+## Continual Integration and Continually Generated Documentation
 
 The [github-site for units](https://github.com/tevaughan/units) is connected to
 [TravisCI](https://travis-ci.org), and thereby to
@@ -28,8 +28,17 @@ On each push to github, several actions are taken via TravisCI.
 - Doxygen is run on the tree of headers, the
   [result is published via github-pages](https://tevaughan.github.io/units/).
 
+    - The markdown-based page that you are now reading is used as the main page
+      for the doxygen-generated site.
 
-## Overview
+    - TravisCI builds the documentation and pushes it to the gh-pages branch
+      whenever there be an ordinary push to the master branch.
+
+    - The instructions that I followed for setting this up are
+      [here](https://github.com/EmaroLab/docs/wiki/Automatic-deployment-Doxygen-documentation).
+
+
+## Overview of Library
 
 In the present implementation, there are five fundamental dimensions:
 
@@ -160,16 +169,6 @@ int main() {
   make doc      # Build the documentation via Doxygen.
   make install  # Install the headers to $(PREFIX)/include/vnix.
   ```
-
-
-## Documentation
-
-https://tevaughan.github.io/units/
-
-(The documentation site is generated via a gh-pages branch to which Travis CI
-can push whenever there be an ordinary push to the master branch.  The
-instructions on how to do this are
-[here](https://github.com/EmaroLab/docs/wiki/Automatic-deployment-Doxygen-documentation).)
 
 
 ## License
