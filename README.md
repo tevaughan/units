@@ -17,14 +17,16 @@ The [github-site for units](https://github.com/tevaughan/units) is connected to
 
 On each push to github, several actions are taken via
 [TravisCI](https://travis-ci.org/tevaughan/units).
-    - Unit tests evaluated, and status is reported on
-      [the units page at TravisCI](https://travis-ci.org/tevaughan/units).
-    - [kcov](https://github.com/SimonKagstrom/kcov) is executed onthe unit-test
-      executable, and the result is pushed to [codecov.io](https://codecov.io),
-      where [the result is published](https://codecov.io/gh/tevaughan/units).
-    - Doxygen is run on the tree of headers, the resulting
-      [static web site](https://tevaughan.github.io/units/) is published via
-      github-pages
+
+- Unit tests evaluated, and status is reported on
+  [the units page at TravisCI](https://travis-ci.org/tevaughan/units).
+
+- [kcov](https://github.com/SimonKagstrom/kcov) is executed onthe unit-test
+  executable, and the result is pushed to [codecov.io](https://codecov.io),
+  where [the result is published](https://codecov.io/gh/tevaughan/units).
+
+- Doxygen is run on the tree of headers, the resulting [static web
+  site](https://tevaughan.github.io/units/) is published via github-pages
 
 
 ## Overview
