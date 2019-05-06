@@ -1,3 +1,10 @@
+# Definition of system of units.
+#
+# Copyright 2019, Thomas E. Vaughan; all rights reserved.
+#
+# Redistributable under to the terms of the BSD three-clause license; see
+# LICENSE.
+
 ---
 basis:
   - {dim: length,      ctor: meters,   sym: m, scales: [c,m,mu,n,p,f,k,M]}

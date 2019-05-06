@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# Copyright 2019, Thomas E. Vaughan; all rights reserved.
+#
+# Redistributable according to the terms of the BSD three-clause license; see
+# LICENSE.
 
 # Print information about usage of program.
 def usage
