@@ -1,5 +1,5 @@
-# Copyright 2019  Thomas E. Vaughan
-# Distrubited under the terms of GPL, Version 3 or later.  See LICENSE.
+# Copyright 2019 Thomas E. Vaughan; all rights reserved.
+# Distrubited under the terms of the BSD three-clause license; see LICENSE.
 
 # Modify this in order to customize the location for installation.
 PREFIX = /usr/local

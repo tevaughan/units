@@ -1,7 +1,7 @@
 /// @file       vnix/units/number.hpp
 /// @brief      Definition of vnix::units::number.
-/// @copyright  2019  Thomas E. Vaughan
-/// @license    GPL Version 3 or later.
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD Three-Clause; see LICENSE.
 
 #ifndef VNIX_UNITS_NUMBER_HPP
 #define VNIX_UNITS_NUMBER_HPP

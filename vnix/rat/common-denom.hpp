@@ -1,7 +1,7 @@
 /// @file       vnix/rat/common-denom.hpp
 /// @brief      Definition of vnix::rat::common_denom.
-/// @copyright  2019  Thomas E. Vaughan
-/// @license    GPL Version 3 or later.
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD Three-Clause; see LICENSE.
 
 #ifndef VNIX_RAT_COMMON_DENOM_HPP
 #define VNIX_RAT_COMMON_DENOM_HPP

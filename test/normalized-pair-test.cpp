@@ -1,7 +1,7 @@
 /// @file       test/normalized-pair-test.cpp
 /// @brief      Test-cases for vnix::rat::normalized_pair.
-/// @copyright  2019  Thomas E. Vaughan
-/// @license    GPL, Version 3 or later.
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD three-clause; see LICENSE.
 
 #include "../vnix/rat/normalized-pair.hpp"
 #include "catch.hpp"

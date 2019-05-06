@@ -1,7 +1,7 @@
 /// @file       test/gcd-test.cpp
 /// @brief      Test-cases for vnix::gcd.
-/// @copyright  2019  Thomas E. Vaughan
-/// @license    GPL, Version 3 or later.
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD three-clause; see LICENSE.
 
 #include "../vnix/gcd.hpp"
 #include "catch.hpp"

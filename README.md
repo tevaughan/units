@@ -173,6 +173,7 @@ int main() {
 
 ## License
 
-Copyright 2019  Thomas E. Vaughan
+Copyright 2019 Thomas E. Vaughan; all rights reserved.
 
-Distributed according to the terms of the GNU GPL, Version 3 or later.
+Distributed according to the terms of the BDS three-clause license; see
+LICENSE.

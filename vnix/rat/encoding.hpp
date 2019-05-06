@@ -1,7 +1,7 @@
 /// @file       vnix/rat/encoding.hpp
 /// @brief      Definition of vnix::rat::encoding.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL3.
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD Three-Clause; see LICENSE.
 
 #ifndef VNIX_RAT_ENCODING_HPP
 #define VNIX_RAT_ENCODING_HPP

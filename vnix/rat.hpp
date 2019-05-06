@@ -1,7 +1,7 @@
 /// @file       vnix/rat.hpp
 /// @brief      Typedefs for class vnix::rat::rational.
-/// @copyright  2019  Thomas E. Vaughan
-/// @license    GPL Version 3 or later.
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD Three-Clause; see LICENSE.
 
 #ifndef VNIX_RATIONAL_HPP
 #define VNIX_RATIONAL_HPP

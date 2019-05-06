@@ -1,3 +1,5 @@
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD three-clause; see LICENSE.
 
 #include <array>                 // for array
 #include <eigen3/Eigen/Geometry> // for AngleAxis, Matrix, etc.

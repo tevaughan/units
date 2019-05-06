@@ -1,7 +1,7 @@
 /// @file       vnix/int-types.hpp
 /// @brief      Definition of vnix::int_types.
-/// @copyright  2019 Thomas E. Vaughan
-/// @license    GPL Version 3 or later.
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD Three-Clause; see LICENSE.
 
 #ifndef VNIX_INT_TYPES_HPP
 #define VNIX_INT_TYPES_HPP

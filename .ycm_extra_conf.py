@@ -1,7 +1,7 @@
 ## @file       ".ycm_extra_conf.py"
 #  @brief      Configuration for vim's YouCompleteMe plugin.
-#  @copyright  2019  Thomas E. Vaughan
-#  @license    GPL Version 3 or later.
+#  @copyright  2019 Thomas E. Vaughan; all rights reserved.
+#  @license    BSD three-clause; see LICENSE.
 
 import os
 

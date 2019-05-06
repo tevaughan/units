@@ -1,7 +1,7 @@
 /// @file       test/statdim-base-test.cpp
 /// @brief      Test-cases for vnix::units::statdim_base.
-/// @copyright  2019  Thomas E. Vaughan
-/// @license    GPL, Version 3 or later.
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD three-clause; see LICENSE.
 
 #include "../vnix/units/statdim-base.hpp"
 #include "catch.hpp"

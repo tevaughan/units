@@ -1,7 +1,7 @@
 /// @file       test/bit-range-test.cpp
 /// @brief      Test-cases for vnix::bit_range.
-/// @copyright  2019  Thomas E. Vaughan
-/// @license    GPL, Version 3 or later.
+/// @copyright  2019 Thomas E. Vaughan; all rights reserved.
+/// @license    BSD three-clause; see LICENSE.
 
 #include "../vnix/bit-range.hpp"
 #include "catch.hpp"
