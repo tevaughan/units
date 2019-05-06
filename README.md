@@ -13,20 +13,20 @@ any quantity with physical dimension.
 ## Continuous Integration
 
 The [github-site for units](https://github.com/tevaughan/units) is connected to
-[TravisCI](https://travis-ci.org).
+[TravisCI](https://travis-ci.org), and thereby to
+[CodeCov](https://codecov.io).
 
-On each push to github, several actions are taken via
-[TravisCI](https://travis-ci.org/tevaughan/units).
+On each push to github, several actions are taken via TravisCI.
 
-- Unit tests evaluated, and status is reported on
+- Unit tests built and run, and the result is reported on
   [the units page at TravisCI](https://travis-ci.org/tevaughan/units).
 
-- [kcov](https://github.com/SimonKagstrom/kcov) is executed onthe unit-test
-  executable, and the result is pushed to [codecov.io](https://codecov.io),
-  where [the result is published](https://codecov.io/gh/tevaughan/units).
+- [kcov](https://github.com/SimonKagstrom/kcov) is used to run the unit-test
+  executable, and the result is
+  [published at CodeCov](https://codecov.io/gh/tevaughan/units).
 
-- Doxygen is run on the tree of headers, the resulting [static web
-  site](https://tevaughan.github.io/units/) is published via github-pages
+- Doxygen is run on the tree of headers, the
+  [result is published via github-pages](https://tevaughan.github.io/units/).
 
 
 ## Overview
