@@ -39,8 +39,12 @@ In the present implementation, there are five fundamental dimensions:
 - charge, and
 - temperature.
 
-Internally, units::dim stores a six-bit rational exponent for each fundamental
-dimension, and units::dimval associates a set of exponents with numeric value.
+Internally,
+
+- vnix::units::dim stores a six-bit rational exponent for each fundamental
+  dimension, and
+- vnix::units::dimval associates an instance of vnix::units::dim with numeric
+  value.
 
 However, the user need not even know about dim and dimval.
 One may write a simple program, for example, as follows:
@@ -65,9 +69,11 @@ int main() {
 
 ## Some Details
 
-- The library is extensible and reconfigurable via units.yml, which briefly
+- The library is extensible and reconfigurable via `units.yml`, which briefly
   defines the system of units.
-    - A ruby script generates vnix/units.hpp from units.yml.
+    - A ruby script reads `units.yml` and generates
+        - vnix/units.hpp and
+        - vnix/units/dim-base-off.hpp.
 
 - Because vnix::units::dimval is a literal type, an instance can be a [constant
   expression](https://en.cppreference.com/w/cpp/language/constant_expression).
@@ -115,7 +121,7 @@ int main() {
   auto bar = sqrt(foo);              // No simple name for this type.
   ```
 
-- Finally, the type vnix::units::flt::dyndim (or vnix::units::dbl::dyndim or
+- vnix::units::flt::dyndim (or vnix::units::dbl::dyndim or
   vnix::units::ldbl::dyndim) can be used when the dimension cannot be
   determined at compile-time, such as when the dimension of a variable is to be
   read from a file at run-time.
@@ -125,10 +131,9 @@ int main() {
   instance to store the dimension; yet vnix::units::flt::dyndim, too, is a
   descendant of vnix::units::dimval.
 
-- In the case of vnix::units::flt::dyndim, the instance consumes an extra four
-  bytes for the dimension (in addition to the four bytes used by the
-  single-precision floating-point number that is stored when using, say,
-  vnix::units::flt::length).
+- The dimension stored in an instance of `dyndim` requires an extra four bytes
+  of storage beyond the number bytes required to store the numeric value of the
+  physical quantity.
 
 - vnix::units::sqrt and vnix::units::pow are provided.
 
@@ -139,6 +144,9 @@ int main() {
     - Earlier versions might also work, but I have not tested them.
     - The default is clang++ because the Travis CI build-machine doesn't have a
       recent enough g++.
+
+- To build the library from a clone of the source, be sure that ruby is
+  installed.  A couple of the header files are generated from `units.yml`.
 
 - See https://github.com/tevaughan/units
 
