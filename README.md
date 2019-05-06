@@ -3,7 +3,9 @@
 The vnix::units library defines types and constants that can be used to model
 any quantity with physical dimension.
 
-- no external dependencies
+- no external dependencies needed to build against vnix::units
+    - ruby required to build some header files before installation from
+      git-clone
 - compiler for C++-14 or later required
 - interoperability with [Eigen](http://eigen.tuxfamily.org/) supported
 - on each push to github, actions taken via
@@ -52,6 +54,10 @@ int main() {
 
 
 ## Some Details
+
+- The library is extensible and reconfigurable via units.yml, which briefly
+  defines the system of units.
+    - A ruby script generates vnix/units.hpp from units.yml.
 
 - Because vnix::units::dimval is a literal type, an instance can be a [constant
   expression](https://en.cppreference.com/w/cpp/language/constant_expression).
