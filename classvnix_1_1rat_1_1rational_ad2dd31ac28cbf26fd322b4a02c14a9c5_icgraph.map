@@ -1,0 +1,9 @@
+<map id="vnix::rat::rational::rational" name="vnix::rat::rational::rational">
+<area shape="rect" id="node2" href="$common-denom-test_8cpp.html#a7555d19a29f792b9d6be847bdb19c345" title="TEST_CASE" alt="" coords="205,5,305,32"/>
+<area shape="rect" id="node3" href="$classvnix_1_1units_1_1basic__dim.html#a747876034fa13586aebe43b780d8b933" title="Print to output stream the symbolic contribution from a given unit. " alt="" coords="179,56,331,112"/>
+<area shape="rect" id="node4" href="$classvnix_1_1units_1_1dyndim__base.html#a0aa047179ef5e795a338092e5c05a832" title="Dimension for rational power of dimensioned value. " alt="" coords="189,135,321,177"/>
+<area shape="rect" id="node6" href="$classvnix_1_1units_1_1dyndim__base.html#af8332e5813c5990b4b642aa1427af84c" title="Dimension for square&#45;root of dimensioned value. " alt="" coords="189,201,321,242"/>
+<area shape="rect" id="node7" href="$structvnix_1_1units_1_1statdim__base.html#aa926d3e97910964a5db96043a0003d80" title="Dimension for rational power of dimensioned value. " alt="" coords="172,266,337,307"/>
+<area shape="rect" id="node8" href="$structvnix_1_1units_1_1statdim__base.html#a583b008e4d47a3c43ac9a42c2e9c47a6" title="Dimension for square&#45;root of dimensioned value. " alt="" coords="173,331,336,373"/>
+<area shape="rect" id="node5" href="$dyndim-base-test_8cpp.html#a651290a9dc844b4c8231407ec8af1032" title="TEST_CASE" alt="" coords="385,176,485,203"/>
+</map>

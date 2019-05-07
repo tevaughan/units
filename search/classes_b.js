@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['nanocoulombs',['nanocoulombs',['../structvnix_1_1units_1_1impl_1_1nanocoulombs.html',1,'vnix::units::impl']]],
+  ['nanograms',['nanograms',['../structvnix_1_1units_1_1impl_1_1nanograms.html',1,'vnix::units::impl']]],
+  ['nanokelvins',['nanokelvins',['../structvnix_1_1units_1_1impl_1_1nanokelvins.html',1,'vnix::units::impl']]],
+  ['nanometers',['nanometers',['../structvnix_1_1units_1_1impl_1_1nanometers.html',1,'vnix::units::impl']]],
+  ['nanoseconds',['nanoseconds',['../structvnix_1_1units_1_1impl_1_1nanoseconds.html',1,'vnix::units::impl']]],
+  ['newtons',['newtons',['../structvnix_1_1units_1_1impl_1_1newtons.html',1,'vnix::units::impl']]],
+  ['normalized_5fpair',['normalized_pair',['../classvnix_1_1rat_1_1normalized__pair.html',1,'vnix::rat']]],
+  ['number',['number',['../structvnix_1_1units_1_1number.html',1,'vnix::units']]],
+  ['number_3c_20double_20_26_20_3e',['number&lt; double &amp; &gt;',['../structvnix_1_1units_1_1number_3_01double_01_6_01_4.html',1,'vnix::units']]],
+  ['number_3c_20double_20_3e',['number&lt; double &gt;',['../structvnix_1_1units_1_1number_3_01double_01_4.html',1,'vnix::units']]],
+  ['number_3c_20double_20const_20_26_20_3e',['number&lt; double const &amp; &gt;',['../structvnix_1_1units_1_1number_3_01double_01const_01_6_01_4.html',1,'vnix::units']]],
+  ['number_3c_20eigen_3a_3acwisebinaryop_3c_20b_2c_20l_2c_20r_20_3e_20_3e',['number&lt; Eigen::CwiseBinaryOp&lt; B, L, R &gt; &gt;',['../structvnix_1_1units_1_1number_3_01Eigen_1_1CwiseBinaryOp_3_01B_00_01L_00_01R_01_4_01_4.html',1,'vnix::units']]],
+  ['number_3c_20eigen_3a_3amatrix_3c_20s_2c_20r_2c_20c_2c_20opt_2c_20mr_2c_20mc_20_3e_20_3e',['number&lt; Eigen::Matrix&lt; S, R, C, OPT, MR, MC &gt; &gt;',['../structvnix_1_1units_1_1number_3_01Eigen_1_1Matrix_3_01S_00_01R_00_01C_00_01OPT_00_01MR_00_01MC_01_4_01_4.html',1,'vnix::units']]],
+  ['number_3c_20eigen_3a_3aproduct_3c_20l_2c_20r_2c_20opt_20_3e_20_3e',['number&lt; Eigen::Product&lt; L, R, OPT &gt; &gt;',['../structvnix_1_1units_1_1number_3_01Eigen_1_1Product_3_01L_00_01R_00_01OPT_01_4_01_4.html',1,'vnix::units']]],
+  ['number_3c_20float_20_26_20_3e',['number&lt; float &amp; &gt;',['../structvnix_1_1units_1_1number_3_01float_01_6_01_4.html',1,'vnix::units']]],
+  ['number_3c_20float_20_3e',['number&lt; float &gt;',['../structvnix_1_1units_1_1number_3_01float_01_4.html',1,'vnix::units']]],
+  ['number_3c_20float_20const_20_26_20_3e',['number&lt; float const &amp; &gt;',['../structvnix_1_1units_1_1number_3_01float_01const_01_6_01_4.html',1,'vnix::units']]],
+  ['number_3c_20int_20_26_20_3e',['number&lt; int &amp; &gt;',['../structvnix_1_1units_1_1number_3_01int_01_6_01_4.html',1,'vnix::units']]],
+  ['number_3c_20int_20_3e',['number&lt; int &gt;',['../structvnix_1_1units_1_1number_3_01int_01_4.html',1,'vnix::units']]],
+  ['number_3c_20int_20const_20_26_20_3e',['number&lt; int const &amp; &gt;',['../structvnix_1_1units_1_1number_3_01int_01const_01_6_01_4.html',1,'vnix::units']]],
+  ['number_3c_20long_20double_20_26_20_3e',['number&lt; long double &amp; &gt;',['../structvnix_1_1units_1_1number_3_01long_01double_01_6_01_4.html',1,'vnix::units']]],
+  ['number_3c_20long_20double_20_3e',['number&lt; long double &gt;',['../structvnix_1_1units_1_1number_3_01long_01double_01_4.html',1,'vnix::units']]],
+  ['number_3c_20long_20double_20const_20_26_20_3e',['number&lt; long double const &amp; &gt;',['../structvnix_1_1units_1_1number_3_01long_01double_01const_01_6_01_4.html',1,'vnix::units']]],
+  ['number_3c_20mv_3a_3amat_3c_20t_2c_20nr_2c_20nc_20_3e_20_3e',['number&lt; mv::mat&lt; T, NR, NC &gt; &gt;',['../structvnix_1_1units_1_1number_3_01mv_1_1mat_3_01T_00_01NR_00_01NC_01_4_01_4.html',1,'vnix::units']]]
+];

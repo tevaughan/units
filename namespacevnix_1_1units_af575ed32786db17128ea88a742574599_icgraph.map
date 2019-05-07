@@ -1,0 +1,9 @@
+<map id="vnix::units::mass_dim" name="vnix::units::mass_dim">
+<area shape="rect" id="node2" href="$structvnix_1_1units_1_1impl_1_1grams.html#ac107fe119f7a4a5648eddd629bb8cffe" title="Initialize from number of grams. " alt="" coords="226,5,349,47"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1impl_1_1milligrams.html#aa3a3ad4d23f9b1d0474d1647e2ecde6b" title="Initialize from number of milligrams. " alt="" coords="213,71,361,112"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1impl_1_1micrograms.html#aab4a780e5c7b4ab9172af799cc218768" title="Initialize from number of micrograms. " alt="" coords="204,136,371,177"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1impl_1_1nanograms.html#a4110c91de84a59640bcdaa6e9126a85e" title="Initialize from number of nanograms. " alt="" coords="208,201,367,243"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1impl_1_1picograms.html#ad16dfd16110c939908637dff9c8b22b3" title="Initialize from number of picograms. " alt="" coords="212,267,363,308"/>
+<area shape="rect" id="node7" href="$structvnix_1_1units_1_1impl_1_1kilograms.html#a5948132eb94d48c6e24a28027c9a2440" title="Initialize from number of kilograms. " alt="" coords="216,332,359,373"/>
+<area shape="rect" id="node8" href="$structvnix_1_1units_1_1impl_1_1megagrams.html#ae705a971add53d1a798141a5bc24527d" title="Initialize from number of megagrams. " alt="" coords="204,397,371,439"/>
+</map>

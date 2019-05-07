@@ -1,0 +1,10 @@
+<map id="TEST_CASE" name="TEST_CASE">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1basic__dim.html#a14314170633ec56f7a71b977f1d6d13e" title="Encode data for this dim into a word. " alt="" coords="159,5,281,47"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1statdim__base.html#acd979076b68cf256d845231674711ff9" title="Exponent for each unit in dimensioned quantity. " alt="" coords="335,93,468,135"/>
+<area shape="rect" id="node4" href="$classvnix_1_1units_1_1basic__dim.html#af02a4e3120291b1bda79a45bfe2f1b62" title="vnix::units::basic\l_dim::operator==" alt="" coords="159,123,281,164"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1statdim__base.html#aed21dfa8317daf91d9a0b9c5d893f57b" title="Dimension for rational power of dimensioned value. " alt="" coords="153,188,287,229"/>
+<area shape="rect" id="node7" href="$classvnix_1_1units_1_1dyndim__base.html#acabe5db8531d844f4d979392e5f74752" title="Exponent for each unit in dimensioned quantity. " alt="" coords="154,253,286,295"/>
+<area shape="rect" id="node8" href="$classvnix_1_1rat_1_1rational.html#ad2dd31ac28cbf26fd322b4a02c14a9c5" title="Initialize from numerator and denominator. " alt="" coords="161,319,279,360"/>
+<area shape="rect" id="node9" href="$structvnix_1_1units_1_1statdim__base.html#a583b008e4d47a3c43ac9a42c2e9c47a6" title="Dimension for square&#45;root of dimensioned value. " alt="" coords="153,384,287,425"/>
+<area shape="rect" id="node6" href="$classvnix_1_1units_1_1basic__dim.html#a7367a2b172518d7e20a0396c54376396" title="Multiply exponents by rational factor. " alt="" coords="341,188,462,229"/>
+</map>

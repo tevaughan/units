@@ -1,0 +1,44 @@
+<map id="vnix::units::statdim_base::d" name="vnix::units::statdim_base::d">
+<area shape="rect" id="node2" href="$structvnix_1_1units_1_1statdim__base.html#ad0dbe5878e8ffbad36abd4855c07a5b6" title="Check for compatibility on contruction from dim. " alt="" coords="187,5,405,47"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1statdim__base.html#af7c50c56e88d8e886628f8085df1984e" title="Throw if dimension be non&#45;null. " alt="" coords="204,71,388,112"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1statdim__base.html#a467c2dca759e36542934a8fb4fa6ee61" title="Dimension for product of dimensioned values. " alt="" coords="213,136,379,177"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1statdim__base.html#a8b28e82a0bfa0f5f898fbdaa61029940" title="Dimension for quotient of dimensioned values. " alt="" coords="213,201,379,243"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1statdim__base.html#aa926d3e97910964a5db96043a0003d80" title="Dimension for rational power of dimensioned value. " alt="" coords="213,267,379,308"/>
+<area shape="rect" id="node7" href="$structvnix_1_1units_1_1statdim__base.html#a583b008e4d47a3c43ac9a42c2e9c47a6" title="Dimension for square&#45;root of dimensioned value. " alt="" coords="215,332,377,373"/>
+<area shape="rect" id="node8" href="$structvnix_1_1units_1_1statdim__base.html#a8f8abe8591ffd36b2b51d86ff5b40f99" title="Test for comparison of dimensioned values. " alt="" coords="229,397,363,439"/>
+<area shape="rect" id="node9" href="$structvnix_1_1units_1_1statdim__base.html#a1befd7a6604e4f170df45a7a634a4ac2" title="Dimension for sum of dimensioned values. " alt="" coords="229,463,363,504"/>
+<area shape="rect" id="node10" href="$statdim-base-test_8cpp.html#a95fc148edfd36651685893df8bb3eaaa" title="TEST_CASE" alt="" coords="453,529,553,555"/>
+<area shape="rect" id="node11" href="$structvnix_1_1units_1_1statdim__base.html#a3ddefd8c3787a5a8830765b434cdabfc" title="Dimension for difference of dimensioned values. " alt="" coords="229,580,363,621"/>
+<area shape="rect" id="node12" href="$structvnix_1_1units_1_1statdim__base.html#afc4b5217b097b3e6cb47a2bc8ecad319" title="Dimension for product of dimensioned values. " alt="" coords="229,645,363,687"/>
+<area shape="rect" id="node14" href="$structvnix_1_1units_1_1statdim__base.html#a243297d22c3c03affdbf112b2264664c" title="Dimension for quotient of dimensioned values. " alt="" coords="229,711,363,752"/>
+<area shape="rect" id="node15" href="$structvnix_1_1units_1_1statdim__base.html#aed21dfa8317daf91d9a0b9c5d893f57b" title="Dimension for rational power of dimensioned value. " alt="" coords="229,776,363,817"/>
+<area shape="rect" id="node17" href="$structvnix_1_1units_1_1impl_1_1feet.html#a0b97922ae11ef679a2b16982ab9191b7" title="Initialize from number of feet. " alt="" coords="235,841,357,883"/>
+<area shape="rect" id="node18" href="$structvnix_1_1units_1_1impl_1_1kilofeet.html#ada43d6c4258ffc6f8c86235f520c6b05" title="Initialize from number of kilofeet. " alt="" coords="235,907,357,948"/>
+<area shape="rect" id="node19" href="$structvnix_1_1units_1_1impl_1_1inches.html#a5529e3545b9108a4ea16d149b4dfd936" title="Initialize from number of inches. " alt="" coords="235,972,357,1013"/>
+<area shape="rect" id="node20" href="$structvnix_1_1units_1_1impl_1_1yards.html#a211f27af54d8eb0193d0f79e0e028af0" title="Initialize from number of yards. " alt="" coords="235,1037,357,1079"/>
+<area shape="rect" id="node21" href="$structvnix_1_1units_1_1impl_1_1miles.html#aba9f1fa6bb7ffbe6f64604b338ccf2ae" title="Initialize from number of miles. " alt="" coords="235,1103,357,1144"/>
+<area shape="rect" id="node22" href="$structvnix_1_1units_1_1impl_1_1newtons.html#a86bdc8cc8223dd92a350eee791da6b88" title="Initialize from number of newtons. " alt="" coords="232,1168,360,1209"/>
+<area shape="rect" id="node23" href="$structvnix_1_1units_1_1impl_1_1millinewtons.html#ac260fb05b138f861e949c114a29dd50a" title="Initialize from number of millinewtons. " alt="" coords="209,1233,383,1275"/>
+<area shape="rect" id="node24" href="$structvnix_1_1units_1_1impl_1_1micronewtons.html#ab77fa6b9c459a4975d90cb9bb6a5b6d2" title="Initialize from number of micronewtons. " alt="" coords="200,1299,392,1340"/>
+<area shape="rect" id="node25" href="$structvnix_1_1units_1_1impl_1_1kilonewtons.html#acaf4b9fded90dff6391efe4df8651365" title="Initialize from number of kilonewtons. " alt="" coords="212,1364,380,1405"/>
+<area shape="rect" id="node26" href="$structvnix_1_1units_1_1impl_1_1meganewtons.html#af5586da6d8663052a8798271e5d73d58" title="Initialize from number of meganewtons. " alt="" coords="200,1429,392,1471"/>
+<area shape="rect" id="node27" href="$structvnix_1_1units_1_1impl_1_1dynes.html#ae6d880d929bce7137ff8a0f24dd84898" title="Initialize from number of dynes. " alt="" coords="235,1495,357,1536"/>
+<area shape="rect" id="node28" href="$structvnix_1_1units_1_1impl_1_1joules.html#abb135218b2ea2658f2a98c86ecd261b5" title="Initialize from number of joules. " alt="" coords="235,1560,357,1601"/>
+<area shape="rect" id="node29" href="$structvnix_1_1units_1_1impl_1_1millijoules.html#a8182475936e9f5ea938db7a2027b243b" title="Initialize from number of millijoules. " alt="" coords="224,1625,368,1667"/>
+<area shape="rect" id="node30" href="$structvnix_1_1units_1_1impl_1_1microjoules.html#a61860e9d7daa56d0ce4b564dd3988d6b" title="Initialize from number of microjoules. " alt="" coords="215,1691,377,1732"/>
+<area shape="rect" id="node31" href="$structvnix_1_1units_1_1impl_1_1kilojoules.html#a777e5a6d44461e324dbcddec07d7ded2" title="Initialize from number of kilojoules. " alt="" coords="227,1756,365,1797"/>
+<area shape="rect" id="node32" href="$structvnix_1_1units_1_1impl_1_1megajoules.html#a8e232804834d3c3ce3a13e5214eca954" title="Initialize from number of megajoules. " alt="" coords="215,1821,377,1863"/>
+<area shape="rect" id="node33" href="$structvnix_1_1units_1_1impl_1_1gigajoules.html#a7146419d76689900b5c3348affcbbc84" title="Initialize from number of gigajoules. " alt="" coords="223,1887,369,1928"/>
+<area shape="rect" id="node34" href="$structvnix_1_1units_1_1impl_1_1ergs.html#ae492c283304e67cf4589ffaf017a53c0" title="Initialize from number of ergs. " alt="" coords="235,1952,357,1993"/>
+<area shape="rect" id="node35" href="$structvnix_1_1units_1_1impl_1_1watts.html#a63d99868e9e204ae2023d0c2a134657e" title="Initialize from number of watts. " alt="" coords="235,2017,357,2059"/>
+<area shape="rect" id="node36" href="$structvnix_1_1units_1_1impl_1_1milliwatts.html#a46020e7ddda8217578cfe1dab07e1aa2" title="Initialize from number of milliwatts. " alt="" coords="226,2083,366,2124"/>
+<area shape="rect" id="node37" href="$structvnix_1_1units_1_1impl_1_1microwatts.html#a3331a3875c9e014fd7ab7c43251408b6" title="Initialize from number of microwatts. " alt="" coords="217,2148,375,2189"/>
+<area shape="rect" id="node38" href="$structvnix_1_1units_1_1impl_1_1kilowatts.html#ac799ba4bc29b1f3289d582963f46597f" title="Initialize from number of kilowatts. " alt="" coords="229,2213,363,2255"/>
+<area shape="rect" id="node39" href="$structvnix_1_1units_1_1impl_1_1megawatts.html#ad5baba90922f36ba1d3f8bfceab8acb1" title="Initialize from number of megawatts. " alt="" coords="217,2279,375,2320"/>
+<area shape="rect" id="node40" href="$structvnix_1_1units_1_1impl_1_1gigawatts.html#aac3e42f94a9cea30bff1acce7fe1ec65" title="Initialize from number of gigawatts. " alt="" coords="225,2344,367,2385"/>
+<area shape="rect" id="node41" href="$structvnix_1_1units_1_1impl_1_1amperes.html#a1e48288384b1da2b666774d3e2cb557f" title="Initialize from number of amperes. " alt="" coords="231,2409,361,2451"/>
+<area shape="rect" id="node42" href="$structvnix_1_1units_1_1impl_1_1milliamperes.html#ab1b617aa3bedbfc0746f0bf7bfef313c" title="Initialize from number of milliamperes. " alt="" coords="208,2475,384,2516"/>
+<area shape="rect" id="node43" href="$structvnix_1_1units_1_1impl_1_1microamperes.html#a0b8fe05fe15087b189b9d7b0efe5777f" title="Initialize from number of microamperes. " alt="" coords="199,2540,393,2581"/>
+<area shape="rect" id="node13" href="$statdim-base-test_8cpp.html#a68e3a7a324c9e858052f4d2856df5163" title="TEST_CASE" alt="" coords="453,686,553,713"/>
+<area shape="rect" id="node16" href="$statdim-base-test_8cpp.html#a770fa09337bbabe5784759483b7cf967" title="TEST_CASE" alt="" coords="453,783,553,810"/>
+</map>

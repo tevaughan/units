@@ -1,0 +1,5 @@
+<map id="vnix::units::seconds" name="vnix::units::seconds">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#a2b730fd28dc4c6f381a23d8d3f15c3b8" title="Interpret a number, suffixed with &#39;_s&#39;, as a (literal) number of seconds. " alt="" coords="195,5,375,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#a19cbc85cb11ad4964c58eaf804a291e0" title="Interpret a number, suffixed with &#39;_s&#39;, as a (literal) number of seconds. " alt="" coords="192,56,379,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#afa7a53584d320462c87642885387a06d" title="Interpret a number, suffixed with &#39;_s&#39;, as a (literal) number of seconds. " alt="" coords="226,107,345,149"/>
+</map>

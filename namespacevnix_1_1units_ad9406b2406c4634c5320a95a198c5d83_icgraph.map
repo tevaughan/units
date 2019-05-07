@@ -1,0 +1,5 @@
+<map id="vnix::units::nanoseconds" name="vnix::units::nanoseconds">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#a0274b9b49939ef5ce02e8d36f4f40896" title="Interpret a number, suffixed with &#39;_ns&#39;, as a (literal) number of nanoseconds. " alt="" coords="223,5,410,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#a1b55380d7d1d77f354e08ebe67167529" title="Interpret a number, suffixed with &#39;_ns&#39;, as a (literal) number of nanoseconds. " alt="" coords="220,56,413,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a84f43933930c172fa0a72177e0a826e2" title="Interpret a number, suffixed with &#39;_ns&#39;, as a (literal) number of nanoseconds. " alt="" coords="257,107,376,149"/>
+</map>

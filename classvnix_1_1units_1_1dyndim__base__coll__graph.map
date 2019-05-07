@@ -1,0 +1,6 @@
+<map id="vnix::units::dyndim_base" name="vnix::units::dyndim_base">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1basic__dim.html" title="vnix::units::basic\l_dim\&lt; dim_base_off \&gt;" alt="" coords="19,303,171,344"/>
+<area shape="rect" id="node3" href="$structvnix_1_1int__types.html" title="vnix::int_types\&lt; NUM\l_BITS \&gt;" alt="" coords="5,95,156,136"/>
+<area shape="rect" id="node5" href="$classvnix_1_1units_1_1basic__dim.html" title="Rational exponent for each basis&#45;element of dimension. " alt="" coords="103,199,224,240"/>
+<area shape="rect" id="node4" href="$structvnix_1_1int__types.html" title="Smallest integer types for holding certain number of bits. " alt="" coords="5,5,156,32"/>
+</map>

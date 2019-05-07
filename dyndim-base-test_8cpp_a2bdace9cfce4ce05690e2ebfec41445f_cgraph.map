@@ -1,0 +1,10 @@
+<map id="TEST_CASE" name="TEST_CASE">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1dyndim__base.html#a1970618564b668696eef2759dc2696ce" title="Initialize from exponents representing dimension. " alt="" coords="153,5,296,47"/>
+<area shape="rect" id="node3" href="$classvnix_1_1units_1_1basic__dim.html#a14314170633ec56f7a71b977f1d6d13e" title="Encode data for this dim into a word. " alt="" coords="164,71,285,112"/>
+<area shape="rect" id="node4" href="$classvnix_1_1units_1_1dyndim__base.html#aca1e27512be36ac49da9082f2ffe6f7a" title="Dimension for product of dimensioned values. " alt="" coords="159,136,291,177"/>
+<area shape="rect" id="node5" href="$classvnix_1_1units_1_1dyndim__base.html#acabe5db8531d844f4d979392e5f74752" title="Exponent for each unit in dimensioned quantity. " alt="" coords="159,201,291,243"/>
+<area shape="rect" id="node6" href="$classvnix_1_1units_1_1basic__dim.html#af02a4e3120291b1bda79a45bfe2f1b62" title="vnix::units::basic\l_dim::operator==" alt="" coords="164,267,285,308"/>
+<area shape="rect" id="node7" href="$classvnix_1_1units_1_1dyndim__base.html#a7a1add688965afb2688512973f22fa50" title="Dimension for quotient of dimensioned values. " alt="" coords="159,332,291,373"/>
+<area shape="rect" id="node8" href="$classvnix_1_1units_1_1dyndim__base.html#a46d50d29409c892178ad24597ceb33a6" title="Dimension for reciprocal of dimensioned value. " alt="" coords="159,397,291,439"/>
+<area shape="rect" id="node9" href="$classvnix_1_1units_1_1basic__dim.html#a0555c91aa04966d3f07340d689317c37" title="Subtract corresponding exponents. " alt="" coords="344,397,465,439"/>
+</map>

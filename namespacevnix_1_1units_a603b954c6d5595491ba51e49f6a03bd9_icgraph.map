@@ -1,0 +1,5 @@
+<map id="vnix::units::coulombs" name="vnix::units::coulombs">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#a947b76494885524eb57c4e45cb9943d8" title="Interpret a number, suffixed with &#39;_C&#39;, as a (literal) number of coulombs. " alt="" coords="203,5,386,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#a1cefb333a5741bdecfa314348b74054e" title="Interpret a number, suffixed with &#39;_C&#39;, as a (literal) number of coulombs. " alt="" coords="200,56,389,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a8b41de18c6e9f1f84994837c2d9bdc3a" title="Interpret a number, suffixed with &#39;_C&#39;, as a (literal) number of coulombs. " alt="" coords="235,107,354,149"/>
+</map>

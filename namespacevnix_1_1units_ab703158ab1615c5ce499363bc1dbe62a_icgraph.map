@@ -1,0 +1,5 @@
+<map id="vnix::units::millimeters" name="vnix::units::millimeters">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#abf2334279ae58349e2fc91557090f40f" title="Interpret a number, suffixed with &#39;_mm&#39;, as a (literal) number of millimeters. " alt="" coords="210,5,405,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#aedab19b180cfb1257d774cc53e77340a" title="Interpret a number, suffixed with &#39;_mm&#39;, as a (literal) number of millimeters. " alt="" coords="207,56,408,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#ac5ea486251a032cff9cabe315f50d3d2" title="Interpret a number, suffixed with &#39;_mm&#39;, as a (literal) number of millimeters. " alt="" coords="248,107,367,149"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="vnix::units::basic_dim::operator!=" name="vnix::units::basic_dim::operator!=">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1dyndim__base.html#ab768577582b85ed443b8ab727ccfed87" title="Throw if dimension be non&#45;null. " alt="" coords="218,5,350,47"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1statdim__base.html#ad0dbe5878e8ffbad36abd4855c07a5b6" title="Check for compatibility on contruction from dim. " alt="" coords="175,71,393,112"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1statdim__base.html#af7c50c56e88d8e886628f8085df1984e" title="Throw if dimension be non&#45;null. " alt="" coords="192,136,376,177"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1statdim__base.html#a8f8abe8591ffd36b2b51d86ff5b40f99" title="Test for comparison of dimensioned values. " alt="" coords="217,201,351,243"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1statdim__base.html#a1befd7a6604e4f170df45a7a634a4ac2" title="Dimension for sum of dimensioned values. " alt="" coords="217,267,351,308"/>
+<area shape="rect" id="node8" href="$structvnix_1_1units_1_1statdim__base.html#a3ddefd8c3787a5a8830765b434cdabfc" title="Dimension for difference of dimensioned values. " alt="" coords="217,332,351,373"/>
+<area shape="rect" id="node7" href="$statdim-base-test_8cpp.html#a95fc148edfd36651685893df8bb3eaaa" title="TEST_CASE" alt="" coords="441,307,541,334"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="vnix::units::impl::microseconds&lt; T &gt;" name="vnix::units::impl::microseconds&lt; T &gt;">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1basic__statdim.html" title="vnix::units::basic\l_statdim\&lt; time_dim.encode\l(), T \&gt;" alt="" coords="1039,51,1221,107"/>
+<area shape="rect" id="node3" href="$classvnix_1_1units_1_1dimval.html" title="vnix::units::dimval\l\&lt; T, statdim_base\&lt; D \&gt; \&gt;" alt="" coords="520,49,695,90"/>
+<area shape="rect" id="node8" href="$classvnix_1_1units_1_1basic__statdim.html" title="Model of a statically dimensioned physical quantity. " alt="" coords="744,90,867,131"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1number.html" title="Generic template for wrapper to disambiguate scalar from dimval and protected storage for numeric val..." alt="" coords="5,5,171,32"/>
+<area shape="rect" id="node6" href="$classvnix_1_1units_1_1dimval.html" title="Model of a physically dimensioned quantity. " alt="" coords="223,49,351,90"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1statdim__base.html" title="Base&#45;type for a dimensioned value whose dimension is specified statically at compile&#45;time by way of a..." alt="" coords="220,114,353,155"/>
+</map>

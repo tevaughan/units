@@ -1,0 +1,9 @@
+<map id="TEST_CASE" name="TEST_CASE">
+<area shape="rect" id="node2" href="$classvnix_1_1rat_1_1rational.html#ad2dd31ac28cbf26fd322b4a02c14a9c5" title="Initialize from numerator and denominator. " alt="" coords="159,5,277,47"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1rat.html#ab16895b21c45dd85971dbeefb07f5940" title="Product of two rational numbers. " alt="" coords="153,71,283,98"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1rat.html#ac8b7ff0b674835626ab9f37d2620c10d" title="Quotient of two rational numbers. " alt="" coords="154,122,282,149"/>
+<area shape="rect" id="node5" href="$classvnix_1_1units_1_1basic__dim.html#acf4bc94046bb46a995082f842d1851b0" title="vnix::units::basic\l_dim::basic_dim" alt="" coords="157,173,279,215"/>
+<area shape="rect" id="node6" href="$classvnix_1_1units_1_1basic__dim.html#a7367a2b172518d7e20a0396c54376396" title="Multiply exponents by rational factor. " alt="" coords="157,239,279,280"/>
+<area shape="rect" id="node7" href="$classvnix_1_1units_1_1basic__dim.html#af02a4e3120291b1bda79a45bfe2f1b62" title="vnix::units::basic\l_dim::operator==" alt="" coords="157,304,279,345"/>
+<area shape="rect" id="node8" href="$classvnix_1_1units_1_1basic__dim.html#a30729a1e75cf170eaaa19351897e27f0" title="Divide exponents by rational factor. " alt="" coords="157,369,279,411"/>
+</map>

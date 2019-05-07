@@ -1,0 +1,7 @@
+<map id="vnix::units::charge_dim" name="vnix::units::charge_dim">
+<area shape="rect" id="node2" href="$structvnix_1_1units_1_1impl_1_1coulombs.html#abffe75a6db133e1ac66734dfa6cf1cce" title="Initialize from number of coulombs. " alt="" coords="243,5,385,47"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1impl_1_1millicoulombs.html#a2df1b5e848ee318e6f4fd5ff2abb92fa" title="Initialize from number of millicoulombs. " alt="" coords="220,71,408,112"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1impl_1_1microcoulombs.html#aea2fb5920a8862dd9283f70af193ab63" title="Initialize from number of microcoulombs. " alt="" coords="211,136,417,177"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1impl_1_1nanocoulombs.html#a5aa44dd316e387f557f79178c228aaec" title="Initialize from number of nanocoulombs. " alt="" coords="215,201,413,243"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1impl_1_1picocoulombs.html#aec5eb36a02da30039d7f85eb794fcde9" title="Initialize from number of picocoulombs. " alt="" coords="219,267,409,308"/>
+</map>

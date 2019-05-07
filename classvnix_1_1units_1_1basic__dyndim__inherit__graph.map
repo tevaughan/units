@@ -1,0 +1,6 @@
+<map id="vnix::units::basic_dyndim&lt; T &gt;" name="vnix::units::basic_dyndim&lt; T &gt;">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1dimval.html" title="vnix::units::dimval\l\&lt; T, dyndim_base \&gt;" alt="" coords="120,185,259,227"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1number.html" title="Generic template for wrapper to disambiguate scalar from dimval and protected storage for numeric val..." alt="" coords="5,5,171,32"/>
+<area shape="rect" id="node5" href="$classvnix_1_1units_1_1dimval.html" title="Model of a physically dimensioned quantity. " alt="" coords="125,81,253,123"/>
+<area shape="rect" id="node4" href="$classvnix_1_1units_1_1dyndim__base.html" title="Base&#45;type for a dimensioned value whose dimension is specified, perhaps dynamically at run&#45;time..." alt="" coords="278,89,445,115"/>
+</map>

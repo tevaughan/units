@@ -1,0 +1,5 @@
+<map id="vnix::units::basic_dim::exp" name="vnix::units::basic_dim::exp">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1basic__dim.html#a44bc8daad90eea8f7d3d5f65366b8367" title="Rational exponent at specified offset. " alt="" coords="175,5,327,61"/>
+<area shape="rect" id="node3" href="$classvnix_1_1units_1_1basic__dim.html#ab8b3086da7d11dc2fd927524451b5de0" title="Combine each exponent with corresponding other exponent via function. " alt="" coords="175,85,327,141"/>
+<area shape="rect" id="node4" href="$classvnix_1_1units_1_1basic__dim.html#a9b9a5156731c34e2d3bdb01e31e8da82" title="Transform each exponent according to a function. " alt="" coords="175,165,327,221"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="vnix::units::millicoulombs" name="vnix::units::millicoulombs">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#ae6bfec61777c142e951863ec0d974974" title="Interpret a number, suffixed with &#39;_mC&#39;, as a (literal) number of millicoulombs. " alt="" coords="225,5,420,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#a1d3d96b56a840be2777ebf1ab8b6461a" title="Interpret a number, suffixed with &#39;_mC&#39;, as a (literal) number of millicoulombs. " alt="" coords="223,56,423,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a4c0515d3a0b39ed70fd4cf785d3ed92b" title="Interpret a number, suffixed with &#39;_mC&#39;, as a (literal) number of millicoulombs. " alt="" coords="263,107,382,149"/>
+</map>

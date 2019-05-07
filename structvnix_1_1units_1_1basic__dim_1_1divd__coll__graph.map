@@ -1,0 +1,8 @@
+<map id="vnix::units::basic_dim&lt; DBO &gt;::divd" name="vnix::units::basic_dim&lt; DBO &gt;::divd">
+<area shape="rect" id="node2" href="$classvnix_1_1rat_1_1rational.html" title="vnix::rat::rational\l\&lt; 4, 2 \&gt;" alt="" coords="69,483,188,524"/>
+<area shape="rect" id="node3" href="$classvnix_1_1rat_1_1encoding.html" title="vnix::rat::encoding\l\&lt; NB, DB \&gt;" alt="" coords="45,288,175,329"/>
+<area shape="rect" id="node7" href="$classvnix_1_1rat_1_1rational.html" title="Model of a fixed&#45;precision rational number. " alt="" coords="132,379,251,420"/>
+<area shape="rect" id="node4" href="$structvnix_1_1int__types.html" title="vnix::int_types\&lt; BITS \&gt;" alt="" coords="5,95,167,121"/>
+<area shape="rect" id="node6" href="$classvnix_1_1rat_1_1encoding.html" title="Encoding of numerator and denominator into unsigned word. " alt="" coords="108,184,299,225"/>
+<area shape="rect" id="node5" href="$structvnix_1_1int__types.html" title="Smallest integer types for holding certain number of bits. " alt="" coords="11,5,161,32"/>
+</map>

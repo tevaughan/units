@@ -1,0 +1,5 @@
+<map id="vnix::units::meters" name="vnix::units::meters">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#a36afb115c9fc6dfba761a1bec212e5be" title="Interpret a number, suffixed with &#39;_m&#39;, as a (literal) number of meters. " alt="" coords="187,5,371,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#ab7892feff15471a1a0f89a4516c0deb4" title="Interpret a number, suffixed with &#39;_m&#39;, as a (literal) number of meters. " alt="" coords="184,56,375,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a469deb76e943a275627094fd9c0a513a" title="Interpret a number, suffixed with &#39;_m&#39;, as a (literal) number of meters. " alt="" coords="220,107,339,149"/>
+</map>

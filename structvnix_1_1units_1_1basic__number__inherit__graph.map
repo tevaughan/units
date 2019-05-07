@@ -1,0 +1,34 @@
+<map id="vnix::units::basic_number&lt; T &gt;" name="vnix::units::basic_number&lt; T &gt;">
+<area shape="rect" id="node2" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; float &amp; \&gt;" alt="" coords="372,7,507,49"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; float const &amp; \&gt;" alt="" coords="354,73,525,114"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; double \&gt;" alt="" coords="372,138,507,179"/>
+<area shape="rect" id="node8" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; float \&gt;" alt="" coords="379,203,500,245"/>
+<area shape="rect" id="node10" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; long double &amp; \&gt;" alt="" coords="352,269,527,310"/>
+<area shape="rect" id="node12" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; int \&gt;" alt="" coords="379,334,500,375"/>
+<area shape="rect" id="node14" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; mv::mat\&lt; T,\l NR, NC \&gt; \&gt;" alt="" coords="361,399,517,455"/>
+<area shape="rect" id="node16" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; Eigen::CwiseBinary\lOp\&lt; B, L, R \&gt; \&gt;" alt="" coords="340,479,539,535"/>
+<area shape="rect" id="node18" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; double const &amp; \&gt;" alt="" coords="348,558,531,599"/>
+<area shape="rect" id="node20" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; Eigen::Matrix\l\&lt; S, R, C, OPT, MR, MC \&gt; \&gt;" alt="" coords="341,623,537,679"/>
+<area shape="rect" id="node22" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; double &amp; \&gt;" alt="" coords="366,702,513,743"/>
+<area shape="rect" id="node24" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; long double \&gt;" alt="" coords="358,767,521,809"/>
+<area shape="rect" id="node26" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; long double\l const &amp; \&gt;" alt="" coords="364,832,515,888"/>
+<area shape="rect" id="node28" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; int const &amp; \&gt;" alt="" coords="360,911,519,953"/>
+<area shape="rect" id="node30" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; Eigen::Product\l\&lt; L, R, OPT \&gt; \&gt;" alt="" coords="354,976,525,1032"/>
+<area shape="rect" id="node32" href="$structvnix_1_1units_1_1basic__number.html" title="vnix::units::basic\l_number\&lt; int &amp; \&gt;" alt="" coords="378,1055,501,1097"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1number_3_01float_01_6_01_4.html" title="Specialization of scalar for float. " alt="" coords="613,7,746,49"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1number_3_01float_01const_01_6_01_4.html" title="Specialization of scalar for float. " alt="" coords="613,73,746,114"/>
+<area shape="rect" id="node7" href="$structvnix_1_1units_1_1number_3_01double_01_4.html" title="Specialization of scalar for double. " alt="" coords="613,138,746,179"/>
+<area shape="rect" id="node9" href="$structvnix_1_1units_1_1number_3_01float_01_4.html" title="Specialization of scalar for float. " alt="" coords="613,203,746,245"/>
+<area shape="rect" id="node11" href="$structvnix_1_1units_1_1number_3_01long_01double_01_6_01_4.html" title="Specialization of scalar for long double. " alt="" coords="613,269,746,310"/>
+<area shape="rect" id="node13" href="$structvnix_1_1units_1_1number_3_01int_01_4.html" title="Specialization of scalar for int. " alt="" coords="613,334,746,375"/>
+<area shape="rect" id="node15" href="$structvnix_1_1units_1_1number_3_01mv_1_1mat_3_01T_00_01NR_00_01NC_01_4_01_4.html" title="Specialization of scalar for vnix::mv::mat. " alt="" coords="588,406,771,447"/>
+<area shape="rect" id="node17" href="$structvnix_1_1units_1_1number_3_01Eigen_1_1CwiseBinaryOp_3_01B_00_01L_00_01R_01_4_01_4.html" title="Specialization of scalar for Eigen::CwiseBinaryOp. " alt="" coords="596,479,763,535"/>
+<area shape="rect" id="node19" href="$structvnix_1_1units_1_1number_3_01double_01const_01_6_01_4.html" title="Specialization of scalar for double. " alt="" coords="613,558,746,599"/>
+<area shape="rect" id="node21" href="$structvnix_1_1units_1_1number_3_01Eigen_1_1Matrix_3_01S_00_01R_00_01C_00_01OPT_00_01MR_00_01MC_01_4_01_4.html" title="Specialization of scalar for Eigen::Matrix. " alt="" coords="594,623,765,679"/>
+<area shape="rect" id="node23" href="$structvnix_1_1units_1_1number_3_01double_01_6_01_4.html" title="Specialization of scalar for double. " alt="" coords="613,702,746,743"/>
+<area shape="rect" id="node25" href="$structvnix_1_1units_1_1number_3_01long_01double_01_4.html" title="Specialization of scalar for long double. " alt="" coords="613,767,746,809"/>
+<area shape="rect" id="node27" href="$structvnix_1_1units_1_1number_3_01long_01double_01const_01_6_01_4.html" title="Specialization of scalar for long double. " alt="" coords="599,839,760,881"/>
+<area shape="rect" id="node29" href="$structvnix_1_1units_1_1number_3_01int_01const_01_6_01_4.html" title="Specialization of scalar for int. " alt="" coords="613,911,746,953"/>
+<area shape="rect" id="node31" href="$structvnix_1_1units_1_1number_3_01Eigen_1_1Product_3_01L_00_01R_00_01OPT_01_4_01_4.html" title="Specialization of scalar for Eigen::Product. " alt="" coords="608,976,751,1032"/>
+<area shape="rect" id="node33" href="$structvnix_1_1units_1_1number_3_01int_01_6_01_4.html" title="Specialization of scalar for int. " alt="" coords="613,1055,746,1097"/>
+</map>

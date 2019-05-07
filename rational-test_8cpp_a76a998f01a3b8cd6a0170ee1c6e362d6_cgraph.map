@@ -1,0 +1,9 @@
+<map id="TEST_CASE" name="TEST_CASE">
+<area shape="rect" id="node2" href="$classvnix_1_1rat_1_1rational.html#ad2dd31ac28cbf26fd322b4a02c14a9c5" title="Initialize from numerator and denominator. " alt="" coords="164,5,283,47"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1rat.html#a123d20656b0985ccd9c1805496b25f53" title="Compare rationals for equality. " alt="" coords="153,71,293,98"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1rat.html#a7df28035df7dd13315a547f8260b53c3" title="Compare rationals for inequality. " alt="" coords="155,122,291,149"/>
+<area shape="rect" id="node5" href="$namespacevnix_1_1rat.html#a7479061283d19589899bda13ca757b40" title="Compare for greater&#45;than&#45;or&#45;equal ordering with another rational. " alt="" coords="153,173,293,199"/>
+<area shape="rect" id="node6" href="$namespacevnix_1_1rat.html#ae8d473955fef42b74c4b21634a343810" title="Compare for greater&#45;than ordering with another rational. " alt="" coords="157,223,289,250"/>
+<area shape="rect" id="node7" href="$namespacevnix_1_1rat.html#aa64fe091d192f4ca8a571e430ea20afc" title="Compare for less&#45;than&#45;or&#45;equal ordering with another rational. " alt="" coords="153,274,293,301"/>
+<area shape="rect" id="node8" href="$namespacevnix_1_1rat.html#aa44d3fdeef9d9c60943420efab1588b4" title="Compare for less&#45;than ordering with another rational. " alt="" coords="157,325,289,351"/>
+</map>

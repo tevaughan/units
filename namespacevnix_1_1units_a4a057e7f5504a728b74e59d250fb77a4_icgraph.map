@@ -1,0 +1,8 @@
+<map id="vnix::units::time_dim" name="vnix::units::time_dim">
+<area shape="rect" id="node2" href="$structvnix_1_1units_1_1impl_1_1seconds.html#a3005448508c3c06c108b09687d00cb67" title="Initialize from number of seconds. " alt="" coords="229,5,357,47"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1impl_1_1milliseconds.html#a5ecd52979ad49aa05ac8b1f3ca0729c8" title="Initialize from number of milliseconds. " alt="" coords="206,71,381,112"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1impl_1_1microseconds.html#afadd3ba3f8dd17033c4faff0fc7e5941" title="Initialize from number of microseconds. " alt="" coords="197,136,389,177"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1impl_1_1nanoseconds.html#a1aff76cb05ac052ec3be1f6ec128c84c" title="Initialize from number of nanoseconds. " alt="" coords="201,201,385,243"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1impl_1_1picoseconds.html#a62e49c5db311b7e2a674e01a570ff42c" title="Initialize from number of picoseconds. " alt="" coords="205,267,381,308"/>
+<area shape="rect" id="node7" href="$structvnix_1_1units_1_1impl_1_1femtoseconds.html#aca7560c23475c9129038e7c1185229e5" title="Initialize from number of femtoseconds. " alt="" coords="196,332,391,373"/>
+</map>

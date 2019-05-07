@@ -1,0 +1,7 @@
+<map id="TEST_CASE" name="TEST_CASE">
+<area shape="rect" id="node2" href="$classvnix_1_1rat_1_1rational.html#a129f8927d6c89fa8be3c9f9dd0cd4805" title="Automatically convert to boolean. " alt="" coords="153,5,272,47"/>
+<area shape="rect" id="node3" href="$classvnix_1_1rat_1_1rational.html#aa18cf8743665b6573e4cf1fa9f3390bd" title="Convert to (signed) integer. " alt="" coords="153,71,272,112"/>
+<area shape="rect" id="node4" href="$classvnix_1_1rat_1_1rational.html#a8f2af7b6a685c98d4fb838ca2aed5e3f" title="Convert to float. " alt="" coords="153,136,272,177"/>
+<area shape="rect" id="node5" href="$classvnix_1_1rat_1_1rational.html#adb13909c468758485a32321156885d9c" title="Convert to double. " alt="" coords="153,201,272,243"/>
+<area shape="rect" id="node6" href="$classvnix_1_1rat_1_1rational.html#ad2dd31ac28cbf26fd322b4a02c14a9c5" title="Initialize from numerator and denominator. " alt="" coords="153,267,272,308"/>
+</map>

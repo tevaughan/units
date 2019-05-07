@@ -1,0 +1,15 @@
+<map id="vnix/rat.hpp" name="vnix/rat.hpp">
+<area shape="rect" id="node2" href="$common-denom-test_8cpp.html" title="Test&#45;case for vnix::common_denom_params. " alt="" coords="6,80,198,107"/>
+<area shape="rect" id="node3" href="$dim_8hpp.html" title="Definition of vnix::units::dim. " alt="" coords="222,80,350,107"/>
+<area shape="rect" id="node14" href="$rational-test_8cpp.html" title="Test&#45;cases for vnix::rat::rational. " alt="" coords="374,80,515,107"/>
+<area shape="rect" id="node4" href="$dim-test_8cpp.html" title="Test&#45;cases for vnix::units::dim. " alt="" coords="65,155,185,181"/>
+<area shape="rect" id="node5" href="$dimval_8hpp.html" title="Definition of vnix::units::dimval, descendants, and typedefs. " alt="" coords="183,319,328,345"/>
+<area shape="rect" id="node10" href="$dyndim-base_8hpp.html" title="Definition of vnix::units::dyndim_base. " alt="" coords="259,155,441,181"/>
+<area shape="rect" id="node11" href="$statdim-base_8hpp.html" title="Definition of vnix::units::statdim_base. " alt="" coords="377,229,502,271"/>
+<area shape="rect" id="node6" href="$units_8hpp.html" title="Definition of various units in namespaces vnix::units::flt, vnix::units::dbl, and vnix::units::ldbl..." alt="" coords="204,393,307,420"/>
+<area shape="rect" id="node7" href="$dimval-test_8cpp.html" title="Test&#45;cases for vnix::units::dimval. " alt="" coords="5,468,143,495"/>
+<area shape="rect" id="node8" href="$eigen-compat-test_8cpp.html" title="Test&#45;cases for compatibility with Eigen. " alt="" coords="167,468,344,495"/>
+<area shape="rect" id="node9" href="$example1_8cpp.html" title="test/example1.cpp" alt="" coords="368,468,497,495"/>
+<area shape="rect" id="node12" href="$dyndim-base-test_8cpp.html" title="Test&#45;cases for vnix::units::dyndim_base. " alt="" coords="353,319,526,345"/>
+<area shape="rect" id="node13" href="$statdim-base-test_8cpp.html" title="Test&#45;cases for vnix::units::statdim_base. " alt="" coords="551,319,725,345"/>
+</map>

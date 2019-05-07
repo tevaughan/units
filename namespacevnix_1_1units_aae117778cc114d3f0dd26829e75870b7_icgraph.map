@@ -1,0 +1,5 @@
+<map id="vnix::units::megameters" name="vnix::units::megameters">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#a9ecc0321cfad4ed14726c11479b4d8f9" title="Interpret a number, suffixed with &#39;_Mm&#39;, as a (literal) number of megameters. " alt="" coords="219,5,414,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#aefd47633b2f60643f88248fcb46aee44" title="Interpret a number, suffixed with &#39;_Mm&#39;, as a (literal) number of megameters. " alt="" coords="216,56,417,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#ab7be5a95aafc055cb1993b73f63858d7" title="Interpret a number, suffixed with &#39;_Mm&#39;, as a (literal) number of megameters. " alt="" coords="257,107,376,149"/>
+</map>

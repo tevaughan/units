@@ -1,0 +1,11 @@
+<map id="vnix::units::dyndim_base::d" name="vnix::units::dyndim_base::d">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1dyndim__base.html#ab768577582b85ed443b8ab727ccfed87" title="Throw if dimension be non&#45;null. " alt="" coords="186,5,318,47"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1statdim__base.html#a8f8abe8591ffd36b2b51d86ff5b40f99" title="Test for comparison of dimensioned values. " alt="" coords="185,71,319,112"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1statdim__base.html#a1befd7a6604e4f170df45a7a634a4ac2" title="Dimension for sum of dimensioned values. " alt="" coords="185,136,319,177"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1statdim__base.html#a3ddefd8c3787a5a8830765b434cdabfc" title="Dimension for difference of dimensioned values. " alt="" coords="185,201,319,243"/>
+<area shape="rect" id="node7" href="$structvnix_1_1units_1_1statdim__base.html#afc4b5217b097b3e6cb47a2bc8ecad319" title="Dimension for product of dimensioned values. " alt="" coords="185,267,319,308"/>
+<area shape="rect" id="node9" href="$structvnix_1_1units_1_1statdim__base.html#a243297d22c3c03affdbf112b2264664c" title="Dimension for quotient of dimensioned values. " alt="" coords="185,332,319,373"/>
+<area shape="rect" id="node10" href="$dyndim-base-test_8cpp.html#a57415854a4b2564e0f551e85f902969d" title="TEST_CASE" alt="" coords="202,398,302,425"/>
+<area shape="rect" id="node5" href="$statdim-base-test_8cpp.html#a95fc148edfd36651685893df8bb3eaaa" title="TEST_CASE" alt="" coords="367,177,467,203"/>
+<area shape="rect" id="node8" href="$statdim-base-test_8cpp.html#a68e3a7a324c9e858052f4d2856df5163" title="TEST_CASE" alt="" coords="367,306,467,333"/>
+</map>

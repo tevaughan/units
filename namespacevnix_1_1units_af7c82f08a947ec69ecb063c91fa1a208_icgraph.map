@@ -1,0 +1,6 @@
+<map id="vnix::units::temperature_dim" name="vnix::units::temperature_dim">
+<area shape="rect" id="node2" href="$structvnix_1_1units_1_1impl_1_1kelvins.html#a45e63ceb3de5835d33268a33d42b0b8a" title="Initialize from number of kelvins. " alt="" coords="267,5,389,47"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1impl_1_1millikelvins.html#a6dcb452a364d37e785b1e51d8a08e51d" title="Initialize from number of millikelvins. " alt="" coords="249,71,407,112"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1impl_1_1microkelvins.html#a6c879c7272aa80421cf5b330f72323c5" title="Initialize from number of microkelvins. " alt="" coords="240,136,416,177"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1impl_1_1nanokelvins.html#a014a3cfb06058b1e7c0dfb1b3e230075" title="Initialize from number of nanokelvins. " alt="" coords="244,201,412,243"/>
+</map>

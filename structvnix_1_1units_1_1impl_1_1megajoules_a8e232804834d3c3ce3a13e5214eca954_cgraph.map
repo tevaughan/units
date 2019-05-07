@@ -1,0 +1,5 @@
+<map id="vnix::units::impl::megajoules::megajoules" name="vnix::units::impl::megajoules::megajoules">
+<area shape="rect" id="node2" href="$structvnix_1_1units_1_1statdim__base.html#acd979076b68cf256d845231674711ff9" title="Exponent for each unit in dimensioned quantity. " alt="" coords="216,5,349,47"/>
+<area shape="rect" id="node3" href="$classvnix_1_1units_1_1basic__dim.html#a9663530571be08d149b83a60ab97c25a" title="Add corresponding exponents. " alt="" coords="222,71,343,112"/>
+<area shape="rect" id="node4" href="$classvnix_1_1units_1_1basic__dim.html#a14314170633ec56f7a71b977f1d6d13e" title="Encode data for this dim into a word. " alt="" coords="222,136,343,177"/>
+</map>

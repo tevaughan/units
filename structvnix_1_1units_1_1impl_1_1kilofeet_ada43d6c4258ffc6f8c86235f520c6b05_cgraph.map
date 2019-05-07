@@ -1,0 +1,4 @@
+<map id="vnix::units::impl::kilofeet::kilofeet" name="vnix::units::impl::kilofeet::kilofeet">
+<area shape="rect" id="node2" href="$structvnix_1_1units_1_1statdim__base.html#acd979076b68cf256d845231674711ff9" title="Exponent for each unit in dimensioned quantity. " alt="" coords="176,5,309,47"/>
+<area shape="rect" id="node3" href="$classvnix_1_1units_1_1basic__dim.html#a14314170633ec56f7a71b977f1d6d13e" title="Encode data for this dim into a word. " alt="" coords="182,71,303,112"/>
+</map>

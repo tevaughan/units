@@ -1,0 +1,5 @@
+<map id="vnix::units::micrometers" name="vnix::units::micrometers">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#aa2261280d2565e94e11026f456424e8d" title="Interpret a number, suffixed with &#39;_mum&#39;, as a (literal) number of micrometers. " alt="" coords="219,5,421,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#ad8e80c9795df432f3bb8f834a59b3ee9" title="Interpret a number, suffixed with &#39;_mum&#39;, as a (literal) number of micrometers. " alt="" coords="216,56,424,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a56fdc93c17faaedf2870dbdeb54fd6d8" title="Interpret a number, suffixed with &#39;_mum&#39;, as a (literal) number of micrometers. " alt="" coords="261,107,379,149"/>
+</map>

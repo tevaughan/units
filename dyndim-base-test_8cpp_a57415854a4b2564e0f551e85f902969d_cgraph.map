@@ -1,0 +1,5 @@
+<map id="TEST_CASE" name="TEST_CASE">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1dyndim__base.html#a1970618564b668696eef2759dc2696ce" title="Initialize from exponents representing dimension. " alt="" coords="153,5,296,47"/>
+<area shape="rect" id="node3" href="$classvnix_1_1units_1_1dyndim__base.html#acabe5db8531d844f4d979392e5f74752" title="Exponent for each unit in dimensioned quantity. " alt="" coords="159,71,291,112"/>
+<area shape="rect" id="node4" href="$classvnix_1_1units_1_1basic__dim.html#af02a4e3120291b1bda79a45bfe2f1b62" title="vnix::units::basic\l_dim::operator==" alt="" coords="164,136,285,177"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="vnix::units::kilograms" name="vnix::units::kilograms">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#a04ef5f42916bfb88fcc66a82182324f8" title="Interpret a number, suffixed with &#39;_kg&#39;, as a (literal) number of kilograms. " alt="" coords="203,5,390,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#aa1f40a8b252b4356aa03abaae471bd33" title="Interpret a number, suffixed with &#39;_kg&#39;, as a (literal) number of kilograms. " alt="" coords="200,56,393,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a392e45e82b92ee41a9a30debadf62219" title="Interpret a number, suffixed with &#39;_kg&#39;, as a (literal) number of kilograms. " alt="" coords="237,107,356,149"/>
+</map>

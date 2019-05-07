@@ -1,0 +1,19 @@
+<map id="vnix::units::basic_dim::operator+" name="vnix::units::basic_dim::operator+">
+<area shape="rect" id="node2" href="$dim-test_8cpp.html#a880e8bc45cf483023990dbbadf0a6726" title="TEST_CASE" alt="" coords="221,5,321,32"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1statdim__base.html#a467c2dca759e36542934a8fb4fa6ee61" title="Dimension for product of dimensioned values. " alt="" coords="187,57,354,98"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1statdim__base.html#afc4b5217b097b3e6cb47a2bc8ecad319" title="Dimension for product of dimensioned values. " alt="" coords="204,122,337,163"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1impl_1_1newtons.html#a86bdc8cc8223dd92a350eee791da6b88" title="Initialize from number of newtons. " alt="" coords="207,187,335,229"/>
+<area shape="rect" id="node7" href="$structvnix_1_1units_1_1impl_1_1millinewtons.html#ac260fb05b138f861e949c114a29dd50a" title="Initialize from number of millinewtons. " alt="" coords="183,253,358,294"/>
+<area shape="rect" id="node8" href="$structvnix_1_1units_1_1impl_1_1micronewtons.html#ab77fa6b9c459a4975d90cb9bb6a5b6d2" title="Initialize from number of micronewtons. " alt="" coords="175,318,367,359"/>
+<area shape="rect" id="node9" href="$structvnix_1_1units_1_1impl_1_1kilonewtons.html#acaf4b9fded90dff6391efe4df8651365" title="Initialize from number of kilonewtons. " alt="" coords="187,383,355,425"/>
+<area shape="rect" id="node10" href="$structvnix_1_1units_1_1impl_1_1meganewtons.html#af5586da6d8663052a8798271e5d73d58" title="Initialize from number of meganewtons. " alt="" coords="175,449,367,490"/>
+<area shape="rect" id="node11" href="$structvnix_1_1units_1_1impl_1_1dynes.html#ae6d880d929bce7137ff8a0f24dd84898" title="Initialize from number of dynes. " alt="" coords="209,514,332,555"/>
+<area shape="rect" id="node12" href="$structvnix_1_1units_1_1impl_1_1joules.html#abb135218b2ea2658f2a98c86ecd261b5" title="Initialize from number of joules. " alt="" coords="209,579,332,621"/>
+<area shape="rect" id="node13" href="$structvnix_1_1units_1_1impl_1_1millijoules.html#a8182475936e9f5ea938db7a2027b243b" title="Initialize from number of millijoules. " alt="" coords="199,645,343,686"/>
+<area shape="rect" id="node14" href="$structvnix_1_1units_1_1impl_1_1microjoules.html#a61860e9d7daa56d0ce4b564dd3988d6b" title="Initialize from number of microjoules. " alt="" coords="189,710,352,751"/>
+<area shape="rect" id="node15" href="$structvnix_1_1units_1_1impl_1_1kilojoules.html#a777e5a6d44461e324dbcddec07d7ded2" title="Initialize from number of kilojoules. " alt="" coords="201,775,340,817"/>
+<area shape="rect" id="node16" href="$structvnix_1_1units_1_1impl_1_1megajoules.html#a8e232804834d3c3ce3a13e5214eca954" title="Initialize from number of megajoules. " alt="" coords="189,841,352,882"/>
+<area shape="rect" id="node17" href="$structvnix_1_1units_1_1impl_1_1gigajoules.html#a7146419d76689900b5c3348affcbbc84" title="Initialize from number of gigajoules. " alt="" coords="197,906,344,947"/>
+<area shape="rect" id="node18" href="$structvnix_1_1units_1_1impl_1_1ergs.html#ae492c283304e67cf4589ffaf017a53c0" title="Initialize from number of ergs. " alt="" coords="209,971,332,1013"/>
+<area shape="rect" id="node5" href="$statdim-base-test_8cpp.html#a68e3a7a324c9e858052f4d2856df5163" title="TEST_CASE" alt="" coords="415,129,515,156"/>
+</map>

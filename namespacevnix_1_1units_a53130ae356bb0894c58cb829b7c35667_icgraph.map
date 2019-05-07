@@ -1,0 +1,5 @@
+<map id="vnix::units::femtoseconds" name="vnix::units::femtoseconds">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#a789209764933722d3354cfbb8d7d23fd" title="Interpret a number, suffixed with &#39;_fs&#39;, as a (literal) number of femtoseconds. " alt="" coords="229,5,413,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#ab5e37747bdb7c623c1ea21acc9dbd794" title="Interpret a number, suffixed with &#39;_fs&#39;, as a (literal) number of femtoseconds. " alt="" coords="225,56,416,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a11c638e8c0ca567eb9f7ea4069d018c8" title="Interpret a number, suffixed with &#39;_fs&#39;, as a (literal) number of femtoseconds. " alt="" coords="261,107,380,149"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="vnix::units::kilometers" name="vnix::units::kilometers">
+<area shape="rect" id="node2" href="$example1_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title="main" alt="" coords="277,5,328,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1flt.html#a5d44c1f392ef7c318837f3c2b9376ddd" title="Interpret a number, suffixed with &#39;_km&#39;, as a (literal) number of kilometers. " alt="" coords="207,56,398,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1dbl.html#a05daa46b39c1c441b49dc00a027baa96" title="Interpret a number, suffixed with &#39;_km&#39;, as a (literal) number of kilometers. " alt="" coords="204,107,401,133"/>
+<area shape="rect" id="node5" href="$namespacevnix_1_1units_1_1ldbl.html#ae8f7a6f92b6ec7c861b24f994b51b64b" title="Interpret a number, suffixed with &#39;_km&#39;, as a (literal) number of kilometers. " alt="" coords="243,158,362,199"/>
+</map>

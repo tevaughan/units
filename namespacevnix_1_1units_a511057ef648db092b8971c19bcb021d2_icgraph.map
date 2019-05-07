@@ -1,0 +1,5 @@
+<map id="vnix::units::kelvins" name="vnix::units::kelvins">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#ae969635a78db978af76804a4a04852fb" title="Interpret a number, suffixed with &#39;_K&#39;, as a (literal) number of kelvins. " alt="" coords="187,5,369,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#acdd6696fd3b8567c58addc919ea67df8" title="Interpret a number, suffixed with &#39;_K&#39;, as a (literal) number of kelvins. " alt="" coords="184,56,372,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a1a7cabc36537442a9c953e97c8bba599" title="Interpret a number, suffixed with &#39;_K&#39;, as a (literal) number of kelvins. " alt="" coords="219,107,337,149"/>
+</map>

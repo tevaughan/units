@@ -1,0 +1,6 @@
+<map id="TEST_CASE" name="TEST_CASE">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units.html#a53f849d5bc18f673a9fe5b0d7a797925" title="Raise dimensioned value to rational power. " alt="" coords="160,5,275,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units.html#a0d52ffc6a8878c88d743d1548e04fed5" title="Take the squre root of a dimensioned quantity. " alt="" coords="161,56,273,83"/>
+<area shape="rect" id="node4" href="$classvnix_1_1units_1_1dimval.html#a3b27345fbe6bec40a0de85541d17b792" title="Convert to dimensionless number. " alt="" coords="153,107,281,149"/>
+<area shape="rect" id="node5" href="$classvnix_1_1rat_1_1rational.html#ad2dd31ac28cbf26fd322b4a02c14a9c5" title="Initialize from numerator and denominator. " alt="" coords="158,173,277,214"/>
+</map>

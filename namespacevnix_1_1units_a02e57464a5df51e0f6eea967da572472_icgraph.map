@@ -1,0 +1,5 @@
+<map id="vnix::units::microseconds" name="vnix::units::microseconds">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#a9a574632752e8ee46ef098d36551332c" title="Interpret a number, suffixed with &#39;_mus&#39;, as a (literal) number of microseconds. " alt="" coords="227,5,425,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#a1b735459370fdd73cd9ef1ecdd93033d" title="Interpret a number, suffixed with &#39;_mus&#39;, as a (literal) number of microseconds. " alt="" coords="224,56,428,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a578811bc4fcd4047c9818cffe6f46616" title="Interpret a number, suffixed with &#39;_mus&#39;, as a (literal) number of microseconds. " alt="" coords="267,107,385,149"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="vnix::units::micrograms" name="vnix::units::micrograms">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#ab5121001af700d9d98baa6f877516455" title="Interpret a number, suffixed with &#39;_mug&#39;, as a (literal) number of micrograms. " alt="" coords="215,5,413,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#afd87d2db4858a8ddd72349e4a28c4409" title="Interpret a number, suffixed with &#39;_mug&#39;, as a (literal) number of micrograms. " alt="" coords="212,56,416,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a8b8a4656fff697f7002fdc7c9e1abc37" title="Interpret a number, suffixed with &#39;_mug&#39;, as a (literal) number of micrograms. " alt="" coords="255,107,373,149"/>
+</map>

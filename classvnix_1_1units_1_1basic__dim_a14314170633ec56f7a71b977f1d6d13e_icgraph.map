@@ -1,0 +1,65 @@
+<map id="vnix::units::basic_dim::encode" name="vnix::units::basic_dim::encode">
+<area shape="rect" id="node2" href="$dim-test_8cpp.html#a52aecd015947a2c9adf76d0abc4b4536" title="TEST_CASE" alt="" coords="228,5,328,32"/>
+<area shape="rect" id="node3" href="$structvnix_1_1units_1_1statdim__base.html#a467c2dca759e36542934a8fb4fa6ee61" title="Dimension for product of dimensioned values. " alt="" coords="195,57,361,98"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1statdim__base.html#a8b28e82a0bfa0f5f898fbdaa61029940" title="Dimension for quotient of dimensioned values. " alt="" coords="195,122,361,163"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1statdim__base.html#aa926d3e97910964a5db96043a0003d80" title="Dimension for rational power of dimensioned value. " alt="" coords="195,187,361,229"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1statdim__base.html#a583b008e4d47a3c43ac9a42c2e9c47a6" title="Dimension for square&#45;root of dimensioned value. " alt="" coords="197,253,359,294"/>
+<area shape="rect" id="node7" href="$structvnix_1_1units_1_1impl_1_1meters.html#a80d27ec2769dfc433a3555b053bc7abf" title="Initialize from number of meters. " alt="" coords="217,318,339,359"/>
+<area shape="rect" id="node8" href="$structvnix_1_1units_1_1impl_1_1centimeters.html#a213a64994abaed26316d7bcb34b96e64" title="Initialize from number of centimeters. " alt="" coords="195,383,361,425"/>
+<area shape="rect" id="node9" href="$structvnix_1_1units_1_1impl_1_1millimeters.html#addd44695cc4f3f871981402239d47927" title="Initialize from number of millimeters. " alt="" coords="200,449,356,490"/>
+<area shape="rect" id="node10" href="$structvnix_1_1units_1_1impl_1_1micrometers.html#a03f84511f88a26e17dfc014d2f323b36" title="Initialize from number of micrometers. " alt="" coords="191,514,365,555"/>
+<area shape="rect" id="node11" href="$structvnix_1_1units_1_1impl_1_1nanometers.html#a031a5bad0d42fd0198d4236e7f358f19" title="Initialize from number of nanometers. " alt="" coords="195,579,361,621"/>
+<area shape="rect" id="node12" href="$structvnix_1_1units_1_1impl_1_1picometers.html#a21e579c49e62060b068c15f25d71a1e0" title="Initialize from number of picometers. " alt="" coords="199,645,357,686"/>
+<area shape="rect" id="node13" href="$structvnix_1_1units_1_1impl_1_1femtometers.html#a6ab2f1a58ed0a7d672a192ab70c52425" title="Initialize from number of femtometers. " alt="" coords="190,710,366,751"/>
+<area shape="rect" id="node14" href="$structvnix_1_1units_1_1impl_1_1kilometers.html#ab7beeabb3540e553a4dc2ddecae2c6b8" title="Initialize from number of kilometers. " alt="" coords="203,775,353,817"/>
+<area shape="rect" id="node15" href="$structvnix_1_1units_1_1impl_1_1megameters.html#adcb9df185b86ca1a5b556fd10add674f" title="Initialize from number of megameters. " alt="" coords="191,841,365,882"/>
+<area shape="rect" id="node16" href="$structvnix_1_1units_1_1impl_1_1grams.html#ac107fe119f7a4a5648eddd629bb8cffe" title="Initialize from number of grams. " alt="" coords="217,906,339,947"/>
+<area shape="rect" id="node17" href="$structvnix_1_1units_1_1impl_1_1milligrams.html#aa3a3ad4d23f9b1d0474d1647e2ecde6b" title="Initialize from number of milligrams. " alt="" coords="204,971,352,1013"/>
+<area shape="rect" id="node18" href="$structvnix_1_1units_1_1impl_1_1micrograms.html#aab4a780e5c7b4ab9172af799cc218768" title="Initialize from number of micrograms. " alt="" coords="195,1037,361,1078"/>
+<area shape="rect" id="node19" href="$structvnix_1_1units_1_1impl_1_1nanograms.html#a4110c91de84a59640bcdaa6e9126a85e" title="Initialize from number of nanograms. " alt="" coords="199,1102,357,1143"/>
+<area shape="rect" id="node20" href="$structvnix_1_1units_1_1impl_1_1picograms.html#ad16dfd16110c939908637dff9c8b22b3" title="Initialize from number of picograms. " alt="" coords="203,1167,353,1209"/>
+<area shape="rect" id="node21" href="$structvnix_1_1units_1_1impl_1_1kilograms.html#a5948132eb94d48c6e24a28027c9a2440" title="Initialize from number of kilograms. " alt="" coords="207,1233,349,1274"/>
+<area shape="rect" id="node22" href="$structvnix_1_1units_1_1impl_1_1megagrams.html#ae705a971add53d1a798141a5bc24527d" title="Initialize from number of megagrams. " alt="" coords="195,1298,361,1339"/>
+<area shape="rect" id="node23" href="$structvnix_1_1units_1_1impl_1_1seconds.html#a3005448508c3c06c108b09687d00cb67" title="Initialize from number of seconds. " alt="" coords="214,1363,342,1405"/>
+<area shape="rect" id="node24" href="$structvnix_1_1units_1_1impl_1_1milliseconds.html#a5ecd52979ad49aa05ac8b1f3ca0729c8" title="Initialize from number of milliseconds. " alt="" coords="191,1429,365,1470"/>
+<area shape="rect" id="node25" href="$structvnix_1_1units_1_1impl_1_1microseconds.html#afadd3ba3f8dd17033c4faff0fc7e5941" title="Initialize from number of microseconds. " alt="" coords="182,1494,374,1535"/>
+<area shape="rect" id="node26" href="$structvnix_1_1units_1_1impl_1_1nanoseconds.html#a1aff76cb05ac052ec3be1f6ec128c84c" title="Initialize from number of nanoseconds. " alt="" coords="186,1559,370,1601"/>
+<area shape="rect" id="node27" href="$structvnix_1_1units_1_1impl_1_1picoseconds.html#a62e49c5db311b7e2a674e01a570ff42c" title="Initialize from number of picoseconds. " alt="" coords="190,1625,366,1666"/>
+<area shape="rect" id="node28" href="$structvnix_1_1units_1_1impl_1_1femtoseconds.html#aca7560c23475c9129038e7c1185229e5" title="Initialize from number of femtoseconds. " alt="" coords="181,1690,375,1731"/>
+<area shape="rect" id="node29" href="$structvnix_1_1units_1_1impl_1_1coulombs.html#abffe75a6db133e1ac66734dfa6cf1cce" title="Initialize from number of coulombs. " alt="" coords="207,1755,349,1797"/>
+<area shape="rect" id="node30" href="$structvnix_1_1units_1_1impl_1_1millicoulombs.html#a2df1b5e848ee318e6f4fd5ff2abb92fa" title="Initialize from number of millicoulombs. " alt="" coords="184,1821,372,1862"/>
+<area shape="rect" id="node31" href="$structvnix_1_1units_1_1impl_1_1microcoulombs.html#aea2fb5920a8862dd9283f70af193ab63" title="Initialize from number of microcoulombs. " alt="" coords="175,1886,381,1927"/>
+<area shape="rect" id="node32" href="$structvnix_1_1units_1_1impl_1_1nanocoulombs.html#a5aa44dd316e387f557f79178c228aaec" title="Initialize from number of nanocoulombs. " alt="" coords="179,1951,377,1993"/>
+<area shape="rect" id="node33" href="$structvnix_1_1units_1_1impl_1_1picocoulombs.html#aec5eb36a02da30039d7f85eb794fcde9" title="Initialize from number of picocoulombs. " alt="" coords="183,2017,373,2058"/>
+<area shape="rect" id="node34" href="$structvnix_1_1units_1_1impl_1_1kelvins.html#a45e63ceb3de5835d33268a33d42b0b8a" title="Initialize from number of kelvins. " alt="" coords="217,2082,339,2123"/>
+<area shape="rect" id="node35" href="$structvnix_1_1units_1_1impl_1_1millikelvins.html#a6dcb452a364d37e785b1e51d8a08e51d" title="Initialize from number of millikelvins. " alt="" coords="199,2147,357,2189"/>
+<area shape="rect" id="node36" href="$structvnix_1_1units_1_1impl_1_1microkelvins.html#a6c879c7272aa80421cf5b330f72323c5" title="Initialize from number of microkelvins. " alt="" coords="190,2213,366,2254"/>
+<area shape="rect" id="node37" href="$structvnix_1_1units_1_1impl_1_1nanokelvins.html#a014a3cfb06058b1e7c0dfb1b3e230075" title="Initialize from number of nanokelvins. " alt="" coords="194,2278,362,2319"/>
+<area shape="rect" id="node38" href="$structvnix_1_1units_1_1impl_1_1feet.html#a0b97922ae11ef679a2b16982ab9191b7" title="Initialize from number of feet. " alt="" coords="217,2343,339,2385"/>
+<area shape="rect" id="node39" href="$structvnix_1_1units_1_1impl_1_1kilofeet.html#ada43d6c4258ffc6f8c86235f520c6b05" title="Initialize from number of kilofeet. " alt="" coords="217,2409,339,2450"/>
+<area shape="rect" id="node40" href="$structvnix_1_1units_1_1impl_1_1inches.html#a5529e3545b9108a4ea16d149b4dfd936" title="Initialize from number of inches. " alt="" coords="217,2474,339,2515"/>
+<area shape="rect" id="node41" href="$structvnix_1_1units_1_1impl_1_1yards.html#a211f27af54d8eb0193d0f79e0e028af0" title="Initialize from number of yards. " alt="" coords="217,2539,339,2581"/>
+<area shape="rect" id="node42" href="$structvnix_1_1units_1_1impl_1_1miles.html#aba9f1fa6bb7ffbe6f64604b338ccf2ae" title="Initialize from number of miles. " alt="" coords="217,2605,339,2646"/>
+<area shape="rect" id="node43" href="$structvnix_1_1units_1_1impl_1_1newtons.html#a86bdc8cc8223dd92a350eee791da6b88" title="Initialize from number of newtons. " alt="" coords="214,2670,342,2711"/>
+<area shape="rect" id="node44" href="$structvnix_1_1units_1_1impl_1_1millinewtons.html#ac260fb05b138f861e949c114a29dd50a" title="Initialize from number of millinewtons. " alt="" coords="191,2735,365,2777"/>
+<area shape="rect" id="node45" href="$structvnix_1_1units_1_1impl_1_1micronewtons.html#ab77fa6b9c459a4975d90cb9bb6a5b6d2" title="Initialize from number of micronewtons. " alt="" coords="182,2801,374,2842"/>
+<area shape="rect" id="node46" href="$structvnix_1_1units_1_1impl_1_1kilonewtons.html#acaf4b9fded90dff6391efe4df8651365" title="Initialize from number of kilonewtons. " alt="" coords="194,2866,362,2907"/>
+<area shape="rect" id="node47" href="$structvnix_1_1units_1_1impl_1_1meganewtons.html#af5586da6d8663052a8798271e5d73d58" title="Initialize from number of meganewtons. " alt="" coords="182,2931,374,2973"/>
+<area shape="rect" id="node48" href="$structvnix_1_1units_1_1impl_1_1dynes.html#ae6d880d929bce7137ff8a0f24dd84898" title="Initialize from number of dynes. " alt="" coords="217,2997,339,3038"/>
+<area shape="rect" id="node49" href="$structvnix_1_1units_1_1impl_1_1joules.html#abb135218b2ea2658f2a98c86ecd261b5" title="Initialize from number of joules. " alt="" coords="217,3062,339,3103"/>
+<area shape="rect" id="node50" href="$structvnix_1_1units_1_1impl_1_1millijoules.html#a8182475936e9f5ea938db7a2027b243b" title="Initialize from number of millijoules. " alt="" coords="206,3127,350,3169"/>
+<area shape="rect" id="node51" href="$structvnix_1_1units_1_1impl_1_1microjoules.html#a61860e9d7daa56d0ce4b564dd3988d6b" title="Initialize from number of microjoules. " alt="" coords="197,3193,359,3234"/>
+<area shape="rect" id="node52" href="$structvnix_1_1units_1_1impl_1_1kilojoules.html#a777e5a6d44461e324dbcddec07d7ded2" title="Initialize from number of kilojoules. " alt="" coords="209,3258,347,3299"/>
+<area shape="rect" id="node53" href="$structvnix_1_1units_1_1impl_1_1megajoules.html#a8e232804834d3c3ce3a13e5214eca954" title="Initialize from number of megajoules. " alt="" coords="197,3323,359,3365"/>
+<area shape="rect" id="node54" href="$structvnix_1_1units_1_1impl_1_1gigajoules.html#a7146419d76689900b5c3348affcbbc84" title="Initialize from number of gigajoules. " alt="" coords="205,3389,351,3430"/>
+<area shape="rect" id="node55" href="$structvnix_1_1units_1_1impl_1_1ergs.html#ae492c283304e67cf4589ffaf017a53c0" title="Initialize from number of ergs. " alt="" coords="217,3454,339,3495"/>
+<area shape="rect" id="node56" href="$structvnix_1_1units_1_1impl_1_1watts.html#a63d99868e9e204ae2023d0c2a134657e" title="Initialize from number of watts. " alt="" coords="217,3519,339,3561"/>
+<area shape="rect" id="node57" href="$structvnix_1_1units_1_1impl_1_1milliwatts.html#a46020e7ddda8217578cfe1dab07e1aa2" title="Initialize from number of milliwatts. " alt="" coords="208,3585,348,3626"/>
+<area shape="rect" id="node58" href="$structvnix_1_1units_1_1impl_1_1microwatts.html#a3331a3875c9e014fd7ab7c43251408b6" title="Initialize from number of microwatts. " alt="" coords="199,3650,357,3691"/>
+<area shape="rect" id="node59" href="$structvnix_1_1units_1_1impl_1_1kilowatts.html#ac799ba4bc29b1f3289d582963f46597f" title="Initialize from number of kilowatts. " alt="" coords="211,3715,345,3757"/>
+<area shape="rect" id="node60" href="$structvnix_1_1units_1_1impl_1_1megawatts.html#ad5baba90922f36ba1d3f8bfceab8acb1" title="Initialize from number of megawatts. " alt="" coords="199,3781,357,3822"/>
+<area shape="rect" id="node61" href="$structvnix_1_1units_1_1impl_1_1gigawatts.html#aac3e42f94a9cea30bff1acce7fe1ec65" title="Initialize from number of gigawatts. " alt="" coords="207,3846,349,3887"/>
+<area shape="rect" id="node62" href="$structvnix_1_1units_1_1impl_1_1amperes.html#a1e48288384b1da2b666774d3e2cb557f" title="Initialize from number of amperes. " alt="" coords="213,3911,343,3953"/>
+<area shape="rect" id="node63" href="$structvnix_1_1units_1_1impl_1_1milliamperes.html#ab1b617aa3bedbfc0746f0bf7bfef313c" title="Initialize from number of milliamperes. " alt="" coords="190,3977,366,4018"/>
+<area shape="rect" id="node64" href="$structvnix_1_1units_1_1impl_1_1microamperes.html#a0b8fe05fe15087b189b9d7b0efe5777f" title="Initialize from number of microamperes. " alt="" coords="181,4042,375,4083"/>
+</map>

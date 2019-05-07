@@ -1,0 +1,16 @@
+<map id="vnix/units.hpp" name="vnix/units.hpp">
+<area shape="rect" id="node2" href="$dimval_8hpp.html" title="Definition of vnix::units::dimval, descendants, and typedefs. " alt="" coords="183,80,328,107"/>
+<area shape="rect" id="node4" href="$dim_8hpp.html" title="Definition of vnix::units::dim. " alt="" coords="114,319,242,345"/>
+<area shape="rect" id="node18" href="$dyndim-base_8hpp.html" title="Definition of vnix::units::dyndim_base. " alt="" coords="87,244,269,271"/>
+<area shape="rect" id="node19" href="$number_8hpp.html" title="Definition of vnix::units::number. " alt="" coords="344,162,495,189"/>
+<area shape="rect" id="node21" href="$statdim-base_8hpp.html" title="Definition of vnix::units::statdim_base. " alt="" coords="93,155,218,196"/>
+<area shape="rect" id="node6" href="$rat_8hpp.html" title="Typedefs for class vnix::rat::rational. " alt="" coords="215,401,306,427"/>
+<area shape="rect" id="node17" href="$dim-base-off_8hpp.html" title="Definition of dim_base_off. " alt="" coords="5,393,140,435"/>
+<area shape="rect" id="node7" href="$rational_8hpp.html" title="Definition of vnix::rat::rational and operators for it. " alt="" coords="193,483,329,509"/>
+<area shape="rect" id="node9" href="$common-denom_8hpp.html" title="Definition of vnix::rat::common_denom. " alt="" coords="133,639,319,666"/>
+<area shape="rect" id="node13" href="$encoding_8hpp.html" title="Definition of vnix::rat::encoding. " alt="" coords="333,557,479,584"/>
+<area shape="rect" id="node10" href="$gcd_8hpp.html" title="Definition of vnix::gcd. " alt="" coords="199,721,295,748"/>
+<area shape="rect" id="node11" href="$int-types_8hpp.html" title="Definition of vnix::int_types. " alt="" coords="362,721,487,748"/>
+<area shape="rect" id="node14" href="$bit-range_8hpp.html" title="Definition of vnix::bit, vnix::bit_range. " alt="" coords="343,639,469,666"/>
+<area shape="rect" id="node15" href="$normalized-pair_8hpp.html" title="Definition of vnix::rat::normalized_pair. " alt="" coords="493,632,625,673"/>
+</map>

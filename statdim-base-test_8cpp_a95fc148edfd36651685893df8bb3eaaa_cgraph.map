@@ -1,0 +1,9 @@
+<map id="TEST_CASE" name="TEST_CASE">
+<area shape="rect" id="node2" href="$classvnix_1_1units_1_1basic__dim.html#a14314170633ec56f7a71b977f1d6d13e" title="Encode data for this dim into a word. " alt="" coords="164,5,285,47"/>
+<area shape="rect" id="node3" href="$classvnix_1_1units_1_1dyndim__base.html#a1970618564b668696eef2759dc2696ce" title="Initialize from exponents representing dimension. " alt="" coords="153,71,296,112"/>
+<area shape="rect" id="node4" href="$structvnix_1_1units_1_1statdim__base.html#a865b610c1825ec1de2a7fdbb32e75524" title="Dimension for sum of dimensioned values. " alt="" coords="158,136,291,177"/>
+<area shape="rect" id="node5" href="$structvnix_1_1units_1_1statdim__base.html#a3aab1c697970cadf751b1d079143f16f" title="Dimension for difference of dimensioned values. " alt="" coords="158,201,291,243"/>
+<area shape="rect" id="node6" href="$structvnix_1_1units_1_1statdim__base.html#acd979076b68cf256d845231674711ff9" title="Exponent for each unit in dimensioned quantity. " alt="" coords="158,267,291,308"/>
+<area shape="rect" id="node7" href="$classvnix_1_1units_1_1basic__dim.html#af02a4e3120291b1bda79a45bfe2f1b62" title="vnix::units::basic\l_dim::operator==" alt="" coords="164,332,285,373"/>
+<area shape="rect" id="node8" href="$classvnix_1_1units_1_1dyndim__base.html#acabe5db8531d844f4d979392e5f74752" title="Exponent for each unit in dimensioned quantity. " alt="" coords="159,397,291,439"/>
+</map>

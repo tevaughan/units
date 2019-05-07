@@ -1,0 +1,10 @@
+<map id="vnix/units/dyndim&#45;base.hpp" name="vnix/units/dyndim&#45;base.hpp">
+<area shape="rect" id="node2" href="$dimval_8hpp.html" title="Definition of vnix::units::dimval, descendants, and typedefs. " alt="" coords="183,169,328,196"/>
+<area shape="rect" id="node7" href="$statdim-base_8hpp.html" title="Definition of vnix::units::statdim_base. " alt="" coords="355,80,481,121"/>
+<area shape="rect" id="node3" href="$units_8hpp.html" title="Definition of various units in namespaces vnix::units::flt, vnix::units::dbl, and vnix::units::ldbl..." alt="" coords="204,244,307,271"/>
+<area shape="rect" id="node4" href="$dimval-test_8cpp.html" title="Test&#45;cases for vnix::units::dimval. " alt="" coords="5,319,143,345"/>
+<area shape="rect" id="node5" href="$eigen-compat-test_8cpp.html" title="Test&#45;cases for compatibility with Eigen. " alt="" coords="167,319,344,345"/>
+<area shape="rect" id="node6" href="$example1_8cpp.html" title="test/example1.cpp" alt="" coords="368,319,497,345"/>
+<area shape="rect" id="node8" href="$dyndim-base-test_8cpp.html" title="Test&#45;cases for vnix::units::dyndim_base. " alt="" coords="353,169,526,196"/>
+<area shape="rect" id="node9" href="$statdim-base-test_8cpp.html" title="Test&#45;cases for vnix::units::statdim_base. " alt="" coords="551,169,725,196"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="vnix::units::microcoulombs" name="vnix::units::microcoulombs">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#ae907cf1eac92ea75adceb83e0f606a2d" title="Interpret a number, suffixed with &#39;_muC&#39;, as a (literal) number of microcoulombs. ..." alt="" coords="235,5,436,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#aa6e0a27397c9b081f56969c177ba193e" title="Interpret a number, suffixed with &#39;_muC&#39;, as a (literal) number of microcoulombs. ..." alt="" coords="232,56,439,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a942313fccd0f41fc6f6ce3102048664c" title="Interpret a number, suffixed with &#39;_muC&#39;, as a (literal) number of microcoulombs. ..." alt="" coords="276,107,395,149"/>
+</map>

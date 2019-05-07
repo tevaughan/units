@@ -1,0 +1,5 @@
+<map id="vnix::units::milligrams" name="vnix::units::milligrams">
+<area shape="rect" id="node2" href="$namespacevnix_1_1units_1_1flt.html#acca9221302d6a14493268fab5a0ebd42" title="Interpret a number, suffixed with &#39;_mg&#39;, as a (literal) number of milligrams. " alt="" coords="206,5,397,32"/>
+<area shape="rect" id="node3" href="$namespacevnix_1_1units_1_1dbl.html#aad4270565a03967905c0352717f822c2" title="Interpret a number, suffixed with &#39;_mg&#39;, as a (literal) number of milligrams. " alt="" coords="203,56,400,83"/>
+<area shape="rect" id="node4" href="$namespacevnix_1_1units_1_1ldbl.html#a496b4269b9bc1f9a0dcbe712bff0d7a8" title="Interpret a number, suffixed with &#39;_mg&#39;, as a (literal) number of milligrams. " alt="" coords="242,107,361,149"/>
+</map>
