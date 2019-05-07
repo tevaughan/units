@@ -57,6 +57,7 @@ template <typename T> struct basic_number {
 /// @tparam T  Type of scalar for dimval.
 template <typename T> struct number {};
 
+
 /// Specialization of scalar for int.
 template <> struct number<int> : public basic_number<int> {
   using basic_number<int>::basic_number; ///< Inherit constructor.
@@ -80,6 +81,60 @@ template <> struct number<long double> : public basic_number<long double> {
   using basic_number<long double>::basic_number; ///< Inherit constructor.
   using test = int; ///< For SFINAE, type defined only in specialization.
 };
+
+
+/// Specialization of scalar for int.
+template <> struct number<int &> : public basic_number<int &> {
+  using basic_number<int &>::basic_number; ///< Inherit constructor.
+  using test = int; ///< For SFINAE, type defined only in specialization.
+};
+
+/// Specialization of scalar for float.
+template <> struct number<float &> : public basic_number<float &> {
+  using basic_number<float &>::basic_number; ///< Inherit constructor.
+  using test = int; ///< For SFINAE, type defined only in specialization.
+};
+
+/// Specialization of scalar for double.
+template <> struct number<double &> : public basic_number<double &> {
+  using basic_number<double &>::basic_number; ///< Inherit constructor.
+  using test = int; ///< For SFINAE, type defined only in specialization.
+};
+
+/// Specialization of scalar for long double.
+template <> struct number<long double &> : public basic_number<long double &> {
+  using basic_number<long double &>::basic_number; ///< Inherit constructor.
+  using test = int; ///< For SFINAE, type defined only in specialization.
+};
+
+
+/// Specialization of scalar for int.
+template <> struct number<int const &> : public basic_number<int const &> {
+  using basic_number<int const &>::basic_number; ///< Inherit constructor.
+  using test = int; ///< For SFINAE, type defined only in specialization.
+};
+
+/// Specialization of scalar for float.
+template <> struct number<float const &> : public basic_number<float const &> {
+  using basic_number<float const &>::basic_number; ///< Inherit constructor.
+  using test = int; ///< For SFINAE, type defined only in specialization.
+};
+
+/// Specialization of scalar for double.
+template <>
+struct number<double const &> : public basic_number<double const &> {
+  using basic_number<double const &>::basic_number; ///< Inherit constructor.
+  using test = int; ///< For SFINAE, type defined only in specialization.
+};
+
+/// Specialization of scalar for long double.
+template <>
+struct number<long double const &> : public basic_number<long double const &> {
+  /// Inherit constructor.
+  using basic_number<long double const &>::basic_number;
+  using test = int; ///< For SFINAE, type defined only in specialization.
+};
+
 
 /// Specialization of scalar for vnix::mv::mat.
 template <typename T, size_t NR, size_t NC>

@@ -266,6 +266,13 @@ public:
     return dimval<decltype(prod), decltype(pdim)>(prod, pdim.d());
   }
 
+  /// Support element-access in case it be supported by numeric type.
+  /// @param off  Offset of element.
+  constexpr auto operator[](size_t off) const {
+    auto e = v_[off];
+    return dimval<decltype(e), B>(e, d());
+  }
+
   /// Support dot-product in case it be supported by numeric type.
   /// @tparam OT  Numeric type of factor.
   /// @param  n   Factor.

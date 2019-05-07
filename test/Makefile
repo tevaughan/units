@@ -1,6 +1,13 @@
 # Copyright 2019, Thomas E. Vaughan; all rights reserved.
 # Distributed under the terms of the BSD three-clause license; see LICENSE.
 
+# Modify this as necessary so that unit-test of compatibility with eigen will
+# be compiled and run.
+EIGEN_DIR = /usr/include/eigen3/Eigen
+
+EIGEN_COMPAT_TEST =\
+ $(shell if test -r $(EIGEN_DIR); then echo eigen-compat-test.cpp; fi)
+
 # SRCS contains a list of every cpp-file for which an object-file will be
 # compiled.  SRCS is used explicitly by the autodependency code.
 SRCS = tests.cpp\
@@ -13,7 +20,8 @@ SRCS = tests.cpp\
  gcd-test.cpp\
  normalized-pair-test.cpp\
  rational-test.cpp\
- statdim-base-test.cpp
+ statdim-base-test.cpp\
+ $(EIGEN_COMPAT_TEST)
 
 # These variables are used explicitly by the autodependency code.
 CPPFLAGS = -I.. #-isystem /usr/include/clang/7/include
