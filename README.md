@@ -163,11 +163,14 @@ int main() {
 
   ```
   git clone https://github.com/tevaughan/units.git
-  cd units      # Change the working directory into the new clone.
-  vim Makefile  # Edit PREFIX for installation or CXX to change compiler.
-  make test     # Build and run the tests.
-  make doc      # Build the documentation via Doxygen.
-  make install  # Install the headers to $(PREFIX)/include/vnix.
+  cd units           # Change the working directory into the new clone.
+  vim Makefile       # Change PREFIX to specify installation-directory.
+  vim test/Makefile  # Change CXX to set compiler.
+                     # If Eigen be installed, change EIGEN_DIR to make sure
+                     # that the Eigen-compatibility test is compiled and run.
+  make test          # Build and run the tests.
+  make doc           # Build the documentation via Doxygen.
+  make install       # Install the headers to $(PREFIX)/include/vnix.
   ```
 
 
